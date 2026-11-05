@@ -51,12 +51,12 @@ export function Masthead() {
       </div>
       <div className="page masthead-main">
         <Link to="/" className="masthead-title">
-          {config.logo && <img src={config.logo} alt="" className="masthead-logo" />}
+          {config.logo && <img src={config.logo} alt={config.name} className="masthead-logo" />}
           <span>
             <span className="masthead-kicker">
               {KIND_LABELS[config.kind]} <span aria-hidden="true">·</span> Budgets 2020–2027
             </span>
-            <span className="masthead-name">{config.name}</span>
+            {!config.logo && <span className="masthead-name">{config.name}</span>}
           </span>
         </Link>
         <a className="masthead-with" href="https://bettergov.ph" target="_blank" rel="noopener">

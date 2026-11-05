@@ -11,7 +11,9 @@ export default defineConfig({
   name: 'BetterCarmona',
   shortName: 'Carmona',
   operator: { name: '@carlolim', url: 'https://github.com/carlolim' },
+  logo: '/brand/bettercarmona-logo.svg',
   siteUrl: 'https://bettercarmona.org',
+  buildYourOwnStrip: false,
   scope: {
     places: [{ label: 'Carmona City', q: 'Carmona City', region: 'IV-A' }],
   },
