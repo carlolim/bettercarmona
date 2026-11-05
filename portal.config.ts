@@ -27,6 +27,8 @@ export default defineConfig({
   name: 'BetterCarmona',
   shortName: 'Carmona',
   tagline: 'A community budget watch for Carmona, Cavite',
+  officialSite: { label: 'Official Carmona website', url: 'https://carmonagov.net/portal/' },
+  statement: 'An independent community initiative. Not an official government website.',
   operator: {
     name: '@carlolim',
     url: 'https://github.com/carlolim',

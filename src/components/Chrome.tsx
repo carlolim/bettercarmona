@@ -38,6 +38,11 @@ export function Masthead() {
         <div className="page masthead-top-inner">
           <span className="muted">{today}</span>
           <span className="masthead-links">
+            {config.officialSite && (
+              <a href={config.officialSite.url} target="_blank" rel="noopener" className="masthead-official">
+                {config.officialSite.label} <span aria-hidden="true">↗</span>
+              </a>
+            )}
             <a href={NATIONAL_URL} target="_blank" rel="noopener">
               National picture <span aria-hidden="true">↗</span>
             </a>
@@ -105,12 +110,21 @@ export function Footer() {
   return (
     <footer className="footer">
       <div className="page footer-inner">
+        {config.statement && <p className="footer-statement">{config.statement}</p>}
         <p className="footer-source">
           Source: NEP FY 2027 and House Bill 10858 · via the BetterGov.ph Budget API
           {meta && <> · data built {date(meta.built_at)}</>}
         </p>
         {meta && <p className="footer-notice">{meta.notice}</p>}
         <ul className="footer-links">
+          {config.officialSite && (
+            <li>
+              <span className="label">{config.officialSite.label}</span>
+              <a href={config.officialSite.url} target="_blank" rel="noopener">
+                {config.officialSite.url.replace(/^https:\/\//, '').replace(/\/$/, '')} ↗
+              </a>
+            </li>
+          )}
           <li>
             <span className="label">This portal</span>
             <span>
