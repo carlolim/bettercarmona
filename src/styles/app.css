@@ -354,6 +354,7 @@
 
 .gtable .tr { grid-template-columns: minmax(0, 1fr) repeat(7, 84px); gap: 10px; }
 .gname { font-weight: 500; line-height: 1.4; }
+.line-note { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 8px; font-size: 12.5px; line-height: 1.45; color: var(--ink-2); }
 .gcell { font-size: 13px; }
 .gcell.none { color: var(--ink-mute); }
 .ycol { background: var(--accent-soft); }

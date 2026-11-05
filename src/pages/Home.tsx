@@ -2,9 +2,10 @@ import { useEffect, useMemo, useState } from 'react';
 import { Link, useLocation, useSearchParams } from 'react-router-dom';
 import type { BridgeGroup, DatasetInfo, Disclaimer, GroupInfo } from '../api/types';
 import { BRIDGE_GROUPS } from '../api/types';
-import { shortNameOf, type DatasetKey } from '../config';
+import { lineNote, shortNameOf, type DatasetKey } from '../config';
 import { Await, Disclaimers, ReasonTags, StatusChip } from '../components/Bits';
 import { PageHead } from '../components/Chrome';
+import { LineNoteText } from '../components/LineNoteText';
 import OfficesSection from '../components/OfficesSection';
 import { projectsCsv, downloadText } from '../lib/csv';
 import { count, php, phpDelta, plural } from '../lib/format';
@@ -162,7 +163,7 @@ function Projects({ scope, datasets }: { scope: ScopeResult; datasets: DatasetIn
           <h2 id="list-h" className="section-h">
             {narrowed ? `${count(filtered.length)} of ${plural(all.length, 'project')}` : `Every project (${count(all.length)})`}
           </h2>
-          <button type="button" className="button button-quiet" onClick={() => downloadText(`${config.id}-fy2027-projects.csv`, projectsCsv(filtered))}>
+          <button type="button" className="button button-quiet" onClick={() => downloadText(`${config.id}-fy2027-projects.csv`, projectsCsv(filtered, (key) => lineNote(config, key)?.note))}>
             Download CSV{narrowed ? ` (${count(filtered.length)})` : ''}
           </button>
         </div>
@@ -330,6 +331,7 @@ function ProjectTable({ rows, programName }: { rows: ScopedProject[]; programNam
         <div className="tr" role="row" key={p.key}>
           <span role="cell" className="td-project">
             <Link to={`/projects/${p.dataset}/${encodeURIComponent(p.id)}`} className="project-title">{p.title}</Link>
+            <LineNoteText lineKey={p.key} />
             <span className="project-meta">
               <span className="label">{programName(p.dataset)}</span>
               {p.office && <span>{shortOffice(p.office)}</span>}

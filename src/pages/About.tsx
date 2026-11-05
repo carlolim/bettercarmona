@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import type { Disclaimer, Overview } from '../api/types';
-import { shortNameOf } from '../config';
+import { lineNote, shortNameOf } from '../config';
 import { Await, Disclaimers, External } from '../components/Bits';
 import { PageHead } from '../components/Chrome';
 import { count, date, plural } from '../lib/format';
@@ -106,6 +106,19 @@ function AboutView({ scope, overview }: { scope: ScopeResult; overview: Overview
               </li>
             ))}
           </ul>
+        )}
+        {scope.projects.some((p) => lineNote(config, p.key)) && (
+          <>
+            <p className="fine">2027 lines kept, with a note:</p>
+            <ul className="plain-list">
+              {scope.projects.filter((p) => lineNote(config, p.key)).map((p) => (
+                <li key={p.key}>
+                  <External href={p.url}>{p.title}</External>
+                  <span className="muted"> — {lineNote(config, p.key)?.note}</span>
+                </li>
+              ))}
+            </ul>
+          </>
         )}
       </section>
 
@@ -222,6 +235,19 @@ function GaaQuestions() {
                 </li>
               ))}
             </ul>
+          )}
+          {state.value.rows.some((r) => lineNote(config, r.key)) && (
+            <>
+              <p className="fine">Programs kept, with a note:</p>
+              <ul className="plain-list">
+                {state.value.rows.filter((r) => lineNote(config, r.key)).map((r) => (
+                  <li key={r.key}>
+                    {r.name}
+                    <span className="muted"> — {lineNote(config, r.key)?.note}</span>
+                  </li>
+                ))}
+              </ul>
+            </>
           )}
         </>
       )}

@@ -12,6 +12,10 @@
  * No region on the place: the DPWH motorpool line in Carmona City is listed
  * under Central Office in NCR, so a IV-A filter would drop it.
  *
+ * A road between Carmona and another town stays out unless the title places it
+ * in Carmona. The Carmona-Silang Diversion Road is the exception: it stays in, in
+ * full, and is marked as having an unknown share. See `notes` below.
+ *
  * Re-run `npm run check -- --verbose` when the API's data is rebuilt. A new line
  * naming Carmona appears here until it is reviewed.
  */
@@ -64,30 +68,6 @@ export default defineConfig({
       {
         key: 'gaa:18-001|carmona  bian diversion road sta 1  751  2  000 sta 2  039  2  320 sta 3  147  3  352 sta 5  918  6  211',
         reason: 'A road between Carmona and Biñan, Laguna. The title does not say which part lies in Carmona, so it is left out until the share is known.',
-      },
-      {
-        key: 'gaa:18-001|carmona  silang diversion road via sugar roaddavilanmaguyam road cavite',
-        reason: 'A road between Carmona and Silang. The title does not say which part lies in Carmona, so it is left out until the share is known.',
-      },
-      {
-        key: 'gaa:18-001|carmona  silang diversion road cavite',
-        reason: 'A road between Carmona and Silang. The title does not say which part lies in Carmona, so it is left out until the share is known.',
-      },
-      {
-        key: 'gaa:18-001|carmonasilang diversion road via sugar roaddavilanmaguyam road cavite',
-        reason: 'A road between Carmona and Silang. The title does not say which part lies in Carmona, so it is left out until the share is known.',
-      },
-      {
-        key: 'gaa:18-001|carmonasilang diversion road sta 9  200  sta 9  600 cavite',
-        reason: 'A road between Carmona and Silang. The title does not say which part lies in Carmona, so it is left out until the share is known.',
-      },
-      {
-        key: 'gaa:18-001|construction of carmona  silang diversion road cavite',
-        reason: 'A road between Carmona and Silang. The title does not say which part lies in Carmona, so it is left out until the share is known.',
-      },
-      {
-        key: 'gaa:18-001|installation of solar street light along carmonasilang diversion road',
-        reason: 'A road between Carmona and Silang. The title does not say which part lies in Carmona, so it is left out until the share is known.',
       },
       {
         key: 'gaa:18-001|dasmariasgmacarmona road',
@@ -184,6 +164,53 @@ export default defineConfig({
       {
         key: 'gaa:18-001|construction of bank and slope structures and other improvements along carmona river from brgy bulihan to brgy ipil silang cavite',
         reason: 'The title places this work in Silang, Cavite, not Carmona. It matched because of the Carmona River.',
+      },
+      {
+        key: 'gaa:18-001|construction andor repairrehabilitation of multipurpose building brgy san pablo 1 carmona cavite',
+        reason: 'The title says Carmona, Cavite, but the official portal lists 14 barangays and this one is not among them. Left out until the location is confirmed.',
+      },
+      {
+        key: 'gaa:18-001|constructionrehabilitation of multipurpose building in barangay santol 5d carmona cavite',
+        reason: 'The title says Carmona, Cavite, but the official portal lists 14 barangays and this one is not among them. Left out until the location is confirmed.',
+      },
+    ],
+    notes: [
+      {
+        note: 'This road runs between Carmona and Silang. The titles do not say how much of the work is in Carmona, so the whole amount is shown.',
+        shareUnknown: true,
+        keys: [
+          'gaa:18-001|carmonasilang diversion road sta 9  200  sta 9  600 cavite',
+          'gaa:18-001|carmona  silang diversion road cavite',
+          'gaa:18-001|carmona  silang diversion road via sugar roaddavilanmaguyam road cavite',
+          'gaa:18-001|carmonasilang diversion road via sugar roaddavilanmaguyam road cavite',
+          'gaa:18-001|construction of carmona  silang diversion road cavite',
+          'gaa:18-001|installation of solar street light along carmonasilang diversion road',
+        ],
+      },
+      {
+        note: 'The title names no town. It is read here as the Carmona Diversion Road, the part of Governor\'s Drive that bypasses Carmona\'s town proper (Wikipedia, Governor\'s Drive, read on 2026-11-05). That is a different road from the Carmona-Biñan Diversion Road. The 2027 NEP lists this road under the Cavite 3rd District Engineering Office.',
+        keys: [
+          'dpwh:house-reading:442',
+          'gaa:18-001|carmona div rd  k0047  628  k0047  803',
+          'gaa:18-001|carmona div rd  k0047  584  k0047  598 k0048  398  k0048  498 k0048  676  k0048  719',
+          'gaa:18-001|carmona div rd  k0047  774  k0047  744 k0047  804  k0047  774 k0047  528  k0048  156',
+          'gaa:18-001|carmona div rd  k0048  15330  k0048  462',
+          'gaa:18-001|carmona div rd  k0048  207  k0048  719',
+          'gaa:18-001|carmona div rd  k0048  46680  k0048  723',
+          'gaa:18-001|preventive maintenance asphalt overlay along carmona div rd  k0047  744  k0047  528',
+        ],
+      },
+      {
+        note: 'The title names no town. The bridge is named Carmona and is on Juanito R. Remulla Sr. Road, which other lines here place in Carmona, Cavite.',
+        keys: [
+          'gaa:18-001|carmona br b02913lz along juanito r remulla sr rd',
+        ],
+      },
+      {
+        note: 'The title says only Cavite. It is read here as the Carmona side, because the road\'s Biñan section in Laguna is a separate line.',
+        keys: [
+          'gaa:18-001|construction of carmona  bian extension road cavite',
+        ],
       },
     ],
   },

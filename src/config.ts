@@ -44,6 +44,16 @@ export interface Exclusion {
   reason: string;
 }
 
+/** A note on lines the maintainer kept. Shown on each line, in its CSV row, and on the About page. */
+export interface LineNote {
+  /** The lines it applies to, written as in `Exclusion.key`. */
+  keys: string[];
+  /** What a reader should know, in a sentence they can check. */
+  note: string;
+  /** The line's whole amount is shown, though only part of it is for this place. */
+  shareUnknown?: boolean;
+}
+
 export interface PortalConfig {
   /** Stable id, lowercase with hyphens. Sent with citizen reports: "bohol-province". */
   id: string;
@@ -85,6 +95,8 @@ export interface PortalConfig {
     districts?: string[];
     /** Lines removed by hand. Published, with reasons, on the About page. */
     exclude?: Exclusion[];
+    /** Notes on lines that stay in the portal. */
+    notes?: LineNote[];
   };
   /**
    * Citizen reports go to one central service on budget.bettergov.ph (not
@@ -126,7 +138,14 @@ export function configProblems(config: PortalConfig): string[] {
     if (!/^(dpwh|fmr|hfep|nia|gaa):.+/.test(e.key)) problems.push(`exclusion "${e.key}" should be "<program>:<id>" (2027) or "gaa:<family key>" (2020–2026).`);
     if (!e.reason.trim()) problems.push(`exclusion "${e.key}" needs a reason; readers see it.`);
   }
+  for (const n of config.scope.notes ?? []) {
+    if (!n.note.trim()) problems.push(`a note on "${n.keys[0]}" is empty; readers see it.`);
+  }
   return problems;
+}
+
+export function lineNote(config: PortalConfig, key: string): LineNote | undefined {
+  return config.scope.notes?.find((n) => n.keys.includes(key));
 }
 
 export function shortNameOf(config: PortalConfig): string {

@@ -30,9 +30,9 @@ function cell(v: string | number | null): string {
   return /[",\n\r]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
 }
 
-export function projectsCsv(projects: readonly ScopedProject[]): string {
-  const lines = [COLUMNS.map(([h]) => h).join(',')];
-  for (const p of projects) lines.push(COLUMNS.map(([, f]) => cell(f(p))).join(','));
+export function projectsCsv(projects: readonly ScopedProject[], noteOf: (key: string) => string | undefined = () => undefined): string {
+  const lines = [[...COLUMNS.map(([h]) => h), 'note'].join(',')];
+  for (const p of projects) lines.push([...COLUMNS.map(([, f]) => cell(f(p))), cell(noteOf(p.key) ?? null)].join(','));
   return lines.join('\r\n') + '\r\n';
 }
 

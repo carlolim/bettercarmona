@@ -9,9 +9,10 @@ import { useEffect, useMemo, useState } from 'react';
 import { useLocation, useSearchParams } from 'react-router-dom';
 import type { DistrictCard, DistrictOffice, Envelope } from '../api/types';
 import { GAA_YEARS } from '../api/types';
-import { shortNameOf } from '../config';
+import { lineNote, shortNameOf } from '../config';
 import { Await, Disclaimers, External } from '../components/Bits';
 import { PageHead } from '../components/Chrome';
+import { LineNoteText } from '../components/LineNoteText';
 import { downloadText } from '../lib/csv';
 import { count, php, phpFull, plural } from '../lib/format';
 import { departmentShort, gaaCsv, gaaYearTotals, hasYear, loadGaa, type GaaResult, type GaaRow } from '../lib/gaa';
@@ -191,6 +192,7 @@ function Programs({ result, placeList }: { result: GaaResult; placeList: string 
   const all = result.rows;
   const totals = useMemo(() => gaaYearTotals(all), [all]);
   const maxTotal = Math.max(1, ...totals.map((t) => t.amount));
+  const shareUnknown = all.filter((r) => lineNote(config, r.key)?.shareUnknown).length;
 
   const [params, setParams] = useSearchParams();
   const q = params.get('q') ?? '';
@@ -253,6 +255,12 @@ function Programs({ result, placeList }: { result: GaaResult; placeList: string 
           ))}
         </div>
         <p className="fine">Each year’s total covers only that year’s programs that name {placeList}. Years are shown side by side, not added up.</p>
+        {shareUnknown > 0 && (
+          <p className="fine">
+            These totals include the whole amount of {plural(shareUnknown, 'program')} marked “{shortNameOf(config)}’s share unknown”.
+            Only part of that money is for work in {shortNameOf(config)}, and the titles do not say how much.
+          </p>
+        )}
       </section>
 
       <section className="section" id="programs" aria-labelledby="gaa-list-h">
@@ -260,7 +268,7 @@ function Programs({ result, placeList }: { result: GaaResult; placeList: string 
           <h2 id="gaa-list-h" className="section-h">
             {narrowed ? `${count(filtered.length)} of ${plural(all.length, 'program')}` : `Every program and project (${count(all.length)})`}
           </h2>
-          <button type="button" className="button button-quiet" onClick={() => downloadText(`${config.id}-gaa-${FIRST}-${LAST}.csv`, gaaCsv(filtered))}>
+          <button type="button" className="button button-quiet" onClick={() => downloadText(`${config.id}-gaa-${FIRST}-${LAST}.csv`, gaaCsv(filtered, (key) => lineNote(config, key)?.note))}>
             Download CSV{narrowed ? ` (${count(filtered.length)})` : ''}
           </button>
         </div>
@@ -322,6 +330,7 @@ function ProgramRow({ r, year, many }: { r: GaaRow; year: number | null; many: b
     <div className="tr" role="row">
       <span role="cell" className="td-project">
         <span className="gname">{r.name}</span>
+        <LineNoteText lineKey={r.key} />
         <span className="project-meta">
           <span className="label">{departmentShort(r.department)}</span>
           <External href={`https://budget.bettergov.ph/d/${r.department_id}`}>department</External>

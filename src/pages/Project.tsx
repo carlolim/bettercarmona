@@ -3,6 +3,7 @@ import { Link, useLocation, useParams } from 'react-router-dom';
 import type { Envelope, ProjectDetail, Version } from '../api/types';
 import { DATASET_KEYS, shortNameOf, type DatasetKey } from '../config';
 import { Await, Disclaimers, External, ReasonTags, StatusChip } from '../components/Bits';
+import { LineNoteText } from '../components/LineNoteText';
 import { phpDelta, phpFull } from '../lib/format';
 import { usePortal, type Async } from '../lib/portal-context';
 import { projectKey } from '../lib/scope';
@@ -86,6 +87,7 @@ function ProjectView({ env }: { env: Envelope<ProjectDetail> }) {
         {p.office && <><span className="sep">·</span>{p.office}</>}
       </p>
       <h1 className="project-h">{p.title}</h1>
+      <LineNoteText lineKey={projectKey(p.dataset, p.id)} />
       <div className="project-status">
         <StatusChip group={p.bridge_group} label={p.status_label} held={p.held} />
         {p.labels.status.help && <p className="muted">{p.labels.status.help}</p>}

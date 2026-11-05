@@ -54,6 +54,10 @@ async function main() {
     // (2020–2026 exclusions, gaa:…, are checked below with the enacted budgets.)
     if (!project) problems.push(`exclusion ${exclusion.key} matches no line in the portal; remove it.`);
   }
+  const noteKeys = (config.scope.notes ?? []).flatMap((n) => n.keys);
+  for (const key of noteKeys.filter((k) => !k.startsWith('gaa:'))) {
+    if (!scope.projects.some((p) => p.key === key)) problems.push(`note on ${key} matches no line in the portal; remove it.`);
+  }
 
   // Lines found only by name, under a DPWH office outside the scope: often right
   // (a Central Office project in the place), sometimes a namesake elsewhere.
@@ -109,6 +113,9 @@ async function main() {
     console.log(`  reconciled ${count(checked)} department-years against the API's totals`);
     for (const { exclusion, row } of gaa.excluded) {
       if (!row) problems.push(`exclusion ${exclusion.key} matches no 2020–2026 program; remove it.`);
+    }
+    for (const key of noteKeys.filter((k) => k.startsWith('gaa:'))) {
+      if (!gaa.rows.some((r) => r.key === key)) problems.push(`note on ${key} matches no 2020–2026 program; remove it.`);
     }
   }
 

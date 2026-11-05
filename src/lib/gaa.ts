@@ -164,12 +164,12 @@ export function gaaYearTotals(rows: readonly GaaProgram[]): GaaYearTotal[] {
 }
 
 /** Every GAA row as one CSV: a column per year, exact pesos. */
-export function gaaCsv(rows: readonly GaaRow[]): string {
+export function gaaCsv(rows: readonly GaaRow[], noteOf: (key: string) => string | undefined = () => undefined): string {
   const cell = (v: string | number) => {
     const s = String(v);
     return /[",\n\r]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
   };
-  const head = ['department', 'agency_id', 'name', ...GAA_YEARS.map((y) => `gaa_${y}_php`), 'names', 'family_key'];
+  const head = ['department', 'agency_id', 'name', ...GAA_YEARS.map((y) => `gaa_${y}_php`), 'names', 'family_key', 'note'];
   const lines = [head.join(',')];
   for (const r of rows) {
     lines.push(
@@ -180,6 +180,7 @@ export function gaaCsv(rows: readonly GaaRow[]): string {
         ...GAA_YEARS.map((y) => (hasYear(r, y) ? r.years[String(y)].amount : '')),
         r.reasons.join('; '),
         r.fam_key,
+        noteOf(r.key) ?? '',
       ].map(cell).join(','),
     );
   }
