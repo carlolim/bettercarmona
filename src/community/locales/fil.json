@@ -1,51 +1,51 @@
 {
-  "skipToContent": "Lumaktaw sa pangunahing nilalaman",
-  "officialSite": "Opisyal na website ng Carmona",
-  "opensInNewTab": "(magbubukas sa bagong tab)",
+  "skipToContent": "Lumipat sa main content",
+  "officialSite": "Official website ng Carmona",
+  "opensInNewTab": "(magbubukas sa new tab)",
   "theme": {
-    "dark": "Madilim na tema",
-    "light": "Maliwanag na tema"
+    "dark": "Dark mode",
+    "light": "Light mode"
   },
   "language": {
     "label": "Wika"
   },
   "nav": {
-    "label": "Pangunahing nabigasyon",
-    "mobileLabel": "Nabigasyon sa mobile",
+    "label": "Main navigation",
+    "mobileLabel": "Mobile navigation",
     "openMenu": "Buksan ang menu",
     "home": "Home",
     "transparency": "Transparency",
-    "about": "Tungkol dito"
+    "about": "About"
   },
   "brand": "Home ng BetterCarmona",
   "footer": {
-    "statement": "Isang malayang inisyatiba ng komunidad. Hindi ito opisyal na website ng pamahalaan.",
+    "statement": "Isang independent na community initiative. Hindi ito official website ng gobyerno.",
     "linksLabel": "Mga link",
-    "officialPortal": "Opisyal na portal ng Lungsod ng Carmona",
-    "repository": "Ang proyektong ito sa GitHub",
-    "directory": "Direktoryo ng Better LGU"
+    "officialPortal": "Official portal ng City of Carmona",
+    "repository": "Ang project na ito sa GitHub",
+    "directory": "Better LGU Directory"
   },
-  "budgetLanguageNote": "Nasa Ingles ang mga pahina ng badyet.",
+  "budgetLanguageNote": "Nasa English ang mga budget page.",
   "home": {
     "title": "BetterCarmona",
-    "heading": "Hanapin ang mga serbisyo at pampublikong impormasyon ng Lungsod ng Carmona",
-    "intro": "Gabay ng komunidad na pinapatakbo ng isang boluntaryo. Hindi ito website ng pamahalaang lungsod.",
+    "heading": "Hanapin ang mga service at public information ng City of Carmona",
+    "intro": "Community guide na pinapatakbo ng isang volunteer. Hindi ito website ng city government.",
     "whoRuns": "Sino ang nagpapatakbo ng site na ito",
     "hotlines": {
       "title": "Mga emergency hotline",
-      "source": "Ang opisyal na listahan ng lungsod ng mga numero para sa kalusugan, sakuna, pulis, at bumbero, na nai-post noong Hunyo 2024. Magbubukas sa website ng lungsod."
+      "source": "Ang official list ng city ng mga number para sa health, disaster, pulis, at bumbero, na na-post noong June 2024. Magbubukas sa website ng city."
     },
     "services": {
       "heading": "Ano ang kailangan mong gawin?",
-      "note": "Aalis ka sa BetterCarmona sa mga link na ito at mapupunta sa sariling mga website ng lungsod. Kinuha namin ang mga ito sa opisyal na portal at huling sinuri noong {{date}}."
+      "note": "Aalis ka sa BetterCarmona sa mga link na ito at mapupunta sa sariling mga website ng city. Kinuha namin ang mga ito sa official portal at huling na-check noong {{date}}."
     },
     "transparency": {
-      "heading": "Transparency sa badyet",
-      "body": "Tingnan ang mga linya sa pambansang badyet na bumabanggit sa Carmona. Ang mga halaga ay ayon sa nakalathala sa mga dokumento ng badyet, at hindi ito ang aktwal na nagastos.",
-      "link": "Pumunta sa mga pahina ng badyet"
+      "heading": "Budget transparency",
+      "body": "Tingnan ang mga line sa national budget na bumabanggit sa Carmona. Ang mga amount ay as published sa mga budget document, at hindi ito ang aktwal na nagastos.",
+      "link": "Pumunta sa mga budget page"
     },
     "official": {
-      "heading": "Mga opisyal na website ng lungsod"
+      "heading": "Mga official website ng city"
     }
   },
   "about": {
@@ -53,32 +53,32 @@
     "heading": "Tungkol sa BetterCarmona",
     "who": {
       "heading": "Sino ang nagpapatakbo ng site na ito",
-      "body": "Ang BetterCarmona ay pinapatakbo ng isang pribadong mamamayan bilang boluntaryo. Hindi ito kaugnay ng Pamahalaang Lungsod ng Carmona, at hindi ito nagsasalita para sa lungsod.",
-      "official": "Para sa opisyal na impormasyon at mga transaksyon, dumiretso sa lungsod:",
-      "officialLink": "Opisyal na portal ng Lungsod ng Carmona"
+      "body": "Si Carlo Lim, isang private citizen, ang nagpapatakbo ng BetterCarmona bilang volunteer. Hindi ito affiliated sa City Government of Carmona, at hindi ito nagsasalita para sa city.",
+      "official": "Para sa official information at mga transaction, dumiretso sa city:",
+      "officialLink": "Official portal ng City of Carmona"
     },
     "sources": {
-      "heading": "Paano kinukuha ang mga impormasyon",
-      "body": "Ipinapakita sa site na ito ang pinagmulan ng impormasyon tungkol sa mga opisyal, hotline, bayarin, at dokumento, at ang petsa kung kailan namin ito itinala. Kung wala kaming mahanap na pinagmulan, hindi namin ito isinasama.",
-      "check": "Maaaring magbago ang opisyal na impormasyon matapos namin itong itala, kaya sumangguni muna sa kinauukulang tanggapan bago ito gamitin.",
-      "budget": "Galing sa BetterGov.ph Budget API ang mga numero ng badyet. Ang mga ito ay mga halagang ayon sa nakalathala, at hindi ang aktwal na nagastos.",
-      "budgetLink": "Paano gumagana ang datos ng badyet"
+      "heading": "Paano namin kinukuha ang mga fact",
+      "body": "Ipinapakita sa site na ito ang source ng mga official, hotline, fee, at document, pati ang date kung kailan namin ito ni-record. Kung wala kaming mahanap na source para sa isang fact, hindi namin ito isinasama.",
+      "check": "Puwedeng magbago ang official information pagkatapos namin itong i-record, kaya mag-check muna sa concerned office bago ito gamitin.",
+      "budget": "Galing sa BetterGov.ph Budget API ang mga budget figure. Ang mga ito ay mga amount as published, at hindi ang aktwal na nagastos.",
+      "budgetLink": "Paano gumagana ang budget data"
     },
     "errors": {
-      "heading": "Mag-ulat ng mali",
-      "body": "Kung may mali o luma na rito, magbukas ng issue sa GitHub. Sabihin sa amin kung saang pahina ito, ano ang mukhang mali, at saan makikita ang tamang impormasyon.",
-      "link": "Mag-ulat ng mali sa GitHub",
-      "note": "Kailangan mo ng libreng GitHub account. Pampubliko ang mga issue, kaya huwag isama ang personal na detalye. Hindi namin maaaksyunan ang mga kahilingan para sa serbisyo ng lungsod, kaya idulog ang mga ito sa lungsod."
+      "heading": "Mag-report ng error",
+      "body": "Kung may mali o luma na rito, mag-open ng issue sa GitHub. Sabihin sa amin kung saang page ito, ano ang mukhang mali, at saan makikita ang tamang information.",
+      "link": "Mag-report ng error sa GitHub",
+      "note": "Kailangan mo ng free GitHub account. Public ang mga issue, kaya huwag isama ang personal details. Hindi namin maaaksyunan ang mga request para sa city services, kaya sa city mismo ito idulog."
     },
     "directory": {
-      "heading": "Direktoryo ng Better LGU",
-      "body": "Nakalista ang BetterCarmona sa Direktoryo ng Better LGU, isang listahang pinapanatili ng komunidad ng mga Better LGU portal sa buong Pilipinas. Pampubliko rin ang code ng site na ito.",
-      "link": "Tingnan ang Direktoryo ng Better LGU",
-      "repository": "Tingnan ang proyektong ito sa GitHub"
+      "heading": "Better LGU Directory",
+      "body": "Nakalista ang BetterCarmona sa Better LGU Directory, isang community-maintained na listahan ng mga Better LGU portal sa buong Pilipinas. Public din ang code ng site na ito.",
+      "link": "Tingnan ang Better LGU Directory",
+      "repository": "Tingnan ang project na ito sa GitHub"
     }
   },
   "notFound": {
-    "message": "Walang ganitong pahina.",
+    "message": "Walang ganitong page.",
     "homeLink": "Pumunta sa home page"
   }
 }
