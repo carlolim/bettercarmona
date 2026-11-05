@@ -62,10 +62,6 @@ export default defineConfig({
         reason: 'A design study covering the Sta. Rosa, Biñan, and Carmona river basins, funded as a regionwide line. The title does not say what share is for Carmona.',
       },
       {
-        key: 'gaa:18-001|regionwide  nationwide  roads and bridges  feasibility studies preliminary and detailed engineering economic analysis technical studies traffic impact assessment  region iva  fullscale feasibility study of the carmona silang diversion road sugar roadslex carmona exit access road',
-        reason: 'A feasibility study for a road between Carmona and Silang, funded as a regionwide line. The title does not say what share is for Carmona.',
-      },
-      {
         key: 'gaa:18-001|carmona  bian diversion road sta 1  751  2  000 sta 2  039  2  320 sta 3  147  3  352 sta 5  918  6  211',
         reason: 'A road between Carmona and Biñan, Laguna. The title does not say which part lies in Carmona, so it is left out until the share is known.',
       },
@@ -185,6 +181,7 @@ export default defineConfig({
           'gaa:18-001|carmonasilang diversion road via sugar roaddavilanmaguyam road cavite',
           'gaa:18-001|construction of carmona  silang diversion road cavite',
           'gaa:18-001|installation of solar street light along carmonasilang diversion road',
+          'gaa:18-001|regionwide  nationwide  roads and bridges  feasibility studies preliminary and detailed engineering economic analysis technical studies traffic impact assessment  region iva  fullscale feasibility study of the carmona silang diversion road sugar roadslex carmona exit access road',
         ],
       },
       {
