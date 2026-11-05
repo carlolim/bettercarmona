@@ -1,87 +1,27 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Better Carmona: Coming Soon</title>
-  <meta name="description" content="Better Carmona is a citizen-first civic portal for Carmona, Cavite, inspired by BetterGov.ph. Coming soon.">
-  <meta property="og:title" content="Better Carmona: Coming Soon">
-  <meta property="og:description" content="A citizen-first civic portal for Carmona, Cavite, inspired by BetterGov.ph.">
-  <meta property="og:url" content="https://bettercarmona.org">
-  <style>
-    :root {
-      --bg: #f7f8fa;
-      --fg: #1c2430;
-      --muted: #5b6676;
-      --accent: #0b5cad;
-      --card: #ffffff;
-      --border: #e3e7ed;
-    }
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --bg: #11151b;
-        --fg: #e8ecf1;
-        --muted: #9aa5b4;
-        --accent: #6aa9ff;
-        --card: #1a2029;
-        --border: #2a323d;
-      }
-    }
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
-      background: var(--bg);
-      color: var(--fg);
-      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-      line-height: 1.6;
-    }
-    main {
-      max-width: 560px;
-      width: 100%;
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 40px 32px;
-      text-align: center;
-    }
-    .badge {
-      display: inline-block;
-      font-size: 0.8rem;
-      font-weight: 600;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      color: var(--accent);
-      border: 1px solid var(--accent);
-      border-radius: 999px;
-      padding: 2px 12px;
-      margin-bottom: 16px;
-    }
-    h1 { margin: 0 0 8px; font-size: 2rem; }
-    p { margin: 0 0 16px; color: var(--muted); }
-    a { color: var(--accent); }
-    .links { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-top: 24px; }
-    footer { margin-top: 28px; font-size: 0.8rem; color: var(--muted); }
-  </style>
-</head>
-<body>
-  <main>
-    <span class="badge">Work in progress</span>
-    <h1>Better Carmona</h1>
-    <p>A citizen-first civic portal for Carmona, Cavite, making local government information easier to find and understand.</p>
-    <p>We're building it now. Check back soon.</p>
-    <div class="links">
-      <a href="https://github.com/carlolim/bettercarmona">Follow on GitHub</a>
-      <a href="https://lgu.bettergov.ph">Better LGU Directory</a>
-    </div>
-    <footer>
-      An independent, volunteer-run project inspired by <a href="https://bettergov.ph">BetterGov.ph</a>.
-      Not an official website of the City Government of Carmona.
-    </footer>
-  </main>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Figtree speaks (display), Inter works (body), JetBrains Mono labels. -->
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@600;700&family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="%PORTAL_API%" crossorigin>
+    <title>%PORTAL_TITLE%</title>
+    <meta name="description" content="%PORTAL_DESCRIPTION%" />
+    <meta name="theme-color" content="#0b4fd9" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="%PORTAL_NAME%" />
+    <meta property="og:title" content="%PORTAL_TITLE%" />
+    <meta property="og:description" content="%PORTAL_DESCRIPTION%" />
+    %PORTAL_URL_META%
+    <meta name="twitter:card" content="summary" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <noscript>This portal needs JavaScript. Every project is also on https://budget.bettergov.ph/hgab/2027/overview.</noscript>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
 </html>
