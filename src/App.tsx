@@ -1,5 +1,6 @@
 import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import ScrollToTop from './components/ScrollToTop';
+import { CommunityAbout } from './community/About';
 import { CommunityLayout } from './community/CommunityLayout';
 import { CommunityHome, CommunityNotFound } from './community/Home';
 import { LocaleSync } from './community/LocaleSync';
@@ -11,9 +12,9 @@ import Project from './pages/Project';
 import Enacted from './pages/Enacted';
 
 /** Old budget addresses, from before the pages moved under /transparency, keep working with their filters. */
-function LegacyRedirect({ to }: { to?: string }) {
+function LegacyRedirect() {
   const { pathname, search, hash } = useLocation();
-  return <Navigate replace to={{ pathname: to ?? `/transparency${pathname}`, search, hash }} />;
+  return <Navigate replace to={{ pathname: `/transparency${pathname}`, search, hash }} />;
 }
 
 export default function App() {
@@ -26,6 +27,7 @@ export default function App() {
         {['', '/fil'].map((prefix) => [
           <Route key={`${prefix}-community`} path={prefix || '/'} element={<CommunityLayout />}>
             <Route index element={<CommunityHome />} />
+            <Route path="about" element={<CommunityAbout />} />
           </Route>,
           <Route key={`${prefix}-transparency`} path={`${prefix}/transparency`} element={<TransparencyLayout />}>
             <Route index element={<Home />} />
@@ -37,8 +39,6 @@ export default function App() {
         {/* Offices and their districts are a section of the budget page; old links land there. */}
         <Route path="/districts" element={<Navigate to="/transparency#offices" replace />} />
         <Route path="/gaa" element={<LegacyRedirect />} />
-        {/* Task 005 replaces this with the community About page, and keeps the budget page at /transparency/about-the-data. */}
-        <Route path="/about" element={<LegacyRedirect to="/transparency/about-the-data" />} />
         <Route path="/projects/:dataset/:id" element={<LegacyRedirect />} />
         <Route path="*" element={<CommunityNotFound />} />
       </Routes>

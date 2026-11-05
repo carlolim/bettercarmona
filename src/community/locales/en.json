@@ -14,7 +14,8 @@
     "mobileLabel": "Mobile navigation",
     "openMenu": "Open menu",
     "home": "Home",
-    "transparency": "Transparency"
+    "transparency": "Transparency",
+    "about": "About"
   },
   "brand": "BetterCarmona home",
   "footer": {
@@ -27,8 +28,54 @@
   "budgetLanguageNote": "The budget pages are available in English.",
   "home": {
     "title": "BetterCarmona",
-    "intro": "A community guide to public information for the City of Carmona, Cavite. We're still building this section. The budget pages are ready now.",
-    "budgetLink": "See the budget watch"
+    "heading": "Find City of Carmona services and public information",
+    "intro": "A community guide run by a volunteer. This is not the city government's website.",
+    "whoRuns": "Who runs this site",
+    "hotlines": {
+      "title": "Emergency hotlines",
+      "source": "The city's official list of health, disaster, police, and fire numbers, posted June 2024. Opens on the city's website."
+    },
+    "services": {
+      "heading": "What do you need to do?",
+      "note": "These links leave BetterCarmona and open the city's own websites. We took them from the official portal and last checked them on {{date}}."
+    },
+    "transparency": {
+      "heading": "Budget transparency",
+      "body": "See the national budget lines that name Carmona. The amounts are as published in the budget documents, not spending.",
+      "link": "Go to the budget pages"
+    },
+    "official": {
+      "heading": "Official city websites"
+    }
+  },
+  "about": {
+    "pageTitle": "About BetterCarmona",
+    "heading": "About BetterCarmona",
+    "who": {
+      "heading": "Who runs this site",
+      "body": "BetterCarmona is run by a private citizen, as a volunteer. It is not affiliated with the City Government of Carmona, and it does not speak for the city.",
+      "official": "For official information and transactions, go to the city directly:",
+      "officialLink": "City of Carmona official portal"
+    },
+    "sources": {
+      "heading": "How facts are sourced",
+      "body": "Officials, hotlines, fees, and documents on this site show their source and the date we recorded them. If we can't find a source for a fact, we leave it out.",
+      "check": "Official information can change after we record it, so check with the office concerned before you act on it.",
+      "budget": "Budget figures come from the BetterGov.ph Budget API. They are amounts as published, not spending.",
+      "budgetLink": "How the budget data works"
+    },
+    "errors": {
+      "heading": "Report an error",
+      "body": "If something here is wrong or out of date, open an issue on GitHub. Tell us which page it's on, what looks wrong, and where the correct information can be found.",
+      "link": "Report an error on GitHub",
+      "note": "You'll need a free GitHub account. Issues are public, so leave out personal details. We can't act on requests for city services, so please bring those to the city."
+    },
+    "directory": {
+      "heading": "Better LGU Directory",
+      "body": "BetterCarmona is listed in the Better LGU Directory, a community-maintained list of Better LGU portals across the Philippines. This site's code is public too.",
+      "link": "See the Better LGU Directory",
+      "repository": "See this project on GitHub"
+    }
   },
   "notFound": {
     "message": "This page does not exist.",

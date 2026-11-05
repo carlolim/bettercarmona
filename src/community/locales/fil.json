@@ -14,7 +14,8 @@
     "mobileLabel": "Nabigasyon sa mobile",
     "openMenu": "Buksan ang menu",
     "home": "Home",
-    "transparency": "Transparency"
+    "transparency": "Transparency",
+    "about": "Tungkol dito"
   },
   "brand": "Home ng BetterCarmona",
   "footer": {
@@ -27,8 +28,54 @@
   "budgetLanguageNote": "Nasa Ingles ang mga pahina ng badyet.",
   "home": {
     "title": "BetterCarmona",
-    "intro": "Gabay ng komunidad sa pampublikong impormasyon para sa Lungsod ng Carmona, Cavite. Binubuo pa namin ang bahaging ito. Handa na ang mga pahina ng badyet.",
-    "budgetLink": "Tingnan ang pagbabantay sa badyet"
+    "heading": "Hanapin ang mga serbisyo at pampublikong impormasyon ng Lungsod ng Carmona",
+    "intro": "Gabay ng komunidad na pinapatakbo ng isang boluntaryo. Hindi ito website ng pamahalaang lungsod.",
+    "whoRuns": "Sino ang nagpapatakbo ng site na ito",
+    "hotlines": {
+      "title": "Mga emergency hotline",
+      "source": "Ang opisyal na listahan ng lungsod ng mga numero para sa kalusugan, sakuna, pulis, at bumbero, na nai-post noong Hunyo 2024. Magbubukas sa website ng lungsod."
+    },
+    "services": {
+      "heading": "Ano ang kailangan mong gawin?",
+      "note": "Aalis ka sa BetterCarmona sa mga link na ito at mapupunta sa sariling mga website ng lungsod. Kinuha namin ang mga ito sa opisyal na portal at huling sinuri noong {{date}}."
+    },
+    "transparency": {
+      "heading": "Transparency sa badyet",
+      "body": "Tingnan ang mga linya sa pambansang badyet na bumabanggit sa Carmona. Ang mga halaga ay ayon sa nakalathala sa mga dokumento ng badyet, at hindi ito ang aktwal na nagastos.",
+      "link": "Pumunta sa mga pahina ng badyet"
+    },
+    "official": {
+      "heading": "Mga opisyal na website ng lungsod"
+    }
+  },
+  "about": {
+    "pageTitle": "Tungkol sa BetterCarmona",
+    "heading": "Tungkol sa BetterCarmona",
+    "who": {
+      "heading": "Sino ang nagpapatakbo ng site na ito",
+      "body": "Ang BetterCarmona ay pinapatakbo ng isang pribadong mamamayan bilang boluntaryo. Hindi ito kaugnay ng Pamahalaang Lungsod ng Carmona, at hindi ito nagsasalita para sa lungsod.",
+      "official": "Para sa opisyal na impormasyon at mga transaksyon, dumiretso sa lungsod:",
+      "officialLink": "Opisyal na portal ng Lungsod ng Carmona"
+    },
+    "sources": {
+      "heading": "Paano kinukuha ang mga impormasyon",
+      "body": "Ipinapakita sa site na ito ang pinagmulan ng impormasyon tungkol sa mga opisyal, hotline, bayarin, at dokumento, at ang petsa kung kailan namin ito itinala. Kung wala kaming mahanap na pinagmulan, hindi namin ito isinasama.",
+      "check": "Maaaring magbago ang opisyal na impormasyon matapos namin itong itala, kaya sumangguni muna sa kinauukulang tanggapan bago ito gamitin.",
+      "budget": "Galing sa BetterGov.ph Budget API ang mga numero ng badyet. Ang mga ito ay mga halagang ayon sa nakalathala, at hindi ang aktwal na nagastos.",
+      "budgetLink": "Paano gumagana ang datos ng badyet"
+    },
+    "errors": {
+      "heading": "Mag-ulat ng mali",
+      "body": "Kung may mali o luma na rito, magbukas ng issue sa GitHub. Sabihin sa amin kung saang pahina ito, ano ang mukhang mali, at saan makikita ang tamang impormasyon.",
+      "link": "Mag-ulat ng mali sa GitHub",
+      "note": "Kailangan mo ng libreng GitHub account. Pampubliko ang mga issue, kaya huwag isama ang personal na detalye. Hindi namin maaaksyunan ang mga kahilingan para sa serbisyo ng lungsod, kaya idulog ang mga ito sa lungsod."
+    },
+    "directory": {
+      "heading": "Direktoryo ng Better LGU",
+      "body": "Nakalista ang BetterCarmona sa Direktoryo ng Better LGU, isang listahang pinapanatili ng komunidad ng mga Better LGU portal sa buong Pilipinas. Pampubliko rin ang code ng site na ito.",
+      "link": "Tingnan ang Direktoryo ng Better LGU",
+      "repository": "Tingnan ang proyektong ito sa GitHub"
+    }
   },
   "notFound": {
     "message": "Walang ganitong pahina.",
