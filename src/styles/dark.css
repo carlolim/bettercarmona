@@ -1,0 +1,80 @@
+/* =============================================================
+   Dark theme, and the theme toggle. `data-theme` on <html> is set before
+   first paint by the script in index.html, and then by ThemeToggle.
+
+   The dark rules sit inside @media screen, so printing stays light.
+   ============================================================= */
+
+.masthead-logo-dark { display: none; }
+
+.masthead-links { align-items: center; }
+.theme-toggle {
+  border: none;
+  background: none;
+  padding: 0;
+  color: var(--ink-2);
+  font: inherit;
+}
+.theme-toggle:hover { color: var(--accent); }
+
+@media (max-width: 860px) {
+  .theme-toggle { min-width: 44px; min-height: 44px; }
+}
+
+/* Keeps the toggle on the same row as the links on a phone. */
+@media (max-width: 400px) {
+  .masthead-links { gap: 10px; }
+}
+
+@media print {
+  .theme-toggle { display: none; }
+}
+
+@media screen {
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+
+    /* Paper and ink */
+    --paper: #0f1a16;
+    --paper-2: #16231e;
+    --paper-3: #1e2e28;
+    --rule: #33453d;
+    --rule-soft: #26362f;
+    --ink: #eef4f0;
+    --ink-2: #d5dfd9;
+    --ink-3: #a6b3ac;
+    --ink-mute: #94a19a;
+
+    /* Accents. These are text colors here, so solid green backgrounds get
+       their own values below. */
+    --accent: #78d294;
+    --accent-deep: #9be3b1;
+    --accent-soft: #143126;
+    --positive: #8fcb8f;
+    --negative: #f4907c;
+    --neutral: #c4b58e;
+  }
+
+  [data-theme="dark"] .subnav { background: #024a31; }
+
+  [data-theme="dark"] .button-primary { background: #037951; border-color: #037951; color: #fff; }
+  [data-theme="dark"] .button-primary:hover { background: #026b45; border-color: #026b45; color: #fff; }
+
+  [data-theme="dark"] .config-warning { background: #2b2312; border-color: #8a6d2f; }
+  [data-theme="dark"] .tag-warn,
+  [data-theme="dark"] .tier-B,
+  [data-theme="dark"] .tier-mixed { border-color: #8a6d2f; color: #f0c36d; background: #2b2312; }
+
+  [data-theme="dark"] .g-unchanged { background: #6f7f77; }
+
+  [data-theme="dark"] .masthead-logo-light { display: none; }
+  [data-theme="dark"] .masthead-logo-dark { display: block; }
+
+  /* BetterGov.ph's own mark: legible on a plate, not recolored. */
+  [data-theme="dark"] .masthead-with img {
+    box-sizing: content-box;
+    padding: 3px 6px;
+    background: #fff;
+    border-radius: 3px;
+  }
+}

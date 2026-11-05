@@ -3,6 +3,23 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#037951" />
+    <!-- Before the stylesheets, so a slow font request can't delay it. Keep in step with ThemeToggle. -->
+    <script>
+      (function () {
+        var theme;
+        try {
+          theme = localStorage.getItem('bettercarmona-theme');
+        } catch (e) {}
+        if (theme !== 'light' && theme !== 'dark') {
+          theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+        document.documentElement.dataset.theme = theme;
+        if (theme === 'dark') {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0f1a16');
+        }
+      })();
+    </script>
     <link rel="icon" type="image/svg+xml" href="/brand/bettercarmona-mark.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,7 +28,6 @@
     <link rel="preconnect" href="%PORTAL_API%" crossorigin>
     <title>%PORTAL_TITLE%</title>
     <meta name="description" content="%PORTAL_DESCRIPTION%" />
-    <meta name="theme-color" content="#037951" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="%PORTAL_NAME%" />
     <meta property="og:title" content="%PORTAL_TITLE%" />

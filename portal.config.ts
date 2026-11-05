@@ -12,6 +12,7 @@ export default defineConfig({
   shortName: 'Carmona',
   operator: { name: '@carlolim', url: 'https://github.com/carlolim' },
   logo: '/brand/bettercarmona-logo.svg',
+  logoDark: '/brand/bettercarmona-logo-reverse.svg',
   siteUrl: 'https://bettercarmona.org',
   buildYourOwnStrip: false,
   scope: {

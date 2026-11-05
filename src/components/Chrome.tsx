@@ -4,6 +4,7 @@ import { KIND_LABELS, shortNameOf } from '../config';
 import { usePortal } from '../lib/portal-context';
 import { date } from '../lib/format';
 import { NATIONAL_URL, SOURCE_CODE_URL } from '../lib/links';
+import { ThemeToggle } from './ThemeToggle';
 
 const BETTERGOV_LOGO = '/brand/bettergov-horizontal-primary.png';
 
@@ -46,12 +47,18 @@ export function Masthead() {
             <a href={SOURCE_CODE_URL} target="_blank" rel="noopener">
               Build your own <span aria-hidden="true">↗</span>
             </a>
+            <ThemeToggle />
           </span>
         </div>
       </div>
       <div className="page masthead-main">
         <Link to="/" className="masthead-title">
-          {config.logo && <img src={config.logo} alt={config.name} className="masthead-logo" />}
+          {config.logo && (
+            <img src={config.logo} alt={config.name} className={`masthead-logo${config.logoDark ? ' masthead-logo-light' : ''}`} />
+          )}
+          {config.logo && config.logoDark && (
+            <img src={config.logoDark} alt={config.name} className="masthead-logo masthead-logo-dark" />
+          )}
           <span>
             <span className="masthead-kicker">
               {KIND_LABELS[config.kind]} <span aria-hidden="true">·</span> Budgets 2020–2027

@@ -56,6 +56,8 @@ export interface PortalConfig {
   operator: { name: string; url?: string; email?: string };
   /** Optional logo: a path under public/ ("/brand/lgu-seal.png") or a URL. */
   logo?: string;
+  /** Optional logo for the dark theme. Falls back to `logo`. */
+  logoDark?: string;
   /** Canonical URL of this deployment, for link previews. */
   siteUrl?: string;
   /**
