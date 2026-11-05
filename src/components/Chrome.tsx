@@ -60,9 +60,13 @@ export function Masthead() {
             <img src={config.logoDark} alt={config.name} className="masthead-logo masthead-logo-dark" />
           )}
           <span>
-            <span className="masthead-kicker">
-              {KIND_LABELS[config.kind]} <span aria-hidden="true">·</span> Budgets 2020–2027
-            </span>
+            {config.tagline ? (
+              <span className="masthead-tagline">{config.tagline}</span>
+            ) : (
+              <span className="masthead-kicker">
+                {KIND_LABELS[config.kind]} <span aria-hidden="true">·</span> Budgets 2020–2027
+              </span>
+            )}
             {!config.logo && <span className="masthead-name">{config.name}</span>}
           </span>
         </Link>
@@ -116,6 +120,7 @@ export function Footer() {
               ) : (
                 config.operator.name
               )}
+              {config.operator.note && <>, {config.operator.note}</>}
               {config.operator.email && (
                 <> · <a href={`mailto:${config.operator.email}`}>{config.operator.email}</a></>
               )}

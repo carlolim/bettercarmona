@@ -52,8 +52,10 @@ export interface PortalConfig {
   name: string;
   /** Short form for headings: "Bohol". Defaults to `name`. */
   shortName?: string;
-  /** Who runs this copy of the portal. Shown in the footer. */
-  operator: { name: string; url?: string; email?: string };
+  /** A line beside the logo or name in the masthead. Defaults to the kind and years. */
+  tagline?: string;
+  /** Who runs this copy of the portal. Shown in the footer, followed by `note`. */
+  operator: { name: string; url?: string; note?: string; email?: string };
   /** Optional logo: a path under public/ ("/brand/lgu-seal.png") or a URL. */
   logo?: string;
   /** Optional logo for the dark theme. Falls back to `logo`. */
