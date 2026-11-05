@@ -64,10 +64,6 @@ export interface PortalConfig {
   shortName?: string;
   /** A line beside the logo or name in the masthead. Defaults to the kind and years. */
   tagline?: string;
-  /** The LGU's own website. Linked at the top and in the footer of every page. */
-  officialSite?: { label: string; url: string };
-  /** Says who this portal is not. Shown at the top of the footer on every page. */
-  statement?: string;
   /** Who runs this copy of the portal. Shown in the footer, followed by `note`. */
   operator: { name: string; url?: string; note?: string; email?: string };
   /** Optional logo: a path under public/ ("/brand/lgu-seal.png") or a URL. */

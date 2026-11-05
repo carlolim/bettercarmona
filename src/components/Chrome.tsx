@@ -1,10 +1,10 @@
-import { useMemo, type ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { KIND_LABELS, shortNameOf } from '../config';
 import { usePortal } from '../lib/portal-context';
 import { date } from '../lib/format';
 import { NATIONAL_URL, SOURCE_CODE_URL } from '../lib/links';
-import { ThemeToggle } from './ThemeToggle';
+import { useTransparencyPath } from '../lib/transparency-path';
 
 const BETTERGOV_LOGO = '/brand/bettergov-horizontal-primary.png';
 
@@ -12,16 +12,13 @@ const NAV = [
   { to: '/', hash: '', label: '2027 projects' },
   { to: '/', hash: '#offices', label: 'Offices and districts' },
   { to: '/gaa', hash: '', label: 'Budgets 2020–2026' },
-  { to: '/about', hash: '', label: 'About the data' },
+  { to: '/about-the-data', hash: '', label: 'About the data' },
 ];
 
 export function Masthead() {
-  const { config, client } = usePortal();
+  const { config } = usePortal();
   const { pathname, hash } = useLocation();
-  const today = useMemo(
-    () => new Date().toLocaleDateString('en-PH', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' }),
-    [],
-  );
+  const tp = useTransparencyPath();
   return (
     <>
     {config.buildYourOwnStrip !== false && (
@@ -33,37 +30,9 @@ export function Masthead() {
         </span>
       </a>
     )}
-    <header className="masthead">
-      <div className="masthead-top">
-        <div className="page masthead-top-inner">
-          <span className="muted">{today}</span>
-          <span className="masthead-links">
-            {config.officialSite && (
-              <a href={config.officialSite.url} target="_blank" rel="noopener" className="masthead-official">
-                {config.officialSite.label} <span aria-hidden="true">↗</span>
-              </a>
-            )}
-            <a href={NATIONAL_URL} target="_blank" rel="noopener">
-              National picture <span aria-hidden="true">↗</span>
-            </a>
-            <a href={`${client.base}/docs`} target="_blank" rel="noopener">
-              API <span aria-hidden="true">↗</span>
-            </a>
-            <a href={SOURCE_CODE_URL} target="_blank" rel="noopener">
-              Build your own <span aria-hidden="true">↗</span>
-            </a>
-            <ThemeToggle />
-          </span>
-        </div>
-      </div>
+    <div className="masthead">
       <div className="page masthead-main">
-        <Link to="/" className="masthead-title">
-          {config.logo && (
-            <img src={config.logo} alt={config.name} className={`masthead-logo${config.logoDark ? ' masthead-logo-light' : ''}`} />
-          )}
-          {config.logo && config.logoDark && (
-            <img src={config.logoDark} alt={config.name} className="masthead-logo masthead-logo-dark" />
-          )}
+        <Link to={tp()} className="masthead-title">
           <span>
             {config.tagline ? (
               <span className="masthead-tagline">{config.tagline}</span>
@@ -72,7 +41,6 @@ export function Masthead() {
                 {KIND_LABELS[config.kind]} <span aria-hidden="true">·</span> Budgets 2020–2027
               </span>
             )}
-            {!config.logo && <span className="masthead-name">{config.name}</span>}
           </span>
         </Link>
         <a className="masthead-with" href="https://bettergov.ph" target="_blank" rel="noopener">
@@ -83,15 +51,16 @@ export function Masthead() {
       <nav className="subnav" aria-label="Sections">
         <div className="page subnav-inner">
           {NAV.map((n) => {
-            const active = pathname === n.to && (n.hash ? hash === n.hash : hash !== '#offices');
+            const to = tp(n.to);
+            const active = pathname === to && (n.hash ? hash === n.hash : hash !== '#offices');
             return (
               <Link
                 key={n.label}
-                to={{ pathname: n.to, hash: n.hash }}
+                to={{ pathname: to, hash: n.hash }}
                 className={active ? 'active' : undefined}
                 aria-current={active ? 'page' : undefined}
                 // "Projects" from further down the same page goes back to the top.
-                onClick={() => !n.hash && pathname === n.to && window.scrollTo(0, 0)}
+                onClick={() => !n.hash && pathname === to && window.scrollTo(0, 0)}
               >
                 {n.label}
               </Link>
@@ -99,7 +68,7 @@ export function Masthead() {
           })}
         </div>
       </nav>
-    </header>
+    </div>
     </>
   );
 }
@@ -110,21 +79,12 @@ export function Footer() {
   return (
     <footer className="footer">
       <div className="page footer-inner">
-        {config.statement && <p className="footer-statement">{config.statement}</p>}
         <p className="footer-source">
           Source: NEP FY 2027 and House Bill 10858 · via the BetterGov.ph Budget API
           {meta && <> · data built {date(meta.built_at)}</>}
         </p>
         {meta && <p className="footer-notice">{meta.notice}</p>}
         <ul className="footer-links">
-          {config.officialSite && (
-            <li>
-              <span className="label">{config.officialSite.label}</span>
-              <a href={config.officialSite.url} target="_blank" rel="noopener">
-                {config.officialSite.url.replace(/^https:\/\//, '').replace(/\/$/, '')} ↗
-              </a>
-            </li>
-          )}
           <li>
             <span className="label">This portal</span>
             <span>

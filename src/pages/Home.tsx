@@ -10,6 +10,7 @@ import OfficesSection from '../components/OfficesSection';
 import { projectsCsv, downloadText } from '../lib/csv';
 import { count, php, phpDelta, plural } from '../lib/format';
 import { usePortal } from '../lib/portal-context';
+import { useTransparencyPath } from '../lib/transparency-path';
 import { summarise, type ScopedProject, type ScopeResult, type Summary } from '../lib/scope';
 import { useTitle } from '../lib/use-title';
 
@@ -317,6 +318,7 @@ function Stats({ summary, programName }: { summary: Summary; programName: (k: Da
 }
 
 function ProjectTable({ rows, programName }: { rows: ScopedProject[]; programName: (k: DatasetKey) => string }) {
+  const tp = useTransparencyPath();
   if (!rows.length) return null;
   return (
     <div className="table" role="table" aria-label="Projects">
@@ -330,7 +332,7 @@ function ProjectTable({ rows, programName }: { rows: ScopedProject[]; programNam
       {rows.map((p) => (
         <div className="tr" role="row" key={p.key}>
           <span role="cell" className="td-project">
-            <Link to={`/projects/${p.dataset}/${encodeURIComponent(p.id)}`} className="project-title">{p.title}</Link>
+            <Link to={tp(`/projects/${p.dataset}/${encodeURIComponent(p.id)}`)} className="project-title">{p.title}</Link>
             <LineNoteText lineKey={p.key} />
             <span className="project-meta">
               <span className="label">{programName(p.dataset)}</span>

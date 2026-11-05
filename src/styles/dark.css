@@ -7,7 +7,6 @@
 
 .masthead-logo-dark { display: none; }
 
-.masthead-links { align-items: center; }
 .theme-toggle {
   border: none;
   background: none;
@@ -19,11 +18,6 @@
 
 @media (max-width: 860px) {
   .theme-toggle { min-width: 44px; min-height: 44px; }
-}
-
-/* Keeps the toggle on the same row as the links on a phone. */
-@media (max-width: 400px) {
-  .masthead-links { gap: 10px; }
 }
 
 @media print {

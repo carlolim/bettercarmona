@@ -7,6 +7,7 @@ import { LineNoteText } from '../components/LineNoteText';
 import { phpDelta, phpFull } from '../lib/format';
 import { usePortal, type Async } from '../lib/portal-context';
 import { projectKey } from '../lib/scope';
+import { useTransparencyPath } from '../lib/transparency-path';
 import { reportHref } from '../lib/report';
 import { useTitle } from '../lib/use-title';
 
@@ -21,6 +22,7 @@ const FALLBACK_VERSION_LABELS: Record<Version, string> = {
 export default function Project() {
   const { dataset = '', id = '' } = useParams();
   const { client } = usePortal();
+  const tp = useTransparencyPath();
   const valid = (DATASET_KEYS as readonly string[]).includes(dataset);
   const [state, setState] = useState<{ key: string; value: Async<Envelope<ProjectDetail>> } | null>(null);
   const key = `${dataset}/${id}`;
@@ -40,14 +42,14 @@ export default function Project() {
   if (!valid) {
     return (
       <main className="page main">
-        <p className="state">There is no program called “{dataset}”. <Link to="/">Back to every project</Link></p>
+        <p className="state">There is no program called “{dataset}”. <Link to={tp()}>Back to every project</Link></p>
       </main>
     );
   }
   const current: Async<Envelope<ProjectDetail>> = state?.key === key ? state.value : { status: 'loading' };
   return (
     <main className="page main">
-      <p className="crumbs"><Link to="/">← Every project</Link></p>
+      <p className="crumbs"><Link to={tp()}>← Every project</Link></p>
       <Await state={current} what="the project">
         {(env) => <ProjectView env={env} />}
       </Await>

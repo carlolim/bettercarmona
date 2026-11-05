@@ -14,6 +14,7 @@ import type { DistrictCard, DistrictOffice, Envelope } from '../api/types';
 import { BRIDGE_GROUPS } from '../api/types';
 import { count, php, phpDelta, plural } from '../lib/format';
 import { usePortal } from '../lib/portal-context';
+import { useTransparencyPath } from '../lib/transparency-path';
 import type { QueryReport, ScopedProject } from '../lib/scope';
 import { Await, External } from './Bits';
 
@@ -129,7 +130,8 @@ function Office({ view }: { view: OfficeView }) {
   const wholeNep = office.years?.find((y) => y.fy === 2027 && y.stage === 'nep')?.php ?? null;
   const change = f && f.nep_php != null && f.hgab3_php != null ? f.hgab3_php - f.nep_php : null;
   // The project list, narrowed to this office's lines (and a status).
-  const filter = (status?: string) => `/?office=${encodeURIComponent(printed)}${status ? `&status=${status}` : ''}#projects`;
+  const tp = useTransparencyPath();
+  const filter = (status?: string) => `${tp()}?office=${encodeURIComponent(printed)}${status ? `&status=${status}` : ''}#projects`;
   const groups = f ? BRIDGE_GROUPS.map((g) => f.bridge.groups[g]).filter((c) => c && c.rows > 0) : [];
   const unconfirmed = f?.annotations?.unconfirmed_rows ?? 0;
   const held = f?.office_change?.rows ?? 0;
@@ -177,7 +179,7 @@ function Office({ view }: { view: OfficeView }) {
         {wholeNep != null && <> The whole office in the NEP: {php(wholeNep)}.</>}
         {unconfirmed > 0 && <> Includes {plural(unconfirmed, 'unconfirmed match', 'unconfirmed matches')} ({php(f?.annotations?.unconfirmed_php)}).</>}
         {held > 0 && <> {plural(held, 'line')} whose two versions name different offices {held === 1 ? 'is' : 'are'} not in these figures.</>}{' '}
-        <Link to={`/gaa#${office.id}`}>Its budget each year since 2020 →</Link>
+        <Link to={`${tp('/gaa')}#${office.id}`}>Its budget each year since 2020 →</Link>
       </p>
 
       <div className="ocard-districts">

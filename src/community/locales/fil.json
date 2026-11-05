@@ -1,0 +1,37 @@
+{
+  "skipToContent": "Lumaktaw sa pangunahing nilalaman",
+  "officialSite": "Opisyal na website ng Carmona",
+  "opensInNewTab": "(magbubukas sa bagong tab)",
+  "theme": {
+    "dark": "Madilim na tema",
+    "light": "Maliwanag na tema"
+  },
+  "language": {
+    "label": "Wika"
+  },
+  "nav": {
+    "label": "Pangunahing nabigasyon",
+    "mobileLabel": "Nabigasyon sa mobile",
+    "openMenu": "Buksan ang menu",
+    "home": "Home",
+    "transparency": "Transparency"
+  },
+  "brand": "Home ng BetterCarmona",
+  "footer": {
+    "statement": "Isang malayang inisyatiba ng komunidad. Hindi ito opisyal na website ng pamahalaan.",
+    "linksLabel": "Mga link",
+    "officialPortal": "Opisyal na portal ng Lungsod ng Carmona",
+    "repository": "Ang proyektong ito sa GitHub",
+    "directory": "Direktoryo ng Better LGU"
+  },
+  "budgetLanguageNote": "Nasa Ingles ang mga pahina ng badyet.",
+  "home": {
+    "title": "BetterCarmona",
+    "intro": "Gabay ng komunidad sa pampublikong impormasyon para sa Lungsod ng Carmona, Cavite. Binubuo pa namin ang bahaging ito. Handa na ang mga pahina ng badyet.",
+    "budgetLink": "Tingnan ang pagbabantay sa badyet"
+  },
+  "notFound": {
+    "message": "Walang ganitong pahina.",
+    "homeLink": "Pumunta sa home page"
+  }
+}

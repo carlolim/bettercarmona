@@ -1,0 +1,37 @@
+{
+  "skipToContent": "Skip to main content",
+  "officialSite": "Official Carmona website",
+  "opensInNewTab": "(opens in a new tab)",
+  "theme": {
+    "dark": "Dark mode",
+    "light": "Light mode"
+  },
+  "language": {
+    "label": "Language"
+  },
+  "nav": {
+    "label": "Main navigation",
+    "mobileLabel": "Mobile navigation",
+    "openMenu": "Open menu",
+    "home": "Home",
+    "transparency": "Transparency"
+  },
+  "brand": "BetterCarmona home",
+  "footer": {
+    "statement": "An independent community initiative. Not an official government website.",
+    "linksLabel": "Links",
+    "officialPortal": "City of Carmona official portal",
+    "repository": "This project on GitHub",
+    "directory": "Better LGU Directory"
+  },
+  "budgetLanguageNote": "The budget pages are available in English.",
+  "home": {
+    "title": "BetterCarmona",
+    "intro": "A community guide to public information for the City of Carmona, Cavite. We're still building this section. The budget pages are ready now.",
+    "budgetLink": "See the budget watch"
+  },
+  "notFound": {
+    "message": "This page does not exist.",
+    "homeLink": "Go to the home page"
+  }
+}

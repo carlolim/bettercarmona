@@ -6,6 +6,7 @@ import { Await, Disclaimers, External } from '../components/Bits';
 import { PageHead } from '../components/Chrome';
 import { count, date, plural } from '../lib/format';
 import { SOURCE_CODE_URL } from '../lib/links';
+import { useTransparencyPath } from '../lib/transparency-path';
 import { usePortal } from '../lib/portal-context';
 import type { ScopeResult } from '../lib/scope';
 import { departmentShort, loadGaa, type GaaResult } from '../lib/gaa';
@@ -21,6 +22,11 @@ const READING_RULES = [
   '“Unconfirmed match” marks a pairing made on a similar name rather than an exact one.',
   'A DPWH office that serves several districts (Tier B) is shown whole; its money is never split between them. Money under the DPWH Central Office or a regional office is on no district card.',
 ];
+
+function BackToProjects() {
+  const tp = useTransparencyPath();
+  return <Link to={tp()}>Back to the projects</Link>;
+}
 
 export default function About() {
   const { scope, overview, config } = usePortal();
@@ -168,7 +174,7 @@ function AboutView({ scope, overview }: { scope: ScopeResult; overview: Overview
         <p>
           This portal is open source. Fork it, run <code>npm run setup</code> to pick your province, city, municipality or
           district engineering office, and deploy it to Cloudflare, Vercel or Netlify. It needs no database: the data comes
-          from the same API. <External href={SOURCE_CODE_URL}>Source code</External> · <Link to="/">Back to the projects</Link>
+          from the same API. <External href={SOURCE_CODE_URL}>Source code</External> · <BackToProjects />
         </p>
       </section>
     </>

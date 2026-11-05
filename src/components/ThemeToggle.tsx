@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useLocale } from '../community/locale';
 
 type Theme = 'light' | 'dark';
 
@@ -28,6 +29,7 @@ function applyTheme(theme: Theme) {
 }
 
 export function ThemeToggle() {
+  const { t } = useLocale();
   const [theme, setTheme] = useState<Theme>(() => (document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light'));
   const [choice, setChoice] = useState<Theme | null>(readChoice);
 
@@ -54,7 +56,7 @@ export function ThemeToggle() {
         setTheme(next);
       }}
     >
-      {next === 'dark' ? 'Dark mode' : 'Light mode'}
+      {next === 'dark' ? t('theme.dark') : t('theme.light')}
     </button>
   );
 }
