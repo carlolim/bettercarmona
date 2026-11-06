@@ -3,6 +3,7 @@ import ScrollToTop from './components/ScrollToTop';
 import { CommunityAbout } from './community/About';
 import { CommunityLayout } from './community/CommunityLayout';
 import { CommunityHome, CommunityNotFound } from './community/Home';
+import { CommunityHotlines } from './community/Hotlines';
 import { LocaleSync } from './community/LocaleSync';
 import { SiteHeader } from './community/SiteHeader';
 import { TransparencyLayout } from './community/TransparencyLayout';
@@ -28,6 +29,7 @@ export default function App() {
           <Route key={`${prefix}-community`} path={prefix || '/'} element={<CommunityLayout />}>
             <Route index element={<CommunityHome />} />
             <Route path="about" element={<CommunityAbout />} />
+            <Route path="hotlines" element={<CommunityHotlines />} />
           </Route>,
           <Route key={`${prefix}-transparency`} path={`${prefix}/transparency`} element={<TransparencyLayout />}>
             <Route index element={<Home />} />

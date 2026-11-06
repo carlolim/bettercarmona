@@ -14,6 +14,7 @@
     "mobileLabel": "Mobile navigation",
     "openMenu": "Buksan ang menu",
     "home": "Home",
+    "hotlines": "Hotlines",
     "transparency": "Transparency",
     "about": "About"
   },
@@ -33,7 +34,7 @@
     "whoRuns": "Sino ang nagpapatakbo ng site na ito",
     "hotlines": {
       "title": "Mga emergency hotline",
-      "source": "Ang official list ng city ng mga number para sa health, disaster, pulis, at bumbero, na na-post noong June 2024. Magbubukas sa website ng city."
+      "source": "Ang main emergency number at mga barangay number, kasama ang source at date."
     },
     "services": {
       "heading": "Ano ang kailangan mong gawin?",
@@ -75,6 +76,28 @@
       "body": "Nakalista ang BetterCarmona sa Better LGU Directory, isang community-maintained na listahan ng mga Better LGU portal sa buong Pilipinas. Public din ang code ng site na ito.",
       "link": "Tingnan ang Better LGU Directory",
       "repository": "Tingnan ang project na ito sa GitHub"
+    }
+  },
+  "hotlines": {
+    "pageTitle": "Mga emergency hotline",
+    "heading": "Mga emergency hotline",
+    "source": "Source: {{app}}, as viewed noong {{date}}. Kung hindi kumonekta ang number, i-check ang app.",
+    "call": "Tumawag",
+    "text": "Mag-text",
+    "main": {
+      "heading": "Main emergency number",
+      "note": "Magkakaiba ang pangalan ng tatlong ito sa app, pero iisang number lang sila."
+    },
+    "barangays": {
+      "heading": "Mga barangay",
+      "number": "Barangay {{number}}",
+      "landlines": "Ipinapakita ang mga number na walang button kung paano sila nakalista sa app. Walang area code ang mga ito sa app, kaya baka hindi kumonekta kapag tinawagan mula sa mobile phone.",
+      "numbers": "Galing sa menu ng official portal ng city ang mga barangay number na nasa bracket, as saved noong {{date}}."
+    },
+    "other": {
+      "heading": "Pulis, bumbero, at medical",
+      "body": "Walang hiwalay na number para sa pulis, bumbero, o medical sa listahan ng app. Ang sariling hotline list ng city, na na-post noong June 2024, ay may mga number para sa health, disaster, pulis, at bumbero.",
+      "link": "Tingnan ang hotline list ng city"
     }
   },
   "notFound": {

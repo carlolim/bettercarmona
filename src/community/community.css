@@ -103,6 +103,54 @@
 .community-links { list-style: none; margin: 12px 0 0; padding: 0; }
 .community-links a { display: inline-flex; align-items: center; gap: 4px; min-height: 44px; }
 
+.community-hotlines h1 { font-size: clamp(30px, 4.2vw, 46px); letter-spacing: -0.03em; }
+.community-hotlines h2 { font-size: 24px; letter-spacing: -0.02em; }
+.community-hotlines section { margin-top: 32px; }
+.community-hotlines section p { max-width: 680px; line-height: 1.5; color: var(--ink-2); }
+.main.community-hotlines { padding-top: 16px; }
+.community-hotlines .hotlines-source { max-width: 680px; margin: 10px 0 0; font-size: 15px; line-height: 1.5; color: var(--ink-2); }
+.community-hotlines .hotlines-note { margin: 12px 0 0; font-size: 14px; color: var(--ink-3); }
+.hotline-primary {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-height: 72px;
+  margin-top: 12px;
+  padding: 14px 16px;
+  background: var(--brand-darkest);
+  color: var(--brand-yellow);
+  text-decoration: none;
+}
+.hotline-primary:hover { color: var(--brand-yellow); }
+.hotline-primary:hover strong { text-decoration: underline; }
+.hotline-primary svg { flex-shrink: 0; }
+.hotline-primary-text { flex: 1; min-width: 0; }
+.hotline-primary-text strong { display: block; font-family: var(--font-hero); font-size: 17px; line-height: 1.25; color: var(--brand-mint); }
+.hotline-primary-text span { display: block; margin-top: 2px; font-family: var(--font-hero); font-size: 26px; font-weight: 700; line-height: 1.2; overflow-wrap: anywhere; }
+.hotline-list { list-style: none; margin: 12px 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); gap: 12px; }
+.hotline-row { padding: 14px 16px; border: 1px solid var(--rule); background: var(--paper); }
+.hotline-row h3 { margin: 0 0 8px; font-size: 17px; line-height: 1.3; color: var(--ink); }
+.hotline-numbers { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.hotline-numbers li { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.hotline-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  min-width: 44px;
+  padding: 0 14px;
+  border: 1px solid var(--accent);
+  background: var(--paper);
+  color: var(--accent);
+  font-size: 16px;
+  font-weight: 600;
+  text-decoration: none;
+}
+.hotline-link:hover { background: var(--accent-soft); color: var(--accent); }
+.hotline-link svg { flex-shrink: 0; }
+.hotline-text { font-size: 16px; color: var(--ink-2); overflow-wrap: anywhere; }
+.hotline-official { display: inline-flex; align-items: center; gap: 4px; min-height: 44px; }
+
 .site-footer { border-top: 1px solid var(--rule); background: var(--paper-2); }
 .footer + .site-footer, .site-content-group + .site-footer { margin-top: 0; }
 .site-footer-inner { padding-top: 20px; padding-bottom: 24px; }

@@ -14,6 +14,7 @@
     "mobileLabel": "Mobile navigation",
     "openMenu": "Open menu",
     "home": "Home",
+    "hotlines": "Hotlines",
     "transparency": "Transparency",
     "about": "About"
   },
@@ -33,7 +34,7 @@
     "whoRuns": "Who runs this site",
     "hotlines": {
       "title": "Emergency hotlines",
-      "source": "The city's official list of health, disaster, police, and fire numbers, posted June 2024. Opens on the city's website."
+      "source": "The main emergency number and barangay numbers, with their source and date."
     },
     "services": {
       "heading": "What do you need to do?",
@@ -75,6 +76,28 @@
       "body": "BetterCarmona is listed in the Better LGU Directory, a community-maintained list of Better LGU portals across the Philippines. This site's code is public too.",
       "link": "See the Better LGU Directory",
       "repository": "See this project on GitHub"
+    }
+  },
+  "hotlines": {
+    "pageTitle": "Emergency hotlines",
+    "heading": "Emergency hotlines",
+    "source": "Source: {{app}}, as viewed on {{date}}. If a number doesn't connect, check the app.",
+    "call": "Call",
+    "text": "Text",
+    "main": {
+      "heading": "Main emergency number",
+      "note": "The app lists these three under different names. They are the same number."
+    },
+    "barangays": {
+      "heading": "Barangays",
+      "number": "Barangay {{number}}",
+      "landlines": "Numbers without a button are shown as the app lists them. The app gives them no area code, so they may not connect from a mobile phone.",
+      "numbers": "The barangay numbers in brackets come from the menu of the city's official portal, as saved on {{date}}."
+    },
+    "other": {
+      "heading": "Police, fire, and medical",
+      "body": "The app's list has no separate police, fire, or medical numbers. The city's own hotline list, posted June 2024, has health, disaster, police, and fire numbers.",
+      "link": "See the city's hotline list"
     }
   },
   "notFound": {

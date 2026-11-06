@@ -7,9 +7,10 @@ import { LanguageSwitch } from './LanguageSwitch';
 import { OFFICIAL_PORTAL_URL } from './links';
 import { stripLocale, useLocale } from './locale';
 
-// Later tasks add Services, Government, Hotlines, and Barangays as their pages are built.
+// Later tasks add Services, Government, and Barangays as their pages are built.
 const NAVIGATION = [
   { key: 'nav.home', href: '/' },
+  { key: 'nav.hotlines', href: '/hotlines' },
   { key: 'nav.transparency', href: '/transparency' },
   { key: 'nav.about', href: '/about' },
 ];
