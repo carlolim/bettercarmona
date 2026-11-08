@@ -28,7 +28,7 @@ The route split, the site header layout, and the barangay map's drawing and shap
 
 ## Barangay boundaries
 
-`src/community/data/boundaries/` holds the City of Carmona's barangay boundaries from
+`src/community/data/boundaries/` holds the City of Carmona's barangay boundaries, and the boundaries of the places around it, from
 [philippines-json-maps](https://github.com/faeldon/philippines-json-maps) release v1.1.1, under the MIT License
 (Copyright (c) James Faeldon). They are built from OCHA's
 [Philippines administrative boundaries (COD-AB)](https://data.humdata.org/dataset/cod-ab-phl) by NAMRIA and PSA,

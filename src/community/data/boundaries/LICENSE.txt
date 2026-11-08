@@ -8,6 +8,14 @@ SHA-256 of topojson-hires.zip:  e7a00ff5a65c525557ff716658b579dab5c20322bd6b7104
                                 (matched the release's SHA256SUMS)
 SHA-256 of this file:           8223a4b135535fa589048016e74c4aaf8a3e44807f4988fa5aba792335ff6443
 
+File: carmona-neighbors.json
+From: the same release, topojson-hires.zip, path topojson/provdists/hires/: the files for Cavite
+      (402100000), Laguna (403400000), and Metro Manila's Fourth District (1307600000).
+      Built by scripts/build-neighbors.ts, which keeps the cities and municipalities that reach into a
+      frame 18% wider and taller than Carmona's extent, clips them to that frame, and adds a label point.
+      It holds Dasmariñas, Silang, Gen. Mariano Alvarez, Biñan, San Pedro, and Santa Rosa. Rebuild with
+      npm run build:neighbors -- <topojson/provdists/hires>.
+
 Original source: OCHA, Philippines administrative level 0-4 boundaries (COD-AB),
 by the National Mapping and Resource Information Authority (NAMRIA) and the Philippine
 Statistics Authority (PSA), licensed CC BY-IGO 3.0.

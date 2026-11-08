@@ -177,6 +177,8 @@
 .barangay-map-inset figcaption { margin: 0 0 6px; font-size: 14px; font-weight: 600; color: var(--ink-2); }
 .barangay-map-area { fill: var(--accent-soft); stroke: var(--ink-3); stroke-width: 1; stroke-linejoin: round; cursor: pointer; }
 .barangay-map-area.is-active { fill: var(--accent); }
+.barangay-map-neighbor { fill: var(--rule-soft); stroke: var(--rule); stroke-width: 1; pointer-events: none; }
+.barangay-map-neighbor-label { fill: var(--ink-3); font-family: var(--font-hero); font-style: italic; font-weight: 600; pointer-events: none; }
 .barangay-map-frame { fill: none; stroke: var(--accent); stroke-width: 2; stroke-dasharray: 4 3; pointer-events: none; }
 .barangay-map-label { fill: var(--ink); font-family: var(--font-hero); font-size: 12px; font-weight: 700; pointer-events: none; paint-order: stroke; stroke: var(--accent-soft); stroke-width: 3px; stroke-linejoin: round; }
 .barangay-map-label.is-active { fill: var(--paper); stroke: var(--accent); }

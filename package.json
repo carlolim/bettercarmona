@@ -13,7 +13,8 @@
     "preview": "vite preview",
     "lint": "eslint .",
     "deploy:cloudflare": "npm run build && wrangler deploy",
-    "build:poster": "tsx scripts/build-poster.ts"
+    "build:poster": "tsx scripts/build-poster.ts",
+    "build:neighbors": "tsx scripts/build-neighbors.ts"
   },
   "dependencies": {
     "d3-geo": "3.1.1",
