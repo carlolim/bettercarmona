@@ -60,14 +60,15 @@ export interface NeighborShape {
   /** As the boundary file names it, without "City of". */
   name: string;
   feature: Feature<MultiPolygon>;
-  label: Position;
+  /** Where its label can go, best first. */
+  labels: Position[];
 }
 
 /** The cities and municipalities around Carmona, clipped to the city map's frame. Context only. */
 export const NEIGHBORS: NeighborShape[] = rawNeighbors.features.map((f) => ({
   name: f.properties.adm3_en.replace(/^City of /, ''),
   feature: rewind(f as Feature<MultiPolygon>),
-  label: f.properties.label,
+  labels: labelPoints(f.geometry.coordinates),
 }));
 
 /** The area the city map shows: Carmona and a margin around it. */

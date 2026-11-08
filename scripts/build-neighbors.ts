@@ -13,7 +13,6 @@ import { argv, exit } from 'node:process';
 import type { Feature, FeatureCollection, MultiPolygon, Polygon, Position } from 'geojson';
 import { feature } from 'topojson-client';
 import type { GeometryCollection, Topology } from 'topojson-specification';
-import { labelPoint } from '../src/community/data/label-point.ts';
 
 const CARMONA = 402104000;
 /** Cavite, Laguna, and Metro Manila's Fourth District: everything near Carmona. */
@@ -88,7 +87,6 @@ const neighbors = features
       adm3_psgc: f.properties.adm3_psgc,
       adm3_en: f.properties.adm3_en,
       adm2_psgc: f.properties.adm2_psgc,
-      label: round(labelPoint(polygons)),
     },
     geometry: { type: 'MultiPolygon', coordinates: polygons.map((p) => p.map((r) => r.map(round))) },
   }));

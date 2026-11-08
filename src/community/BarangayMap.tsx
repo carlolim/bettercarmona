@@ -1,6 +1,6 @@
 // Map drawing adapted from BetterCatanduanes (MIT). See THIRD_PARTY_NOTICES.md.
 import { geoMercator, geoPath } from 'd3-geo';
-import type { Feature, FeatureCollection, MultiPoint, MultiPolygon, Polygon } from 'geojson';
+import type { Feature, FeatureCollection, MultiPoint, MultiPolygon, Polygon, Position } from 'geojson';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { BARANGAY_SHAPES, FRAME, NEIGHBORS, type BarangayShape } from './data/barangay-map';
 
@@ -10,9 +10,12 @@ const inTownCenter = (shape: BarangayShape) => shape.townCenter;
 
 type Box = [number, number, number, number];
 const overlaps = (a: Box, b: Box) => a[0] < b[2] && b[0] < a[2] && a[1] < b[3] && b[1] < a[3];
-/** The box a label takes, centered on a point. Widths are estimated: about 0.6em a character in bold Figtree. */
+/**
+ * The box a label takes, centered on a point. Widths are estimated at 0.65em a character, a little
+ * over bold Figtree's, so a wider fallback font still fits.
+ */
 function boxAt([x, y]: [number, number], text: string[], size: number): Box {
-  const w = (Math.max(...text.map((t) => t.length)) * size * 0.6) / 2 + 2;
+  const w = (Math.max(...text.map((t) => t.length)) * size * 0.65) / 2 + 2;
   const h = (text.length * size * 1.15) / 2 + 1;
   return [x - w, y - h, x + w, y + h];
 }
@@ -99,18 +102,24 @@ function MapPanel({ className, fitTo, neighbors, frame, labelled, short, title, 
     const height = Math.round((width - 2 * pad) * ratio + 2 * pad);
     const projection = geoMercator().fitExtent([[pad, pad], [width - pad, height - pad]], fitTo);
     const path = geoPath(projection);
-    const around = neighbors ? NEIGHBORS.map((n) => ({ name: n.name, d: path(n.feature) ?? '', point: projection(n.label as [number, number]) ?? [0, 0] })) : [];
-    // The neighbors' labels are fixed. Each barangay label takes its best point that doesn't overlap a
-    // label already placed, smallest shapes first, since they have the fewest points to choose from.
-    const placed: Box[] = around.map(({ name, point }) => boxAt(point as [number, number], lines(name), neighborSize(width)));
+    // Each label takes its best point that stays on the map and clear of labels already placed: the
+    // places around Carmona first, then the barangays, smallest shapes first, since they have the fewest
+    // points to choose from.
+    const placed: Box[] = [];
+    const place = (labels: Position[], text: string[], size: number): [number, number] => {
+      const candidates = labels.map((p): [number, number] => projection(p as [number, number]) ?? [0, 0]);
+      const fits = (box: Box) => box[0] >= 0 && box[1] >= 0 && box[2] <= width && box[3] <= height && !placed.some((b) => overlaps(b, box));
+      const point = candidates.find((p) => fits(boxAt(p, text, size))) ?? candidates[0];
+      placed.push(boxAt(point, text, size));
+      return point;
+    };
+    const around = neighbors
+      ? NEIGHBORS.map((n) => ({ name: n.name, d: path(n.feature) ?? '', point: place(n.labels, lines(n.name), neighborSize(width)) }))
+      : [];
     const points = new Map<number, [number, number]>();
     for (const shape of [...BARANGAY_SHAPES].filter(labelled).sort((a, b) => a.labels.length - b.labels.length)) {
       const text = [short ? String(shape.barangay.number) : shape.barangay.name ?? `Barangay ${shape.barangay.number}`];
-      const candidates = shape.labels.map((p): [number, number] => projection(p as [number, number]) ?? [0, 0]);
-      const fits = (box: Box) => box[0] >= 0 && box[1] >= 0 && box[2] <= width && box[3] <= height && !placed.some((b) => overlaps(b, box));
-      const point = candidates.find((p) => fits(boxAt(p, text, labelSize(width)))) ?? candidates[0];
-      placed.push(boxAt(point, text, labelSize(width)));
-      points.set(shape.barangay.number, point);
+      points.set(shape.barangay.number, place(shape.labels, text, labelSize(width)));
     }
     const areas = BARANGAY_SHAPES.map((shape) => ({ shape, d: path(shape.feature) ?? '', point: points.get(shape.barangay.number) }));
     const frameBox = frame && path.bounds(collectionOf(frame));

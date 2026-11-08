@@ -12,7 +12,7 @@ File: carmona-neighbors.json
 From: the same release, topojson-hires.zip, path topojson/provdists/hires/: the files for Cavite
       (402100000), Laguna (403400000), and Metro Manila's Fourth District (1307600000).
       Built by scripts/build-neighbors.ts, which keeps the cities and municipalities that reach into a
-      frame 18% wider and taller than Carmona's extent, clips them to that frame, and adds a label point.
+      frame 18% wider and taller than Carmona's extent, and clips them to that frame.
       It holds Dasmariñas, Silang, Gen. Mariano Alvarez, Biñan, San Pedro, and Santa Rosa. Rebuild with
       npm run build:neighbors -- <topojson/provdists/hires>.
 

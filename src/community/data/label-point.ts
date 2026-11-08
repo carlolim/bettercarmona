@@ -1,10 +1,5 @@
 import type { Position } from 'geojson';
 
-/** A point well inside a shape, for its label. Unlike the centroid, it stays inside long, thin, or bent shapes. */
-export function labelPoint(polygons: Position[][][]): Position {
-  return labelPoints(polygons)[0];
-}
-
 /**
  * Points inside a shape on a grid, best first: farthest from the shape's edges. The map takes the
  * first one whose label doesn't overlap another.
