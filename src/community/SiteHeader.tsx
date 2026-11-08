@@ -7,9 +7,9 @@ import { LanguageSwitch } from './LanguageSwitch';
 import { OFFICIAL_PORTAL_URL } from './links';
 import { stripLocale, useLocale } from './locale';
 
-// Task 007 adds Services when its page is built.
 const NAVIGATION = [
   { key: 'nav.home', href: '/' },
+  { key: 'nav.services', href: '/services' },
   { key: 'nav.hotlines', href: '/hotlines' },
   { key: 'nav.barangays', href: '/barangays' },
   { key: 'nav.government', href: '/government' },

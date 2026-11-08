@@ -3,6 +3,7 @@ import react from '@vitejs/plugin-react';
 import portal from './portal.config';
 import { barangayMapCheck } from './scripts/barangay-map-check';
 import { hotlinesHtml } from './scripts/hotlines-html';
+import { servicesCheck } from './scripts/services-check';
 import { DEFAULT_API, shortNameOf } from './src/config';
 
 const escape = (s: string) => s.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
@@ -30,7 +31,7 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), 'VITE_');
   const api = (env.VITE_API_BASE || portal.api || DEFAULT_API).replace(/\/+$/, '');
   return {
-    plugins: [react(), portalHtml(api), hotlinesHtml(), barangayMapCheck()],
+    plugins: [react(), portalHtml(api), hotlinesHtml(), barangayMapCheck(), servicesCheck()],
     server: {
       host: '0.0.0.0',
       // Reserved in ~/projects/ports.md (transparency-portal). strictPort so a
