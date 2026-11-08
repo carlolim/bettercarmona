@@ -37,6 +37,19 @@
       "title": "Mga emergency hotline",
       "source": "Ang main emergency number, at mga number para sa health, disaster, pulis, bumbero, at barangay, kasama ang source at date."
     },
+    "map": {
+      "heading": "Hanapin ang barangay mo",
+      "intro": "I-tap ang isang barangay sa mapa, o piliin ito sa listahan, para makita ang captain, official page, at mga hotline number nito.",
+      "cityLabel": "Mapa ng 14 na barangay ng City of Carmona",
+      "insetHeading": "Town center: Barangay 1 hanggang 8",
+      "insetLabel": "Mapa ng Barangay 1 hanggang 8 sa town center",
+      "hint": "I-tap ang isang barangay sa mapa.",
+      "listHeading": "Lahat ng 14 na barangay",
+      "credit": "Approximate lang ang mga boundary. Galing ito sa NAMRIA at PSA, sa pamamagitan ng OCHA at philippines-json-maps, PSGC {{psgc}}.",
+      "creditOriginal": "OCHA boundary dataset",
+      "creditDataset": "philippines-json-maps",
+      "creditLicense": "CC BY-IGO license"
+    },
     "services": {
       "heading": "Ano ang kailangan mong gawin?",
       "note": "Aalis ka sa BetterCarmona sa mga link na ito at mapupunta sa sariling mga website ng city. Kinuha namin ang mga ito sa official portal at huling na-check noong {{date}}."
@@ -115,6 +128,14 @@
     "website": "Website ng barangay",
     "unavailable": "Hindi available ang official page: \"not found\" ang lumabas sa link ng city noong {{date}}.",
     "hotlines": "Mga hotline number"
+  },
+  "barangayDialog": {
+    "close": "Isara",
+    "officialPage": "Official page",
+    "captainSource": "Mga source: galing ang captain sa Barangay Officials page ng city, na walang nakalagay na date, as viewed noong {{date}}.",
+    "numbersSource": "Galing ang mga number sa {{app}}, ang official app ng City of Carmona, as viewed noong {{date}}, at ang area code 046 ng mga landline ay galing sa Wikipedia, as viewed noong {{areaCodeDate}}.",
+    "allBarangays": "Tingnan ang lahat ng barangay",
+    "allHotlines": "Tingnan ang lahat ng hotline number"
   },
   "notFound": {
     "message": "Walang ganitong page.",

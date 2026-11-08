@@ -37,6 +37,19 @@
       "title": "Emergency hotlines",
       "source": "Main emergency, health, disaster, police, fire, and barangay numbers, with their source and date."
     },
+    "map": {
+      "heading": "Find your barangay",
+      "intro": "Tap a barangay on the map, or choose it from the list, to see its captain, official page, and hotline numbers.",
+      "cityLabel": "Map of the City of Carmona's 14 barangays",
+      "insetHeading": "Town center: Barangays 1 to 8",
+      "insetLabel": "Map of Barangays 1 to 8 in the town center",
+      "hint": "Tap a barangay on the map.",
+      "listHeading": "All 14 barangays",
+      "credit": "Boundaries are approximate. They are from NAMRIA and PSA, through OCHA and philippines-json-maps, PSGC {{psgc}}.",
+      "creditOriginal": "OCHA boundary dataset",
+      "creditDataset": "philippines-json-maps",
+      "creditLicense": "CC BY-IGO license"
+    },
     "services": {
       "heading": "What do you need to do?",
       "note": "These links leave BetterCarmona and open the city's own websites. We took them from the official portal and last checked them on {{date}}."
@@ -115,6 +128,14 @@
     "website": "The barangay's website",
     "unavailable": "Official page unavailable: the city's link returned \"not found\" on {{date}}.",
     "hotlines": "Hotline numbers"
+  },
+  "barangayDialog": {
+    "close": "Close",
+    "officialPage": "Official page",
+    "captainSource": "Sources: the captain is from the city's Barangay Officials page, which gives no date, as viewed on {{date}}.",
+    "numbersSource": "The numbers are from the {{app}}, the City of Carmona's official app, as viewed on {{date}}, with landlines given area code 046 from Wikipedia, as viewed on {{areaCodeDate}}.",
+    "allBarangays": "See all barangays",
+    "allHotlines": "See all hotline numbers"
   },
   "notFound": {
     "message": "This page does not exist.",

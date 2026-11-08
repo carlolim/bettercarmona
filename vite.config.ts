@@ -1,6 +1,7 @@
 import { defineConfig, loadEnv, type Plugin } from 'vite';
 import react from '@vitejs/plugin-react';
 import portal from './portal.config';
+import { barangayMapCheck } from './scripts/barangay-map-check';
 import { hotlinesHtml } from './scripts/hotlines-html';
 import { DEFAULT_API, shortNameOf } from './src/config';
 
@@ -29,7 +30,7 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), 'VITE_');
   const api = (env.VITE_API_BASE || portal.api || DEFAULT_API).replace(/\/+$/, '');
   return {
-    plugins: [react(), portalHtml(api), hotlinesHtml()],
+    plugins: [react(), portalHtml(api), hotlinesHtml(), barangayMapCheck()],
     server: {
       host: '0.0.0.0',
       // Reserved in ~/projects/ports.md (transparency-portal). strictPort so a

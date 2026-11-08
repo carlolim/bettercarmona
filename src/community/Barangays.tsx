@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useTitle } from '../lib/use-title';
-import { BARANGAY_OFFICIALS_URL, BARANGAYS, BARANGAYS_RECORDED_AT } from './data/barangays';
+import { BARANGAY_OFFICIALS_URL, BARANGAYS, BARANGAYS_RECORDED_AT, barangayTitle } from './data/barangays';
 import { hotlineId, hotlinesDate } from './data/hotlines';
 import { ExternalLink } from './ExternalLink';
 import { useLocale } from './locale';
@@ -19,8 +19,9 @@ export function CommunityBarangays() {
       <p className="barangays-source">{t('barangays.linksChecked', { date })}</p>
 
       <ul className="barangay-list">
-        {BARANGAYS.map(({ number, name, captain, officialPage, hotline }) => {
-          const title = name ? `${t('barangays.number', { number })} (${name})` : t('barangays.number', { number });
+        {BARANGAYS.map((barangay) => {
+          const { number, captain, officialPage, hotline } = barangay;
+          const title = barangayTitle(t, barangay);
           return (
             <li key={number} className="barangay-card">
               <h2>{title}</h2>

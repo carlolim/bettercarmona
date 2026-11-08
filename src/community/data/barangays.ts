@@ -43,3 +43,8 @@ export const BARANGAYS: Barangay[] = [
   { ...fromOfficials, number: 13, name: 'Lantic', captain: 'Alejandro V. Trinidad', officialPage: profile('https://carmonagov.net/portal/barangay-13-lantic-profile/'), hotline: 'Lantic' },
   { ...fromOfficials, number: 14, name: 'Bancal', captain: 'Jefferson M. Levardo', officialPage: profile('https://carmonagov.net/portal/barangay-14-bancal-profile/'), hotline: 'Bancal' },
 ];
+
+/** "Barangay 9 (Maduya)": the number, and the name the officials page gives in brackets. */
+export function barangayTitle(t: (key: string, values: { number: number }) => string, { number, name }: Barangay): string {
+  return name ? `${t('barangays.number', { number })} (${name})` : t('barangays.number', { number });
+}

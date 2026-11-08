@@ -2,7 +2,8 @@
 
 ## BetterCatanduanes
 
-The route split and the site header layout in `src/community/` and `src/App.tsx` are adapted from
+The route split, the site header layout, and the barangay map's drawing and shape handling
+(`src/community/BarangayMap.tsx`, `src/community/data/barangay-map.ts`) in `src/community/` and `src/App.tsx` are adapted from
 [BetterCatanduanes](https://github.com/VLDCNDN/bettercatanduanes), under the MIT License:
 
     Copyright (c) 2026 BetterGov.ph
@@ -24,6 +25,15 @@ The route split and the site header layout in `src/community/` and `src/App.tsx`
     LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
     SOFTWARE.
+
+## Barangay boundaries
+
+`src/community/data/boundaries/` holds the City of Carmona's barangay boundaries from
+[philippines-json-maps](https://github.com/faeldon/philippines-json-maps) release v1.1.1, under the MIT License
+(Copyright (c) James Faeldon). They are built from OCHA's
+[Philippines administrative boundaries (COD-AB)](https://data.humdata.org/dataset/cod-ab-phl) by NAMRIA and PSA,
+licensed [CC BY-IGO 3.0](http://creativecommons.org/licenses/by/3.0/igo/legalcode). The full notice, the release, and
+the checksums are in `src/community/data/boundaries/LICENSE.txt`, and the home page credits the source.
 
 ## Figtree
 

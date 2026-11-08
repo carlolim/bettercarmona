@@ -81,7 +81,7 @@ function HotlineRow({ hotline, t }: { hotline: Hotline; t: Translate }) {
   );
 }
 
-function NumberEntry({ number, name, t }: { number: HotlineNumber; name: string; t: Translate }) {
+export function NumberEntry({ number, name, t }: { number: HotlineNumber; name: string; t: Translate }) {
   return (
     <>
       <NumberLinks number={number} name={name} t={t} />

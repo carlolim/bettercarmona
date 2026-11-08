@@ -1,5 +1,6 @@
 import { Link, Navigate, useLocation } from 'react-router-dom';
 import { useTitle } from '../lib/use-title';
+import { BarangayFinder } from './BarangayFinder';
 import { HOME_LINKS_CHECKED_ON, HOME_OFFICIAL_SITES, HOME_SERVICES, type HomeLink } from './data/home-links';
 import { ExternalLink } from './ExternalLink';
 import { PhoneIcon } from './HotlinesContent';
@@ -32,6 +33,8 @@ export function CommunityHome() {
 
       <h1>{t('home.heading')}</h1>
       <p className="lede">{t('home.intro')} <Link to={path('/about')}>{t('home.whoRuns')}</Link></p>
+
+      <BarangayFinder />
 
       <section aria-labelledby="home-services">
         <h2 id="home-services">{t('home.services.heading')}</h2>
