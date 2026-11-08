@@ -149,6 +149,7 @@
 .hotline-link:hover { background: var(--accent-soft); color: var(--accent); }
 .hotline-link svg { flex-shrink: 0; }
 .hotline-text { font-size: 16px; color: var(--ink-2); overflow-wrap: anywhere; }
+.hotline-hours { margin: -4px 0 8px; font-size: 14px; color: var(--ink-3); }
 .hotline-official { display: inline-flex; align-items: center; gap: 4px; min-height: 44px; }
 
 .site-footer { border-top: 1px solid var(--rule); background: var(--paper-2); }

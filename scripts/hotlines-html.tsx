@@ -5,7 +5,6 @@
 import i18next from 'i18next';
 import { renderToStaticMarkup } from 'react-dom/server';
 import type { Plugin } from 'vite';
-import { hotlinesDate } from '../src/community/data/hotlines.ts';
 import { HotlinesContent } from '../src/community/HotlinesContent.tsx';
 import { OFFICIAL_PORTAL_URL } from '../src/community/links.ts';
 import en from '../src/community/locales/en.json';
@@ -28,7 +27,7 @@ function render(shell: string, { locale, translation }: (typeof PAGES)[number]):
         </div>
       </div>
       <main className="page main community-hotlines">
-        <HotlinesContent t={t} date={hotlinesDate(locale)} />
+        <HotlinesContent t={t} locale={locale} />
       </main>
       <footer className="site-footer">
         <div className="page site-footer-inner">

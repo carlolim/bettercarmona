@@ -34,7 +34,7 @@
     "whoRuns": "Sino ang nagpapatakbo ng site na ito",
     "hotlines": {
       "title": "Mga emergency hotline",
-      "source": "Ang main emergency number at mga barangay number, kasama ang source at date."
+      "source": "Ang main emergency number, at mga number para sa health, disaster, pulis, bumbero, at barangay, kasama ang source at date."
     },
     "services": {
       "heading": "Ano ang kailangan mong gawin?",
@@ -81,23 +81,25 @@
   "hotlines": {
     "pageTitle": "Mga emergency hotline",
     "heading": "Mga emergency hotline",
-    "source": "Source: {{app}}, as viewed noong {{date}}. Kung hindi kumonekta ang number, i-check ang app.",
+    "source": "Source: {{app}}, ang official app ng City of Carmona, as viewed noong {{date}}. Kung hindi kumonekta ang number, i-check ang app.",
     "call": "Tumawag",
     "text": "Mag-text",
     "main": {
       "heading": "Main emergency number",
       "note": "Magkakaiba ang pangalan ng tatlong ito sa app, pero iisang number lang sila."
     },
+    "city": {
+      "heading": "Health, disaster, pulis, at bumbero",
+      "source": "Source: ang health at emergency hotline numbers ng City of Carmona, isang image na na-post sa official website nito noong June 2024, as viewed noong {{date}}.",
+      "link": "Tingnan ang image",
+      "note": "Ang 0917-112-0291 ay ang main emergency number sa itaas, iba lang ang pagkakasulat."
+    },
     "barangays": {
       "heading": "Mga barangay",
       "number": "Barangay {{number}}",
-      "landlines": "Ipinapakita ang mga number na walang button kung paano sila nakalista sa app. Walang area code ang mga ito sa app, kaya baka hindi kumonekta kapag tinawagan mula sa mobile phone.",
+      "landlines": "Walang area code ang mga landline sa app. Idinagdag namin ang {{areaCode}}, ang area code ng Carmona ayon sa Wikipedia, as viewed noong {{date}}.",
+      "landlinesLink": "Tingnan ang Wikipedia article",
       "numbers": "Galing sa menu ng official portal ng city ang mga barangay number na nasa bracket, as saved noong {{date}}."
-    },
-    "other": {
-      "heading": "Pulis, bumbero, at medical",
-      "body": "Walang hiwalay na number para sa pulis, bumbero, o medical sa listahan ng app. Ang sariling hotline list ng city, na na-post noong June 2024, ay may mga number para sa health, disaster, pulis, at bumbero.",
-      "link": "Tingnan ang hotline list ng city"
     }
   },
   "notFound": {

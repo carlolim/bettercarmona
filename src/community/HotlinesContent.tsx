@@ -1,5 +1,7 @@
-import { HOTLINES, HOTLINES_SOURCE, type Hotline, type HotlineNumber } from './data/hotlines';
-import { OFFICIAL_HOTLINES_URL } from './links';
+import {
+  AREA_CODE, AREA_CODE_RECORDED_AT, AREA_CODE_SOURCE_URL, CITY_GRAPHIC_RECORDED_AT, CITY_GRAPHIC_SOURCE,
+  HOTLINES, HOTLINES_RECORDED_AT, HOTLINES_SOURCE, hotlinesDate, type Hotline, type HotlineNumber,
+} from './data/hotlines';
 
 type Translate = (key: string, values?: Record<string, string | number>) => string;
 
@@ -7,13 +9,14 @@ type Translate = (key: string, values?: Record<string, string | number>) => stri
  * The hotlines page's content. It needs no router or JavaScript in the browser, so the
  * build can also write it into the page's HTML. See scripts/hotlines-html.tsx.
  */
-export function HotlinesContent({ t, date }: { t: Translate; date: string }) {
+export function HotlinesContent({ t, locale }: { t: Translate; locale: 'en' | 'fil' }) {
   const [primary, ...otherMain] = HOTLINES.filter(({ group }) => group === 'main');
+  const city = HOTLINES.filter(({ group }) => group === 'city');
   const barangays = HOTLINES.filter(({ group }) => group === 'barangay');
   return (
     <>
       <h1>{t('hotlines.heading')}</h1>
-      <p className="hotlines-source">{t('hotlines.source', { app: HOTLINES_SOURCE, date })}</p>
+      <p className="hotlines-source">{t('hotlines.source', { app: HOTLINES_SOURCE, date: hotlinesDate(locale, HOTLINES_RECORDED_AT) })}</p>
 
       <section aria-labelledby="hotlines-main">
         <h2 id="hotlines-main">{t('hotlines.main.heading')}</h2>
@@ -30,24 +33,34 @@ export function HotlinesContent({ t, date }: { t: Translate; date: string }) {
         <p className="hotlines-note">{t('hotlines.main.note')}</p>
       </section>
 
+      <section aria-labelledby="hotlines-city">
+        <h2 id="hotlines-city">{t('hotlines.city.heading')}</h2>
+        <p className="hotlines-source">
+          {t('hotlines.city.source', { date: hotlinesDate(locale, CITY_GRAPHIC_RECORDED_AT) })}{' '}
+          <a href={CITY_GRAPHIC_SOURCE} target="_blank" rel="noopener" className="hotline-official">
+            {t('hotlines.city.link')} <span aria-hidden="true">↗</span>
+            <span className="sr-only"> {t('opensInNewTab')}</span>
+          </a>
+        </p>
+        <ul className="hotline-list">
+          {city.map((hotline) => <HotlineRow key={hotline.label} hotline={hotline} t={t} />)}
+        </ul>
+        <p className="hotlines-note">{t('hotlines.city.note')}</p>
+      </section>
+
       <section aria-labelledby="hotlines-barangays">
         <h2 id="hotlines-barangays">{t('hotlines.barangays.heading')}</h2>
         <ul className="hotline-list">
           {barangays.map((hotline) => <HotlineRow key={hotline.label} hotline={hotline} t={t} />)}
         </ul>
-        <p className="hotlines-note">{t('hotlines.barangays.landlines')}</p>
-        <p className="hotlines-note">{t('hotlines.barangays.numbers', { date })}</p>
-      </section>
-
-      <section aria-labelledby="hotlines-other">
-        <h2 id="hotlines-other">{t('hotlines.other.heading')}</h2>
-        <p>{t('hotlines.other.body')}</p>
-        <p>
-          <a href={OFFICIAL_HOTLINES_URL} target="_blank" rel="noopener" className="hotline-official">
-            {t('hotlines.other.link')} <span aria-hidden="true">↗</span>
+        <p className="hotlines-note">
+          {t('hotlines.barangays.landlines', { areaCode: AREA_CODE, date: hotlinesDate(locale, AREA_CODE_RECORDED_AT) })}{' '}
+          <a href={AREA_CODE_SOURCE_URL} target="_blank" rel="noopener" className="hotline-official">
+            {t('hotlines.barangays.landlinesLink')} <span aria-hidden="true">↗</span>
             <span className="sr-only"> {t('opensInNewTab')}</span>
           </a>
         </p>
+        <p className="hotlines-note">{t('hotlines.barangays.numbers', { date: hotlinesDate(locale, HOTLINES_RECORDED_AT) })}</p>
       </section>
     </>
   );
@@ -60,6 +73,7 @@ function HotlineRow({ hotline, t }: { hotline: Hotline; t: Translate }) {
   return (
     <li className="hotline-row">
       <h3>{name}</h3>
+      {hotline.hours && <p className="hotline-hours">{hotline.hours}</p>}
       <ul className="hotline-numbers">
         {hotline.numbers.map((number) => <li key={number.display}><NumberEntry number={number} name={name} t={t} /></li>)}
       </ul>
@@ -67,7 +81,17 @@ function HotlineRow({ hotline, t }: { hotline: Hotline; t: Translate }) {
   );
 }
 
-function NumberEntry({ number: { display, dial, sms }, name, t }: { number: HotlineNumber; name: string; t: Translate }) {
+function NumberEntry({ number, name, t }: { number: HotlineNumber; name: string; t: Translate }) {
+  return (
+    <>
+      <NumberLinks number={number} name={name} t={t} />
+      {number.note && <span className="hotline-text">{number.note}</span>}
+    </>
+  );
+}
+
+function NumberLinks({ number: { display: shown, dial, sms, areaCode }, name, t }: { number: HotlineNumber; name: string; t: Translate }) {
+  const display = areaCode ? `(${areaCode}) ${shown}` : shown;
   if (dial && sms) {
     return (
       <>

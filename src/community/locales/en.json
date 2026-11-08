@@ -34,7 +34,7 @@
     "whoRuns": "Who runs this site",
     "hotlines": {
       "title": "Emergency hotlines",
-      "source": "The main emergency number and barangay numbers, with their source and date."
+      "source": "Main emergency, health, disaster, police, fire, and barangay numbers, with their source and date."
     },
     "services": {
       "heading": "What do you need to do?",
@@ -81,23 +81,25 @@
   "hotlines": {
     "pageTitle": "Emergency hotlines",
     "heading": "Emergency hotlines",
-    "source": "Source: {{app}}, as viewed on {{date}}. If a number doesn't connect, check the app.",
+    "source": "Source: {{app}}, the City of Carmona's official app, as viewed on {{date}}. If a number doesn't connect, check the app.",
     "call": "Call",
     "text": "Text",
     "main": {
       "heading": "Main emergency number",
       "note": "The app lists these three under different names. They are the same number."
     },
+    "city": {
+      "heading": "Health, disaster, police, and fire",
+      "source": "Source: the City of Carmona's health and emergency hotline numbers, an image posted on its official website in June 2024, as viewed on {{date}}.",
+      "link": "See the image",
+      "note": "0917-112-0291 is the main emergency number above, written differently."
+    },
     "barangays": {
       "heading": "Barangays",
       "number": "Barangay {{number}}",
-      "landlines": "Numbers without a button are shown as the app lists them. The app gives them no area code, so they may not connect from a mobile phone.",
+      "landlines": "The app lists landlines without an area code. We added {{areaCode}}, Carmona's area code as given on Wikipedia, viewed on {{date}}.",
+      "landlinesLink": "See the Wikipedia article",
       "numbers": "The barangay numbers in brackets come from the menu of the city's official portal, as saved on {{date}}."
-    },
-    "other": {
-      "heading": "Police, fire, and medical",
-      "body": "The app's list has no separate police, fire, or medical numbers. The city's own hotline list, posted June 2024, has health, disaster, police, and fire numbers.",
-      "link": "See the city's hotline list"
     }
   },
   "notFound": {
