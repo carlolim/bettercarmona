@@ -2,8 +2,6 @@
 export const BARANGAY_OFFICIALS_URL = 'https://carmonagov.net/portal/barangay-officials/';
 /** The day the officials page was read and every official page link below was checked. */
 export const BARANGAYS_RECORDED_AT = '2026-11-08';
-/** Linked from the portal's menu as "Barangay Profile Map". Plain HTTP on a bare IP address; it didn't connect when checked. */
-export const BARANGAY_MAP_URL = 'http://119.92.77.137/brgyprofile/';
 
 export interface Barangay {
   number: number;

@@ -114,11 +114,7 @@
     "profile": "Profile sa website ng city",
     "website": "Website ng barangay",
     "unavailable": "Hindi available ang official page: \"not found\" ang lumabas sa link ng city noong {{date}}.",
-    "hotlines": "Mga hotline number",
-    "map": {
-      "heading": "Barangay map",
-      "body": "May link ang website ng city sa isang barangay profile map. Plain HTTP address ito sa isang IP number, hindi sa sariling domain ng city, kaya hindi secure ang connection. Hindi ito nag-load nang i-check namin noong {{date}}, kaya hindi namin ito nili-link."
-    }
+    "hotlines": "Mga hotline number"
   },
   "notFound": {
     "message": "Walang ganitong page.",

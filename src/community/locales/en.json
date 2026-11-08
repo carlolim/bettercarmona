@@ -114,11 +114,7 @@
     "profile": "Profile on the city's website",
     "website": "The barangay's website",
     "unavailable": "Official page unavailable: the city's link returned \"not found\" on {{date}}.",
-    "hotlines": "Hotline numbers",
-    "map": {
-      "heading": "Barangay map",
-      "body": "The city's website links to a barangay profile map. Its address is a plain HTTP address on a bare IP number, not the city's own domain, so the connection isn't secure. It didn't load when we checked on {{date}}, so we don't link to it."
-    }
+    "hotlines": "Hotline numbers"
   },
   "notFound": {
     "message": "This page does not exist.",

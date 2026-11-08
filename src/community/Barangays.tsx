@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useTitle } from '../lib/use-title';
-import { BARANGAY_MAP_URL, BARANGAY_OFFICIALS_URL, BARANGAYS, BARANGAYS_RECORDED_AT } from './data/barangays';
+import { BARANGAY_OFFICIALS_URL, BARANGAYS, BARANGAYS_RECORDED_AT } from './data/barangays';
 import { hotlineId, hotlinesDate } from './data/hotlines';
 import { ExternalLink } from './ExternalLink';
 import { useLocale } from './locale';
@@ -48,12 +48,6 @@ export function CommunityBarangays() {
           );
         })}
       </ul>
-
-      <section aria-labelledby="barangays-map">
-        <h2 id="barangays-map">{t('barangays.map.heading')}</h2>
-        <p>{t('barangays.map.body', { date })}</p>
-        <p className="barangay-map-address">{BARANGAY_MAP_URL}</p>
-      </section>
     </main>
   );
 }
