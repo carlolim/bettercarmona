@@ -15,6 +15,7 @@
     "openMenu": "Buksan ang menu",
     "home": "Home",
     "hotlines": "Hotlines",
+    "barangays": "Mga barangay",
     "transparency": "Transparency",
     "about": "About"
   },
@@ -100,6 +101,23 @@
       "landlines": "Walang area code ang mga landline sa app. Idinagdag namin ang {{areaCode}}, ang area code ng Carmona ayon sa Wikipedia, as viewed noong {{date}}.",
       "landlinesLink": "Tingnan ang Wikipedia article",
       "numbers": "Galing sa menu ng official portal ng city ang mga barangay number na nasa bracket, as saved noong {{date}}."
+    }
+  },
+  "barangays": {
+    "pageTitle": "Mga barangay",
+    "heading": "Mga barangay",
+    "source": "Galing ang mga pangalan at barangay captain sa Barangay Officials page ng city, na walang nakalagay na date, as viewed noong {{date}}.",
+    "sourceLink": "Tingnan ang officials page",
+    "linksChecked": "Galing sa menu ng website ng city ang mga link sa official page ng bawat barangay. Na-check namin ang mga ito noong {{date}}.",
+    "number": "Barangay {{number}}",
+    "captain": "Barangay captain",
+    "profile": "Profile sa website ng city",
+    "website": "Website ng barangay",
+    "unavailable": "Hindi available ang official page: \"not found\" ang lumabas sa link ng city noong {{date}}.",
+    "hotlines": "Mga hotline number",
+    "map": {
+      "heading": "Barangay map",
+      "body": "May link ang website ng city sa isang barangay profile map. Plain HTTP address ito sa isang IP number, hindi sa sariling domain ng city, kaya hindi secure ang connection. Hindi ito nag-load nang i-check namin noong {{date}}, kaya hindi namin ito nili-link."
     }
   },
   "notFound": {

@@ -15,6 +15,7 @@
     "openMenu": "Open menu",
     "home": "Home",
     "hotlines": "Hotlines",
+    "barangays": "Barangays",
     "transparency": "Transparency",
     "about": "About"
   },
@@ -100,6 +101,23 @@
       "landlines": "The app lists landlines without an area code. We added {{areaCode}}, Carmona's area code as given on Wikipedia, viewed on {{date}}.",
       "landlinesLink": "See the Wikipedia article",
       "numbers": "The barangay numbers in brackets come from the menu of the city's official portal, as saved on {{date}}."
+    }
+  },
+  "barangays": {
+    "pageTitle": "Barangays",
+    "heading": "Barangays",
+    "source": "Names and barangay captains are from the city's Barangay Officials page, which gives no date, as viewed on {{date}}.",
+    "sourceLink": "See the officials page",
+    "linksChecked": "The links to each barangay's official page are from the city website's menu. We checked them on {{date}}.",
+    "number": "Barangay {{number}}",
+    "captain": "Barangay captain",
+    "profile": "Profile on the city's website",
+    "website": "The barangay's website",
+    "unavailable": "Official page unavailable: the city's link returned \"not found\" on {{date}}.",
+    "hotlines": "Hotline numbers",
+    "map": {
+      "heading": "Barangay map",
+      "body": "The city's website links to a barangay profile map. Its address is a plain HTTP address on a bare IP number, not the city's own domain, so the connection isn't secure. It didn't load when we checked on {{date}}, so we don't link to it."
     }
   },
   "notFound": {

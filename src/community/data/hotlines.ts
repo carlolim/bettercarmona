@@ -92,6 +92,11 @@ export const HOTLINES: Hotline[] = [
   { ...fromApp, group: 'barangay', label: 'Bancal', barangayNumber: 14, numbers: [{ display: '0995-352-1479', dial: '09953521479' }, landline('430-3388'), landline('430-2601')] },
 ];
 
+/** The anchor of a hotline's row on the hotlines page. */
+export function hotlineId(label: string): string {
+  return `hotline-${label.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
+}
+
 export function hotlinesDate(locale: 'en' | 'fil', date = HOTLINES_RECORDED_AT): string {
   return new Intl.DateTimeFormat(locale === 'fil' ? 'fil-PH' : 'en-PH', {
     timeZone: 'Asia/Manila', year: 'numeric', month: 'long', day: 'numeric',

@@ -1,6 +1,6 @@
 import {
   AREA_CODE, AREA_CODE_RECORDED_AT, AREA_CODE_SOURCE_URL, CITY_GRAPHIC_RECORDED_AT, CITY_GRAPHIC_SOURCE,
-  HOTLINES, HOTLINES_RECORDED_AT, HOTLINES_SOURCE, hotlinesDate, type Hotline, type HotlineNumber,
+  HOTLINES, HOTLINES_RECORDED_AT, HOTLINES_SOURCE, hotlineId, hotlinesDate, type Hotline, type HotlineNumber,
 } from './data/hotlines';
 
 type Translate = (key: string, values?: Record<string, string | number>) => string;
@@ -71,7 +71,7 @@ function HotlineRow({ hotline, t }: { hotline: Hotline; t: Translate }) {
     ? `${hotline.label} (${t('hotlines.barangays.number', { number: hotline.barangayNumber })})`
     : hotline.label;
   return (
-    <li className="hotline-row">
+    <li className="hotline-row" id={hotlineId(hotline.label)}>
       <h3>{name}</h3>
       {hotline.hours && <p className="hotline-hours">{hotline.hours}</p>}
       <ul className="hotline-numbers">
