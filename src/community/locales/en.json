@@ -166,7 +166,7 @@
     "intro": "What a city service needs, what it costs, and where to go, as the City of Carmona's Citizen's Charter states it.",
     "source": "Source: the City Government of Carmona's {{title}}, {{edition}}, downloaded and read on {{date}}. Each service links to its page in the charter.",
     "sourceLink": "See the charter (PDF)",
-    "coverage": "So far this covers the Office of the City Civil Registrar. More offices will be added.",
+    "coverage": "So far this covers the categories below. Other offices' services will be added.",
     "checkedOn": "(checked {{date}})",
     "officePage": "The office's page on the city's website",
     "allServices": "All city services",
@@ -190,7 +190,10 @@
     "fees": "Fees",
     "time": "Processing time",
     "total": "Total, as the charter states it",
-    "noTotalFee": "The charter's total gives no fee. See the payment step above."
+    "noTotalFee": "The charter's total gives no fee. See the payment step above.",
+    "whereAll": "Where to get them (the charter gives one answer for the whole list):",
+    "span_one": "(also covers the next step)",
+    "span_other": "(also covers the next {{count}} steps)"
   },
   "notFound": {
     "message": "This page does not exist.",

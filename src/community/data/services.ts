@@ -42,16 +42,22 @@ export interface Requirement {
 }
 
 export interface ServiceRow {
-  /** The charter's "agency action". Absent where the charter leaves it blank. */
+  /** The charter's "agency action". Absent where the charter leaves it blank. Line breaks separate parts of one cell. */
   action?: string;
   /** Each line of "fees to be paid". Absent where the charter leaves it blank. */
   fee?: string[];
   /** Each line of "processing time". Absent where the charter leaves it blank. */
   time?: string[];
+  /** Where the charter's fee cell spans the steps after this one: how many steps it covers, this one included. Only on a step's last row. */
+  feeSteps?: number;
+  /** The same, for the time cell. */
+  timeSteps?: number;
 }
 
 export interface ServiceStep {
-  /** The charter's "client step". */
+  /** A heading the charter prints above this step, starting a separate set of steps. */
+  heading?: string;
+  /** The charter's "client step". Line breaks separate parts of one cell. */
   client: string;
   rows: ServiceRow[];
 }
@@ -71,6 +77,8 @@ export interface Service {
   transactionType: string;
   whoMayAvail: string[];
   requirements: Requirement[];
+  /** Where the charter gives one "where to secure" cell for the whole list. */
+  requirementsWhere?: string[];
   /** Notes printed with the requirements. */
   notes?: string[];
   steps: ServiceStep[];
@@ -79,6 +87,8 @@ export interface Service {
   /** First and last printed page of the service. */
   pages: [number, number];
   source: ServiceSource;
+  /** The city's online system for this service, where the charter names one. */
+  online?: { label: LocalizedString; url: string; checkedOn: string };
   /** Things in the charter a reader should know, such as a total that differs from the steps. Shown on the page. */
   caveats?: LocalizedString[];
   /** Typos corrected in this transcription, as "published -> written here". Not shown. */
@@ -89,11 +99,18 @@ export interface ServiceCategory {
   id: string;
   title: LocalizedString;
   description: LocalizedString;
-  /** The office's page on the city's website, from src/community/data/government.ts. */
+  /** The office's page on the city's website, from src/community/data/government.ts. Absent where the category spans offices. */
   officeUrl?: string;
   /** The city's own page or system for these services, if any. */
   online?: { label: LocalizedString; url: string; checkedOn: string };
 }
+
+/** The city's online business permit system. The charter names it in the eBOSS services; the address is from src/community/data/home-links.ts. */
+const EBOSS = {
+  label: { en: "eBOSS, the city's online business permit system", fil: 'eBOSS, ang online na sistema ng lungsod para sa business permit' },
+  url: 'https://egovcarmona.ph/carmona_bpl/',
+  checkedOn: '2026-11-05',
+};
 
 export const SERVICE_CATEGORIES: ServiceCategory[] = [
   {
@@ -110,6 +127,24 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
       checkedOn: '2026-11-05',
     },
   },
+  {
+    id: 'business',
+    title: { en: 'Business permits and registration', fil: 'Business permit at rehistro ng negosyo' },
+    description: {
+      en: "Business permits from the City Treasurer, including online through eBOSS, the zoning and environment clearances a business permit needs, and DTI business name and BMBE registration at LEDIPO's Negosyo Center.",
+      fil: 'Mga business permit mula sa City Treasurer, kasama ang online sa eBOSS, ang zoning at environment clearance na kailangan ng business permit, at ang rehistro ng business name sa DTI at ng BMBE sa Negosyo Center ng LEDIPO.',
+    },
+    online: EBOSS,
+  },
+  {
+    id: 'treasury',
+    title: { en: "Cedula, tax clearance, and other Treasurer's services", fil: 'Cedula, tax clearance, at iba pang serbisyo ng Treasurer' },
+    description: {
+      en: 'The community tax certificate (cedula), working permit, professional tax receipt, and tax clearance, from the Office of the City Treasurer.',
+      fil: 'Ang community tax certificate (cedula), working permit, professional tax receipt, at tax clearance, mula sa Office of the City Treasurer.',
+    },
+    officeUrl: 'https://carmonagov.net/portal/municipal-treasurers-office/',
+  },
 ];
 
 const charter = { source: CITIZENS_CHARTER_2026 };
@@ -117,10 +152,11 @@ const lcr = { ...charter, category: 'civil-registry', office: 'Local Civil Regis
 
 const NONE = ['None'];
 /** One row of the steps table. */
-const row = (action: string | undefined, fee?: string | string[], time?: string | string[]): ServiceRow => ({
+const row = (action: string | undefined, fee?: string | string[], time?: string | string[], spans?: Pick<ServiceRow, 'feeSteps' | 'timeSteps'>): ServiceRow => ({
   ...(action ? { action } : {}),
   ...(fee ? { fee: typeof fee === 'string' ? [fee] : fee } : {}),
   ...(time ? { time: typeof time === 'string' ? [time] : time } : {}),
+  ...spans,
 });
 const req = (text: string, where?: string | string[], items?: Requirement[]): Requirement => ({
   text,
@@ -175,6 +211,127 @@ const CREMATION_FEES = [
 const PETITION_WHO = ['Parents', 'Document owners', 'Attorneys-in-Fact'];
 const RA_9048_DESCRIPTION =
   'Authorizes the city/municipal civil registrar or the consul general to correct a clerical error or typographical error in an entry and/or change of first name or nick name in the civil register without need of judicial order.';
+
+// Shared by the business and Treasurer services.
+const businessTransaction = 'G2C - Government to Citizen; G2B - Government to Businesses';
+const treasurer = { ...charter, office: 'Office of the City Treasurer' };
+const ledipo = { ...charter, category: 'business', office: 'Local Economic Development and Investment Promotion Office (LEDIPO)', transactionType: businessTransaction };
+const zoning = { ...charter, category: 'business', office: 'Office of the City Zoning Administrator', transactionType: businessTransaction, whoMayAvail: ['All'] };
+const ocenro = {
+  ...charter,
+  category: 'business',
+  office: 'Office of the City Environment & Natural Resources Officer (OCENRO)',
+  classification: 'Highly Technical',
+  transactionType: businessTransaction,
+  whoMayAvail: ['All'],
+};
+
+const RATES = 'Based on tax, fees and charges (see attached copy of rates)';
+
+const TOTAL_SAYS_NONE: LocalizedString = {
+  en: 'The charter\'s total says "None", but a step above lists a fee.',
+  fil: 'Nakasulat na "None" ang kabuuan sa charter, pero may bayad sa isa sa mga hakbang sa itaas.',
+};
+const UNLABELED_TIMES: LocalizedString = {
+  en: 'The charter splits some processing times into columns without labels. They are shown here separated by slashes, in the charter\'s order.',
+  fil: 'Hinati ng charter ang ilang tagal ng pagproseso sa mga hanay na walang label. Nakahiwalay ang mga ito dito sa pamamagitan ng slash, ayon sa pagkakasunod sa charter.',
+};
+
+/** As printed, including its unmatched brackets. */
+const RENEWAL_REQUIREMENTS = [
+  req('Declaration of Gross Sales/Receipts'),
+  req('Previous year BIR Form', undefined, [req('(1702Q/1701Q - 1st to 3rd Quarters'), req('2550M/2551M - October & November')]),
+  req('Gross Sales/Receipts or 2550Q/2551Q - December)'),
+];
+
+const PTR_FEES = ['1. PHP300.00', '2. Surcharge = 25% of PHP 300.00', '3. Interest = of PHP 300.00 per month'];
+
+const DTI_FEES = [
+  'Based on Territorial Scope:',
+  'Barangay (₱200.00); City/Municipality (₱500.00); Regional (₱1000.00); National (₱2000.00)',
+  'and',
+  'Total fees to include:',
+  '₱30.00 for Documentary Stamp Tax (DST)',
+];
+const DTI_TOTAL = ['₱ 230.00;', '₱ 530.00;', '₱ 1,030.00;', 'or ₱ 2,030.00'];
+
+const PROOF_OF_OWNERSHIP =
+  'Copy of Transfer Certificate of Title (TCT) / Pro-forma Affidavit / Notarized Deed of Sale / Contract of Lease, or Proof of Ownership, Tax Declaration/ Authority to Move In/ Certificate of Award/ Owners Consent/ Authorization Letter/ Extra Judicial Settlement/ Real Property Tax Receipt';
+
+/** Medium- and high-risk requirements for a new business's OCENRO clearance, which differ only in items 6 and 9. */
+const ocenroRiskRequirements = (certificate: string, inspection: string) => [
+  req('Development Permit or Development Permit Requirement/s (if deferred) or Lot Plan/ Development Plan', 'Local Government Unit/Proponent'),
+  req('Proof of ownership (OCT/TCT/Lease Contract)', 'Local Government Unit'),
+  req('Building Permit or Building Permit Requirement/s (if deferred)', 'Local Government Unit/Proponent'),
+  req('Certificate of Occupancy or Certificate of Occupancy Requirement/s (if deferred)', 'Local Government Unit/Proponent'),
+  req('Locational Clearance/ Zoning Certificate', 'Office of the City Zoning Administrator'),
+  req(certificate, 'DENR-EMB 4A'),
+  req('DOST-PHIVOLCS Earthquake Hazard Assessment (near identified fault line)', 'DOST-PHIVOLCS'),
+  req('Environmental Protection Fee', 'OCENRO'),
+  req(inspection, 'OCENRO'),
+  req('Other requirements as per assessment:', undefined, [
+    req('DENR/LLDA Accredited PCO', 'DENR-EMB 4A/LLDA'),
+    req('LLDA Clearance', 'LLDA'),
+    req('LLDA Discharge Permit', 'LLDA'),
+    req('DENR Permit to Operate (Air Pollution Control Installation)', 'DENR-EMB 4A'),
+    req('DENR Hazardous Waste ID', 'DENR-EMB4A'),
+    req('NWRB Water Permit', 'National Water Resources Board'),
+    req('CWD Certification for Flow Meter Installation', 'Carmona Water District'),
+    req('DENR Certificate of Registration as Lumber Dealer/Certificate of Registration as Importer of Lumber and Wood Materials', 'DENR-PENRO Cavite'),
+  ]),
+];
+
+/** The first five requirements for recycling businesses and motor shops. */
+const OCENRO_SITE_REQUIREMENTS = [
+  req('Development Permit or Development Permit Requirement/s (if deferred) or Lot Plan/Development Plan', 'Office of the City Zoning Administrator/ Proponent'),
+  req('Proof of ownership (OCT/TCT/Lease Contract)', 'Local Government Unit/ Proponent'),
+  req('Building Permit or Building Permit Requirement/s (if deferred)', 'Office of the City Building Official/ Proponent'),
+  req('Certificate of Occupancy or Certificate of Occupancy Requirement/s (if deferred)', 'Office of the City Building Official/ Proponent'),
+  req('Locational Clearance/Zoning Certificate', 'Office of the City Zoning Administrator'),
+];
+
+/** The last seven requirements for recycling businesses and motor shops. */
+const OCENRO_PERMIT_REQUIREMENTS = [
+  req('LLDA Clearance', 'LLDA'),
+  req('LLDA Discharge Permit', 'LLDA'),
+  req('DENR Permit to Operate (Air Pollution Source and Control Installations)', 'DENR-EMB'),
+  req('DENR Hazardous Waste Generator ID', 'DENR-EMB'),
+  req('LLDA/DENR Accredited Pollution Control Officer (PCO)', 'LLDA/DENR-EMB'),
+  req('Environmental Protection Fee (EPF)', 'OCENRO'),
+  req('OCENRO Form No. 014 (Inspection Report)', 'OCENRO'),
+];
+
+/** OCENRO's first action, naming its application form, such as "006 New Business Permit Application". */
+const ocenroInterview = (form: string) =>
+  `Interview Client; instruct to sign in the VISITOR'S LOGBOOK and handout OCENRO Form No.${form} and Client Satisfaction Measurement (CSM) Form\n[Give OCENRO Form No. ${form.trim().slice(0, 3)}; ask client to have it filled out by knowledgeable personnel and return filled out form for evaluation of requirements; Retrieve the unfilled CSM Form]`;
+const OCENRO_ASSESS = 'Assess completeness and veracity of requirements. Discuss and agree with client possible schedule of on-site inspection';
+const OCENRO_INSPECT = 'Conduct on-site inspection and prepare the OCENRO Form No. 014 (Inspection Report)';
+const OCENRO_CSM: ServiceStep = {
+  client: 'Completely fill-out the Client Satisfaction Measurement (CSM) Form and place in the designated drop box.',
+  rows: [row('Remind client to fill-out the Client Satisfaction Measurement (CSM) Form.', '-', '3 minutes')],
+};
+
+/** The steps for recycling businesses and motor shops, which differ only in the form. */
+const ocenroNewSteps = (number: string, form: string): ServiceStep[] => [
+  { client: 'Provide business information required\n[Client unable to provide requirements]', rows: [row(ocenroInterview(form), '-', '5 minutes')] },
+  {
+    client: `Check and accomplish OCENRO Form No. ${number} and inquire detailed explanation/ elaboration of requirements`,
+    rows: [row('Explain in detail the requirement/s; Inform client that an on-site inspection must be conducted', '-', '2 minutes/ requirement')],
+  },
+  { client: 'Provide requirements', rows: [row(OCENRO_ASSESS, '-')] },
+  { client: 'Assist the OCENRO inspector in conducting the on-site inspection', rows: [row(OCENRO_INSPECT, '-', '60 minutes')] },
+  {
+    client: 'Client submits complete requirements\nClient submits incomplete requirements',
+    rows: [
+      row(
+        `Provide OCENRO Clearance Certificate No. 003; record and keep OCENRO Form No. ${number}. Ask the client for other concerns and direct them to the necessary office/s, if applicable\nProvide TEMPORARY OCENRO Clearance SUBJECT to submission of required document/s: 3 months: CNC and other clearances 6 months: ECC; Let client sign deferment form.`,
+        '-',
+        '3 minutes',
+      ),
+    ],
+  },
+  OCENRO_CSM,
+];
 
 export const SERVICES: Service[] = [
   {
@@ -968,6 +1125,724 @@ export const SERVICES: Service[] = [
     ],
     total: { fee: [], time: ['17 minutes'] },
     pages: [99, 102],
+  },
+  // Office of the City Treasurer. The contents page heads this section "OFFICE OF THE CITY BUDGET OFFICER" by mistake.
+  {
+    ...treasurer,
+    category: 'business',
+    id: 'new-business-permit',
+    title: 'Issuance of New Business Permit',
+    description: 'Given to clients who are engaged in business with complete valid documents and approved clearance.',
+    classification: 'Simple/Complex/Highly Technical',
+    transactionType: 'G2C - Government to Citizen; G2B - Government to Businesses',
+    whoMayAvail: ['Companies, Business Establishments, Entrepreneurs'],
+    requirements: [req('SEC/DTI Registration'), req('RPT Payment'), req('Notarized Lease Contract for Lessor.'), req('Barangay Clearance')],
+    requirementsWhere: ['Office of the City Treasurer'],
+    steps: [
+      {
+        client: 'Verification Assessment and Payment\n1.1 Get number at front desk and drop complete accomplished application form with attached documentary requirements for verification, assessment and payment.',
+        rows: [row('1. Check, verify and assess submitted requirements.\n2. Receive payment', RATES, '20 minutes')],
+      },
+      { client: 'Claim\n2.1 Wait for processing and Claim Business Permit.', rows: [row('Process and Release Business Permit', '-', '10 minutes')] },
+    ],
+    total: { fee: ['None'], time: ['30 minutes'] },
+    pages: [539, 540],
+    caveats: [TOTAL_SAYS_NONE],
+  },
+  {
+    ...treasurer,
+    category: 'business',
+    id: 'business-permit-renewal',
+    title: 'Issuance of Business Permit (Renewal)',
+    description: 'Given to clients who are engaged in business with complete valid documents and approved clearance.',
+    classification: 'Simple/Complex/Highly Technical',
+    transactionType: 'G2C - Government to Citizen; G2B - Government to Businesses',
+    whoMayAvail: ['Companies, Business Establishments, Entrepreneurs'],
+    requirements: RENEWAL_REQUIREMENTS,
+    requirementsWhere: ['Office of the City Treasurer'],
+    steps: [
+      {
+        client: 'Verification Assessment and Payment\n1.1 Get number at front desk and drop complete accomplished application form with attached documentary requirements for verification, assessment and payment.',
+        rows: [row('1. Check, verify and assess submitted requirements.\n2. Receive payment', RATES, '20 minutes')],
+      },
+      { client: 'Claim.\n2.1 Wait for processing and Claim Business Permit.', rows: [row('Process and Release Business Permit', '-', '10 minutes')] },
+    ],
+    total: { fee: ['None'], time: ['30 minutes'] },
+    pages: [541, 542],
+    caveats: [TOTAL_SAYS_NONE],
+  },
+  {
+    ...treasurer,
+    category: 'business',
+    id: 'new-business-permit-eboss',
+    title: 'Issuance of New Business Permit (Online eBOSS System)',
+    description: 'Application of Business Permit using the Online BOSS System (end-to-end processing).',
+    classification: 'Simple/Complex/Highly Technical',
+    transactionType: 'G2C - Government to Citizen; G2B - Government to Businesses',
+    whoMayAvail: ['Companies, Business Establishments, Entrepreneurs'],
+    requirements: [req('SEC/DTI Registration'), req('RPT Payment'), req('Notarized Lease Contract for Lessor'), req('Barangay Clearance')],
+    requirementsWhere: ['Office of the City Treasurer'],
+    steps: [
+      {
+        client: 'Log-on to https://egovcarmona.ph/carmona_bpl.\n1.1 Create account and fill-out details in the Unified Application Form\n1.2 Upload documentary requirements.',
+        rows: [row('1. Check, verify and assess submitted requirements.\n2. Send Online Assessment to client.', undefined, '10 minutes')],
+      },
+      {
+        client: 'Pay amount due online through the following mode:\n- Bank Transfer\n- Digital Wallet (GCash)\n- Debit Card',
+        rows: [row('1. Verify payment.\n2. Print Original Receipt.', RATES, '5 minutes')],
+      },
+      { client: 'Check eBOSS account for issuance of electronic copy of business permit.', rows: [row('Issue electronic copy of business permit.', undefined, '5 minutes')] },
+    ],
+    total: { fee: ['NONE'], time: ['20 minutes'] },
+    pages: [543, 544],
+    online: EBOSS,
+    caveats: [TOTAL_SAYS_NONE],
+    corrections: ['https://egovcarmona.ph/carmona_ bpl -> https://egovcarmona.ph/carmona_bpl'],
+  },
+  {
+    ...treasurer,
+    category: 'business',
+    id: 'business-permit-renewal-eboss',
+    title: 'Issuance of Business Permit - Renew (Online eBOSS System)',
+    description: 'Application of Business Permit using the Online BOSS System (end-to-end processing).',
+    classification: 'Simple/Complex/Highly Technical',
+    transactionType: 'G2C - Government to Citizen; G2B - Government to Businesses',
+    whoMayAvail: ['Companies, Business Establishments, Entrepreneurs'],
+    requirements: RENEWAL_REQUIREMENTS,
+    requirementsWhere: ['Office of the City Treasurer'],
+    steps: [
+      {
+        client: 'Log-on to https://egovcarmona.ph/carmona_bpl.\n1.1 Create account and fill-out details in the Unified Application Form\n1.2 Upload documentary requirements.',
+        rows: [row('3. Check, verify and assess submitted requirements.\n4. Send Online Assessment to client.', undefined, '10 minutes')],
+      },
+      {
+        client: 'Pay amount due online through the following mode:\n- Bank Transfer\n- Digital Wallet (GCash)\n- Debit Card',
+        rows: [row('4. Verify payment.\n5. Print Original Receipt.', RATES, '5 minutes')],
+      },
+      { client: 'Check eBOSS account for issuance of electronic copy of business permit.', rows: [row('6. Issue electronic copy of business permit.', undefined, '5 minutes')] },
+    ],
+    total: { fee: ['NONE'], time: ['20 minutes'] },
+    pages: [545, 546],
+    online: EBOSS,
+    caveats: [TOTAL_SAYS_NONE],
+    corrections: ['https://egovcarmona.ph/carmona_ bpl -> https://egovcarmona.ph/carmona_bpl'],
+  },
+  {
+    ...treasurer,
+    category: 'treasury',
+    id: 'community-tax-certificate',
+    title: 'Issuance of Community Tax Certification',
+    description: 'Acceptance of payment and issuance of Community Tax Certificate.',
+    classification: 'Simple/Complex',
+    transactionType: 'G2C - Government to Citizen; G2B - Government to Businesses; G2G - Government to Government',
+    whoMayAvail: ['All'],
+    requirements: [req('Gross Income Previous Year/Routing Slip', 'Office of the City Treasurer')],
+    steps: [
+      {
+        client: 'Fill-out information sheet',
+        rows: [
+          row(
+            'Check and verify the information sheet',
+            [
+              'Basic CTC Tax P10.00',
+              'Additional CTC With Gross Receipts derived from business P1.00 for every P1,000.00',
+              'Salaries or Gross Receipts - derived from any occupation P1.00 for every P1,000.00',
+              'Income from Real Property',
+              'Late Payment 2% every month',
+            ],
+            '1 minute',
+            { feeSteps: 2 },
+          ),
+        ],
+      },
+      { client: 'Pay the necessary amount, wait and received the Official Receipt (O.R.)', rows: [row('Issue Official Receipt', undefined, '2 minutes')] },
+    ],
+    total: { fee: ['None'], time: ['3 minutes'] },
+    pages: [550, 550],
+    caveats: [
+      TOTAL_SAYS_NONE,
+      {
+        en: 'The charter lists "Income from Real Property" among the fees without an amount.',
+        fil: 'Nakalista sa charter ang "Income from Real Property" sa mga bayad, pero walang halaga.',
+      },
+    ],
+    corrections: ['verity -> verify'],
+  },
+  {
+    ...treasurer,
+    category: 'treasury',
+    id: 'working-permit',
+    title: 'Issuance of Working Permit',
+    description: 'Prepare and release of Working Permit as a requirement in the company.',
+    classification: 'Simple',
+    transactionType: 'G2C - Government to Citizen',
+    whoMayAvail: ['All'],
+    requirements: [req('Community Tax Certificate'), req('TIN Number/ SSS Number'), req('1x1 Picture'), req('Routing Slip')],
+    requirementsWhere: ['Office of the City Treasurer'],
+    steps: [
+      { client: 'Fill-out information sheet', rows: [row('Check, verify information sheet', '-', '5 minutes')] },
+      { client: 'Process to counter payment', rows: [row('Issue Official Receipt (O.R.)', 'PHP 50.00', '3 minutes')] },
+      { client: 'Wait and receive working permit', rows: [row('Process and release working permit')] },
+    ],
+    total: { fee: ['PHP 50.00'], time: ['11 minutes'] },
+    pages: [553, 553],
+    corrections: ['verity -> verify'],
+  },
+  {
+    ...treasurer,
+    category: 'treasury',
+    id: 'professional-tax-receipt',
+    title: 'Professional Tax Receipt',
+    description: 'Issuance of PTR to professionals that resides or practice their profession within Carmona as a proof of payment of the professional tax.',
+    classification: 'Simple',
+    transactionType: 'G2C - Government to Citizen',
+    whoMayAvail: ['Professionals with Licensed'],
+    requirements: [req('Photocopy of Valid PRC License', 'Office of the City Treasurer')],
+    steps: [
+      { client: 'Present the documents of PRC License and pays the necessary amount.', rows: [row('Check, verify and assess', PTR_FEES, '1 minutes', { feeSteps: 2 })] },
+      { client: 'Personnel will check the document, receive the payment and issue official receipts.', rows: [row('Issue Official Receipt', undefined, '3 minutes')] },
+    ],
+    total: { fee: PTR_FEES, time: ['4 minutes'] },
+    pages: [556, 556],
+    caveats: [
+      {
+        en: 'The charter gives the interest as "= of PHP 300.00 per month", without a rate.',
+        fil: 'Sa charter, nakasulat ang interest na "= of PHP 300.00 per month", nang walang porsiyento.',
+      },
+    ],
+  },
+  {
+    ...treasurer,
+    category: 'treasury',
+    id: 'tax-clearance',
+    title: 'Tax Clearance',
+    description: 'Certification of the declared owner of the real property and tax payment for the current tax year.',
+    classification: 'Simple/Complex/Highly Technical',
+    transactionType: 'G2C - Government to Citizen',
+    whoMayAvail: ['All'],
+    requirements: [
+      req('Order of Payment'),
+      req('Official Receipt (RPT Payment and Tax Clearance)'),
+      req('Additional requirements if the client is not the declared owner:', undefined, [
+        req('Special Power of Attorney, ID of the declared owner and client'),
+        req('Deed of Sale for transferred ownership'),
+      ]),
+    ],
+    requirementsWhere: ['Office of the City Treasurer'],
+    steps: [
+      {
+        client: 'Present Order of Payment at Windows 11 to 14 for payment.',
+        rows: [row('Check, verify and assess', ['PHP 80.00 for Declared Owner', 'PHP 130.00 for other than the Declared Owner'], '1 minutes', { feeSteps: 4 })],
+      },
+      { client: 'Personnel on Window 11 to 14 will issue Official Receipt.', rows: [row('Issue Official Receipt', undefined, '3 minutes')] },
+      { client: 'Present the Official Receipt and other documentary requirements at window 11 to 14.', rows: [row('Check, verify and assess')] },
+      { client: 'Personnel will verify and check the documents, process the Tax Clearance, and issue to client.', rows: [row('Check, verify and assess')] },
+    ],
+    total: { fee: [], time: ['10 minutes'] },
+    pages: [557, 557],
+  },
+
+  // Local Economic Development and Investment Promotion Office
+  {
+    ...ledipo,
+    id: 'dti-business-name-registration-new',
+    title: 'DTI Business Name Registration (New)',
+    description:
+      'The DTI Business Name Registration is for individuals who wish to register business names, as well as its nature and territorial scope, for Sole Proprietorship. BN Registration is valid for five (5) years. BN Certificate is proof of a successful registration and is one of the requirements for Business Permit Application.',
+    classification: 'Highly Technical',
+    whoMayAvail: ['General Public'],
+    requirements: [
+      req('BN Registration form signed by the owner (applicant)', 'LEDIPO - Negosyo Center Carmona'),
+      req("Owner's Valid Government Issued ID (original)", 'Applicant'),
+      req('IN ABSENCE OF OWNER:', undefined, [
+        req('BN Registration Form signed by owner (applicant)', 'LEDIPO - Negosyo Center'),
+        req("Owner's Valid Government Issued ID (original)", 'Applicant'),
+        req('Authorization Letter of Owner', 'Applicant'),
+        req("Representative's Valid ID", 'Applicant'),
+      ]),
+    ],
+    steps: [
+      {
+        client: 'Submit duly accomplished application',
+        rows: [
+          row('Review and check submitted application form and requirements.', '-', '2 minutes'),
+          row('Check the availability of proposed business names in BNR System.\nProcess online registration of business name', '-', '8 minutes'),
+        ],
+      },
+      {
+        client: 'Pay Total Registration Fee.',
+        rows: [
+          row('Pay transaction thru G-Cash or PayMaya.', DTI_FEES, '2 minutes'),
+          row('Print the official receipt and the Certificate of Business Name Registration.', '-', '2 minutes'),
+        ],
+      },
+      { client: 'Check details in the Certificate of Business Name Registration.', rows: [row('Issue the Certificate of Business Name Registration together with the receipt.', '-', '1 minute')] },
+    ],
+    total: { fee: DTI_TOTAL, time: ['15 minutes'] },
+    pages: [514, 515],
+    corrections: ['registrati on -> registration'],
+  },
+  {
+    ...ledipo,
+    id: 'dti-business-name-registration-renewal',
+    title: 'DTI Business Name Registration (Renewal)',
+    description:
+      'Renewal of DTI Business Name Registration is for business owners who wish to renew the registration of their business names. Renewal of BN Registration is valid for 5 years.',
+    classification: 'Highly Technical',
+    whoMayAvail: ['General Public'],
+    requirements: [
+      req('BN Registration form signed by the owner (applicant)', 'LEDIPO - Negosyo Center Carmona'),
+      req("Owner's Valid Government Issued ID (original)", 'Applicant'),
+      req('Original Copy of expired Certificate of Business Name Registration'),
+      req('Tax Identification Number (TIN No.)'),
+      req('IN ABSENCE OF OWNER:', undefined, [
+        req('BN Registration Form signed by owner (applicant)', 'LEDIPO - Negosyo Center'),
+        req("Owner's Valid Government Issued ID (original)", 'Applicant'),
+        req('Original Copy of expired Certificate of Business Name Registration'),
+        req('Tax Identification Number (TIN No.)'),
+        req('Authorization Letter of Owner'),
+        req("Representative's Valid ID"),
+      ]),
+    ],
+    steps: [
+      {
+        client: 'Submit duly accomplished application form and requirements to personnel for validation.',
+        rows: [
+          row('Review and check submitted application form and requirements.', '-', '2 minutes'),
+          row('Process online registration of business name', '-', '4 minutes'),
+        ],
+      },
+      {
+        client: 'Pay Total Registration Fee.',
+        rows: [
+          row('Pay transaction thru G-Cash or PayMaya.', [...DTI_FEES, 'Note: BNR Certificate with 3 months expiration shall pay surcharge fee equivalent to 50% of registration fee.'], '2 minutes'),
+          row('Print the official receipt and the Certificate of Business Name Registration.', '-', '1 minute'),
+        ],
+      },
+      { client: 'Check details in the Certificate of Business Name Registration.', rows: [row('Issue the Certificate of Business Name Registration together with the receipt.', '-', '1 minute')] },
+    ],
+    total: { fee: DTI_TOTAL, time: ['10 minutes'] },
+    pages: [516, 517],
+  },
+  {
+    ...ledipo,
+    id: 'bmbe-registration',
+    title: 'Barangay Micro-Business Enterprise (BMBE) Registration',
+    description:
+      'BMBE Registration is for any business enterprise engaged in production, processing, or manufacturing of products, including agro-processing, as well as trading and services, with total assets of not more than Php 3 million. Such assets shall include those arising from loans but not the land on which the plant and equipment are located. Registered BMBE can avail of the following incentives: 1. Income tax exemption from income arising from the operations of the enterprise; 2. Exemption from the coverage of the Minimum Wage Law (BMBE employees will still receive the same social security and health care benefits as other employees) 3. Priority to a special credit window set up specifically for the financing requirements of BMBEs; and 4. Technology transfer, production, and management training, and marketing assistance programs for BMBE beneficiaries.',
+    classification: 'Complex',
+    whoMayAvail: ['Micro, Small and Medium Enterprises (MSMEs)'],
+    requirements: [
+      req('BN Registration form signed by the owner (applicant)', 'LEDIPO - Negosyo Center Carmona'),
+      req("Owner's Valid Government Issued ID (original)", 'Applicant'),
+      req('Original Copy of expired Certificate of Business Name Registration', 'Applicant, or Security Exchange Commission; Department of Trade and Industry (DTI); or Cooperative Development Authority (CDA)'),
+      req('IN ABSENCE OF OWNER:', undefined, [
+        req('Duly accomplished BMBE Application Form 01 and Consent form signed by the owner', 'LEDIPO - Negosyo Center'),
+        req('Original Certificate of Business Name Registration', 'Applicant'),
+        req('Authorization Letter of Owner'),
+        req("Representative's Valid ID"),
+      ]),
+    ],
+    steps: [
+      { client: 'Submit duly accomplished application form and consent form and requirements for validation.', rows: [row('Review and check submitted application form and requirements.', '-', '2 minutes')] },
+      {
+        client: 'Receive claim slip.',
+        rows: [
+          row('Issue claim slip to the client indicating date of release of BMBE Certificate.', '-', '1 minute'),
+          row('Scan and email application form and requirements to DTI Cavite for processing.', undefined, '5 minutes'),
+        ],
+      },
+      { client: 'Present claim slip and review the certificate received.', rows: [row('Print the official receipt and the Certificate of Business Name Registration.', '-', '1 minute')] },
+    ],
+    total: { fee: ['None'], time: ['10 minutes'] },
+    pages: [518, 519],
+    corrections: ['agro -processing -> agro-processing', 'th e -> the', 'prod uction -> production'],
+  },
+  {
+    ...ledipo,
+    id: 'business-name-certification',
+    title: 'Request for Business Name Certification',
+    description:
+      'Business Name Registration Certification is DTI document being issued to a business owner as a proof of successful registration of his/her Business Name; It can also be issued to any individual requesting for verification of a certain business name registration.',
+    classification: 'Complex',
+    whoMayAvail: ['Micro, Small and Medium Enterprises (MSMEs)'],
+    requirements: [
+      req('Duly accomplished Other BN Related Application Form signed by the owner', 'LEDIPO - Negosyo Center Carmona'),
+      req('Valid ID of Requesting Individual', 'Applicant'),
+    ],
+    steps: [
+      {
+        client: 'Submit duly accomplished application form and requirements to personnel for validation.',
+        rows: [row('Review and check submitted application form and requirements.', '-', '1 minute'), row('Process request for certification.', '-', '7 minutes')],
+      },
+      { client: 'Pay registration fee.', rows: [row('Print certificate and pay transaction thru G-cash or PayMaya.', ['₱ 50.00.', 'Total fees to include ₱30.00 for documentary stamp tax.'], '1 minute')] },
+      { client: 'Check details in the certification.', rows: [row('Release of certification.', '-', '1 minute')] },
+    ],
+    total: { fee: ['None'], time: ['10 minutes'] },
+    pages: [520, 520],
+    caveats: [TOTAL_SAYS_NONE],
+  },
+
+  // Office of the City Zoning Administrator: the clearances a business permit needs.
+  {
+    ...zoning,
+    id: 'locational-clearance-commercial-business',
+    title: 'Locational Clearance for Business Permit (Commercial Business)',
+    description:
+      'Issuance of Locational Clearance to owners/ applicants is to ensure that the commercial business permit being applied is in compliance with the Zoning Ordinance and Comprehensive Land Use Plan.',
+    classification: 'Simple',
+    requirements: [
+      req('Duly Accomplished Application Form (1 Copy)', "BPLO / City Treasurer's Office"),
+      req(`${PROOF_OF_OWNERSHIP} (1 Copy)`, "Applicant / Developer / City Assessor's Office / Registry of Deeds"),
+      req('DTI Clearance (Department of Trade Industry) (1 Copy)', 'LEDIPO / DTI'),
+      req('Barangay Clearance (1 Copy)', 'Barangay Hall'),
+    ],
+    steps: [
+      {
+        client: "Present the application form from the Municipal Treasurer's Office",
+        rows: [row('1. Review and evaluate the accomplished form.\n2. Interview applicant regarding the location of business.\n3. Prepare and give order of payment.', '-', '5 minutes')],
+      },
+      {
+        client: 'Wait for the ocular inspection of appraisal of the property to be conducted',
+        rows: [row('1. Inspect the location of the building.\n2. After inspection, prepare the order of payment and call the applicant for payment.', '-', '40 minutes')],
+      },
+      { client: "Receive the order of payment form and proceed to the City Treasurer's Office for payment of necessary fees.", rows: [row(undefined, 'Based on Business Capital', '10 minutes')] },
+      {
+        client: 'Present the receipt to the City Zoning Office.',
+        rows: [
+          row('Receive receipt and log information of business.', '-', '5 minutes'),
+          row('Sign application of Business Permit.', '-', '5 minutes'),
+          row('1. Record and approve to system\n2. Release the approved Application form for business.', '-', '4 minutes'),
+        ],
+      },
+      { client: 'Receive signed Application of Business Permit Form (Commercial/ Industrial)', rows: [row('3. Give direction to applicant/ client for the next process', undefined, '1 minute')] },
+    ],
+    total: { fee: ['*see number 2'], time: ['1 hour and 10 minutes'] },
+    pages: [482, 483],
+    caveats: [
+      {
+        en: 'The charter\'s total says "*see number 2" for the fee, but the fee ("Based on Business Capital") is in step 3.',
+        fil: 'Sa kabuuan ng charter, nakasulat ang "*see number 2" para sa bayad, pero nasa ikatlong hakbang ang bayad ("Based on Business Capital").',
+      },
+    ],
+  },
+  {
+    ...zoning,
+    id: 'locational-clearance-industrial-business',
+    title: 'Locational Clearance for Business Permit (Industrial Business)',
+    description:
+      'Issuance of Locational Clearance to owners/ applicants is to ensure that the industrial business permit being applied is in compliance with the Zoning Ordinance and Comprehensive Land Use Plan.',
+    classification: 'Complex',
+    requirements: [
+      req('Duly accomplished and notarized application (1 Copy)', 'City Zoning Office'),
+      req(`${PROOF_OF_OWNERSHIP} (1 Copy)`, "Registry of Deeds / City Assessor's Office"),
+      req('Affidavit of Undertaking (1 Copy)', 'Lawyer'),
+      req('Environmental Clearance Certificate (ECC) / Certificate of Non- Coverage (CNC) / Environmental Impact Assessment (EIA) (1 Copy)', 'Department of Environment and Natural Resources (DENR)'),
+      req('SEC Registration (1 Copy)', 'Security and Exchange Commission'),
+      req('Barangay Clearance (1 Copy)', 'Barangay Hall'),
+    ],
+    steps: [
+      {
+        client: 'Ask for an application form and list of requirements.',
+        rows: [row('1. Provide application form and list of requirements.', '-', '5 minutes'), row('2. Explain the requirements listed.')],
+      },
+      { client: 'Fill out and submit duly accomplished application forms and documents.', rows: [row('1. Review and evaluate the accomplished form.\n2. Schedule the inspection.', '-', '13 minutes')] },
+      {
+        client: 'Wait for the ocular inspection of appraisal of the property to be conducted.',
+        rows: [row('1. Inspect the location of the building.\n2. After inspection, prepare the order of payment and call the applicant for payment.', '-', '1 hour and 49 minutes')],
+      },
+      {
+        client: "Get the order of payment from the inspector and proceed to the City Treasurer's Office to pay necessary fees.",
+        rows: [row(undefined, '** Depends on capital investment of the corporation', '10 minutes')],
+      },
+      {
+        client: 'Present receipt to the Zoning Office',
+        rows: [
+          row('Receive receipt and attach it to the documents submitted.', '-', '2 minutes'),
+          row('Prepare a draft copy of the Inspection Report.', '-', '5 minutes'),
+          row('Review and sign the report.', '-', '5 minutes'),
+          row('Prepare final copy and Zoning Certification.', '-', '5 minutes'),
+          row('Approve final copy of inspection report and Zoning Certification.', '-', '4 minutes'),
+          row('1. Record and approve the system.\n2. Release the approved Application form for business.', '-', '4 minutes'),
+        ],
+      },
+      { client: 'Receive approved Locational Clearance', rows: [row('3. Give direction to applicant/ client for the next process', '-', '1 minute')] },
+    ],
+    total: { fee: ['*see number 4'], time: ['2 hours and 43 minutes'] },
+    pages: [484, 486],
+  },
+  {
+    ...zoning,
+    id: 'zoning-clearance-business-permit-renewal',
+    title: 'Zoning Clearance for Renewal of Business Permit',
+    description:
+      'Zoning Clearance for Renewal of business permit is required to ensure that the business permit upon renewal is in compliance with the Zoning Ordinance and Comprehensive Land Use Plan.',
+    classification: 'Simple',
+    requirements: [
+      req(
+        'Requirements given by the Business Permit and Licensing Office (BPLO) for renewal of business shall be used as reference for updating, encoding and monitoring purposes. Businesses in the Negative and Pending list must comply and submit updated requirements.',
+      ),
+    ],
+    steps: [
+      {
+        client: 'Present business renewal form',
+        rows: [
+          row(
+            '1. Check the status of the business for renewal in the system / EBPLS.\n2. If the requirements are complete, sign the application form and approve in system / EBPLS.\n3. Give direction to the applicant/ client for the next process.\n4. If not complete see client step 2.',
+            '-',
+            '5 minutes',
+          ),
+        ],
+      },
+      {
+        client: 'Apply and Submit requirements',
+        rows: [
+          row(
+            '1. Check the completeness of requirements and check if the applicant applies to EBPLS.\n2. If the requirements are complete, sign the application form and approve in system / EBPLS.\n3. Give direction to the applicant/ client for the next process.',
+            '-',
+            '15 minutes',
+          ),
+        ],
+      },
+    ],
+    total: { fee: ['None'], time: ['20 minutes'] },
+    pages: [487, 488],
+  },
+  {
+    ...zoning,
+    id: 'zoning-clearance-business-permit-retirement',
+    title: 'Zoning Clearance for Retirement of Business Permit',
+    description:
+      'Zoning Clearance for Retirement of business permit is given to operator/ owner of commercial or industrial establishments if the business will permanently or temporarily terminate its operations.',
+    classification: 'Simple',
+    requirements: [req('Requirements given by the Business Permit and Licensing Office for retirement of business shall be used as reference for the signing of Retirement / Closure Clearance.')],
+    steps: [
+      {
+        client: 'Present business retirement/ closure form',
+        rows: [
+          row(
+            '1. Check the status of the business in the system/ EBPLS.\n2. Sign the application form and change the status to "Close" and include the date applied for the business retirement/ closure in system/ EBPLS.\n3. Give direction to the applicant/ client for the next process.',
+            '-',
+            '5 minutes',
+          ),
+        ],
+      },
+    ],
+    total: { fee: ['None'], time: ['5 minutes'] },
+    pages: [489, 489],
+  },
+
+  // Office of the City Environment & Natural Resources Officer: the clearances a business permit needs.
+  {
+    ...ocenro,
+    id: 'ocenro-clearance-new-business-permit',
+    title: 'OCENRO Clearance for New Business Permit',
+    description:
+      'The OCENRO Clearance is given to applicants that are applying for new business permit. Such clearance is given after determining the probable environmental impacts of the activities/operations applied for.',
+    requirements: [
+      req('A. LOW RISK', undefined, [req('Locational/ Zoning Clearance', 'Office of the City Zoning Administrator'), req('Environmental Protection Fee', 'OCENRO')]),
+      req('B. MEDIUM RISK', undefined, ocenroRiskRequirements('Certificate of Non-Coverage (CNC)', 'OCENRO Form No. 014 (Inspection Report)')),
+      req('C. HIGH RISK', undefined, ocenroRiskRequirements('Environmental Compliance Certificate (ECC)', 'OCENRO Inspection Report')),
+    ],
+    notes: ['1 xerox/photocopy of each requirement'],
+    steps: [
+      { client: 'Provide business information required\n[Client unable to provide requirements]', rows: [row(ocenroInterview('006 New Business Permit Application'), '-', '5 minutes')] },
+      {
+        client: 'Check and accomplish OCENRO Form No. 006 and inquire detailed explanation/ elaboration of requirements',
+        rows: [row('Explain in detail the requirement/s; Inform client that an on-site inspection must be conducted for medium and high-risk businesses', '-', '2 minutes/ requirement')],
+      },
+      { client: 'Provide requirements', rows: [row(OCENRO_ASSESS, '-', '4 min / 32 min / 32 min')] },
+      { client: 'Assist the OCENRO inspector in conducting the on-site inspection', rows: [row(OCENRO_INSPECT, '-', '60 minutes')] },
+      {
+        client: 'Client submits complete requirements',
+        rows: [row('Provide OCENRO Clearance Certificate No. 003; record and keep OCENRO Form No. 006. Ask the client for other concerns and direct them to the necessary office/s, if applicable', '-', '3 minutes')],
+      },
+      {
+        client: 'Client submits incomplete requirements',
+        rows: [row('Provide TEMPORARY OCENRO Clearance SUBJECT to submission of required document/s: 3 months: CNC and other clearances 6 months: ECC', '-')],
+      },
+      OCENRO_CSM,
+    ],
+    total: { fee: ['None'], time: ['12 min / 1 h and 43 min / 1 h and 43 min'] },
+    pages: [400, 403],
+    caveats: [UNLABELED_TIMES],
+    corrections: ['(f deferred) -> (if deferred)', 'Control Installation -> Control Installation)', 'fill-out out -> fill-out'],
+  },
+  {
+    ...ocenro,
+    id: 'ocenro-clearance-recycling-business',
+    title: 'OCENRO Clearance for New Business Permit (Recycling Business Establishments)',
+    description:
+      'The OCENRO Clearance (Recycling Business Establishments) is given to recycling business establishments such as junkshops, scrappers and recycling businesses that are applying for new business permit. Such clearance is given after determining the probable environmental impacts of the activities/operations applied for.',
+    requirements: [
+      ...OCENRO_SITE_REQUIREMENTS,
+      req('Neighborhood consent from four (4) or more adjacent or nearest households/ establishments in all directions (Applicants with Zoning under Residential and Commercial Zones)', 'Proponent/Adjacent or nearest households'),
+      req('Barangay Certification interposing no objection (Applicants with Zoning under Residential and Commercial Zones)', 'Barangay where the proposed business is located'),
+      req('Subdivision/HOA Board Resolution (Applicants located in a subdivision)', 'Subdivision HOA where the proposed business is located'),
+      req('DENR Certificate of Non-Coverage (CNC) / Environmental Compliance Certificate (ECC)', 'DENR-EMB'),
+      req('DOST-PHIVOLCS Earthquake Hazard Assessment', 'DOST-PHIVOLCS'),
+      req('NWRB Water Permit/Bill from Water Service Provider', 'NWRB/ Carmona Water District/ Water Service Provider'),
+      ...OCENRO_PERMIT_REQUIREMENTS,
+    ],
+    notes: ['1 xerox/photocopy of each requirement'],
+    steps: ocenroNewSteps('007', '007 New Business Permit Application (Recycling Business Establishments)'),
+    total: { fee: ['None'], time: ['1 hour and 43 minutes'] },
+    pages: [404, 406],
+    corrections: ['fi-out out -> fill-out'],
+  },
+  {
+    ...ocenro,
+    id: 'ocenro-clearance-motorshops',
+    title: 'OCENRO Clearance for New Business Permit (Motorshops)',
+    description:
+      'The OCENRO Clearance (Motor shops) is given to motor shops that are applying for new business permit. Such clearance is given after determining the probable environmental impacts of the activities/operations applied for.',
+    requirements: [
+      ...OCENRO_SITE_REQUIREMENTS,
+      req('NWRB Water Permit/ Bill from Water Service Provider', 'NWRB/ Carmona Water District/ Water Service Provider'),
+      req('For PETCs: Valid Private Emission Testing Center Accreditation', 'LTO'),
+      req('For PETCs: Location map and layout of the center, including dimensions, proximity/location to the nearest LTO District Office', 'Proponent'),
+      req('For PETCs: List of all equipment, including manuals, reference materials required for the calibration and tests, manual of the test procedures and personnel', 'Proponent'),
+      req('For PETCs: Valid technician authorization or technician accreditation', 'LTO'),
+      req('DENR Certificate of Non-Coverage (CNC) / Environmental Compliance Certificate (ECC)', 'DENR-EMB'),
+      ...OCENRO_PERMIT_REQUIREMENTS,
+    ],
+    notes: ['1 xerox/photocopy of each requirement'],
+    steps: ocenroNewSteps('008', '008 New Business Permit Application (Motor shops)'),
+    total: { fee: ['None'], time: ['1 hour and 43 minutes'] },
+    pages: [407, 409],
+    corrections: ['(OCT/TCT/Lease Contract -> (OCT/TCT/Lease Contract)', 'fi-out out -> fill-out'],
+  },
+  {
+    ...ocenro,
+    id: 'ocenro-clearance-business-permit-renewal',
+    title: 'OCENRO Clearance for Renewal Business Permit',
+    description:
+      'The OCENRO Clearance is given to applicants that are applying for renewal business permit. Such clearance is given after determining the probable environmental impacts of the activities/operations applied for.',
+    requirements: [
+      req('I. FOR BUSINESSES NOT IN THE NEGATIVE LIST (LOW, MEDIUM, HIGH RISK)', undefined, [
+        req('Application through the Electronic Business Permit and Licensing System (EBPLS)'),
+        req('Approved Status from the Office of the City Zoning Administrator'),
+      ]),
+      req(
+        "II. FOR BUSINESSES IN THE NEGATIVE LIST (Businesses are placed in the Negative List due to the following: (i) failure to submit documentary requirements in their initial application, (ii) have pending Notice of Violation issued by the LGU or any National Agencies (e.g. DENR-EMB, LLDA, NWRB), (iii) have pending complaints thru the Citizen's Complaint Hotline, or from the OCENRO, (iv) expired documentary requirements initially submitted.",
+        undefined,
+        [
+          req('A. LOW RISK', undefined, [
+            req('Completely filled up Business Permit Application Form', 'Office of the City Treasurer/Proponent'),
+            req('Locational Clearance/ Zoning Certificate', 'Office of the City Zoning Administrator'),
+            req('Environmental Protection Fee', 'OCENRO'),
+          ]),
+          req('B. MEDIUM AND HIGH RISK', undefined, [
+            req('Completely filled up Business Permit Application', 'Office of the City Treasurer/Proponent'),
+            req('Locational Clearance/ Zoning Certificate', 'Office of the City Zoning Administrator'),
+            req('Certificate of PCO Accreditation (DENR/LLDA)', 'DENR-EMB4A/LLDA'),
+            req('Water bills/readings for the last three (3) months', 'Water Service Provider'),
+            req('LLDA Discharge Permit', 'LLDA'),
+            req('Latest effluent sampling results (if with WWTF)', 'DENR-Recognized Environmental Laboratories'),
+            req('Certificate of Septic Tank Siphoning/Septic Sludge', 'OCENRO-registered septic waste haulers'),
+            req('DENR Permit to Operate (PTO) for Air Pollution Source and Control Installations', 'DENR-EMB 4A'),
+            req('Latest ambient air and/or stack emission test results', 'DENR-Recognized Environmental Laboratories'),
+            req("DENR Hazardous Waste Generator's ID", 'DENR-EMB 4A'),
+            req('MOA with OCENRO-registered hazardous waste transporter', 'Proponent'),
+            req('Latest certificate of hazardous waste treatment/disposal, manifest form, Permit to Transport (PTT)', 'DENR-EMB 4A'),
+            req('MOA with OCENRO-registered residual waste transporter/Trip tickets', 'Proponent'),
+            req('DENR Certificate of Registration as Lumber Dealer/Certificate of Registration as Importer of Lumber and Woods Materials', 'DENR-PENRO Cavite'),
+            req('Chemical Control Order (CCO) Registration Certificate/ Priority Chemical List (PCL) Compliance Certificate or Exemption/ Small Quantity Importation (SQI) Clearance', 'DENR-EMB 4A'),
+            req('Latest Self-Monitoring Report (DENR & LLDA)/ Compliance Monitoring Report', 'Proponent'),
+            req('Proof of proper solid waste management (segregation, storage, and labelling)', 'Proponent'),
+            req('Proof of proper hazardous waste storage and labelling', 'Proponent'),
+            req('Proof of CCTVSS installation at pollution control facilities', 'Proponent'),
+          ]),
+        ],
+      ),
+    ],
+    notes: ['1 xerox/photocopy of each requirement'],
+    steps: [
+      {
+        heading: 'I. FOR BUSINESSES NOT IN THE NEGATIVE LIST\nFOR LOW-RISK BUSINESSES',
+        client: 'Applicant applies renewal of business permit through the EBPLS',
+        rows: [
+          row(
+            "Interview Client; instruct to sign in the VISITOR'S LOGBOOK\nOCENRO checks the EBPLS for renewal application and checks if an applicant is in the negative list.",
+            ['EPF', 'LOW: Php 1,000.00', 'MEDIUM: Php 3,000.00', 'HIGH: Php 5,000.00'],
+            '5 minutes',
+          ),
+          row('If applicant is not in the negative list, encode applicable Environmental Protection Fee and select APPROVE status for OCENRO Clearance in the EBPLS'),
+        ],
+      },
+      {
+        heading: 'I. FOR BUSINESSES IN THE NEGATIVE LIST (MEDIUM and HIGH-RISK BUSINESSES)',
+        client: 'Provide business information required',
+        rows: [
+          row(
+            "Interview Client; instruct to sign in the VISITOR'S LOGBOOK\nOCENRO checks the EBPLS for renewal application and checks if an application is in the negative list\nIf an applicant is in the negative list, handout OCENRO Form No. 009 Renewal Business Permit Application and Client Satisfaction Measurement (CSM) Form",
+            '-',
+            '5 minutes',
+          ),
+        ],
+      },
+      { client: 'Check and accomplish OCENRO Form No. 009 and inquire detailed explanation/ elaboration of requirements', rows: [row('Explain in detail the requirement/s;', '-', '2 minutes/ requirement')] },
+      {
+        client: 'Provide requirements',
+        rows: [row('Assess completeness and veracity of requirements. If lacking document/s, ask client to submit a Request Letter for Issuance of Temporary OCENRO Clearance for Business Permit', '-', '16 min / 30 min')],
+      },
+      {
+        client: 'Client submits complete requirements\nClient submits incomplete requirements',
+        rows: [
+          row(
+            'Provide OCENRO Clearance Certificate No. 003; record and keep OCENRO Form No. 009; Update status on the EBPLS. Ask the client for other concerns and direct them to the necessary office/s, if applicable\nProvide TEMPORARY OCENRO Clearance valid for 3 months SUBJECT to submission of required document/s:\nOCENRO updates the status of the applicant in the EBPLS and marks it as TEMPORARY.',
+            '-',
+            '3 minutes',
+          ),
+        ],
+      },
+      OCENRO_CSM,
+    ],
+    total: { fee: ['None'], time: ['27 min / 41 min'] },
+    pages: [410, 413],
+    caveats: [TOTAL_SAYS_NONE, UNLABELED_TIMES],
+    corrections: ['fi-out out -> fill-out'],
+  },
+  {
+    ...ocenro,
+    id: 'ocenro-clearance-business-permit-retirement',
+    title: 'OCENRO Clearance for Retirement Business Permit',
+    description:
+      'The OCENRO Clearance is given to applicants that are applying for retirement of their business permit. Such clearance is given after determining the probable environmental impacts of the activities/operations applied for.',
+    requirements: [
+      req('Completely filled up Business Permit Application', 'Local Government Unit/Proponent'),
+      req('Locational Clearance/Zoning Certificate', 'Office of the City Zoning Administrator'),
+      req('Closure and Rehabilitation Plan', 'Developer/Proponent'),
+      req('Clean-up Documentation', 'Developer/Proponent'),
+      req('Solid Waste Disposal', 'Developer/Proponent'),
+      req('Hazardous Waste Disposal', 'Developer/Proponent'),
+      req('Wastewater Treatment and Disposal (on-site and off-site)', 'OCENRO'),
+      req('OCENRO Form No. 014 (Inspection Report)', 'OCENRO'),
+    ],
+    notes: ['1 xerox/photocopy of each requirement'],
+    steps: [
+      { client: 'Provide business information required\n[Client unable to provide requirements]', rows: [row(ocenroInterview(' 011 Retirement of Business Permit Application'), '-', '5 minutes')] },
+      {
+        client: 'Check OCENRO Form No. 011 and inquire detailed explanation/ elaboration of requirements',
+        rows: [row('Explain in detail the requirement/s; Inform client that an on-site inspection must be conducted for medium and high-risk businesses', '-', '2 minutes/ requirement', { timeSteps: 2 })],
+      },
+      { client: 'Provide requirements', rows: [row(OCENRO_ASSESS, '-')] },
+      { client: 'Assist the OCENRO inspector in conducting the on-site inspection', rows: [row(OCENRO_INSPECT, '-', '60 minutes')] },
+      {
+        client: 'Client submits complete requirements\nClient submits incomplete requirements',
+        rows: [
+          row(
+            'Sign Business Permit Retirement Form; record and keep OCENRO Form No. 011; Ask the client for other concerns and direct them to the necessary office/s, if applicable\nProvide copy of OCENRO Form No. 011 to client with REMARKS: INCOMPLETE REQUIREMENTS APPLICATION CANNOT BE PROCESSED',
+            '-',
+            '3 minutes',
+          ),
+        ],
+      },
+      OCENRO_CSM,
+    ],
+    total: { fee: ['None'], time: ['Low Risk: 11 min', 'Medium and High Risk: 1 h and 27 min'] },
+    pages: [414, 416],
+    corrections: ['the second "Client submits complete requirements" -> "Client submits incomplete requirements", as its office action shows', 'fi-out out -> fill-out'],
   },
 ];
 

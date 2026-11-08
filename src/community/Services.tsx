@@ -100,6 +100,13 @@ function ServiceDetail({ service: s }: { service: Service }) {
         <p>{t('services.checkFirst')}</p>
       </div>
 
+      {s.online && (
+        <p className="service-online">
+          <ExternalLink href={s.online.url}><Localized value={s.online.label} /></ExternalLink>{' '}
+          <span className="services-checked">{t('services.checkedOn', { date: hotlinesDate(locale, s.online.checkedOn) })}</span>
+        </p>
+      )}
+
       {s.caveats?.map((c, i) => (
         <p key={i} className="service-caveat" role="note"><strong>{t('services.caveat')}</strong> <Localized value={c} /></p>
       ))}
@@ -123,6 +130,9 @@ function ServiceDetail({ service: s }: { service: Service }) {
       <section aria-labelledby="service-requirements">
         <h2 id="service-requirements">{t('services.requirements')}</h2>
         <Requirements items={s.requirements} />
+        {s.requirementsWhere && (
+          <p className="service-where-all">{t('services.whereAll')} <Charter>{s.requirementsWhere.join('; ')}</Charter></p>
+        )}
         {s.notes?.map((n) => <p key={n} className="service-note"><Charter>{n}</Charter></p>)}
       </section>
 
@@ -164,7 +174,22 @@ function Requirements({ items }: { items: Requirement[] }) {
   );
 }
 
+/** The steps, in separate numbered lists where the charter starts a new set under a heading. */
 function Steps({ steps }: { steps: ServiceStep[] }) {
+  const groups: ServiceStep[][] = [];
+  for (const step of steps) {
+    if (step.heading || !groups.length) groups.push([]);
+    groups[groups.length - 1].push(step);
+  }
+  return groups.map((group, i) => (
+    <Fragment key={i}>
+      {group[0].heading && <h3 className="service-steps-heading"><Charter>{group[0].heading}</Charter></h3>}
+      <StepList steps={group} />
+    </Fragment>
+  ));
+}
+
+function StepList({ steps }: { steps: ServiceStep[] }) {
   const { t } = useLocale();
   return (
     <ol className="service-steps">
@@ -177,8 +202,8 @@ function Steps({ steps }: { steps: ServiceStep[] }) {
                 {r.action && <p><span className="service-label">{t('services.theOffice')}</span> <Charter>{r.action}</Charter></p>}
                 {(r.fee || r.time) && (
                   <dl className="service-row-facts">
-                    {r.fee && <div><dt>{t('services.fee')}</dt><dd><Lines lines={r.fee} /></dd></div>}
-                    {r.time && <div><dt>{t('services.time')}</dt><dd><Lines lines={r.time} /></dd></div>}
+                    {r.fee && <div><dt>{t('services.fee')}</dt><dd><Lines lines={r.fee} /><Span steps={r.feeSteps} /></dd></div>}
+                    {r.time && <div><dt>{t('services.time')}</dt><dd><Lines lines={r.time} /><Span steps={r.timeSteps} /></dd></div>}
                   </dl>
                 )}
               </li>
@@ -188,6 +213,13 @@ function Steps({ steps }: { steps: ServiceStep[] }) {
       ))}
     </ol>
   );
+}
+
+/** Says that a fee or time covers the steps after it too, as one cell does in the charter. */
+function Span({ steps }: { steps?: number }) {
+  const { t } = useLocale();
+  if (!steps || steps < 2) return null;
+  return <span className="service-span"> {t('services.span', { count: steps - 1 })}</span>;
 }
 
 function Lines({ lines }: { lines: string[] }) {

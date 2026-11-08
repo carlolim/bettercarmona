@@ -245,11 +245,16 @@
 .service-steps { margin: 10px 0 0; padding-left: 24px; }
 .service-steps > li { margin-top: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--rule-soft); }
 .service-steps > li::marker { font-weight: 700; color: var(--accent); }
-.service-client { margin: 0; font-weight: 600; line-height: 1.5; color: var(--ink); }
+.service-client { margin: 0; font-weight: 600; line-height: 1.5; color: var(--ink); white-space: pre-line; }
+.service-steps-heading { margin: 22px 0 0; font-size: 16px; line-height: 1.4; color: var(--ink-2); white-space: pre-line; }
+.service-span { color: var(--ink-3); }
+.service-where-all { margin: 10px 0 0; font-size: 14.5px; color: var(--ink-3); }
+.service-online { max-width: 860px; margin: 12px 0 0; }
+.service-online a { display: inline-flex; align-items: center; gap: 4px; min-height: 44px; font-weight: 600; }
 .service-label { font-weight: 700; color: var(--ink-3); }
 .service-rows { list-style: none; margin: 8px 0 0; padding: 0 0 0 12px; border-left: 2px solid var(--rule); }
 .service-rows > li + li { margin-top: 10px; }
-.service-rows p { margin: 0; line-height: 1.5; color: var(--ink-2); }
+.service-rows p { margin: 0; line-height: 1.5; color: var(--ink-2); white-space: pre-line; }
 .service-row-facts { display: flex; flex-wrap: wrap; gap: 2px 24px; margin: 4px 0 0; font-size: 14.5px; }
 .service-row-facts dt { flex-shrink: 0; color: var(--ink-3); }
 .service-row-facts dt::after { content: ":"; }

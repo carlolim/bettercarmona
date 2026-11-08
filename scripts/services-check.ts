@@ -42,8 +42,17 @@ export function serviceProblems(services: Service[], categories: ServiceCategory
       if (!step.rows.length) problems.push(`${at}: step ${i + 1} has no rows`);
       step.rows.forEach((r, j) => {
         if (!r.action && !r.fee && !r.time) problems.push(`${at}: step ${i + 1}, row ${j + 1} is empty`);
+        for (const [span, field] of [[r.feeSteps, 'fee'], [r.timeSteps, 'time']] as const) {
+          if (span === undefined) continue;
+          if (!r[field]) problems.push(`${at}: step ${i + 1} spans a ${field} it doesn't have`);
+          if (j !== step.rows.length - 1) problems.push(`${at}: step ${i + 1}: a ${field} span must be on the step's last row`);
+          if (!Number.isInteger(span) || span < 2 || i + span > s.steps.length) problems.push(`${at}: step ${i + 1}: ${field} span runs past the last step`);
+        }
       });
     });
+    if (s.online && (!s.online.url.startsWith('https://') || !/^\d{4}-\d{2}-\d{2}$/.test(s.online.checkedOn))) {
+      problems.push(`${at}: online needs an https URL and checkedOn as YYYY-MM-DD`);
+    }
     if (!s.total?.time.length) problems.push(`${at}: the total needs a processing time`);
     for (const c of s.caveats ?? []) if (!c.en.trim()) problems.push(`${at}: a caveat has no English text`);
 
