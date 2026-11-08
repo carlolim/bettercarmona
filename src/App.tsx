@@ -2,6 +2,7 @@ import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import ScrollToTop from './components/ScrollToTop';
 import { CommunityAbout } from './community/About';
 import { CommunityBarangays } from './community/Barangays';
+import { CommunityGovernment } from './community/Government';
 import { CommunityLayout } from './community/CommunityLayout';
 import { CommunityHome, CommunityNotFound } from './community/Home';
 import { CommunityHotlines } from './community/Hotlines';
@@ -32,6 +33,7 @@ export default function App() {
             <Route path="about" element={<CommunityAbout />} />
             <Route path="hotlines" element={<CommunityHotlines />} />
             <Route path="barangays" element={<CommunityBarangays />} />
+            <Route path="government" element={<CommunityGovernment />} />
           </Route>,
           <Route key={`${prefix}-transparency`} path={`${prefix}/transparency`} element={<TransparencyLayout />}>
             <Route index element={<Home />} />

@@ -16,6 +16,7 @@
     "home": "Home",
     "hotlines": "Hotlines",
     "barangays": "Barangays",
+    "government": "Government",
     "transparency": "Transparency",
     "about": "About"
   },
@@ -128,6 +129,23 @@
     "website": "The barangay's website",
     "unavailable": "Official page unavailable: the city's link returned \"not found\" on {{date}}.",
     "hotlines": "Hotline numbers"
+  },
+  "government": {
+    "pageTitle": "City government",
+    "heading": "City government",
+    "officials": {
+      "heading": "Elected officials",
+      "source": "From the city's Elected Officials page, where names appear only in the portraits. We read them on {{date}}.",
+      "sourceLink": "See the officials page",
+      "plural": "{{role}}s ({{count}})",
+      "notListed": "Not listed on the official page as of {{date}}"
+    },
+    "offices": {
+      "heading": "Departments and offices",
+      "source": "Titles and links are as the city's Departments / Offices / Units page published them on {{date}}. Each link opens the office's page on the city's website.",
+      "sourceLink": "See the offices page",
+      "noLink": "(no page linked)"
+    }
   },
   "barangayDialog": {
     "close": "Close",

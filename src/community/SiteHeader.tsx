@@ -7,11 +7,12 @@ import { LanguageSwitch } from './LanguageSwitch';
 import { OFFICIAL_PORTAL_URL } from './links';
 import { stripLocale, useLocale } from './locale';
 
-// Later tasks add Services and Government as their pages are built.
+// Task 007 adds Services when its page is built.
 const NAVIGATION = [
   { key: 'nav.home', href: '/' },
   { key: 'nav.hotlines', href: '/hotlines' },
   { key: 'nav.barangays', href: '/barangays' },
+  { key: 'nav.government', href: '/government' },
   { key: 'nav.transparency', href: '/transparency' },
   { key: 'nav.about', href: '/about' },
 ];
