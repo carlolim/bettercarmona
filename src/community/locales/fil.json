@@ -142,7 +142,7 @@
     },
     "offices": {
       "heading": "Mga departamento at opisina",
-      "source": "Ang mga title at link ay gaya ng pagkaka-publish sa Departments / Offices / Units page ng city noong {{date}}. Bubuksan ng bawat link ang page ng opisina sa website ng city.",
+      "source": "Galing ang mga title at link sa Departments / Offices / Units page ng city, as published noong {{date}}, at itinama namin ang halatang typo sa apat na title. Bubuksan ng bawat link ang page ng opisina sa website ng city.",
       "sourceLink": "Tingnan ang offices page",
       "noLink": "(walang naka-link na page)",
       "searchLabel": "Maghanap ng opisina",

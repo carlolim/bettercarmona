@@ -21,8 +21,10 @@ export interface Official {
 }
 
 export interface Office {
-  /** As the offices page titles it. */
+  /** As the offices page titles it, with obvious typos corrected. */
   name: string;
+  /** The title as published, where it was corrected. */
+  publishedAs?: string;
   /** Absent when the page lists the office without a link. */
   sourceUrl?: string;
 }
@@ -53,12 +55,12 @@ export const OFFICIALS: Official[] = [
 
 const portal = (slug: string) => `https://carmonagov.net/portal/${slug}/`;
 
-/** In the offices page's order, with titles as published. */
+/** In the offices page's order. Titles are as published, except four with obvious typos, which keep the original in `publishedAs`. */
 export const OFFICES: Office[] = [
   { name: 'Office of the City Assessor', sourceUrl: portal('office-of-the-municipal-assessor') },
   { name: 'Office of the City Zoning Administrator', sourceUrl: portal('office-of-the-municipal-zoning-administrator') },
   { name: 'Office of the City Building Official', sourceUrl: portal('office-of-the-building-official') },
-  { name: 'Office the City Budget Officer', sourceUrl: portal('office-of-the-municipal-budget-officer') },
+  { name: 'Office of the City Budget Officer', publishedAs: 'Office the City Budget Officer', sourceUrl: portal('office-of-the-municipal-budget-officer') },
   { name: 'Office of the City Mayor', sourceUrl: portal('office-of-the-mayor') },
   { name: 'Office of the City Accountant', sourceUrl: portal('municipal-accounting-office') },
   { name: 'Civil Security Unit', sourceUrl: portal('civil-security-unit') },
@@ -70,15 +72,15 @@ export const OFFICES: Office[] = [
   { name: 'Office of the City Civil Registrar', sourceUrl: portal('office-of-the-municipal-registrar') },
   { name: 'City Disaster Risk Reduction and Management Office', sourceUrl: portal('municipal-disaster-risk-reduction-and-management-office') },
   { name: 'City Environment and Natural Resources Office', sourceUrl: portal('municipal-environment-natural-resources-office') },
-  { name: 'Office City Health Officer', sourceUrl: portal('health') },
-  { name: 'City Information, Tourism, Culture and Arts Officer', sourceUrl: portal('municipal-information-tourism-culture-arts-office') },
+  { name: 'Office of the City Health Officer', publishedAs: 'Office City Health Officer', sourceUrl: portal('health') },
+  { name: 'Office of the City Information, Tourism, Culture and Arts Officer', publishedAs: 'City Information, Tourism, Culture and Arts Officer', sourceUrl: portal('municipal-information-tourism-culture-arts-office') },
   { name: 'Office of the City Planning and Development Coordinating Officer', sourceUrl: portal('municipal-planning-development-cocrdinators-office') },
   { name: 'Office of the City Social Welfare and Development Officer', sourceUrl: portal('municipal-social-welfare-and-development-office') },
   { name: 'Office of the City Treasurer', sourceUrl: portal('municipal-treasurers-office') },
   { name: 'Office of the City Persons with Disability Affairs Officer', sourceUrl: portal('persons-with-disabilty-affairs-office') },
   { name: 'Office of the City Public Employment Service Manager', sourceUrl: portal('public-employment-service-office-peso') },
   { name: 'Office of the City Agriculturist', sourceUrl: portal('municipal-agriculture-office') },
-  { name: 'Office of Local Youth Development Office', sourceUrl: portal('community-affairs-and-youth-development-office') },
+  { name: 'Local Youth Development Office', publishedAs: 'Office of Local Youth Development Office', sourceUrl: portal('community-affairs-and-youth-development-office') },
   { name: 'Office of the Sangguniang Panlungsod', sourceUrl: portal('sangguniang-bayan') },
   { name: 'Office of the City Vice Mayor', sourceUrl: portal('office-of-the-municipal-vice-mayor') },
   { name: 'Office of the City Traffic Management Officer/City Tricycle Franchising and Regulatory Board', sourceUrl: portal('carmona-traffic-management-office-municipal-tricycle-franchising-and-regulatory-board') },

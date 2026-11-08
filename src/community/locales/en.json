@@ -142,7 +142,7 @@
     },
     "offices": {
       "heading": "Departments and offices",
-      "source": "Titles and links are as the city's Departments / Offices / Units page published them on {{date}}. Each link opens the office's page on the city's website.",
+      "source": "Titles and links are from the city's Departments / Offices / Units page, as published on {{date}}, with obvious typos in four titles corrected. Each link opens the office's page on the city's website.",
       "sourceLink": "See the offices page",
       "noLink": "(no page linked)",
       "searchLabel": "Search offices",
