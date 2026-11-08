@@ -14,7 +14,7 @@ export interface Official {
   name?: string;
   /** The portrait the name was read from, to trace it. */
   image?: string;
-  /** A head-and-shoulders crop of that portrait, in public/officials/. Only the top three positions have one. */
+  /** A head-and-shoulders crop of that portrait, in public/officials/: 480px for the top three, 320px for councilors. */
   photo?: string;
   source: string;
   recordedAt: string;
@@ -36,16 +36,16 @@ export const OFFICIALS: Official[] = [
   { ...fromOfficials, role: 'Congressman, 5th District of Cavite', name: 'Roy M. Loyola', image: image('cong-1.jpg'), photo: '/officials/roy-m-loyola.jpg' },
   { ...fromOfficials, role: 'City Mayor', name: 'Dahlia A. Loyola', image: image('Mayor.jpg'), photo: '/officials/dahlia-a-loyola.jpg' },
   { ...fromOfficials, role: 'City Vice Mayor', name: 'Cesar L. Ines Jr.', image: image('Vice.jpg'), photo: '/officials/cesar-l-ines-jr.jpg' },
-  { ...fromOfficials, role: 'City Councilor', name: 'Roy A. Loyola III', image: image('TJ.jpg') },
-  { ...fromOfficials, role: 'City Councilor', name: 'Bernie A. Ortiz', image: image('BERNIE.jpg') },
-  { ...fromOfficials, role: 'City Councilor', name: 'Jojo S. Hermosa', image: image('KONSI-JOJO.jpg') },
-  { ...fromOfficials, role: 'City Councilor', name: 'Liza Lorelie S. Levardo-Cruz', image: image('Atty.jpg') },
-  { ...fromOfficials, role: 'City Councilor', name: 'Leonila A. Manabat', image: image('KONSI-LEONILA-A-MANABAT.jpg') },
-  { ...fromOfficials, role: 'City Councilor', name: 'Geraldine R. Maquinay', image: image('JOJIE.jpg') },
-  { ...fromOfficials, role: 'City Councilor', name: 'Domingo R. Tenedero', image: image('KD.jpg') },
-  { ...fromOfficials, role: 'City Councilor', name: 'Almario S. Zamora', image: image('AYONG.jpg') },
-  { ...fromOfficials, role: 'City Councilor', name: 'Rebecca L. Reyes', image: image('KONSI-VICKY.jpg') },
-  { ...fromOfficials, role: 'City Councilor', name: 'Amable M. Lontok', image: image('CONSI-BOBBY.jpg') },
+  { ...fromOfficials, role: 'City Councilor', name: 'Roy A. Loyola III', image: image('TJ.jpg'), photo: '/officials/roy-a-loyola-iii.jpg' },
+  { ...fromOfficials, role: 'City Councilor', name: 'Bernie A. Ortiz', image: image('BERNIE.jpg'), photo: '/officials/bernie-a-ortiz.jpg' },
+  { ...fromOfficials, role: 'City Councilor', name: 'Jojo S. Hermosa', image: image('KONSI-JOJO.jpg'), photo: '/officials/jojo-s-hermosa.jpg' },
+  { ...fromOfficials, role: 'City Councilor', name: 'Liza Lorelie S. Levardo-Cruz', image: image('Atty.jpg'), photo: '/officials/liza-lorelie-s-levardo-cruz.jpg' },
+  { ...fromOfficials, role: 'City Councilor', name: 'Leonila A. Manabat', image: image('KONSI-LEONILA-A-MANABAT.jpg'), photo: '/officials/leonila-a-manabat.jpg' },
+  { ...fromOfficials, role: 'City Councilor', name: 'Geraldine R. Maquinay', image: image('JOJIE.jpg'), photo: '/officials/geraldine-r-maquinay.jpg' },
+  { ...fromOfficials, role: 'City Councilor', name: 'Domingo R. Tenedero', image: image('KD.jpg'), photo: '/officials/domingo-r-tenedero.jpg' },
+  { ...fromOfficials, role: 'City Councilor', name: 'Almario S. Zamora', image: image('AYONG.jpg'), photo: '/officials/almario-s-zamora.jpg' },
+  { ...fromOfficials, role: 'City Councilor', name: 'Rebecca L. Reyes', image: image('KONSI-VICKY.jpg'), photo: '/officials/rebecca-l-reyes.jpg' },
+  { ...fromOfficials, role: 'City Councilor', name: 'Amable M. Lontok', image: image('CONSI-BOBBY.jpg'), photo: '/officials/amable-m-lontok.jpg' },
   // The page shows a placeholder image for these two.
   { ...fromOfficials, role: 'ABC President' },
   { ...fromOfficials, role: 'SK Federation President' },

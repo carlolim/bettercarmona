@@ -13,15 +13,15 @@ export function CommunityGovernment() {
   useTitle(t('government.pageTitle'));
   const officialsDate = hotlinesDate(locale, OFFICIALS_RECORDED_AT);
   const officesDate = hotlinesDate(locale, OFFICES_RECORDED_AT);
-  const featured = OFFICIALS.filter((o) => o.photo);
   const councilors = OFFICIALS.filter((o) => o.role === 'City Councilor');
+  const featured = OFFICIALS.filter((o) => o.photo && o.role !== 'City Councilor');
   const others = OFFICIALS.filter((o) => !o.photo && o.role !== 'City Councilor');
 
   return (
     <main className="page main community-government">
       <h1>{t('government.heading')}</h1>
 
-      <section aria-labelledby="government-officials">
+      <section aria-labelledby="government-officials" className="government-officials">
         <h2 id="government-officials">{t('government.officials.heading')}</h2>
         <p className="government-source">
           {t('government.officials.source', { date: officialsDate })}{' '}
@@ -40,7 +40,12 @@ export function CommunityGovernment() {
 
         <h3 className="government-subheading">{t('government.officials.councilors', { count: councilors.length })}</h3>
         <ul className="government-councilors">
-          {councilors.map((o, i) => <li key={i}>{o.name ?? <NotListed date={officialsDate} />}</li>)}
+          {councilors.map((o, i) => (
+            <li key={i}>
+              {o.photo && <img src={o.photo} alt={o.name} width={96} height={96} loading="lazy" decoding="async" />}
+              <span className="government-name">{o.name ?? <NotListed date={officialsDate} />}</span>
+            </li>
+          ))}
         </ul>
 
         <dl className="government-others">

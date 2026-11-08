@@ -135,7 +135,7 @@
     "heading": "City government",
     "officials": {
       "heading": "Elected officials",
-      "source": "From the city's Elected Officials page, where names appear only in the portraits. We read them on {{date}}. The three photos are cropped from those portraits.",
+      "source": "From the city's Elected Officials page, where names appear only in the portraits. We read them on {{date}}. The photos are cropped from those portraits.",
       "sourceLink": "See the officials page",
       "councilors": "City Councilors ({{count}})",
       "notListed": "Not listed on the official page as of {{date}}"
