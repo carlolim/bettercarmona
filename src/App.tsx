@@ -1,3 +1,4 @@
+import { lazy, Suspense } from 'react';
 import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import ScrollToTop from './components/ScrollToTop';
 import { CommunityAbout } from './community/About';
@@ -7,13 +8,16 @@ import { CommunityLayout } from './community/CommunityLayout';
 import { CommunityHome, CommunityNotFound } from './community/Home';
 import { CommunityHotlines } from './community/Hotlines';
 import { LocaleSync } from './community/LocaleSync';
-import { CommunityService, CommunityServices } from './community/Services';
 import { SiteHeader } from './community/SiteHeader';
 import { TransparencyLayout } from './community/TransparencyLayout';
 import About from './pages/About';
 import Home from './pages/Home';
 import Project from './pages/Project';
 import Enacted from './pages/Enacted';
+
+// The services data is large, so it loads only when a services page opens.
+const CommunityServices = lazy(() => import('./community/Services').then((m) => ({ default: m.CommunityServices })));
+const CommunityService = lazy(() => import('./community/Services').then((m) => ({ default: m.CommunityService })));
 
 /** Old budget addresses, from before the pages moved under /transparency, keep working with their filters. */
 function LegacyRedirect() {
@@ -35,8 +39,8 @@ export default function App() {
             <Route path="hotlines" element={<CommunityHotlines />} />
             <Route path="barangays" element={<CommunityBarangays />} />
             <Route path="government" element={<CommunityGovernment />} />
-            <Route path="services" element={<CommunityServices />} />
-            <Route path="services/:id" element={<CommunityService />} />
+            <Route path="services" element={<Suspense><CommunityServices /></Suspense>} />
+            <Route path="services/:id" element={<Suspense><CommunityService /></Suspense>} />
           </Route>,
           <Route key={`${prefix}-transparency`} path={`${prefix}/transparency`} element={<TransparencyLayout />}>
             <Route index element={<Home />} />
