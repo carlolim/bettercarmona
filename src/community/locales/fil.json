@@ -135,16 +135,20 @@
     "heading": "Pamahalaang lungsod",
     "officials": {
       "heading": "Mga elected official",
-      "source": "Galing sa Elected Officials page ng city, kung saan nasa mga portrait lang ang mga pangalan. Binasa namin ang mga ito noong {{date}}.",
+      "source": "Galing sa Elected Officials page ng city, kung saan nasa mga portrait lang ang mga pangalan. Binasa namin ang mga ito noong {{date}}. Ang tatlong litrato ay na-crop mula sa mga portrait na iyon.",
       "sourceLink": "Tingnan ang officials page",
-      "plural": "{{role}}s ({{count}})",
+      "councilors": "Mga City Councilor ({{count}})",
       "notListed": "Wala sa official page as of {{date}}"
     },
     "offices": {
       "heading": "Mga departamento at opisina",
       "source": "Ang mga title at link ay gaya ng pagkaka-publish sa Departments / Offices / Units page ng city noong {{date}}. Bubuksan ng bawat link ang page ng opisina sa website ng city.",
       "sourceLink": "Tingnan ang offices page",
-      "noLink": "(walang naka-link na page)"
+      "noLink": "(walang naka-link na page)",
+      "searchLabel": "Maghanap ng opisina",
+      "searchPlaceholder": "Halimbawa: treasurer, health, permit",
+      "searchCount": "{{shown}} sa {{total}} na opisina",
+      "noResults": "Walang title ng opisina na tugma sa \"{{query}}\"."
     }
   },
   "barangayDialog": {

@@ -14,6 +14,8 @@ export interface Official {
   name?: string;
   /** The portrait the name was read from, to trace it. */
   image?: string;
+  /** A head-and-shoulders crop of that portrait, in public/officials/. Only the top three positions have one. */
+  photo?: string;
   source: string;
   recordedAt: string;
 }
@@ -31,9 +33,9 @@ const image = (file: string) => `https://carmonagov.net/portal/wp-content/upload
 
 /** In the officials page's order. */
 export const OFFICIALS: Official[] = [
-  { ...fromOfficials, role: 'Congressman, 5th District of Cavite', name: 'Roy M. Loyola', image: image('cong-1.jpg') },
-  { ...fromOfficials, role: 'City Mayor', name: 'Dahlia A. Loyola', image: image('Mayor.jpg') },
-  { ...fromOfficials, role: 'City Vice Mayor', name: 'Cesar L. Ines Jr.', image: image('Vice.jpg') },
+  { ...fromOfficials, role: 'Congressman, 5th District of Cavite', name: 'Roy M. Loyola', image: image('cong-1.jpg'), photo: '/officials/roy-m-loyola.jpg' },
+  { ...fromOfficials, role: 'City Mayor', name: 'Dahlia A. Loyola', image: image('Mayor.jpg'), photo: '/officials/dahlia-a-loyola.jpg' },
+  { ...fromOfficials, role: 'City Vice Mayor', name: 'Cesar L. Ines Jr.', image: image('Vice.jpg'), photo: '/officials/cesar-l-ines-jr.jpg' },
   { ...fromOfficials, role: 'City Councilor', name: 'Roy A. Loyola III', image: image('TJ.jpg') },
   { ...fromOfficials, role: 'City Councilor', name: 'Bernie A. Ortiz', image: image('BERNIE.jpg') },
   { ...fromOfficials, role: 'City Councilor', name: 'Jojo S. Hermosa', image: image('KONSI-JOJO.jpg') },
