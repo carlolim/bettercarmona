@@ -1,3 +1,4 @@
+import { FileText } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useTitle } from '../lib/use-title';
 import { BARANGAY_OFFICIALS_URL, BARANGAYS, BARANGAYS_RECORDED_AT, barangayTitle } from './data/barangays';
@@ -14,18 +15,19 @@ export function CommunityBarangays() {
     <main className="main community-page community-barangays">
       <PageHero title={t('barangays.heading')} breadcrumb={[{ label: t('nav.home'), to: '/' }, { label: t('nav.barangays') }]} />
       <div className="page">
-        <p className="barangays-source">
-          {t('barangays.source', { date })}{' '}
-          <ExternalLink href={BARANGAY_OFFICIALS_URL} className="barangays-source-link">{t('barangays.sourceLink')}</ExternalLink>
-        </p>
-        <p className="barangays-source">{t('barangays.linksChecked', { date })}</p>
+        <div className="bc-callout bc-callout--source">
+          <span className="bc-icon"><FileText size={20} aria-hidden="true" /></span>
+          <p>{t('barangays.source', { date })}</p>
+          <ExternalLink href={BARANGAY_OFFICIALS_URL} icon className="bc-btn bc-btn--outline">{t('barangays.sourceLink')}</ExternalLink>
+        </div>
+        <p className="barangays-checked">{t('barangays.linksChecked', { date })}</p>
 
         <ul className="barangay-list">
           {BARANGAYS.map((barangay) => {
             const { number, captain, officialPage, hotline } = barangay;
             const title = barangayTitle(t, barangay);
             return (
-              <li key={number} className="barangay-card">
+              <li key={number} className="bc-card barangay-card">
                 <h2>{title}</h2>
                 <p className="barangay-captain">
                   <span>{t('barangays.captain')}</span> {captain}

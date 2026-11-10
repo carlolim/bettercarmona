@@ -1,3 +1,4 @@
+import { FileText } from 'lucide-react';
 import { useId, useState } from 'react';
 import { useTitle } from '../lib/use-title';
 import { OFFICES, OFFICES_RECORDED_AT, OFFICES_URL, OFFICIALS, OFFICIALS_RECORDED_AT, OFFICIALS_URL, type Official } from './data/government';
@@ -23,15 +24,18 @@ export function CommunityGovernment() {
       <PageHero title={t('government.heading')} breadcrumb={[{ label: t('nav.home'), to: '/' }, { label: t('nav.government') }]} />
       <div className="page">
         <section aria-labelledby="government-officials" className="government-officials">
-          <h2 id="government-officials">{t('government.officials.heading')}</h2>
-          <p className="government-source">
-            {t('government.officials.source', { date: officialsDate })}{' '}
-            <ExternalLink href={OFFICIALS_URL} className="government-source-link">{t('government.officials.sourceLink')}</ExternalLink>
-          </p>
+          <div className="bc-section-head">
+            <h2 id="government-officials">{t('government.officials.heading')}</h2>
+          </div>
+          <div className="bc-callout bc-callout--source">
+            <span className="bc-icon"><FileText size={20} aria-hidden="true" /></span>
+            <p>{t('government.officials.source', { date: officialsDate })}</p>
+            <ExternalLink href={OFFICIALS_URL} icon className="bc-btn bc-btn--outline">{t('government.officials.sourceLink')}</ExternalLink>
+          </div>
 
           <ul className="government-featured">
             {featured.map((o) => (
-              <li key={o.role}>
+              <li key={o.role} className="bc-card">
                 <img src={o.photo} alt={o.name} width={160} height={160} loading="lazy" decoding="async" />
                 <span className="government-role">{o.role}</span>
                 <span className="government-name">{o.name}</span>
@@ -49,17 +53,20 @@ export function CommunityGovernment() {
             ))}
           </ul>
 
-          <dl className="government-others">
+          <dl className="bc-card government-others">
             {others.map((o) => <Position key={o.role} official={o} date={officialsDate} />)}
           </dl>
         </section>
 
         <section aria-labelledby="government-offices">
-          <h2 id="government-offices">{t('government.offices.heading')}</h2>
-          <p className="government-source">
-            {t('government.offices.source', { date: officesDate })}{' '}
-            <ExternalLink href={OFFICES_URL} className="government-source-link">{t('government.offices.sourceLink')}</ExternalLink>
-          </p>
+          <div className="bc-section-head">
+            <h2 id="government-offices">{t('government.offices.heading')}</h2>
+          </div>
+          <div className="bc-callout bc-callout--source">
+            <span className="bc-icon"><FileText size={20} aria-hidden="true" /></span>
+            <p>{t('government.offices.source', { date: officesDate })}</p>
+            <ExternalLink href={OFFICES_URL} icon className="bc-btn bc-btn--outline">{t('government.offices.sourceLink')}</ExternalLink>
+          </div>
           <OfficeList />
         </section>
       </div>
@@ -89,6 +96,7 @@ function OfficeList() {
         <label htmlFor={id}>{t('government.offices.searchLabel')}</label>
         <input
           id={id}
+          className="bc-input"
           type="search"
           value={query}
           onChange={(event) => setQuery(event.target.value)}
@@ -101,7 +109,7 @@ function OfficeList() {
         {words.length ? t('government.offices.searchCount', { shown: shown.length, total: OFFICES.length }) : ''}
       </p>
       {shown.length ? (
-        <ul className="government-offices">
+        <ul className="bc-card government-offices">
           {shown.map(({ name, sourceUrl }) => (
             <li key={name}>
               {sourceUrl ? <ExternalLink href={sourceUrl}>{name}</ExternalLink> : <span>{name} <span className="government-no-link">{t('government.offices.noLink')}</span></span>}

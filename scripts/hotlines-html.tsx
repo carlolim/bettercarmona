@@ -30,7 +30,7 @@ function render(shell: string, { locale, pathname, translation }: (typeof PAGES)
         </div>
       </div>
       <main className="main community-page community-hotlines">
-        <PageHero title={t('hotlines.heading')} breadcrumb={[{ label: t('nav.home'), to: '/' }, { label: t('nav.hotlines') }]} />
+        <PageHero title={t('hotlines.heading')} lede={t('home.hotlines.source')} breadcrumb={[{ label: t('nav.home'), to: '/' }, { label: t('nav.hotlines') }]} />
         <div className="page">
           <HotlinesContent t={t} locale={locale} />
         </div>

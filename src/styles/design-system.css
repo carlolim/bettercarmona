@@ -197,6 +197,11 @@ html { scroll-padding-top: calc(var(--header-h) + 16px); }
 .bc-callout > svg { flex-shrink: 0; margin-top: 2px; color: var(--accent); }
 .bc-callout--note { border-color: var(--warn-line); background: var(--warn-bg); color: var(--ink); }
 .bc-callout--note > svg { color: var(--warn-ink); }
+/* A source callout: the document icon in a circle, the source sentence, then its link as a button. */
+.bc-callout--source { flex-wrap: wrap; align-items: center; gap: 16px 20px; padding: 20px 24px; }
+.bc-callout--source > p { flex: 1 1 420px; margin: 0; }
+.bc-callout--source .bc-icon { background: var(--surface); }
+.bc-callout--source .bc-btn { padding-block: 8px; }
 
 /* ---------- Form controls ---------- */
 /* The border is --ink-3, not --rule: a field's edge needs 3:1 against its background. */
