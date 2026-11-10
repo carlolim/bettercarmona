@@ -1,0 +1,217 @@
+/* =============================================================
+   BetterCarmona design system: the soft refresh.
+   Tokens for roles, radius, shadow, the green surfaces, motion and
+   layout, then the shared `bc-` component classes. The palette itself
+   stays in theme.css and dark.css.
+
+   Components use tokens only. The two exceptions are #fff text on solid
+   green and #11151c text on yellow.
+   ============================================================= */
+
+:root {
+  /* ---------- Roles ---------- */
+  /* The page sits on canvas. Cards and the solid header sit on surface. Rows inside a card sit on surface-2. */
+  --canvas: var(--paper-2);       /* #f5f7f5 */
+  --surface: var(--paper);        /* #ffffff */
+  --surface-2: var(--paper-2);    /* #f5f7f5 */
+
+  /* Solid green fills keep the same value in both themes, because --accent becomes a text color in the dark theme. */
+  --accent-solid: #037951;
+  --accent-solid-hover: #026b45;
+  /* Decorative border on tinted panels, tags, and hovered cards. Never the only sign of a control. */
+  --accent-line: #78d294;
+
+  /* Notes and warnings. */
+  --warn-bg: #fff8e8;
+  --warn-line: #e2b45c;
+  --warn-ink: #7a5410;
+
+  --footer-bg: #024a31;
+  --focus: #037951;
+  --focus-on-green: #f4dc48;
+
+  /* ---------- Green surfaces ---------- */
+  /* The hero, the page heroes, and the budget band. White and --brand-mint text only. The same in both themes. */
+  --hero-from: #026b45;
+  --hero-to: #024a31;
+  --hero-bg:
+    radial-gradient(circle at 50% 0%, rgba(120, 210, 148, 0.14), transparent 42%),
+    linear-gradient(160deg, var(--hero-from) 0%, var(--hero-to) 100%);
+  /* Translucent fills on green are dark, never white, so they can only raise contrast. */
+  --on-green-tint: rgba(1, 45, 30, 0.35);
+  --on-green-tint-strong: rgba(1, 45, 30, 0.6);
+  --on-green-line: rgba(255, 255, 255, 0.4);
+
+  /* ---------- Radius ---------- */
+  --radius-sm: 8px;     /* focus rings, skip link, code, small photos */
+  --radius-md: 12px;    /* inputs, menus, rows inside a card */
+  --radius-lg: 16px;    /* cards, panels, callouts, tables */
+  --radius-xl: 24px;    /* feature bands, the floating hotlines card, dialogs */
+  --radius-pill: 999px; /* buttons, tags, chips, nav items */
+
+  /* ---------- Elevation ---------- */
+  --shadow-sm: 0 1px 2px rgba(17, 21, 28, 0.06);            /* cards at rest */
+  --shadow-md: 0 6px 16px -6px rgba(17, 21, 28, 0.16);      /* buttons on hover, the solid header, bands */
+  --shadow-lg: 0 18px 36px -16px rgba(2, 74, 49, 0.30);     /* cards on hover, floating card, menus, dialogs */
+
+  /* ---------- Motion ---------- */
+  --ease: 0.2s ease;
+  --lift-card: -3px;
+  --lift-button: -1px;
+
+  /* ---------- Layout ---------- */
+  --header-h: 80px;          /* the sticky nav row, not the utility bar */
+  --section-gap: 80px;       /* between sections on a community page */
+  --measure: 680px;          /* longest line of running text */
+  --narrow: 820px;           /* single-column lists, such as a service category */
+}
+
+@media (max-width: 860px) {
+  :root {
+    --header-h: 68px;
+    --section-gap: 56px;
+  }
+}
+
+@media screen {
+  :root[data-theme="dark"] {
+    /* Roles. The dark theme's paper is the canvas, and cards are one step lighter. */
+    --canvas: var(--paper);       /* #0f1a16 */
+    --surface: var(--paper-2);    /* #16231e */
+    --surface-2: var(--paper-3);  /* #1e2e28 */
+
+    --accent-line: #1f945f;
+
+    --warn-bg: #2b2312;
+    --warn-line: #8a6d2f;
+    --warn-ink: #f0c36d;
+
+    --footer-bg: #0b1411;
+    --focus: #78d294;
+
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+    --shadow-md: 0 6px 16px -6px rgba(0, 0, 0, 0.5);
+    --shadow-lg: 0 18px 36px -16px rgba(0, 0, 0, 0.65);
+  }
+}
+
+/* ---------- Base ---------- */
+
+/* Community pages sit on the canvas. The budget pages keep their white paper. In the dark theme both are the same. */
+html, body { background: var(--canvas); }
+.site-content-group { background: var(--paper); }
+
+/* Community pages read at 16px. The budget pages keep theme.css's 15px. */
+.community-content { font-size: 16px; line-height: 1.55; }
+
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+
+/* Anchored sections clear the sticky header. */
+html { scroll-padding-top: calc(var(--header-h) + 16px); }
+
+.skip-link { border-radius: var(--radius-sm); }
+
+/* ---------- Buttons ---------- */
+/* Every button and button-like link is a pill, at least 44px tall. */
+
+.bc-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  min-height: 44px; padding: 0 22px;
+  border: 1.5px solid transparent; border-radius: var(--radius-pill);
+  font-family: var(--font-hero); font-size: 15px; font-weight: 700; line-height: 1.2;
+  text-decoration: none; cursor: pointer;
+  transition: transform var(--ease), box-shadow var(--ease), background-color var(--ease);
+}
+.bc-btn:hover { transform: translateY(var(--lift-button)); box-shadow: var(--shadow-md); }
+.bc-btn--lg { min-height: 50px; padding: 0 26px; }
+
+.bc-btn--primary { background: var(--accent-solid); color: #fff; }
+.bc-btn--primary:hover { background: var(--accent-solid-hover); color: #fff; }
+
+.bc-btn--outline { background: var(--surface); border-color: var(--accent); color: var(--accent); }
+.bc-btn--outline:hover { background: var(--accent-soft); color: var(--accent); }
+
+.bc-btn--quiet { background: transparent; color: var(--accent); }
+.bc-btn--quiet:hover { background: var(--accent-soft); box-shadow: none; transform: none; }
+
+/* On green surfaces only. */
+.bc-btn--white { background: #fff; color: var(--hero-from); }
+.bc-btn--white:hover { background: var(--brand-mint); color: var(--hero-from); }
+.bc-btn--glass { background: var(--on-green-tint); border: 1px solid var(--on-green-line); color: #fff; }
+.bc-btn--glass:hover { background: var(--on-green-tint-strong); color: #fff; }
+
+/* ---------- Cards ---------- */
+
+.bc-card {
+  background: var(--surface);
+  border: 1px solid var(--rule-soft);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+/* Only on an <a> or <button> that is the whole card. */
+.bc-card--link {
+  display: flex; align-items: flex-start; gap: 16px; padding: 20px;
+  color: var(--ink); text-decoration: none;
+  transition: transform var(--ease), box-shadow var(--ease), border-color var(--ease);
+}
+.bc-card--link:hover { transform: translateY(var(--lift-card)); box-shadow: var(--shadow-lg); border-color: var(--accent-line); color: var(--ink); }
+
+/* ---------- Icon circle ---------- */
+/* Icons are 20px in the 44px circle, 24px in the larger ones. */
+
+.bc-icon {
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  width: 44px; height: 44px; border-radius: var(--radius-pill);
+  background: var(--accent-soft); color: var(--accent);
+}
+.bc-icon--lg { width: 52px; height: 52px; }
+.bc-icon--yellow { width: 56px; height: 56px; background: var(--brand-yellow); color: #11151c; }
+.bc-icon--solid { background: var(--accent-solid); color: #fff; }
+
+/* ---------- Tags and fact chips ---------- */
+
+.bc-tag {
+  display: inline-flex; align-items: center; min-height: 28px; padding: 0 12px;
+  border: 1px solid var(--accent-line); border-radius: var(--radius-pill);
+  background: var(--accent-soft); color: var(--accent);
+  font-family: var(--font-hero); font-size: 13px; font-weight: 700;
+}
+.bc-tag--warn { border-color: var(--warn-line); background: var(--warn-bg); color: var(--warn-ink); }
+.bc-tag--neutral { border-color: var(--rule); background: var(--surface); color: var(--ink-2); }
+
+.bc-chip {
+  display: inline-flex; align-items: center; gap: 6px; min-height: 30px; padding: 3px 12px;
+  border: 1px solid var(--rule-soft); border-radius: var(--radius-pill);
+  background: var(--surface-2); color: var(--ink-2); font-size: 13.5px; line-height: 1.35;
+}
+.bc-chip svg { color: var(--accent); }
+.bc-chip strong { font-weight: 600; color: var(--ink); }
+
+/* ---------- Callouts ---------- */
+
+.bc-callout {
+  display: flex; align-items: flex-start; gap: 14px; padding: 18px 20px;
+  border: 1px solid var(--accent-line); border-radius: var(--radius-lg);
+  background: var(--accent-soft); color: var(--ink-2); font-size: 15px; line-height: 1.55;
+}
+.bc-callout > svg { flex-shrink: 0; margin-top: 2px; color: var(--accent); }
+.bc-callout--note { border-color: var(--warn-line); background: var(--warn-bg); color: var(--ink); }
+.bc-callout--note > svg { color: var(--warn-ink); }
+
+/* ---------- Form controls ---------- */
+/* The border is --ink-3, not --rule: a field's edge needs 3:1 against its background. */
+
+.bc-input, .bc-select {
+  min-height: 46px; padding: 0 14px;
+  border: 1px solid var(--ink-3); border-radius: var(--radius-md);
+  background: var(--surface); color: var(--ink); font: inherit; font-size: 16px;
+}
+.bc-input:focus-visible, .bc-select:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+
+/* ---------- Reduced motion ---------- */
+/* No movement and no transition. Colors and shadows still change. */
+
+@media (prefers-reduced-motion: reduce) {
+  .bc-btn, .bc-card--link, .site-header { transition: none; }
+  .bc-btn:hover, .bc-card--link:hover { transform: none; }
+}

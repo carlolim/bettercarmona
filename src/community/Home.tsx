@@ -76,7 +76,7 @@ export function CommunityNotFound() {
   const { t, path } = useLocale();
   return (
     <>
-      <div id="main-content" tabIndex={-1} className="site-content">
+      <div id="main-content" tabIndex={-1} className="site-content community-content">
         <main className="page main">
           <p className="state">{t('notFound.message')} <Link to={path('/')}>{t('notFound.homeLink')}</Link></p>
         </main>
