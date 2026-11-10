@@ -6,6 +6,7 @@
  * responsible" column names staff; we give only the office. `npm run build` checks this file
  * (scripts/services-check.ts).
  */
+import { Briefcase, Receipt, type LucideIcon } from 'lucide-react';
 import type { LocalizedString } from '../Localized';
 
 export interface ServiceSource {
@@ -103,6 +104,8 @@ export interface ServiceCategory {
   officeUrl?: string;
   /** The city's own page or system for these services, if any. */
   online?: { label: LocalizedString; url: string; checkedOn: string };
+  /** Shown in the category's icon circle. Without one, the page uses FileText. */
+  icon?: LucideIcon;
 }
 
 /** The city's online business permit system. The charter names it in the eBOSS services; the address is from src/community/data/home-links.ts. */
@@ -135,6 +138,7 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
       fil: 'Mga business permit mula sa City Treasurer, kasama ang online sa eBOSS, ang zoning at environment clearance na kailangan ng business permit, at ang rehistro ng business name sa DTI at ng BMBE sa Negosyo Center ng LEDIPO.',
     },
     online: EBOSS,
+    icon: Briefcase,
   },
   {
     id: 'treasury',
@@ -144,6 +148,7 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
       fil: 'Ang community tax certificate (cedula), working permit, professional tax receipt, at tax clearance, mula sa Office of the City Treasurer.',
     },
     officeUrl: 'https://carmonagov.net/portal/municipal-treasurers-office/',
+    icon: Receipt,
   },
 ];
 

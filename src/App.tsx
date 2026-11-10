@@ -18,6 +18,7 @@ import Enacted from './pages/Enacted';
 
 // The services data is large, so it loads only when a services page opens.
 const CommunityServices = lazy(() => import('./community/Services').then((m) => ({ default: m.CommunityServices })));
+const CommunityServiceCategory = lazy(() => import('./community/Services').then((m) => ({ default: m.CommunityServiceCategory })));
 const CommunityService = lazy(() => import('./community/Services').then((m) => ({ default: m.CommunityService })));
 
 /** Old budget addresses, from before the pages moved under /transparency, keep working with their filters. */
@@ -41,6 +42,7 @@ export default function App() {
             <Route path="barangays" element={<CommunityBarangays />} />
             <Route path="government" element={<CommunityGovernment />} />
             <Route path="services" element={<Suspense fallback={<PageHeroPlaceholder />}><CommunityServices /></Suspense>} />
+            <Route path="services/category/:categoryId" element={<Suspense fallback={<PageHeroPlaceholder />}><CommunityServiceCategory /></Suspense>} />
             <Route path="services/:id" element={<Suspense fallback={<PageHeroPlaceholder />}><CommunityService /></Suspense>} />
           </Route>,
           <Route key={`${prefix}-transparency`} path={`${prefix}/transparency`} element={<TransparencyLayout />}>
