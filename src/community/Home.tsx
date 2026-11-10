@@ -1,9 +1,8 @@
+import { ArrowRight, ExternalLink as ExternalLinkIcon, Phone } from 'lucide-react';
 import { Link, Navigate, useLocation } from 'react-router-dom';
 import { useTitle } from '../lib/use-title';
 import { BarangayFinder } from './BarangayFinder';
 import { HOME_LINKS_CHECKED_ON, HOME_OFFICIAL_SITES, HOME_SERVICES, type HomeLink } from './data/home-links';
-import { ExternalLink } from './ExternalLink';
-import { PhoneIcon } from './HotlinesContent';
 import { Localized } from './Localized';
 import { useLocale } from './locale';
 import { PageHero } from './PageHero';
@@ -23,50 +22,79 @@ export function CommunityHome() {
     timeZone: 'Asia/Manila', year: 'numeric', month: 'long', day: 'numeric',
   }).format(new Date(`${HOME_LINKS_CHECKED_ON}T00:00:00+08:00`));
   return (
-    <main className="page main community-home">
-      <Link to={path('/hotlines')} className="home-emergency">
-        <PhoneIcon size={28} />
-        <span className="home-emergency-text">
-          <strong>{t('home.hotlines.title')}</strong>
-          <span>{t('home.hotlines.source')}</span>
-        </span>
-      </Link>
+    <main className="main community-page community-home">
+      <PageHero home title={t('home.heading')} lede={<>{t('home.intro')} <Link to={path('/about')}>{t('home.whoRuns')}</Link></>}>
+        <div className="home-hero-actions">
+          <Link to={path('/services')} className="bc-btn bc-btn--white bc-btn--lg">
+            {t('home.browseServices')} <ArrowRight size={18} aria-hidden="true" />
+          </Link>
+          <Link to={path('/hotlines')} className="bc-btn bc-btn--glass bc-btn--lg">
+            <Phone size={18} aria-hidden="true" className="home-hero-phone" /> {t('home.hotlines.title')}
+          </Link>
+        </div>
+      </PageHero>
 
-      <h1>{t('home.heading')}</h1>
-      <p className="lede">{t('home.intro')} <Link to={path('/about')}>{t('home.whoRuns')}</Link></p>
+      <div className="page home-emergency-wrap">
+        <Link to={path('/hotlines')} className="bc-card bc-card--link home-emergency">
+          <span className="bc-icon bc-icon--yellow"><Phone size={24} aria-hidden="true" /></span>
+          <span className="home-emergency-text">
+            <strong>{t('home.hotlines.title')}</strong>
+            <span>{t('home.hotlines.source')}</span>
+          </span>
+          <span className="bc-icon bc-icon--solid home-emergency-arrow"><ArrowRight size={20} aria-hidden="true" /></span>
+        </Link>
+      </div>
 
-      <BarangayFinder />
+      <div className="page home-sections">
+        <section aria-labelledby="home-services">
+          <div className="bc-section-head">
+            <h2 id="home-services">{t('home.services.heading')}</h2>
+            <p>{t('home.services.note', { date: checkedOn })}</p>
+          </div>
+          <LinkGrid items={HOME_SERVICES} />
+        </section>
 
-      <section aria-labelledby="home-services">
-        <h2 id="home-services">{t('home.services.heading')}</h2>
-        <p className="home-note">{t('home.services.note', { date: checkedOn })}</p>
-        <LinkGrid items={HOME_SERVICES} />
-      </section>
+        <BarangayFinder />
 
-      <section aria-labelledby="home-transparency" className="home-transparency">
-        <h2 id="home-transparency">{t('home.transparency.heading')}</h2>
-        <p>{t('home.transparency.body')}</p>
-        <p><Link to={path('/transparency')} className="button button-primary">{t('home.transparency.link')}</Link></p>
-      </section>
+        <section aria-labelledby="home-transparency" className="home-band">
+          <div className="home-band-text">
+            <h2 id="home-transparency">{t('home.transparency.heading')}</h2>
+            <p>{t('home.transparency.body')}</p>
+          </div>
+          <Link to={path('/transparency')} className="bc-btn bc-btn--white bc-btn--lg">
+            {t('home.transparency.link')} <ArrowRight size={18} aria-hidden="true" />
+          </Link>
+        </section>
 
-      <section aria-labelledby="home-official">
-        <h2 id="home-official">{t('home.official.heading')}</h2>
-        <LinkGrid items={HOME_OFFICIAL_SITES} />
-      </section>
+        <section aria-labelledby="home-official">
+          <div className="bc-section-head">
+            <h2 id="home-official">{t('home.official.heading')}</h2>
+          </div>
+          <LinkGrid items={HOME_OFFICIAL_SITES} />
+        </section>
+      </div>
     </main>
   );
 }
 
+/** Link cards to the city's own sites. Each card is one link, so it lifts on hover. */
 function LinkGrid({ items }: { items: HomeLink[] }) {
+  const { t } = useLocale();
   return (
     <ul className="home-grid">
-      {items.map(({ id, title, description, href }) => (
+      {items.map(({ id, title, description, href, icon: Icon }) => (
         <li key={id}>
-          <ExternalLink href={href} className="home-card">
-            <h3><Localized value={title} /></h3>
-            <span className="home-card-text"><Localized value={description} /></span>
-            <span className="home-card-host">{new URL(href).hostname}</span>
-          </ExternalLink>
+          <a href={href} target="_blank" rel="noopener" className="bc-card bc-card--link home-card">
+            <span className="bc-icon"><Icon size={20} aria-hidden="true" /></span>
+            <span className="home-card-body">
+              <h3><Localized value={title} /></h3>
+              <span className="home-card-text"><Localized value={description} /></span>
+              <span className="home-card-host">
+                {new URL(href).hostname} <ExternalLinkIcon size={13} aria-hidden="true" />
+                <span className="sr-only"> {t('opensInNewTab')}</span>
+              </span>
+            </span>
+          </a>
         </li>
       ))}
     </ul>

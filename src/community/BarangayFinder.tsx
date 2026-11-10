@@ -16,9 +16,11 @@ export function BarangayFinder() {
 
   return (
     <section aria-labelledby="home-barangays" className="home-barangays">
-      <h2 id="home-barangays">{t('home.map.heading')}</h2>
-      <p className="home-note">{t('home.map.intro')}</p>
-      <div className="barangay-finder">
+      <div className="bc-section-head">
+        <h2 id="home-barangays">{t('home.map.heading')}</h2>
+        <p>{t('home.map.intro')}</p>
+      </div>
+      <div className="bc-card barangay-finder">
         <div>
           <BarangayMap
             active={active}
@@ -51,16 +53,16 @@ export function BarangayFinder() {
               </li>
             ))}
           </ul>
+          <p className="barangay-map-credit">
+            {t('home.map.credit', { psgc: BOUNDARY_SOURCE.psgc })}
+          </p>
+          <ul className="barangay-map-credit-links">
+            <li><ExternalLink href={BOUNDARY_SOURCE.original}>{t('home.map.creditOriginal')}</ExternalLink></li>
+            <li><ExternalLink href={BOUNDARY_SOURCE.dataset}>{t('home.map.creditDataset')}</ExternalLink></li>
+            <li><ExternalLink href={BOUNDARY_SOURCE.license}>{t('home.map.creditLicense')}</ExternalLink></li>
+          </ul>
         </div>
       </div>
-      <p className="barangay-map-credit">
-        {t('home.map.credit', { psgc: BOUNDARY_SOURCE.psgc })}
-      </p>
-      <ul className="barangay-map-credit-links">
-        <li><ExternalLink href={BOUNDARY_SOURCE.original}>{t('home.map.creditOriginal')}</ExternalLink></li>
-        <li><ExternalLink href={BOUNDARY_SOURCE.dataset}>{t('home.map.creditDataset')}</ExternalLink></li>
-        <li><ExternalLink href={BOUNDARY_SOURCE.license}>{t('home.map.creditLicense')}</ExternalLink></li>
-      </ul>
       <BarangayDialog number={selected} title={title} onClose={() => setSelected(null)} />
     </section>
   );

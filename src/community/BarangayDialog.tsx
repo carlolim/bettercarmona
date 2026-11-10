@@ -1,3 +1,4 @@
+import { X } from 'lucide-react';
 import { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { BARANGAYS, BARANGAYS_RECORDED_AT } from './data/barangays';
@@ -53,7 +54,7 @@ export function BarangayDialog({ number, title, onClose }: { number: number | nu
           <div className="barangay-dialog-head">
             <h2 id="barangay-dialog-title">{name}</h2>
             <button type="button" className="barangay-dialog-close" onClick={() => dialog.current?.close()}>
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg>
+              <X size={20} aria-hidden="true" />
               <span className="sr-only">{t('barangayDialog.close')}</span>
             </button>
           </div>

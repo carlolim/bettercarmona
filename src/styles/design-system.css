@@ -229,6 +229,16 @@ html { scroll-padding-top: calc(var(--header-h) + 16px); }
   color: #fff; text-wrap: balance; overflow-wrap: break-word;
 }
 .bc-hero .bc-hero-lede { max-width: var(--measure); margin: 16px auto 0; font-size: 18px; line-height: 1.55; text-wrap: pretty; }
+.bc-hero--home .bc-hero-inner { max-width: 900px; }
+.bc-hero--home .bc-hero-title { margin: 0; font-size: clamp(2.25rem, 4.4vw, 3.75rem); line-height: 1.06; letter-spacing: -0.03em; }
+.bc-hero--home .bc-hero-lede { max-width: 620px; margin-top: 20px; }
+.bc-hero--home .bc-hero-lede a { font-weight: 600; }
+/* The logo's sun, faint, behind the home hero's text. */
+.bc-hero-sun {
+  position: absolute; left: 50%; top: 54%;
+  width: 560px; height: 560px; transform: translate(-50%, -50%);
+  color: #fff; fill: currentColor; opacity: 0.04; pointer-events: none;
+}
 /* Holds the space of a title while a page loads. */
 .bc-hero-placeholder { min-height: 120px; }
 
@@ -244,6 +254,17 @@ html { scroll-padding-top: calc(var(--header-h) + 16px); }
 @media print {
   .bc-hero { margin-top: 0; padding-top: 28px; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 }
+
+/* ---------- Section header ---------- */
+/* An h2, then an optional note. Left aligned, 24px above the section's content. */
+
+.bc-section-head { margin-bottom: 24px; }
+.bc-section-head h2 {
+  margin: 0;
+  font-family: var(--font-hero); font-size: clamp(1.5rem, 2.4vw, 1.875rem); font-weight: 700; line-height: 1.15; letter-spacing: -0.02em;
+  color: var(--ink);
+}
+.bc-section-head p { max-width: var(--measure); margin: 8px 0 0; font-size: 16px; line-height: 1.55; color: var(--ink-3); text-wrap: pretty; }
 
 /* ---------- Reduced motion ---------- */
 /* No movement and no transition. Colors and shadows still change. */
