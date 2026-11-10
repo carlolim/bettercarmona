@@ -1,0 +1,125 @@
+/* =============================================================
+   The soft refresh on the budget pages under /transparency.
+   Upstream's markup, wording, and stylesheets stay as they are: this file
+   only rounds and lifts upstream's classes, with the design tokens. The
+   pages keep their white paper, 15px text, and mono labels, and every
+   status color, dot, bar, and swatch keeps its color and shape.
+
+   Loaded after app.css and design-system.css, and before dark.css, so the
+   dark theme's colors still apply. A few rules use !important, because
+   app.css uses it on .stats and .group-tile at 860px and 560px.
+   ============================================================= */
+
+:root {
+  /* Small corners for marks inside the budget charts and for inline code. */
+  --radius-bar: 4px;
+  --radius-code: 6px;
+  --radius-swatch: 3px;
+}
+
+/* ---------- Buttons and fields ---------- */
+.button {
+  height: 40px;
+  padding: 0 18px;
+  border-radius: var(--radius-pill);
+  transition: transform var(--ease), box-shadow var(--ease), background-color var(--ease);
+}
+.button:hover { transform: translateY(var(--lift-button)); box-shadow: var(--shadow-md); }
+/* .button-quiet keeps upstream's --rule border. */
+
+.field input, .field select {
+  height: 42px;
+  border-color: var(--ink-3);
+  border-radius: var(--radius-md);
+}
+
+/* ---------- Tags ---------- */
+.tag { padding: 4px 9px; border-radius: var(--radius-pill); }
+/* A tier's text wraps, so it takes the smaller radius. */
+.tier { border-radius: var(--radius-md); }
+
+/* ---------- Section band ---------- */
+.subnav-inner { gap: 6px; }
+.subnav a {
+  min-height: 38px;
+  margin: 6px 0;
+  padding: 0 14px;
+  border-bottom: none;
+  border-radius: var(--radius-pill);
+  transition: background-color var(--ease);
+}
+.subnav a:hover { background: var(--on-green-tint); }
+/* The current section is a white pill, in both themes: a change of shape and fill, not only of color. */
+.subnav a.active, .subnav a.active:hover { background: #fff; color: var(--brand-darkest); }
+.subnav a:focus-visible { outline: 3px solid var(--focus-on-green); outline-offset: 2px; }
+
+/* ---------- KPI row: separate cards ---------- */
+.stats { gap: 12px; border-top: none; border-bottom: none; }
+.stats > div,
+.stats > div:first-child,
+.stats > div:nth-child(n) {
+  padding: 16px 20px !important;
+  background: var(--surface);
+  border: 1px solid var(--rule-soft) !important;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+/* ---------- Group tiles ---------- */
+.groups { gap: 8px; border-top: none; }
+.groups .group-tile,
+.groups .group-tile:nth-child(n) {
+  border: 1px solid var(--rule) !important;
+  border-radius: var(--radius-lg);
+}
+/* The active tile has a 2px accent ring, so it reads as active by its edge as well as its tint. */
+.groups .group-tile.active,
+.groups .group-tile.active:nth-child(n) {
+  border-color: var(--accent) !important;
+  background: var(--accent-soft);
+  box-shadow: inset 0 0 0 1px var(--accent);
+}
+
+/* ---------- Tables ---------- */
+.table {
+  border: 1px solid var(--rule-soft);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+.table .tr { padding-left: 16px; padding-right: 16px; }
+.table .tr.th { background: var(--paper-2); }
+.table .tr:last-child { border-bottom: none; }
+
+/* ---------- Office and history cards ---------- */
+.ocard, .hcard {
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+.ocard-figs, .amounts, .details, .docs { border-top-color: var(--rule); }
+.odistrict-photo { border-radius: var(--radius-sm); }
+
+/* ---------- Year strip and bars ---------- */
+.ystrip {
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+.bar-track, .ybar, .bar-fill, .ybar span { border-radius: var(--radius-bar) var(--radius-bar) 0 0; }
+.sw { border-radius: var(--radius-swatch); }
+
+/* ---------- Panels ---------- */
+.report { border-radius: var(--radius-lg); }
+.build-own, .disclaimers {
+  padding: 16px 20px;
+  background: var(--paper-2);
+  border-left: none;
+  border-radius: var(--radius-lg);
+}
+.config-warning { border-radius: var(--radius-md); }
+code { border-radius: var(--radius-code); }
+
+@media (prefers-reduced-motion: reduce) {
+  .button { transition: none; }
+  .button:hover { transform: none; }
+}

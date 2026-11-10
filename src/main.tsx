@@ -7,6 +7,7 @@ import './styles/theme.css';
 import './styles/app.css';
 import './community/community.css';
 import './styles/design-system.css';
+import './styles/transparency-soft.css';
 import './styles/dark.css';
 
 createRoot(document.getElementById('root')!).render(
