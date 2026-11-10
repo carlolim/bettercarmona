@@ -8,6 +8,7 @@ import { CommunityLayout } from './community/CommunityLayout';
 import { CommunityHome, CommunityNotFound } from './community/Home';
 import { CommunityHotlines } from './community/Hotlines';
 import { LocaleSync } from './community/LocaleSync';
+import { PageHeroPlaceholder } from './community/PageHero';
 import { SiteHeader } from './community/SiteHeader';
 import { TransparencyLayout } from './community/TransparencyLayout';
 import About from './pages/About';
@@ -39,8 +40,8 @@ export default function App() {
             <Route path="hotlines" element={<CommunityHotlines />} />
             <Route path="barangays" element={<CommunityBarangays />} />
             <Route path="government" element={<CommunityGovernment />} />
-            <Route path="services" element={<Suspense><CommunityServices /></Suspense>} />
-            <Route path="services/:id" element={<Suspense><CommunityService /></Suspense>} />
+            <Route path="services" element={<Suspense fallback={<PageHeroPlaceholder />}><CommunityServices /></Suspense>} />
+            <Route path="services/:id" element={<Suspense fallback={<PageHeroPlaceholder />}><CommunityService /></Suspense>} />
           </Route>,
           <Route key={`${prefix}-transparency`} path={`${prefix}/transparency`} element={<TransparencyLayout />}>
             <Route index element={<Home />} />

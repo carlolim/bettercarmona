@@ -26,6 +26,10 @@ The route split, the site header layout, and the barangay map's drawing and shap
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
     SOFTWARE.
 
+## BetterBinangonan
+
+The site's layout and look are modeled on [BetterBinangonan](https://github.com/betterbinangonan-devs/betterbinangonan). No code or assets are reused from it.
+
 ## Barangay boundaries
 
 `src/community/data/boundaries/` holds the City of Carmona's barangay boundaries, and the boundaries of the places around it, from

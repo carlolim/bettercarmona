@@ -1,3 +1,4 @@
+import { Moon, Sun } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useLocale } from '../community/locale';
 
@@ -23,9 +24,9 @@ function saveChoice(theme: Theme) {
   }
 }
 
+// The theme-color meta tag stays #024a31, the top bar's color, in both themes.
 function applyTheme(theme: Theme) {
   document.documentElement.dataset.theme = theme;
-  document.querySelector('meta[name="theme-color"]')?.setAttribute('content', theme === 'dark' ? '#0f1a16' : '#037951');
 }
 
 export function ThemeToggle() {
@@ -56,6 +57,7 @@ export function ThemeToggle() {
         setTheme(next);
       }}
     >
+      {next === 'dark' ? <Moon size={15} aria-hidden="true" /> : <Sun size={15} aria-hidden="true" />}
       {next === 'dark' ? t('theme.dark') : t('theme.light')}
     </button>
   );

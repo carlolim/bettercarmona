@@ -9,6 +9,7 @@ import {
 import { ExternalLink } from './ExternalLink';
 import { Localized } from './Localized';
 import { useLocale } from './locale';
+import { PageHero } from './PageHero';
 
 /** Charter text is in English; on /fil pages, mark it so screen readers read it as English. */
 function Charter({ children }: { children: ReactNode }) {
@@ -21,46 +22,47 @@ export function CommunityServices() {
   useTitle(t('services.pageTitle'));
   const source = CITIZENS_CHARTER_2026;
   return (
-    <main className="page main community-services">
-      <h1>{t('services.heading')}</h1>
-      <p className="services-intro">{t('services.intro')}</p>
-      <p className="services-source">
-        {t('services.source', { title: source.title, edition: source.edition, date: hotlinesDate(locale, source.recordedAt) })}{' '}
-        <ExternalLink href={source.url} className="services-source-link">{t('services.sourceLink')}</ExternalLink>
-      </p>
-      <p className="services-source">{t('services.coverage')}</p>
-      {locale === 'fil' && <p className="services-source">{t('services.englishNote')}</p>}
+    <main className="main community-page community-services">
+      <PageHero title={t('services.heading')} lede={t('services.intro')} breadcrumb={[{ label: t('nav.home'), to: '/' }, { label: t('services.heading') }]} />
+      <div className="page">
+        <p className="services-source">
+          {t('services.source', { title: source.title, edition: source.edition, date: hotlinesDate(locale, source.recordedAt) })}{' '}
+          <ExternalLink href={source.url} className="services-source-link">{t('services.sourceLink')}</ExternalLink>
+        </p>
+        <p className="services-source">{t('services.coverage')}</p>
+        {locale === 'fil' && <p className="services-source">{t('services.englishNote')}</p>}
 
-      {SERVICE_CATEGORIES.map((category) => {
-        const services = SERVICES.filter((s) => s.category === category.id);
-        const headingId = `services-${category.id}`;
-        return (
-          <section key={category.id} aria-labelledby={headingId}>
-            <h2 id={headingId}><Localized value={category.title} /></h2>
-            <p className="services-category-description"><Localized value={category.description} /></p>
-            {(category.officeUrl || category.online) && (
-              <ul className="services-category-links">
-                {category.online && (
-                  <li>
-                    <ExternalLink href={category.online.url}><Localized value={category.online.label} /></ExternalLink>{' '}
-                    <span className="services-checked">{t('services.checkedOn', { date: hotlinesDate(locale, category.online.checkedOn) })}</span>
+        {SERVICE_CATEGORIES.map((category) => {
+          const services = SERVICES.filter((s) => s.category === category.id);
+          const headingId = `services-${category.id}`;
+          return (
+            <section key={category.id} aria-labelledby={headingId}>
+              <h2 id={headingId}><Localized value={category.title} /></h2>
+              <p className="services-category-description"><Localized value={category.description} /></p>
+              {(category.officeUrl || category.online) && (
+                <ul className="services-category-links">
+                  {category.online && (
+                    <li>
+                      <ExternalLink href={category.online.url}><Localized value={category.online.label} /></ExternalLink>{' '}
+                      <span className="services-checked">{t('services.checkedOn', { date: hotlinesDate(locale, category.online.checkedOn) })}</span>
+                    </li>
+                  )}
+                  {category.officeUrl && (
+                    <li><ExternalLink href={category.officeUrl}>{t('services.officePage')}</ExternalLink></li>
+                  )}
+                </ul>
+              )}
+              <ul className="services-list">
+                {services.map((s) => (
+                  <li key={s.id}>
+                    <Link to={path(`/services/${s.id}`)}><Charter>{s.title}</Charter></Link>
                   </li>
-                )}
-                {category.officeUrl && (
-                  <li><ExternalLink href={category.officeUrl}>{t('services.officePage')}</ExternalLink></li>
-                )}
+                ))}
               </ul>
-            )}
-            <ul className="services-list">
-              {services.map((s) => (
-                <li key={s.id}>
-                  <Link to={path(`/services/${s.id}`)}><Charter>{s.title}</Charter></Link>
-                </li>
-              ))}
-            </ul>
-          </section>
-        );
-      })}
+            </section>
+          );
+        })}
+      </div>
     </main>
   );
 }
@@ -72,8 +74,11 @@ export function CommunityService() {
   useTitle(service ? `${service.title} · ${t('services.pageTitle')}` : t('services.pageTitle'));
   if (!service) {
     return (
-      <main className="page main">
-        <p className="state">{t('services.notFound')} <Link to={path('/services')}>{t('services.allServices')}</Link></p>
+      <main className="main community-page">
+        <PageHero title={t('services.notFound')} breadcrumb={[{ label: t('services.heading'), to: '/services' }]} />
+        <div className="page">
+          <p className="state"><Link to={path('/services')}>{t('services.allServices')}</Link></p>
+        </div>
       </main>
     );
   }
@@ -81,76 +86,79 @@ export function CommunityService() {
 }
 
 function ServiceDetail({ service: s }: { service: Service }) {
-  const { locale, t, path } = useLocale();
+  const { locale, t } = useLocale();
   const [first, last] = s.pages;
   const pages = first === last ? t('services.page', { page: first }) : t('services.pages', { first, last });
   return (
-    <main className="page main community-services service-detail">
-      <p className="service-back"><Link to={path('/services')}>{t('services.allServices')}</Link></p>
-      <h1><Charter>{s.title}</Charter></h1>
-
-      <div className="service-source">
-        <p>
-          {t('services.detailSource', {
-            publisher: s.source.publisher, title: s.source.title, edition: s.source.edition, pages,
-            date: hotlinesDate(locale, s.source.recordedAt),
-          })}
-        </p>
-        <p><ExternalLink href={charterPageUrl(s.source, first)}>{t('services.openPage', { page: first })}</ExternalLink></p>
-        <p>{t('services.checkFirst')}</p>
-      </div>
-
-      {s.online && (
-        <p className="service-online">
-          <ExternalLink href={s.online.url}><Localized value={s.online.label} /></ExternalLink>{' '}
-          <span className="services-checked">{t('services.checkedOn', { date: hotlinesDate(locale, s.online.checkedOn) })}</span>
-        </p>
-      )}
-
-      {s.caveats?.map((c, i) => (
-        <p key={i} className="service-caveat" role="note"><strong>{t('services.caveat')}</strong> <Localized value={c} /></p>
-      ))}
-
-      <p className="service-description"><Charter>{s.description}</Charter></p>
-
-      <dl className="service-facts">
-        <div><dt>{t('services.office')}</dt><dd><Charter>{s.office}</Charter></dd></div>
-        <div><dt>{t('services.classification')}</dt><dd><Charter>{s.classification}</Charter></dd></div>
-        <div><dt>{t('services.transactionType')}</dt><dd><Charter>{s.transactionType}</Charter></dd></div>
-        <div>
-          <dt>{t('services.whoMayAvail')}</dt>
-          <dd>
-            {s.whoMayAvail.length === 1 ? <Charter>{s.whoMayAvail[0]}</Charter> : (
-              <ul>{s.whoMayAvail.map((w) => <li key={w}><Charter>{w}</Charter></li>)}</ul>
-            )}
-          </dd>
+    <main className="main community-page community-services service-detail">
+      <PageHero
+        title={<Charter>{s.title}</Charter>}
+        breadcrumb={[{ label: t('services.heading'), to: '/services' }, { label: <Charter>{s.title}</Charter> }]}
+      />
+      <div className="page">
+        <div className="service-source">
+          <p>
+            {t('services.detailSource', {
+              publisher: s.source.publisher, title: s.source.title, edition: s.source.edition, pages,
+              date: hotlinesDate(locale, s.source.recordedAt),
+            })}
+          </p>
+          <p><ExternalLink href={charterPageUrl(s.source, first)}>{t('services.openPage', { page: first })}</ExternalLink></p>
+          <p>{t('services.checkFirst')}</p>
         </div>
-      </dl>
 
-      <section aria-labelledby="service-requirements">
-        <h2 id="service-requirements">{t('services.requirements')}</h2>
-        <Requirements items={s.requirements} />
-        {s.requirementsWhere && (
-          <p className="service-where-all">{t('services.whereAll')} <Charter>{s.requirementsWhere.join('; ')}</Charter></p>
+        {s.online && (
+          <p className="service-online">
+            <ExternalLink href={s.online.url}><Localized value={s.online.label} /></ExternalLink>{' '}
+            <span className="services-checked">{t('services.checkedOn', { date: hotlinesDate(locale, s.online.checkedOn) })}</span>
+          </p>
         )}
-        {s.notes?.map((n) => <p key={n} className="service-note"><Charter>{n}</Charter></p>)}
-      </section>
 
-      <section aria-labelledby="service-steps">
-        <h2 id="service-steps">{t('services.steps')}</h2>
-        <Steps steps={s.steps} />
-      </section>
+        {s.caveats?.map((c, i) => (
+          <p key={i} className="service-caveat" role="note"><strong>{t('services.caveat')}</strong> <Localized value={c} /></p>
+        ))}
 
-      <section aria-labelledby="service-total">
-        <h2 id="service-total">{t('services.total')}</h2>
+        <p className="service-description"><Charter>{s.description}</Charter></p>
+
         <dl className="service-facts">
+          <div><dt>{t('services.office')}</dt><dd><Charter>{s.office}</Charter></dd></div>
+          <div><dt>{t('services.classification')}</dt><dd><Charter>{s.classification}</Charter></dd></div>
+          <div><dt>{t('services.transactionType')}</dt><dd><Charter>{s.transactionType}</Charter></dd></div>
           <div>
-            <dt>{t('services.fees')}</dt>
-            <dd>{s.total.fee.length ? <Lines lines={s.total.fee} /> : t('services.noTotalFee')}</dd>
+            <dt>{t('services.whoMayAvail')}</dt>
+            <dd>
+              {s.whoMayAvail.length === 1 ? <Charter>{s.whoMayAvail[0]}</Charter> : (
+                <ul>{s.whoMayAvail.map((w) => <li key={w}><Charter>{w}</Charter></li>)}</ul>
+              )}
+            </dd>
           </div>
-          <div><dt>{t('services.time')}</dt><dd><Lines lines={s.total.time} /></dd></div>
         </dl>
-      </section>
+
+        <section aria-labelledby="service-requirements">
+          <h2 id="service-requirements">{t('services.requirements')}</h2>
+          <Requirements items={s.requirements} />
+          {s.requirementsWhere && (
+            <p className="service-where-all">{t('services.whereAll')} <Charter>{s.requirementsWhere.join('; ')}</Charter></p>
+          )}
+          {s.notes?.map((n) => <p key={n} className="service-note"><Charter>{n}</Charter></p>)}
+        </section>
+
+        <section aria-labelledby="service-steps">
+          <h2 id="service-steps">{t('services.steps')}</h2>
+          <Steps steps={s.steps} />
+        </section>
+
+        <section aria-labelledby="service-total">
+          <h2 id="service-total">{t('services.total')}</h2>
+          <dl className="service-facts">
+            <div>
+              <dt>{t('services.fees')}</dt>
+              <dd>{s.total.fee.length ? <Lines lines={s.total.fee} /> : t('services.noTotalFee')}</dd>
+            </div>
+            <div><dt>{t('services.time')}</dt><dd><Lines lines={s.total.time} /></dd></div>
+          </dl>
+        </section>
+      </div>
     </main>
   );
 }

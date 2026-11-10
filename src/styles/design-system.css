@@ -208,6 +208,43 @@ html { scroll-padding-top: calc(var(--header-h) + 16px); }
 }
 .bc-input:focus-visible, .bc-select:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
 
+/* ---------- Page hero ---------- */
+/* Full width, on the green. It slides up under the sticky header, which is transparent over it at the top. */
+
+.bc-hero {
+  position: relative; overflow: hidden;
+  margin-top: calc(-1 * var(--header-h));
+  padding: calc(var(--header-h) + 28px) 0 72px;
+  background: var(--hero-bg); color: #fff; text-align: center;
+}
+.bc-hero-inner { position: relative; max-width: 860px; margin: 0 auto; padding: 0 var(--gutter); }
+.bc-hero p { color: var(--brand-mint); }
+.bc-hero a { color: #fff; }
+.bc-hero :focus-visible { outline-color: var(--focus-on-green); }
+.bc-hero--home { padding: calc(var(--header-h) + 72px) 0 136px; }
+
+.bc-hero .bc-hero-title {
+  margin: 10px 0 0;
+  font-family: var(--font-hero); font-size: clamp(2rem, 3.6vw, 3rem); font-weight: 800; line-height: 1.1; letter-spacing: -0.02em;
+  color: #fff; text-wrap: balance; overflow-wrap: break-word;
+}
+.bc-hero .bc-hero-lede { max-width: var(--measure); margin: 16px auto 0; font-size: 18px; line-height: 1.55; text-wrap: pretty; }
+/* Holds the space of a title while a page loads. */
+.bc-hero-placeholder { min-height: 120px; }
+
+.bc-breadcrumb {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 0 8px;
+  font-family: var(--font-hero); font-size: 13.5px; font-weight: 600;
+}
+.bc-breadcrumb a { display: inline-flex; align-items: center; min-height: 44px; color: var(--brand-mint); text-decoration: none; }
+.bc-breadcrumb a:hover { color: var(--brand-mint); text-decoration: underline; }
+.bc-breadcrumb svg { flex-shrink: 0; color: var(--brand-mint); }
+.bc-breadcrumb [aria-current] { color: #fff; }
+
+@media print {
+  .bc-hero { margin-top: 0; padding-top: 28px; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+
 /* ---------- Reduced motion ---------- */
 /* No movement and no transition. Colors and shadows still change. */
 

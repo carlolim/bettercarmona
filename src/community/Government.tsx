@@ -4,6 +4,7 @@ import { OFFICES, OFFICES_RECORDED_AT, OFFICES_URL, OFFICIALS, OFFICIALS_RECORDE
 import { hotlinesDate } from './data/hotlines';
 import { ExternalLink } from './ExternalLink';
 import { useLocale } from './locale';
+import { PageHero } from './PageHero';
 
 /** Lowercase, without accents, so "dasmarinas" finds "Dasmariñas". */
 const fold = (text: string) => text.normalize('NFD').replace(/\p{Diacritic}/gu, '').toLowerCase();
@@ -18,49 +19,50 @@ export function CommunityGovernment() {
   const others = OFFICIALS.filter((o) => !o.photo && o.role !== 'City Councilor');
 
   return (
-    <main className="page main community-government">
-      <h1>{t('government.heading')}</h1>
+    <main className="main community-page community-government">
+      <PageHero title={t('government.heading')} breadcrumb={[{ label: t('nav.home'), to: '/' }, { label: t('nav.government') }]} />
+      <div className="page">
+        <section aria-labelledby="government-officials" className="government-officials">
+          <h2 id="government-officials">{t('government.officials.heading')}</h2>
+          <p className="government-source">
+            {t('government.officials.source', { date: officialsDate })}{' '}
+            <ExternalLink href={OFFICIALS_URL} className="government-source-link">{t('government.officials.sourceLink')}</ExternalLink>
+          </p>
 
-      <section aria-labelledby="government-officials" className="government-officials">
-        <h2 id="government-officials">{t('government.officials.heading')}</h2>
-        <p className="government-source">
-          {t('government.officials.source', { date: officialsDate })}{' '}
-          <ExternalLink href={OFFICIALS_URL} className="government-source-link">{t('government.officials.sourceLink')}</ExternalLink>
-        </p>
+          <ul className="government-featured">
+            {featured.map((o) => (
+              <li key={o.role}>
+                <img src={o.photo} alt={o.name} width={160} height={160} loading="lazy" decoding="async" />
+                <span className="government-role">{o.role}</span>
+                <span className="government-name">{o.name}</span>
+              </li>
+            ))}
+          </ul>
 
-        <ul className="government-featured">
-          {featured.map((o) => (
-            <li key={o.role}>
-              <img src={o.photo} alt={o.name} width={160} height={160} loading="lazy" decoding="async" />
-              <span className="government-role">{o.role}</span>
-              <span className="government-name">{o.name}</span>
-            </li>
-          ))}
-        </ul>
+          <h3 className="government-subheading">{t('government.officials.councilors', { count: councilors.length })}</h3>
+          <ul className="government-councilors">
+            {councilors.map((o, i) => (
+              <li key={i}>
+                {o.photo && <img src={o.photo} alt={o.name} width={96} height={96} loading="lazy" decoding="async" />}
+                <span className="government-name">{o.name ?? <NotListed date={officialsDate} />}</span>
+              </li>
+            ))}
+          </ul>
 
-        <h3 className="government-subheading">{t('government.officials.councilors', { count: councilors.length })}</h3>
-        <ul className="government-councilors">
-          {councilors.map((o, i) => (
-            <li key={i}>
-              {o.photo && <img src={o.photo} alt={o.name} width={96} height={96} loading="lazy" decoding="async" />}
-              <span className="government-name">{o.name ?? <NotListed date={officialsDate} />}</span>
-            </li>
-          ))}
-        </ul>
+          <dl className="government-others">
+            {others.map((o) => <Position key={o.role} official={o} date={officialsDate} />)}
+          </dl>
+        </section>
 
-        <dl className="government-others">
-          {others.map((o) => <Position key={o.role} official={o} date={officialsDate} />)}
-        </dl>
-      </section>
-
-      <section aria-labelledby="government-offices">
-        <h2 id="government-offices">{t('government.offices.heading')}</h2>
-        <p className="government-source">
-          {t('government.offices.source', { date: officesDate })}{' '}
-          <ExternalLink href={OFFICES_URL} className="government-source-link">{t('government.offices.sourceLink')}</ExternalLink>
-        </p>
-        <OfficeList />
-      </section>
+        <section aria-labelledby="government-offices">
+          <h2 id="government-offices">{t('government.offices.heading')}</h2>
+          <p className="government-source">
+            {t('government.offices.source', { date: officesDate })}{' '}
+            <ExternalLink href={OFFICES_URL} className="government-source-link">{t('government.offices.sourceLink')}</ExternalLink>
+          </p>
+          <OfficeList />
+        </section>
+      </div>
     </main>
   );
 }

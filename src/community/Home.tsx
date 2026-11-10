@@ -6,6 +6,7 @@ import { ExternalLink } from './ExternalLink';
 import { PhoneIcon } from './HotlinesContent';
 import { Localized } from './Localized';
 import { useLocale } from './locale';
+import { PageHero } from './PageHero';
 import { SiteFooter } from './SiteFooter';
 
 // Before task 004 the budget list lived at `/`, so filtered links to it may be in the wild.
@@ -77,8 +78,11 @@ export function CommunityNotFound() {
   return (
     <>
       <div id="main-content" tabIndex={-1} className="site-content community-content">
-        <main className="page main">
-          <p className="state">{t('notFound.message')} <Link to={path('/')}>{t('notFound.homeLink')}</Link></p>
+        <main className="main community-page">
+          <PageHero title={t('notFound.message')} breadcrumb={[{ label: t('nav.home'), to: '/' }]} />
+          <div className="page">
+            <p className="state"><Link to={path('/')}>{t('notFound.homeLink')}</Link></p>
+          </div>
         </main>
       </div>
       <SiteFooter />

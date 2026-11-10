@@ -4,37 +4,43 @@
  */
 import i18next from 'i18next';
 import { renderToStaticMarkup } from 'react-dom/server';
+import { MemoryRouter } from 'react-router-dom';
 import type { Plugin } from 'vite';
 import { HotlinesContent } from '../src/community/HotlinesContent.tsx';
 import { OFFICIAL_PORTAL_URL } from '../src/community/links.ts';
+import { PageHero } from '../src/community/PageHero.tsx';
 import en from '../src/community/locales/en.json';
 import fil from '../src/community/locales/fil.json';
 
 const PAGES = [
-  { locale: 'en', fileName: 'hotlines.html', translation: en },
-  { locale: 'fil', fileName: 'fil/hotlines.html', translation: fil },
+  { locale: 'en', fileName: 'hotlines.html', pathname: '/hotlines', translation: en },
+  { locale: 'fil', fileName: 'fil/hotlines.html', pathname: '/fil/hotlines', translation: fil },
 ] as const;
 
-function render(shell: string, { locale, translation }: (typeof PAGES)[number]): string {
+function render(shell: string, { locale, pathname, translation }: (typeof PAGES)[number]): string {
   const i18n = i18next.createInstance();
   i18n.init({ resources: { [locale]: { translation } }, lng: locale, initAsync: false, interpolation: { escapeValue: false } });
   const t = (key: string, values?: Record<string, string | number>) => i18n.t(key, values ?? {});
+  // The router gives the page hero its language and links, as in the app.
   const body = renderToStaticMarkup(
-    <>
+    <MemoryRouter initialEntries={[pathname]}>
       <div className="site-utility">
         <div className="page site-utility-inner">
           <a href={OFFICIAL_PORTAL_URL} target="_blank" rel="noopener" className="site-official">{t('officialSite')}</a>
         </div>
       </div>
-      <main className="page main community-hotlines">
-        <HotlinesContent t={t} locale={locale} />
+      <main className="main community-page community-hotlines">
+        <PageHero title={t('hotlines.heading')} breadcrumb={[{ label: t('nav.home'), to: '/' }, { label: t('nav.hotlines') }]} />
+        <div className="page">
+          <HotlinesContent t={t} locale={locale} />
+        </div>
       </main>
       <footer className="site-footer">
         <div className="page site-footer-inner">
           <p className="site-statement">{t('footer.statement')}</p>
         </div>
       </footer>
-    </>,
+    </MemoryRouter>,
   );
   return shell
     .replace('<html lang="en">', `<html lang="${locale}">`)

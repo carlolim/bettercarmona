@@ -15,7 +15,6 @@ export function HotlinesContent({ t, locale }: { t: Translate; locale: 'en' | 'f
   const barangays = HOTLINES.filter(({ group }) => group === 'barangay');
   return (
     <>
-      <h1>{t('hotlines.heading')}</h1>
       <p className="hotlines-source">{t('hotlines.source', { app: HOTLINES_SOURCE, date: hotlinesDate(locale, HOTLINES_RECORDED_AT) })}</p>
 
       <section aria-labelledby="hotlines-main">

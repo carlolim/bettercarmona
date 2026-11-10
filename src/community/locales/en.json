@@ -9,6 +9,9 @@
   "language": {
     "label": "Language"
   },
+  "breadcrumb": {
+    "label": "Breadcrumb"
+  },
   "nav": {
     "label": "Main navigation",
     "mobileLabel": "Mobile navigation",
@@ -25,6 +28,7 @@
   "footer": {
     "statement": "An independent community initiative. Not an official government website.",
     "linksLabel": "Links",
+    "pagesLabel": "Pages",
     "officialPortal": "City of Carmona official portal",
     "repository": "This project on GitHub",
     "directory": "Better LGU Directory"

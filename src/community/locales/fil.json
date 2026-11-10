@@ -9,6 +9,9 @@
   "language": {
     "label": "Wika"
   },
+  "breadcrumb": {
+    "label": "Breadcrumb"
+  },
   "nav": {
     "label": "Main navigation",
     "mobileLabel": "Mobile navigation",
@@ -25,6 +28,7 @@
   "footer": {
     "statement": "Isang independent na community initiative. Hindi ito official website ng gobyerno.",
     "linksLabel": "Mga link",
+    "pagesLabel": "Mga pahina",
     "officialPortal": "Official portal ng City of Carmona",
     "repository": "Ang project na ito sa GitHub",
     "directory": "Better LGU Directory"
