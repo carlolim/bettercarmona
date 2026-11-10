@@ -115,7 +115,7 @@ async function main() {
       if (!row) problems.push(`exclusion ${exclusion.key} matches no 2020–2026 program; remove it.`);
     }
     for (const key of noteKeys.filter((k) => k.startsWith('gaa:'))) {
-      if (!gaa.rows.some((r) => r.key === key)) problems.push(`note on ${key} matches no 2020–2026 program; remove it.`);
+      if (!gaa.rows.some((r) => r.key === key)) problems.push(`note on ${key} matches no 2020-2026 program; remove it.`);
     }
   }
 

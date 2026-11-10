@@ -41,6 +41,8 @@
   --on-green-tint: rgba(1, 45, 30, 0.35);
   --on-green-tint-strong: rgba(1, 45, 30, 0.6);
   --on-green-line: rgba(255, 255, 255, 0.4);
+  /* The one solid fill on green: the white button and the current pill in a band. */
+  --on-green-fill: #fff;
 
   /* ---------- Radius ---------- */
   --radius-sm: 8px;     /* focus rings, skip link, code, small photos */
@@ -135,7 +137,7 @@ html { scroll-padding-top: calc(var(--header-h) + 16px); }
 .bc-btn--quiet:hover { background: var(--accent-soft); box-shadow: none; transform: none; }
 
 /* On green surfaces only. */
-.bc-btn--white { background: #fff; color: var(--hero-from); }
+.bc-btn--white { background: var(--on-green-fill); color: var(--hero-from); }
 .bc-btn--white:hover { background: var(--brand-mint); color: var(--hero-from); }
 .bc-btn--glass { background: var(--on-green-tint); border: 1px solid var(--on-green-line); color: #fff; }
 .bc-btn--glass:hover { background: var(--on-green-tint-strong); color: #fff; }

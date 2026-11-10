@@ -120,7 +120,7 @@ function AboutView({ scope, overview }: { scope: ScopeResult; overview: Overview
               {scope.projects.filter((p) => lineNote(config, p.key)).map((p) => (
                 <li key={p.key}>
                   <External href={p.url}>{p.title}</External>
-                  <span className="muted"> — {lineNote(config, p.key)?.note}</span>
+                  <span className="muted">: {lineNote(config, p.key)?.note}</span>
                 </li>
               ))}
             </ul>
@@ -249,7 +249,7 @@ function GaaQuestions() {
                 {state.value.rows.filter((r) => lineNote(config, r.key)).map((r) => (
                   <li key={r.key}>
                     {r.name}
-                    <span className="muted"> — {lineNote(config, r.key)?.note}</span>
+                    <span className="muted">: {lineNote(config, r.key)?.note}</span>
                   </li>
                 ))}
               </ul>

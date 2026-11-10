@@ -37,7 +37,7 @@
   color: #fff; text-decoration: none;
 }
 .language-switch a:hover { color: #fff; text-decoration: underline; }
-.language-switch a[aria-current] { background-color: #fff; color: var(--brand-darkest); text-decoration: none; }
+.language-switch a[aria-current] { background-color: var(--on-green-fill); color: var(--brand-darkest); text-decoration: none; }
 
 /* The nav bar sticks to the top. It is solid unless it is over a page hero at the top of the page: see below. */
 .site-header {
@@ -95,7 +95,7 @@
   #root:has(.bc-hero) .site-header.is-top .masthead-logo-dark { display: block; }
   #root:has(.bc-hero) .site-header.is-top .site-nav a { color: #fff; }
   #root:has(.bc-hero) .site-header.is-top .site-nav a:hover { background: var(--on-green-tint); color: #fff; }
-  #root:has(.bc-hero) .site-header.is-top .site-nav a[aria-current] { background: #fff; color: var(--brand-darkest); }
+  #root:has(.bc-hero) .site-header.is-top .site-nav a[aria-current] { background: var(--on-green-fill); color: var(--brand-darkest); }
   #root:has(.bc-hero) .site-header.is-top summary { background: var(--on-green-tint); border-color: var(--on-green-line); color: #fff; }
   #root:has(.bc-hero) .site-header.is-top .site-brand:focus-visible,
   #root:has(.bc-hero) .site-header.is-top .site-nav a:focus-visible,

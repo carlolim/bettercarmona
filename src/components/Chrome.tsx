@@ -38,7 +38,7 @@ export function Masthead() {
               <span className="masthead-tagline">{config.tagline}</span>
             ) : (
               <span className="masthead-kicker">
-                {KIND_LABELS[config.kind]} <span aria-hidden="true">·</span> Budgets 2020–2027
+                {KIND_LABELS[config.kind]} <span aria-hidden="true">·</span> Budgets 2020-2027
               </span>
             )}
           </span>
