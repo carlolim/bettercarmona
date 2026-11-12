@@ -11,7 +11,9 @@ export const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
 export const MANIFEST = join(ROOT, 'knowledge/sources/sb-office.json');
 export const RAW = join(ROOT, 'knowledge/raw');
 
-export const STATES = ['listed', 'downloaded', 'transcribed', 'summarized', 'missing-file', 'changed'] as const;
+export const STATES = [
+  'listed', 'downloaded', 'transcribed', 'summarized', 'missing-file', 'changed', 'needs-attention',
+] as const;
 export type State = (typeof STATES)[number];
 
 export interface FileRecord {
@@ -40,6 +42,10 @@ export interface Entry {
   removed_at?: string;
   /** Files after the first, for an item whose page holds more than one. */
   extra_files?: FileRecord[];
+  /** The item's markdown file, relative to the repo root, once it is transcribed or summarized. */
+  transcript?: string;
+  /** Why the last kb:convert run left the item at `needs-attention`. */
+  attention?: string;
 }
 
 export interface Manifest {
