@@ -1,0 +1,34 @@
+{
+  "note": "Transcription order for task 022. full_text is ranked: work down the list, newest first inside each category. summary_only categories get a summary with key figures instead of a full transcription. Names match the category field in sb-office.json.",
+  "full_text": [
+    "HEALTH, ENERGY AND ENVIRONMENTAL PROTECTION",
+    "PEACE AND ORDER & PUBLIC SAFETY",
+    "TRANSPORTATION & COMMUNICATION",
+    "WAYS & MEANS",
+    "MARKET AND SLAUGHTERHOUSE",
+    "HOUSING & LAND USE",
+    "AGRICULTURE",
+    "WOMEN, FAMILY & CHILDREN",
+    "EDUCATION & CULTURE",
+    "ANTI DRUG ABUSE",
+    "CLIMATE CHANGE ADAPTION (CCA) & DISASTER RISK REDUCTION AND RESILIENCY (DRRR)",
+    "COOPERATIVE DEVELOPMENT AND LIVELIHOOD",
+    "SENIOR CITIZEN AFFAIRS",
+    "GAMES AMUSEMENT",
+    "GENDER & DEVELOPMENT",
+    "PERSONS WITH DISABILITY AFFAIRS",
+    "BARANGAY AFFAIRS",
+    "YOUTH & SPORT DEVELOPMENT",
+    "TRADE, INDUSTRY & TOURISM",
+    "SOCIAL SERVICES, HUMAN RIGHTS & SOCIAL JUSTICE",
+    "GOOD GOVERNMENT, PUBLIC ETHICS & ACCOUNTABILITY",
+    "LABOR AND EMPLOYMENT",
+    "INFRASTRUCTURE & PUBLIC WORKS"
+  ],
+  "summary_only": [
+    "FINANCE AND APPROPRIATION",
+    "INTERNAL RULES & PRIVILEGES",
+    "BLUE RIBBON",
+    "SORTEO"
+  ]
+}

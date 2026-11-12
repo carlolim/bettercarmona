@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" >
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="author" content="fairsketch">
+<link rel="icon" href="http://122.54.120.194:888/sboffice/files/system/_file64e6996530a77-favicon.png" />
+
+<title>Carmona - S.B. Legislative Tracking System</title>    
+<script type="text/javascript">
+    AppHelper = {};
+    AppHelper.baseUrl = "http://122.54.120.194:888/sboffice/";
+    AppHelper.assetsDirectory = "http://122.54.120.194:888/sboffice/assets/";
+    AppHelper.settings = {};
+    AppHelper.settings.firstDayOfWeek =0 || 0;
+    AppHelper.settings.currencySymbol = "P";
+    AppHelper.settings.currencyPosition = "left" || "left";
+    AppHelper.settings.decimalSeparator = ".";
+    AppHelper.settings.thousandSeparator = "";
+    AppHelper.settings.noOfDecimals = ("2" == "0") ? 0 : 2;
+    AppHelper.settings.displayLength = "10";
+    AppHelper.settings.dateFormat = "m/d/Y";
+    AppHelper.settings.timeFormat = "capital";
+    AppHelper.settings.scrollbar = "jquery";
+    AppHelper.settings.enableRichTextEditor = "0";
+    AppHelper.settings.notificationSoundVolume = "";
+    AppHelper.userId = "";
+    AppHelper.notificationSoundSrc = "http://122.54.120.194:888/sboffice/files/system/notification.mp3";
+
+    //push notification
+    AppHelper.settings.enablePushNotification = "";
+    AppHelper.settings.userEnableWebNotification = "0";
+    AppHelper.settings.userDisablePushNotification = "";
+    AppHelper.settings.pusherKey = "";
+    AppHelper.settings.pusherCluster = "";
+    AppHelper.settings.pushNotficationMarkAsReadUrl = "http://122.54.120.194:888/sboffice/index.php/notifications/set_notification_status_as_read";
+    AppHelper.https = "0";
+</script>    <script type="text/javascript">
+    AppLanugage = {};
+    AppLanugage.locale = "en";
+    AppLanugage.localeLong = "en-US";
+
+    AppLanugage.days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+    AppLanugage.daysShort = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+    AppLanugage.daysMin = ["Su","Mo","Tu","We","Th","Fr","Sa"];
+
+    AppLanugage.months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+    AppLanugage.monthsShort = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+
+    AppLanugage.today = "Today";
+    AppLanugage.yesterday = "Yesterday";
+    AppLanugage.tomorrow = "Tomorrow";
+
+    AppLanugage.search = "Search";
+    AppLanugage.noRecordFound = "No record found.";
+    AppLanugage.print = "Print";
+    AppLanugage.excel = "Excel";
+    AppLanugage.printButtonTooltip = "Press escape when finished.";
+
+    AppLanugage.fileUploadInstruction = "Drag-and-drop documents here <br /> (or click to browse...)";
+    AppLanugage.fileNameTooLong = "Filename is too long.";
+
+    AppLanugage.custom = "Custom";
+    AppLanugage.clear = "Clear";
+
+    AppLanugage.total = "Total";
+    AppLanugage.totalOfAllPages = "Total of all pages";
+
+    AppLanugage.all = "All";
+
+    AppLanugage.preview_next_key = "Next (Right arrow key)";
+    AppLanugage.preview_previous_key = "Previous (Left arrow key)";
+    
+    AppLanugage.filters = "Filters";
+
+</script>
+    <link rel='stylesheet' type='text/css' href='http://122.54.120.194:888/sboffice/assets/bootstrap/css/bootstrap.min.css?v=2.3' /><link rel='stylesheet' type='text/css' href='http://122.54.120.194:888/sboffice/assets/js/font-awesome/css/font-awesome.min.css?v=2.3' /><link rel='stylesheet' type='text/css' href='http://122.54.120.194:888/sboffice/assets/js/datatable/css/jquery.dataTables.min.css?v=2.3' /><link rel='stylesheet' type='text/css' href='http://122.54.120.194:888/sboffice/assets/js/select2/select2.css?v=2.3' /><link rel='stylesheet' type='text/css' href='http://122.54.120.194:888/sboffice/assets/js/select2/select2-bootstrap.min.css?v=2.3' /><link rel='stylesheet' type='text/css' href='http://122.54.120.194:888/sboffice/assets/css/app.all.css?v=2.3' /><link rel='stylesheet' type='text/css' href='http://122.54.120.194:888/sboffice/assets/css/custom-style.css?v=2.3' /><script type='text/javascript'  src='http://122.54.120.194:888/sboffice/assets/js/app.all.js?v=2.3'></script></head>    <body>
+
+        <nav class="navbar public-navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="fa fa-bars"></span>
+        </button>
+
+        <a class="navbar-brand" href="http://122.54.120.194:888/sboffice/index.php/dashboard"><img src="http://122.54.120.194:888/sboffice/files/system/_file64e699652399f-site-logo.png" /></a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+
+        <ul class="nav navbar-nav navbar-right">
+             <li><a href="http://122.54.120.194:888/sboffice/index.php/knowledge_base">Ordinances Library</a> </li>            <li class="mr15 pr15 pl15">
+            </li>
+        </ul>
+    </div>
+</nav>
+
+
+        <div id="content" class="box">
+                        <div id="page-container" class="box-content">
+                <div id="pre-loader">
+                    <div id="pre-loade" class="app-loader"><div class="loading"></div></div>
+                </div>
+                <div class="scrollable-page">
+                    <div id="page-content" class="clearfix p20 help-page-container sub_knowledge_base">
+    <div class="view-container">
+        <div class="row ">
+            <div id="help-left-panel" class="col-md-3">
+                <script type='text/javascript'  src='http://122.54.120.194:888/sboffice/assets/js/awesomplete/awesomplete.min.js?v=2.3'></script><input type="text" name="search" value="" id="help-search-box" autocomplete="false" class="form-control type-knowledge_base" placeholder="Enter the title here"  />
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        var $searchBox = $("#help-search-box");
+        var awesomplete = new Awesomplete($searchBox[0], {
+            minChars: 1,
+            autoFirst: true,
+            maxItems: 10
+        });
+
+        $searchBox.on("keyup", function (e) {
+            if (!(e.which >= 37 && e.which <= 40)) {
+
+                //show/hide loder icon in searchbox
+                if (this.value) {
+                    $searchBox.addClass("searching");
+                } else {
+                    $searchBox.removeClass("searching");
+                }
+
+                //witi 200 ms to request ajax cll
+                clearTimeout($.data(this, 'timer'));
+                var wait = setTimeout(getAwesompleteList, 200);
+                $(this).data('timer', wait);
+            }
+
+            //hide the no result found message
+            if (!this.value) {
+                $(".awesomplete").find("ul").html("").attr("hidden");
+            }
+
+        });
+
+        function getAwesompleteList() {
+
+            $.ajax({
+                url: "http://122.54.120.194:888/sboffice/index.php/knowledge_base/get_article_suggestion/",
+                data: {search: $searchBox.val()},
+                cache: false,
+                type: 'POST',
+                dataType: 'json',
+                success: function (response) {
+                    //show a loader icon in search box
+                    $searchBox.removeClass("searching");
+
+                    //set the results
+                    awesomplete.list = response;
+
+                    //show no result found 
+                    if (!response.length && $searchBox.val()) {
+                        $(".awesomplete").find("ul").html("<li aria-selected='false'> No result found. </li>").removeAttr("hidden");
+                    }
+                }
+            });
+        }
+
+
+        $searchBox.on('awesomplete-selectcomplete', function () {
+            //serch result selected, redirect to the article view
+            if (this.value) {
+                window.location.href = "http://122.54.120.194:888/sboffice/index.php/knowledge_base/view/" + this.value;
+            }
+            this.value = "";
+        });
+    });
+
+</script>
+                <h4 class="mt20">Categories</h4>
+                <ul class="list-group help-catagory">
+                    <a href="http://122.54.120.194:888/sboffice/index.php/knowledge_base/category/1" class="list-group-item ">AGRICULTURE</a><a href="http://122.54.120.194:888/sboffice/index.php/knowledge_base/category/10" class="list-group-item ">WOMEN, FAMILY & CHILDREN</a><a href="http://122.54.120.194:888/sboffice/index.php/knowledge_base/category/11" class="list-group-item ">EDUCATION & CULTURE</a><a href="http://122.54.120.194:888/sboffice/index.php/knowledge_base/category/13" class="list-group-item ">FINANCE AND APPROPRIATION</a><a href="http://122.54.120.194:888/sboffice/index.php/knowledge_base/category/15" class="list-group-item ">INTERNAL RULES & PRIVILEGES</a><a href="http://122.54.120.194:888/sboffice/index.php/knowledge_base/category/16" class="list-group-item ">ANTI DRUG ABUSE</a><a href="http://122.54.120.194:888/sboffice/index.php/knowledge_base/category/17" class="list-group-item ">CLIMATE CHANGE ADAPTION (CCA) & DISASTER RISK REDUCTION AND RESILIENCY (DRRR)</a><a href="http://122.54.120.194:888/sboffice/index.php/knowledge_base/category/18" class="list-group-item ">COOPERATIVE DEVELOPMENT AND LIVELIHOOD</a><a href="http://122.54.120.194:888/sboffice/index.php/knowledge_base/category/19" class="list-group-item ">SENIOR CITIZEN AFFAIRS</a><a href="http://122.54.120.194:888/sboffice/index.php/knowledge_base/category/20" class="list-group-item ">GAMES  AMUSEMENT</a><a href="http://122.54.120.194:888/sboffice/index.php/knowledge_base/category/21" class="list-group-item ">BLUE RIBBON</a><a href="http://122.54.120.194:888/sboffice/index.php/knowledge_base/category/24" class="list-group-item ">GENDER & DEVELOPMENT</a><a href="http://122.54.120.194:888/sboffice/index.php/knowledge_base/category/25" class="list-group-item ">PERSONS WITH DISABILITY AFFAIRS</a><a href="http://122.54.120.194:888/sboffice/index.php/knowledge_base/category/26" class="list-group-item ">BARANGAY AFFAIRS</a><a href="http://122.54.120.194:888/sboffice/index.php/knowledge_base/category/27" class="list-group-item ">YOUTH & SPORT DEVELOPMENT</a><a href="http://122.54.120.194:888/sboffice/index.php/knowledge_base/category/40" class="list-group-item ">MARKET AND SLAUGHTERHOUSE</a><a href="http://122.54.120.194:888/sboffice/index.php/knowledge_base/category/41" class="list-group-item ">HOUSING & LAND USE </a><a href="http://122.54.120.194:888/sboffice/index.php/knowledge_base/category/45" class="list-group-item ">WAYS & MEANS</a><a href="http://122.54.120.194:888/sboffice/index.php/knowledge_base/category/46" class="list-group-item ">TRADE, INDUSTRY & TOURISM</a><a href="http://122.54.120.194:888/sboffice/index.php/knowledge_base/category/48" class="list-group-item ">SOCIAL SERVICES, HUMAN RIGHTS & SOCIAL JUSTICE</a><a href="http://122.54.120.194:888/sboffice/index.php/knowledge_base/category/49" class="list-group-item ">GOOD GOVERNMENT, PUBLIC ETHICS & ACCOUNTABILITY</a><a href="http://122.54.120.194:888/sboffice/index.php/knowledge_base/category/52" class="list-group-item ">PEACE AND ORDER & PUBLIC SAFETY </a><a href="http://122.54.120.194:888/sboffice/index.php/knowledge_base/category/53" class="list-group-item ">TRANSPORTATION & COMMUNICATION</a><a href="http://122.54.120.194:888/sboffice/index.php/knowledge_base/category/54" class="list-group-item ">LABOR AND EMPLOYMENT</a><a href="http://122.54.120.194:888/sboffice/index.php/knowledge_base/category/55" class="list-group-item active">HEALTH, ENERGY AND ENVIRONMENTAL PROTECTION</a><a href="http://122.54.120.194:888/sboffice/index.php/knowledge_base/category/56" class="list-group-item ">INFRASTRUCTURE & PUBLIC WORKS </a><a href="http://122.54.120.194:888/sboffice/index.php/knowledge_base/category/76" class="list-group-item ">SORTEO</a>                </ul>
+
+            </div>
+
+
+            <div class="col-md-9">
+                <div id="help-page-content" class="panel">
+
+                    <h4 class="mb20 pb10 b-b"> Municipal Ordinance No. 02-2002 (02-2002) KAUTUSANG SUMASAKOP SA PAGSUSUNOG NG MGA BASURA SA BAYAN NG CARMONA, CAVITE</h4>
+<div>
+    <p>KAUTUSANG SUMASAKOP SA PAGSUSUNOG NG MGA BASURA SA BAYAN NG CARMONA, CAVITE</p></div>
+<div class="mt20">
+    <div class='timeline-images mb15'><embed src=http://122.54.120.194:888/sboffice/files/timeline_files/help_file5e5bf9302b525-002-02_Committee-on-Health-and-Environment.pdf type="application/pdf" height="300px" width="100%"></div><a href="http://122.54.120.194:888/sboffice/index.php/knowledge_base/download_files/514" class="" title="Download">Download</a></div>
+
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        //load message notifications
+        $("#help-page-content").css({"min-height": $(window).height() - 110 + "px"});
+
+            if (isMobile()) {
+                //scroll to the content for mobile devices
+                setTimeout(function () {
+                    window.scrollTo(0, $("#help-page-content").offset().top - 60);
+                }, 200);
+            }
+
+    });
+</script>
+                </div>
+            </div>
+        </div>
+        <!-- Modal -->
+<div class="modal" id="ajaxModal" tabindex="-1" role="dialog" aria-labelledby="ajaxModal" aria-hidden="true">
+    <div class="modal-dialog mini-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="ajaxModalTitle" data-title="Carmona - S.B. Legislative Tracking System"></h4>
+            </div>
+            <div id="ajaxModalContent">
+
+            </div>
+            <div id='ajaxModalOriginalContent' class='hide'>
+                <div class="original-modal-body">
+                    <div class="circle-loader"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>        <!-- Modal -->
+<div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModal" aria-hidden="true">
+    <div class="modal-dialog" style="max-width: 400px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="confirmationModalTitle">Delete?</h4>
+            </div>
+            <div id="confirmationModalContent" class="modal-body">
+                 Are you sure? You won't be able to undo this action!            </div>
+            <div class="modal-footer clearfix">
+                <button id="confirmDeleteButton" type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-trash"></i> Delete</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>        <link rel='stylesheet' type='text/css' href='http://122.54.120.194:888/sboffice/assets/js/summernote/summernote.css?v=2.3' /><script type='text/javascript'  src='http://122.54.120.194:888/sboffice/assets/js/summernote/summernote.min.js?v=2.3'></script><script type='text/javascript'  src='http://122.54.120.194:888/sboffice/assets/js/summernote/lang/summernote-en-US.js?v=2.3'></script>        <div style='display: none;'>
+            <script type='text/javascript'>
+            </script>
+        </div>
+
+    </body>
+</html>
