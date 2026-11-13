@@ -74,3 +74,13 @@ export function rawPath(id: number, fileName: string, index = 0): string {
 
 /** Today in the Philippines, as YYYY-MM-DD. */
 export const today = () => new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Manila' }).format(new Date());
+
+/** The year in an item's listed number or title, for newest-first order. */
+export function yearOf(e: Entry): number {
+  const text = `${e.number_listed ?? ''} ${e.title}`;
+  const four = /\b(19[5-9]\d|20[0-4]\d)\b/.exec(text);
+  if (four) return Number(four[1]);
+  const two = /-(\d{2})\b/.exec(e.number_listed ?? '');
+  if (two) return Number(two[1]) + (Number(two[1]) > 50 ? 1900 : 2000);
+  return 0;
+}
