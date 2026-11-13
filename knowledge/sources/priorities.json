@@ -1,5 +1,5 @@
 {
-  "note": "Transcription order for task 022. full_text is ranked: work down the list, newest first inside each category. summary_only categories get a summary with key figures instead of a full transcription. Names match the category field in sb-office.json.",
+  "note": "Transcription order for kb:convert. full_text is ranked: work down the list, newest first inside each category. summary_only categories get a summary with key figures instead of a full transcription. Items whose title or description matches defer.pattern (case-insensitive) go to the end of the queue, after everything else. Names match the category field in sb-office.json.",
   "full_text": [
     "HEALTH, ENERGY AND ENVIRONMENTAL PROTECTION",
     "PEACE AND ORDER & PUBLIC SAFETY",
@@ -30,5 +30,21 @@
     "INTERNAL RULES & PRIVILEGES",
     "BLUE RIBBON",
     "SORTEO"
-  ]
+  ],
+  "defer": {
+    "reason": "Pandemic-era ordinances, decided 2026-11-13: most have lapsed, so they come last.",
+    "pattern": "covid|pandemic|face ?mask|quarantine|\\bIATF\\b|contact tracing|ncov|corona ?virus"
+  },
+  "full_text_ids": {
+    "reason": "Fee and tax ordinances in summary-only categories, decided 2026-11-13: residents ask how much, where to pay, and who collects, which a summary cannot answer. They are queued with WAYS & MEANS.",
+    "ids": [
+      691,
+      553,
+      550,
+      510,
+      529,
+      531,
+      704
+    ]
+  }
 }

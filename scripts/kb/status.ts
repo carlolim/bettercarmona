@@ -47,7 +47,7 @@ for (const e of m.items) {
   if (e.state === 'transcribed') row.transcribed++;
   if (e.state === 'summarized') row.summarized++;
   if (reviewed.has(e.sb_id)) row.reviewed++;
-  if (e.state === 'missing-file' || e.state === 'changed') flagged.push(`${e.sb_id} ${e.state}`);
+  if (['missing-file', 'changed', 'needs-attention'].includes(e.state)) flagged.push(`${e.sb_id} ${e.state}`);
 }
 
 const total = zero();

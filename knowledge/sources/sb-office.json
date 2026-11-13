@@ -433,7 +433,8 @@
       "pages": 1,
       "first_seen": "2026-11-12",
       "fetched_at": "2026-11-12T07:40:04.499Z",
-      "state": "downloaded"
+      "state": "summarized",
+      "transcript": "knowledge/ordinances/1994/23-annual-budget-1994.md"
     },
     {
       "sb_id": 24,
@@ -1114,7 +1115,8 @@
       "pages": 3,
       "first_seen": "2026-11-12",
       "fetched_at": "2026-11-12T08:02:08.587Z",
-      "state": "downloaded"
+      "state": "summarized",
+      "transcript": "knowledge/ordinances/2019/64-supplemental-appropriation-2019.md"
     },
     {
       "sb_id": 65,
@@ -1146,7 +1148,8 @@
       "pages": 10,
       "first_seen": "2026-11-12",
       "fetched_at": "2026-11-12T08:02:14.843Z",
-      "state": "downloaded"
+      "state": "summarized",
+      "transcript": "knowledge/ordinances/2019/66-supplemental-appropriation-2019.md"
     },
     {
       "sb_id": 67,
@@ -1178,7 +1181,7 @@
       "pages": 3,
       "first_seen": "2026-11-12",
       "fetched_at": "2026-11-12T08:02:22.025Z",
-      "state": "downloaded",
+      "state": "summarized",
       "extra_files": [
         {
           "file_url": "http://122.54.120.194:888/sboffice/files/timeline_files/help_file5e3cb38031ccb-03-2019.pdf",
@@ -1187,7 +1190,8 @@
           "bytes": 424018,
           "pages": 3
         }
-      ]
+      ],
+      "transcript": "knowledge/ordinances/2019/68-annual-budget-2020.md"
     },
     {
       "sb_id": 69,
@@ -1203,7 +1207,8 @@
       "pages": 5,
       "first_seen": "2026-11-12",
       "fetched_at": "2026-11-12T08:02:25.045Z",
-      "state": "downloaded"
+      "state": "summarized",
+      "transcript": "knowledge/ordinances/2018/69-supplemental-appropriation-2018.md"
     },
     {
       "sb_id": 70,
@@ -1244,7 +1249,8 @@
       "pages": 3,
       "first_seen": "2026-11-12",
       "fetched_at": "2026-11-12T08:02:32.498Z",
-      "state": "downloaded"
+      "state": "summarized",
+      "transcript": "knowledge/ordinances/2018/71-annual-budget-2019.md"
     },
     {
       "sb_id": 72,
@@ -1868,7 +1874,8 @@
       "pages": 5,
       "first_seen": "2026-11-12",
       "fetched_at": "2026-11-12T08:04:50.215Z",
-      "state": "downloaded"
+      "state": "transcribed",
+      "transcript": "knowledge/ordinances/2019/128-cctvss-ordinance-amendment.md"
     },
     {
       "sb_id": 130,
@@ -4684,7 +4691,8 @@
       "pages": 4,
       "first_seen": "2026-11-12",
       "fetched_at": "2026-11-12T07:39:58.351Z",
-      "state": "downloaded"
+      "state": "transcribed",
+      "transcript": "knowledge/ordinances/2002/514-pagsusunog-ng-basura.md"
     },
     {
       "sb_id": 515,
@@ -5468,7 +5476,8 @@
       "pages": 5,
       "first_seen": "2026-11-12",
       "fetched_at": "2026-11-12T08:17:45.396Z",
-      "state": "downloaded"
+      "state": "transcribed",
+      "transcript": "knowledge/ordinances/2020/563-face-masks-public-areas.md"
     },
     {
       "sb_id": 564,
@@ -5484,7 +5493,8 @@
       "pages": 4,
       "first_seen": "2026-11-12",
       "fetched_at": "2026-11-12T08:17:48.374Z",
-      "state": "downloaded"
+      "state": "transcribed",
+      "transcript": "knowledge/ordinances/2020/564-covid-discrimination-frontline-workers.md"
     },
     {
       "sb_id": 565,
@@ -5516,7 +5526,8 @@
       "pages": 4,
       "first_seen": "2026-11-12",
       "fetched_at": "2026-11-12T08:17:54.471Z",
-      "state": "downloaded"
+      "state": "transcribed",
+      "transcript": "knowledge/ordinances/2020/566-covid-19-tracking-system.md"
     },
     {
       "sb_id": 567,
@@ -5612,7 +5623,8 @@
       "pages": 23,
       "first_seen": "2026-11-12",
       "fetched_at": "2026-11-12T08:18:13.213Z",
-      "state": "downloaded"
+      "state": "transcribed",
+      "transcript": "knowledge/ordinances/2020/572-codifying-covid-19-ordinances.md"
     },
     {
       "sb_id": 573,
@@ -5980,7 +5992,8 @@
       "pages": 3,
       "first_seen": "2026-11-12",
       "fetched_at": "2026-11-12T08:19:21.670Z",
-      "state": "downloaded"
+      "state": "transcribed",
+      "transcript": "knowledge/ordinances/2021/598-nagsususog-kodigo-ng-covid-19.md"
     },
     {
       "sb_id": 599,
@@ -6389,7 +6402,8 @@
       "pages": 3,
       "first_seen": "2026-11-12",
       "fetched_at": "2026-11-12T08:20:38.285Z",
-      "state": "downloaded"
+      "state": "transcribed",
+      "transcript": "knowledge/ordinances/2021/627-nagsususog-kodigo-ng-covid-19.md"
     },
     {
       "sb_id": 628,
@@ -6693,7 +6707,8 @@
       "pages": 10,
       "first_seen": "2026-11-12",
       "fetched_at": "2026-11-12T08:21:56.024Z",
-      "state": "downloaded"
+      "state": "transcribed",
+      "transcript": "knowledge/ordinances/2020/646-covid-physical-activities-sports.md"
     },
     {
       "sb_id": 647,
@@ -6830,7 +6845,8 @@
       "pages": 3,
       "first_seen": "2026-11-12",
       "fetched_at": "2026-11-12T08:22:21.331Z",
-      "state": "downloaded"
+      "state": "transcribed",
+      "transcript": "knowledge/ordinances/2020/654-mandatory-wearing-face-mask.md"
     },
     {
       "sb_id": 655,
@@ -6974,7 +6990,8 @@
       "pages": 3,
       "first_seen": "2026-11-12",
       "fetched_at": "2026-11-12T08:22:48.476Z",
-      "state": "downloaded"
+      "state": "transcribed",
+      "transcript": "knowledge/ordinances/2022/671-drug-price-reference-index.md"
     },
     {
       "sb_id": 672,
@@ -7102,7 +7119,8 @@
       "pages": 28,
       "first_seen": "2026-11-12",
       "fetched_at": "2026-11-12T08:23:14.953Z",
-      "state": "downloaded"
+      "state": "transcribed",
+      "transcript": "knowledge/ordinances/2022/681-cigarettes-tobacco-products.md"
     },
     {
       "sb_id": 682,
@@ -7214,7 +7232,8 @@
       "pages": 5,
       "first_seen": "2026-11-12",
       "fetched_at": "2026-11-12T08:23:55.688Z",
-      "state": "downloaded"
+      "state": "transcribed",
+      "transcript": "knowledge/ordinances/2023/688-public-open-parks-green-spaces.md"
     },
     {
       "sb_id": 689,
@@ -7319,7 +7338,8 @@
       "pages": 6,
       "first_seen": "2026-11-12",
       "fetched_at": "2026-11-12T07:40:00.649Z",
-      "state": "downloaded"
+      "state": "transcribed",
+      "transcript": "knowledge/ordinances/2024/694-mental-health-task-force.md"
     },
     {
       "sb_id": 695,
@@ -7575,7 +7595,8 @@
       "pages": 3,
       "first_seen": "2026-11-12",
       "fetched_at": "2026-11-12T08:25:05.778Z",
-      "state": "downloaded"
+      "state": "transcribed",
+      "transcript": "knowledge/ordinances/2024/710-kalusugan-nutrisyon-mag-nanay.md"
     },
     {
       "sb_id": 711,
@@ -7591,7 +7612,8 @@
       "pages": 26,
       "first_seen": "2026-11-12",
       "fetched_at": "2026-11-12T08:25:11.042Z",
-      "state": "downloaded"
+      "state": "transcribed",
+      "transcript": "knowledge/ordinances/2024/711-comprehensive-nutrition-program.md"
     },
     {
       "sb_id": 712,

@@ -13,6 +13,8 @@ title, a short description, and a scanned PDF.
 |---|---|---|
 | `sources/sb-office.json` | One entry per library item, sorted by library id | Yes |
 | `sources/priorities.json` | The order to transcribe categories in, and which get a summary only | Yes |
+| `ordinances/{year}/{id}-{slug}.md` | One file per document: a full transcription or a summary | Yes |
+| `TRANSCRIPTION.md` | The rules every ordinance file follows | Yes |
 | `raw/{id}.pdf` | The downloaded files | No |
 | `raw/pages/view-{id}.html` | The item pages as last read | No |
 
@@ -29,6 +31,9 @@ Each entry has a `state`:
 | `summarized` | A summary with key figures is in `ordinances/` |
 | `missing-file` | The page has no file, or the file is not on the server |
 | `changed` | The file's hash differs from the one recorded. It needs transcribing again |
+| `needs-attention` | `kb:convert` wrote a file that failed `kb:validate`. The reason is in `attention` |
+
+Once an item has a markdown file, its path is in `transcript`.
 
 Entries are never deleted. An item that leaves the library keeps its entry and gains `removed_at`.
 
@@ -51,3 +56,39 @@ The library runs on a small government server, so `kb:fetch` sends one request a
 with the User-Agent `BetterCarmona/1.0 (+https://bettercarmona.org/about)`. A failed request is retried three times
 with a growing delay. It stops after five failures in a row, and at once on HTTP 429. The manifest is saved after
 every item, so a stopped run picks up where it left off.
+
+## Transcribing a batch
+
+The scans have no text layer, so each one is read by Claude Code, which reads PDF pages as images, following
+`TRANSCRIPTION.md`. Reading PDFs needs poppler (`brew install poppler` on macOS).
+
+```bash
+npm run kb:convert                          # the next 10 items in priority order
+npm run kb:convert -- --limit 3             # a smaller batch
+npm run kb:convert -- --dry                 # list the next items without doing them
+npm run kb:convert -- --id 514              # one item
+npm run kb:convert -- --category "WAYS & MEANS"
+npm run kb:convert -- --summaries           # only items in summary-only categories
+npm run kb:convert -- --id 23 --full        # a full transcription of a summary-only item
+npm run kb:convert -- --id 514 --redo       # replace a file that is not yet reviewed
+npm run kb:validate                         # check every file; also runs in npm run build
+```
+
+`kb:convert` takes items that are `downloaded` or `changed`, in the order of `sources/priorities.json`: the
+`full_text` categories in rank, then the `summary_only` ones, newest first within each. Items matching the `defer`
+pattern, the pandemic-era ordinances, come last. The ids in `full_text_ids`, fee and tax ordinances in a summary-only
+category, get a full transcription and are queued with WAYS & MEANS. An item in a `summary_only`
+category gets a summary with its key figures instead of the full text. A document of more than 60 pages is skipped and
+listed, so it can be run on its own with `--id N --force`. Each run of Claude Code may only read files and write under
+`ordinances/`.
+
+After each file, `kb:convert` runs the validator. A file that passes moves its item to `transcribed` or `summarized`.
+One that fails is kept, and the item moves to `needs-attention`. A batch stops early if Claude Code writes nothing, as
+when a usage limit is reached. Run it again later and it picks up with the next item.
+
+## Reviewing a file
+
+Every file starts with `reviewed: false`, and the assistant says an unreviewed text is an unchecked transcription.
+Open the PDF and the markdown side by side and follow "Reviewing a file" in `TRANSCRIPTION.md`. When it is right, set
+`transcription.reviewed` to `true`. A reviewed file is never replaced unless `--force` is given. Only a person with a
+source changes `status` from `unverified`.
