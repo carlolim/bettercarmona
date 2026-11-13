@@ -44,8 +44,13 @@ const out = option('--out') ? resolve(process.env.INIT_CWD ?? process.cwd(), opt
 const model = option('--model');
 const { redo, force, dry } = { redo: flag('--redo'), force: flag('--force'), dry: flag('--dry') };
 
-const priorities = JSON.parse(readFileSync(PRIORITIES, 'utf8')) as { full_text: string[]; summary_only: string[] };
+const priorities = JSON.parse(readFileSync(PRIORITIES, 'utf8')) as {
+  full_text: string[];
+  summary_only: string[];
+  defer?: { pattern: string };
+};
 const isSummaryOnly = (e: Entry) => priorities.summary_only.includes(e.category ?? '');
+const deferred = priorities.defer ? new RegExp(priorities.defer.pattern, 'i') : undefined;
 
 /** The year in an item's listed number or title, for newest-first order. */
 export function yearOf(e: Entry): number {
@@ -57,8 +62,10 @@ export function yearOf(e: Entry): number {
   return 0;
 }
 
+/** The category's place in priorities.json. Items matching `defer` come after every category. */
 function rank(e: Entry): number {
   const order = [...priorities.full_text, ...priorities.summary_only];
+  if (deferred?.test(`${e.title} ${e.description}`)) return order.length + 1;
   const i = order.indexOf(e.category ?? '');
   return i < 0 ? order.length : i;
 }

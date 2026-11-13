@@ -75,7 +75,8 @@ npm run kb:validate                         # check every file; also runs in npm
 ```
 
 `kb:convert` takes items that are `downloaded` or `changed`, in the order of `sources/priorities.json`: the
-`full_text` categories in rank, then the `summary_only` ones, newest first within each. An item in a `summary_only`
+`full_text` categories in rank, then the `summary_only` ones, newest first within each. Items matching the `defer`
+pattern, the pandemic-era ordinances, come last. An item in a `summary_only`
 category gets a summary with its key figures instead of the full text. A document of more than 60 pages is skipped and
 listed, so it can be run on its own with `--id N --force`. Each run of Claude Code may only read files and write under
 `ordinances/`.
