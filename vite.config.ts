@@ -40,6 +40,8 @@ export default defineConfig(({ mode }) => {
       port: 5132,
       strictPort: true,
       allowedHosts: ['dev.neonplayground.com'],
+      // The chat API, from `npm run dev:api`.
+      proxy: { '/api': 'http://localhost:8787' },
     },
     preview: { host: '0.0.0.0', port: 5132, strictPort: true },
   };
