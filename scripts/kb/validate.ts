@@ -209,11 +209,84 @@ export function validate(paths = ordinanceFiles()): Result {
   return result;
 }
 
+// The built search documents in .kb/, from kb:build
+
+const KB = join(ROOT, '.kb');
+const KB_INDEX = join(KB, 'kb-index.json');
+const MAX_DOCUMENT = 60_000;
+/** Ordinance pages come in task 029. Until then their links are allowed without a route. */
+const PENDING_ROUTES = ['/ordinances'];
+
+/** The community routes in src/App.tsx, as patterns. */
+export function siteRoutes(app = readFileSync(join(ROOT, 'src/App.tsx'), 'utf8')): RegExp[] {
+  const paths = [...app.matchAll(/path="([^"*]+)"/g)].map((m) => m[1].replace(/^\//, ''));
+  return ['', ...paths].map((p) => new RegExp(`^/${p.replace(/:[^/]+/g, '[^/]+')}$`));
+}
+
+interface IndexEntry {
+  title?: string;
+  kind?: string;
+  site_url?: string;
+  source_url?: string;
+}
+
+/** Checks .kb/kb-index.json against the files in .kb/ and the site's routes. */
+export function indexProblems(): string[] {
+  if (!existsSync(KB_INDEX)) return ['.kb/kb-index.json is missing: run npm run kb:build'];
+  const problems: string[] = [];
+  const index = JSON.parse(readFileSync(KB_INDEX, 'utf8')) as { version?: string; documents?: Record<string, IndexEntry> };
+  const documents = index.documents ?? {};
+  if (!index.version) problems.push('kb-index.json has no version');
+  const routes = siteRoutes();
+  for (const [path, e] of Object.entries(documents)) {
+    const at = `.kb/${path}`;
+    if (!e.title?.trim()) problems.push(`${at}: the index gives no title`);
+    if (!e.kind?.trim()) problems.push(`${at}: the index gives no kind`);
+    if (!e.site_url && !e.source_url) problems.push(`${at}: the index gives neither a site_url nor a source_url`);
+    if (e.site_url) {
+      const route = e.site_url.split(/[?#]/)[0];
+      const pending = PENDING_ROUTES.some((p) => route === p || route.startsWith(`${p}/`));
+      if (!route.startsWith('/') || (!pending && !routes.some((r) => r.test(route)))) problems.push(`${at}: site_url ${e.site_url} matches no route in src/App.tsx`);
+    }
+    if (e.source_url && !/^https?:\/\//.test(e.source_url)) problems.push(`${at}: source_url must be an absolute link`);
+    const file = join(KB, path);
+    if (!existsSync(file)) {
+      problems.push(`${at}: in the index, but the file is missing`);
+      continue;
+    }
+    const size = readFileSync(file, 'utf8').trim().length;
+    if (!size) problems.push(`${at}: the document is empty`);
+    if (size > MAX_DOCUMENT) problems.push(`${at}: ${size} characters, over ${MAX_DOCUMENT}`);
+  }
+  const files = readdirSync(KB, { recursive: true, encoding: 'utf8' }).filter((f) => f.endsWith('.md'));
+  for (const f of files) if (!(f in documents)) problems.push(`.kb/${f}: not in kb-index.json`);
+  return problems;
+}
+
+/** Every service in SERVICES has six or more keywords in each language. */
+export async function keywordProblems(): Promise<string[]> {
+  const { SERVICES } = await import('../../src/community/data/services.ts');
+  const path = join(ROOT, 'knowledge/keywords/services.json');
+  const keywords = (existsSync(path) ? JSON.parse(readFileSync(path, 'utf8')) : {}) as Record<string, { en?: string[]; fil?: string[] }>;
+  const problems: string[] = [];
+  for (const s of SERVICES) {
+    const k = keywords[s.id];
+    if (!k || (k.en?.length ?? 0) < 6 || (k.fil?.length ?? 0) < 6) problems.push(`knowledge/keywords/services.json: service "${s.id}" needs six or more keywords in each language`);
+  }
+  for (const id of Object.keys(keywords)) {
+    if (!SERVICES.some((s) => s.id === id)) problems.push(`knowledge/keywords/services.json: "${id}" is not a service in services.ts`);
+  }
+  return problems;
+}
+
 export function kbValidate(): Plugin {
   return {
     name: 'kb-validate',
-    buildStart() {
+    // npm run build runs kb:build first, so .kb/ exists. The dev server does not need it.
+    apply: 'build',
+    async buildStart() {
       const { problems, warnings } = validate();
+      problems.push(...indexProblems(), ...(await keywordProblems()));
       for (const w of warnings) this.warn(w);
       if (problems.length) this.error(`Ordinance files:\n  ${problems.join('\n  ')}`);
     },
@@ -223,8 +296,9 @@ export function kbValidate(): Plugin {
 if (argv[1] && import.meta.url === pathToFileURL(argv[1]).href) {
   const named = argv.slice(2).map((p) => resolve(process.env.INIT_CWD ?? process.cwd(), p));
   const { problems, warnings } = validate(named.length ? named : undefined);
+  if (!named.length) problems.push(...indexProblems(), ...(await keywordProblems()));
   for (const w of warnings) console.log(`warning: ${w}`);
   for (const p of problems) console.log(`problem: ${p}`);
   if (problems.length) exit(1);
-  console.log(`Ordinance files OK (${named.length || ordinanceFiles().length} checked)`);
+  console.log(`Ordinance files OK (${named.length || ordinanceFiles().length} checked)${named.length ? '' : ', search index OK, keywords OK'}`);
 }

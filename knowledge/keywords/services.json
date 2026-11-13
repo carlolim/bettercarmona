@@ -1,0 +1,158 @@
+{
+  "registration-of-live-birth": {
+    "en": ["register a newborn", "birth certificate", "register my baby", "new baby registration", "birth registration requirements", "how to register a birth"],
+    "fil": ["iparehistro ang bagong silang", "birth certificate ng baby", "rehistro ng kapanganakan", "paano magparehistro ng anak", "requirements sa birth certificate", "bagong panganak na anak"]
+  },
+  "delayed-registration-of-live-birth": {
+    "en": ["late birth registration", "no birth record", "never registered birth", "birth certificate for adult", "negative PSA birth record", "delayed birth certificate"],
+    "fil": ["late registration ng birth certificate", "walang birth certificate", "hindi naparehistro noong ipinanganak", "late register", "walang record sa PSA", "huling rehistro ng kapanganakan"]
+  },
+  "affidavit-to-use-the-surname-of-the-father": {
+    "en": ["use father's surname", "change child's surname to father's", "AUSF", "illegitimate child surname", "acknowledge child", "RA 9255"],
+    "fil": ["apelyido ng tatay", "gamitin ang apelyido ng ama", "hindi kasal ang magulang", "ipa-apelyido sa tatay", "pagkilala ng ama", "anak sa labas apelyido"]
+  },
+  "registration-of-death-timely": {
+    "en": ["register a death", "death certificate", "someone died", "report a death", "death registration requirements", "certificate of death"],
+    "fil": ["iparehistro ang namatay", "death certificate", "may namatay sa pamilya", "rehistro ng pagkamatay", "requirements sa death certificate", "pumanaw"]
+  },
+  "delayed-registration-of-death": {
+    "en": ["late death registration", "death not registered", "delayed death certificate", "no death record", "register an old death", "late registration of death"],
+    "fil": ["late registration ng death certificate", "hindi naparehistro ang pagkamatay", "walang death certificate", "matagal nang namatay", "huling rehistro ng pagkamatay", "walang record ng pagkamatay"]
+  },
+  "registration-of-marriage-timely": {
+    "en": ["register a marriage", "marriage certificate", "after the wedding", "marriage registration", "register wedding", "certificate of marriage"],
+    "fil": ["iparehistro ang kasal", "marriage certificate", "pagkatapos ng kasal", "rehistro ng kasal", "kontrata ng kasal", "ikinasal na kami"]
+  },
+  "delayed-registration-of-marriage": {
+    "en": ["late marriage registration", "marriage not registered", "no marriage record", "delayed marriage certificate", "married but not registered", "late register wedding"],
+    "fil": ["late registration ng kasal", "hindi naparehistro ang kasal", "walang record ng kasal", "kasal pero walang certificate", "huling rehistro ng kasal", "matagal nang kasal"]
+  },
+  "burial-at-public-cemetery": {
+    "en": ["burial", "public cemetery", "bury a loved one", "Santuario de Carmona", "cemetery requirements", "burial permit"],
+    "fil": ["libing", "ilibing", "sementeryo ng bayan", "pampublikong sementeryo", "nitso", "paano magpalibing"]
+  },
+  "cremation-permit": {
+    "en": ["cremation", "cremate", "cremation permit", "cremation requirements", "ashes", "crematorium"],
+    "fil": ["cremation", "ipa-cremate", "pagsunog ng labi", "permit sa cremation", "abo ng namatay", "requirements sa cremation"]
+  },
+  "viewing-permit": {
+    "en": ["wake permit", "viewing permit", "wake at home", "funeral viewing", "vigil", "where to get viewing permit"],
+    "fil": ["lamay", "burol", "permit sa lamay", "lamay sa bahay", "pagbuburol", "permit para sa patay"]
+  },
+  "columbarium-permit": {
+    "en": ["columbarium", "niche for ashes", "urn niche", "columbarium permit", "where to place ashes", "columbarium requirements"],
+    "fil": ["columbarium", "kolumbaryo", "lalagyan ng abo", "lagakan ng urn", "permit sa columbarium", "saan ilalagay ang abo"]
+  },
+  "change-of-first-name": {
+    "en": ["change first name", "change nickname", "change name on birth certificate", "RA 9048 name change", "petition to change name", "wrong first name"],
+    "fil": ["palitan ang pangalan", "magpalit ng pangalan", "palayaw sa birth certificate", "petisyon na magpalit ng pangalan", "ibang pangalan ang gamit", "pangalan sa birth certificate"]
+  },
+  "correction-of-clerical-error": {
+    "en": ["correct a typo", "wrong spelling on birth certificate", "clerical error", "fix mistake in civil registry document", "RA 9048", "correction of entry"],
+    "fil": ["mali ang spelling", "itama ang birth certificate", "typo sa birth certificate", "mali sa marriage certificate", "pagtatama ng mali", "maling entry"]
+  },
+  "correction-of-sex-or-date-of-birth": {
+    "en": ["wrong birthday on birth certificate", "wrong sex on birth certificate", "correct date of birth", "correct gender", "RA 10172", "wrong birth date"],
+    "fil": ["mali ang birthday", "mali ang kasarian", "itama ang petsa ng kapanganakan", "mali ang araw ng kapanganakan", "babae nakalagay lalaki", "mali ang buwan ng kapanganakan"]
+  },
+  "legitimation": {
+    "en": ["legitimation", "parents married after birth", "make child legitimate", "legitimate child", "change child status", "legitimation requirements"],
+    "fil": ["legitimation", "nagpakasal pagkatapos manganak", "gawing legitimate ang anak", "kasal na ang magulang", "status ng anak", "requirements sa legitimation"]
+  },
+  "marriage-license": {
+    "en": ["marriage license", "getting married", "wedding requirements", "apply for marriage license", "license to marry", "civil wedding requirements"],
+    "fil": ["marriage license", "lisensya sa kasal", "magpapakasal", "requirements sa kasal", "ikakasal na kami", "paano kumuha ng marriage license"]
+  },
+  "certified-copies-of-records": {
+    "en": ["certified true copy", "copy of birth certificate", "copy of marriage certificate", "copy of death certificate", "local civil registry copy", "certified photocopy"],
+    "fil": ["kopya ng birth certificate", "certified true copy", "kopya ng marriage certificate", "kopya ng death certificate", "kopya mula sa munisipyo", "local copy"]
+  },
+  "psa-documents-via-breqs": {
+    "en": ["PSA birth certificate", "CENOMAR", "PSA copy", "BREQS", "order PSA documents", "PSA marriage certificate"],
+    "fil": ["PSA birth certificate", "CENOMAR", "kopya ng PSA", "kumuha ng PSA dito sa Carmona", "PSA na marriage certificate", "PSA death certificate"]
+  },
+  "new-business-permit": {
+    "en": ["new business permit", "start a business", "open a store", "mayor's permit", "business permit requirements", "register a business"],
+    "fil": ["business permit", "magtayo ng negosyo", "magbukas ng tindahan", "mayor's permit", "requirements sa business permit", "bagong negosyo"]
+  },
+  "business-permit-renewal": {
+    "en": ["renew business permit", "business permit renewal", "annual renewal", "renewal requirements", "January renewal", "expired business permit"],
+    "fil": ["mag-renew ng business permit", "renewal ng permit", "taunang renewal", "requirements sa renewal", "expired na permit", "renew ng negosyo"]
+  },
+  "new-business-permit-eboss": {
+    "en": ["online business permit", "eBOSS", "apply online for business permit", "new business permit online", "business permit website", "online application"],
+    "fil": ["online na business permit", "eBOSS", "mag-apply online", "business permit sa internet", "online application ng negosyo", "website ng business permit"]
+  },
+  "business-permit-renewal-eboss": {
+    "en": ["renew business permit online", "eBOSS renewal", "online renewal", "renew permit on website", "online business permit renewal", "pay renewal online"],
+    "fil": ["mag-renew online", "eBOSS renewal", "online na renewal ng permit", "renewal sa internet", "online renewal ng negosyo", "magbayad online ng renewal"]
+  },
+  "community-tax-certificate": {
+    "en": ["cedula", "community tax certificate", "CTC", "get a cedula", "cedula price", "residence certificate"],
+    "fil": ["cedula", "sedula", "kumuha ng cedula", "magkano ang cedula", "saan kukuha ng cedula", "community tax"]
+  },
+  "working-permit": {
+    "en": ["working permit", "work permit", "employee permit", "permit to work in a business", "health and work permit", "working permit requirements"],
+    "fil": ["working permit", "work permit", "permit sa trabaho", "permit ng empleyado", "requirements sa working permit", "saan kukuha ng working permit"]
+  },
+  "professional-tax-receipt": {
+    "en": ["professional tax receipt", "PTR", "professional tax", "PTR for lawyers", "PTR for engineers", "pay professional tax"],
+    "fil": ["PTR", "professional tax receipt", "buwis ng propesyonal", "kumuha ng PTR", "PTR ng abogado", "PTR ng engineer"]
+  },
+  "tax-clearance": {
+    "en": ["tax clearance", "real property tax clearance", "proof of paid taxes", "no tax due", "certificate of tax payment", "tax clearance requirements"],
+    "fil": ["tax clearance", "clearance sa buwis", "bayad na ang amilyar", "walang utang sa buwis", "patunay na bayad ang buwis", "requirements sa tax clearance"]
+  },
+  "dti-business-name-registration-new": {
+    "en": ["register business name", "DTI registration", "business name", "new DTI certificate", "Negosyo Center", "sole proprietorship registration"],
+    "fil": ["iparehistro ang pangalan ng negosyo", "DTI registration", "pangalan ng negosyo", "Negosyo Center", "bagong DTI", "rehistro sa DTI"]
+  },
+  "dti-business-name-registration-renewal": {
+    "en": ["renew DTI registration", "renew business name", "DTI renewal", "expired business name", "Negosyo Center renewal", "business name certificate renewal"],
+    "fil": ["mag-renew ng DTI", "renewal ng business name", "expired na DTI", "renew sa Negosyo Center", "pangalan ng negosyo renewal", "DTI renewal requirements"]
+  },
+  "bmbe-registration": {
+    "en": ["BMBE", "micro business registration", "small business tax exemption", "Barangay Micro Business Enterprise", "BMBE certificate", "register small business"],
+    "fil": ["BMBE", "maliit na negosyo", "sari-sari store registration", "exemption sa buwis ng maliit na negosyo", "rehistro ng micro business", "BMBE certificate"]
+  },
+  "business-name-certification": {
+    "en": ["business name certification", "certified business name", "DTI certification", "proof of business name", "business name record", "Negosyo Center certification"],
+    "fil": ["certification ng business name", "patunay ng pangalan ng negosyo", "DTI certification", "record ng negosyo", "Negosyo Center certification", "kopya ng business name"]
+  },
+  "locational-clearance-commercial-business": {
+    "en": ["locational clearance", "zoning for a store", "commercial business zoning", "zoning clearance for business permit", "can I open a business here", "zoning office"],
+    "fil": ["locational clearance", "zoning ng tindahan", "pwede bang magnegosyo dito", "zoning para sa business permit", "zoning office", "clearance sa lokasyon"]
+  },
+  "locational-clearance-industrial-business": {
+    "en": ["industrial locational clearance", "factory zoning", "warehouse zoning", "industrial business permit zoning", "zoning for factory", "industrial zone"],
+    "fil": ["locational clearance ng pabrika", "zoning ng pabrika", "zoning ng bodega", "industrial na negosyo", "pwede bang magpabrika dito", "industrial zone"]
+  },
+  "zoning-clearance-business-permit-renewal": {
+    "en": ["zoning clearance renewal", "zoning for renewal", "renew zoning clearance", "zoning clearance business renewal", "zoning requirement for renewal", "zoning office renewal"],
+    "fil": ["zoning clearance sa renewal", "renewal ng zoning", "zoning para sa renewal ng permit", "requirements sa zoning renewal", "zoning office renewal", "clearance sa pag-renew"]
+  },
+  "zoning-clearance-business-permit-retirement": {
+    "en": ["close business zoning", "zoning clearance for closing", "business retirement zoning", "stop business", "zoning clearance retirement", "closing a store"],
+    "fil": ["isara ang negosyo", "zoning sa pagsasara", "retirement ng negosyo", "itigil ang negosyo", "magsara ng tindahan", "clearance sa pagsasara"]
+  },
+  "ocenro-clearance-new-business-permit": {
+    "en": ["environmental clearance", "OCENRO clearance", "environment office clearance for business", "new business environmental requirement", "CENRO clearance", "environmental protection fee"],
+    "fil": ["environmental clearance", "clearance sa kapaligiran", "OCENRO clearance", "CENRO", "requirements ng environment office", "clearance para sa bagong negosyo"]
+  },
+  "ocenro-clearance-recycling-business": {
+    "en": ["junk shop permit", "recycling business clearance", "scrap business", "OCENRO recycling", "junkshop environmental clearance", "recyclables business"],
+    "fil": ["junk shop", "magbobote", "negosyo ng bakal at bote", "recycling na negosyo", "clearance ng junkshop", "OCENRO para sa junk shop"]
+  },
+  "ocenro-clearance-motorshops": {
+    "en": ["motor shop clearance", "auto repair shop permit", "vulcanizing shop", "motorshop environmental clearance", "car repair business", "OCENRO motorshop"],
+    "fil": ["motor shop", "talyer", "vulcanizing", "clearance ng talyer", "repair shop ng sasakyan", "OCENRO para sa talyer"]
+  },
+  "ocenro-clearance-business-permit-renewal": {
+    "en": ["environmental clearance renewal", "OCENRO renewal", "renew environment clearance", "CENRO renewal", "environment requirement for renewal", "renewal environmental fee"],
+    "fil": ["renewal ng environmental clearance", "OCENRO renewal", "clearance sa kapaligiran renewal", "CENRO renewal", "requirements sa renewal ng environment", "bayad sa environment renewal"]
+  },
+  "ocenro-clearance-business-permit-retirement": {
+    "en": ["environmental clearance for closing business", "OCENRO retirement", "close business environment clearance", "business retirement CENRO", "closing store clearance", "stop business environment office"],
+    "fil": ["pagsasara ng negosyo OCENRO", "clearance sa pagsasara", "retirement ng negosyo CENRO", "isara ang tindahan", "environmental clearance sa pagsara", "itigil ang negosyo"]
+  }
+}

@@ -9,7 +9,7 @@
     "dev": "vite",
     "setup": "tsx scripts/setup.ts",
     "check": "tsx scripts/check.ts",
-    "build": "tsc -b && vite build",
+    "build": "tsx scripts/kb/build.ts && tsc -b && vite build",
     "preview": "vite preview",
     "lint": "eslint .",
     "deploy:cloudflare": "npm run build && wrangler deploy",
@@ -17,9 +17,10 @@
     "build:neighbors": "tsx scripts/build-neighbors.ts",
     "kb:fetch": "tsx scripts/kb/fetch.ts",
     "kb:status": "tsx scripts/kb/status.ts",
-    "kb:test": "tsx --test scripts/kb/sb-office.test.ts scripts/kb/validate.test.ts",
+    "kb:test": "tsx --test scripts/kb/sb-office.test.ts scripts/kb/validate.test.ts scripts/kb/build.test.ts",
     "kb:validate": "tsx scripts/kb/validate.ts",
-    "kb:convert": "tsx scripts/kb/convert.ts"
+    "kb:convert": "tsx scripts/kb/convert.ts",
+    "kb:build": "tsx scripts/kb/build.ts"
   },
   "dependencies": {
     "d3-geo": "3.1.1",

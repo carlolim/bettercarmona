@@ -23,7 +23,7 @@ import { existsSync, mkdirSync, readdirSync, readFileSync, renameSync, rmSync, s
 import { join, relative, resolve } from 'node:path';
 import { argv, exit } from 'node:process';
 import { promisify } from 'node:util';
-import { loadManifest, rawPath, ROOT, saveManifest, today, type Entry, type Manifest } from './manifest.ts';
+import { loadManifest, rawPath, ROOT, saveManifest, today, yearOf, type Entry, type Manifest } from './manifest.ts';
 import { LIBRARY } from './sb-office.ts';
 import { fileProblems, ORDINANCES, splitFile } from './validate.ts';
 
@@ -53,16 +53,6 @@ const priorities = JSON.parse(readFileSync(PRIORITIES, 'utf8')) as {
 const fullTextIds = new Set(priorities.full_text_ids?.ids ?? []);
 const isSummaryOnly = (e: Entry) => priorities.summary_only.includes(e.category ?? '') && !fullTextIds.has(e.sb_id);
 const deferred = priorities.defer ? new RegExp(priorities.defer.pattern, 'i') : undefined;
-
-/** The year in an item's listed number or title, for newest-first order. */
-export function yearOf(e: Entry): number {
-  const text = `${e.number_listed ?? ''} ${e.title}`;
-  const four = /\b(19[5-9]\d|20[0-4]\d)\b/.exec(text);
-  if (four) return Number(four[1]);
-  const two = /-(\d{2})\b/.exec(e.number_listed ?? '');
-  if (two) return Number(two[1]) + (Number(two[1]) > 50 ? 1900 : 2000);
-  return 0;
-}
 
 /** The category's place in priorities.json. Items matching `defer` come after every category. */
 function rank(e: Entry): number {

@@ -15,6 +15,9 @@ title, a short description, and a scanned PDF.
 | `sources/priorities.json` | The order to transcribe categories in, and which get a summary only | Yes |
 | `ordinances/{year}/{id}-{slug}.md` | One file per document: a full transcription or a summary | Yes |
 | `TRANSCRIPTION.md` | The rules every ordinance file follows | Yes |
+| `charter/index-2026.json` | Every service the 2026 Citizen's Charter lists, with its office and first page | Yes |
+| `keywords/glossary.json` | Everyday words mapped to official terms | Yes |
+| `keywords/services.json` | Everyday keywords for each city service, in English and Filipino | Yes |
 | `raw/{id}.pdf` | The downloaded files | No |
 | `raw/pages/view-{id}.html` | The item pages as last read | No |
 
@@ -92,3 +95,41 @@ Every file starts with `reviewed: false`, and the assistant says an unreviewed t
 Open the PDF and the markdown side by side and follow "Reviewing a file" in `TRANSCRIPTION.md`. When it is right, set
 `transcription.reviewed` to `true`. A reviewed file is never replaced unless `--force` is given. Only a person with a
 source changes `status` from `unverified`.
+
+## Search documents
+
+`npm run kb:build` writes the documents the assistant searches into `.kb/`, which is not committed. It runs at the
+start of `npm run build`, so every deploy carries documents that match the repo. It reads the site's own data
+(`src/community/data/`) and the ordinance files, and copies nothing out of them.
+
+| In `.kb/` | One per | Page on this site |
+|---|---|---|
+| `services/{id}.md`, `services/_all.md` | Service in `services.ts`, and the whole list | `/services/{id}` |
+| `charter-index/{n}.md` | About 25 charter services not yet in `services.ts` | None yet |
+| `ordinances/{sb_id}.md` | Ordinance file, full or summary. A long one is split into `-part-2` and so on | `/ordinances/{sb_id}` |
+| `ordinance-titles/{category}.md` | Library category: the items not yet transcribed | `/ordinances?category=...` |
+| `hotlines/{id}.md`, `hotlines/_all.md` | Hotline, and the whole list | `/hotlines#{id}` |
+| `offices/{name}.md` | City office | `/government` |
+| `officials.md` | The elected officials | `/government` |
+| `barangays/{n}.md` | Barangay | `/barangays` |
+| `site/about.md` | This site | `/about` |
+
+Every document starts with its title, its kind and source, and an "Also asked as" line of keywords. Each `##` section
+of an ordinance repeats the ordinance's number and title, so a passage makes sense on its own. Summaries are marked
+"not part of the ordinance".
+
+`.kb/kb-index.json` maps each document's path to its title, kind, date, `site_url` (the page here, relative), and
+`source_url` (the original document, absolute). The assistant builds every link from it. `.kb/glossary.json` maps each
+glossary term to the terms on the other side of its entry, for expanding a question.
+
+`kb:validate` checks the index too: a title, a kind, and a link for every document, a route in `src/App.tsx` for
+every `site_url` (`/ordinances` is allowed until its pages exist), no document over 60,000 characters, and keywords
+for every service.
+
+### Adding keywords
+
+- **A glossary entry:** add `{ "topic", "everyday": [...], "official": [...] }` to `keywords/glossary.json`. Every
+  document that uses any of its words gets all of them in its "Also asked as" line. Use whole words or phrases, and
+  avoid very short ones, since matching ignores case.
+- **A new service:** add six to ten keywords in each language under its id in `keywords/services.json`. The build
+  fails until it has them. The service then leaves the charter index by itself, matched on its first page and title.
