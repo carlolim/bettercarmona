@@ -1,7 +1,7 @@
 /** The whole chat path, with fixtures: every check, every limit, and what is kept. */
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { chat, createSession, feedback } from '../chat.ts';
+import { chat, createSession, feedback, safeToCache } from '../chat.ts';
 import { KEYWORD_PER_MONTH, PER_IP_PER_DAY, SEMANTIC_PER_MONTH, SITE_PER_DAY } from '../config.ts';
 import { FixtureModel } from '../model.ts';
 import { utcMonth } from '../store.ts';
@@ -148,4 +148,22 @@ test('a failing binding gives 503 unavailable, not a stack trace', async () => {
   const out = await ask(deps, BIRTH);
   assert.deepEqual(out.body, { error: 'unavailable' });
   assert.equal(out.status, 503);
+});
+
+test('a reply that repeats something only the user wrote is not cached', async () => {
+  const echo = JSON.stringify({ kind: 'answer', text: 'Juan dela Cruz, register within 30 days. [S1]', sources: ['S1'] });
+  const deps = makeDeps({ model: new FixtureModel(echo) });
+  const out = await ask(deps, 'Ako si Juan dela Cruz, paano iparehistro ang birth certificate ng anak ko?');
+  assert.equal(body(out).kind, 'answer');
+  assert.equal(deps.store.cache.size, 0);
+  const plain = makeDeps();
+  await ask(plain, BIRTH);
+  assert.equal(plain.store.cache.size, 1);
+});
+
+test('safeToCache: words from the sources are fine, the user\'s own are not', () => {
+  const passages = ['Registration of Certificate of Live Birth within thirty (30) days. Call 0917-112-0291.'];
+  assert.ok(safeToCache('How do I register a live birth?', passages, 'Register the live birth within thirty days.'));
+  assert.equal(safeToCache('My number is 0917 555 1234', passages, 'We will call 555 1234.'), false);
+  assert.ok(safeToCache('My number is 0917 555 1234', passages, 'Call 0917-112-0291.'));
 });

@@ -30,7 +30,7 @@ Static files and client-side routes never run the Worker: `wrangler.jsonc` sends
 | 10. Keep passages that are in the index and score at least 0.4. None left: "not found", no model call | |
 | 11. The model writes a reply as JSON, at most 400 tokens | |
 | 12. Check the reply and build the sources from the index | |
-| 13. Cache an answer to a first question | |
+| 13. Cache an answer to a first question, unless it repeats something only the user wrote | |
 
 Any failure of a binding, or an allowance that has run out, returns 503 `unavailable`. The error never includes a
 stack trace, and nothing retries.
@@ -112,7 +112,7 @@ Workers AI pricing page, for counting.
 | Table | Holds |
 |---|---|
 | `counters` | Counts by scope and day or month. An IP's daily count is keyed by SHA-256 of the IP, the date, and `IP_HASH_SALT`, so it cannot be linked across days |
-| `answer_cache` | The reply to a first question, keyed by SHA-256 of the question, its language, and the index version |
+| `answer_cache` | The reply to a first question, keyed by SHA-256 of the question, its language, and the index version. A reply that repeats any word of the question found in none of the passages, such as a name or a phone number, is not cached |
 | `feedback` | Thumbs up and down, as counts by day and reply kind |
 
 Each request logs one line: the route, the status, the error code, timings, the number of passages, and token counts.

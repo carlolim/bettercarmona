@@ -62,6 +62,25 @@ export function sameSite(origin: string | null, requestUrl: string, fixtures: bo
   return fixtures && url.protocol === 'http:' && (url.hostname === 'localhost' || url.hostname === '127.0.0.1');
 }
 
+/** Words worth comparing: four letters or more, or three digits or more, such as part of a phone number. */
+const words = (s: string) => s.toLowerCase().split(/[^\p{L}\p{N}]+/u).filter((w) => w.length >= 4 || /^\d{3,}$/.test(w));
+
+/**
+ * True when the reply repeats nothing the user brought in: no word of the question that is in none of
+ * the passages sent, such as a name or a phone number. Only such a reply may be cached. A question word
+ * counts as from the passages when a passage word shares its first five letters ("register",
+ * "registration").
+ */
+export function safeToCache(question: string, passages: string[], reply: string): boolean {
+  const known = new Set<string>();
+  for (const w of passages.flatMap(words)) {
+    known.add(w);
+    if (w.length >= 5) known.add(w.slice(0, 5));
+  }
+  const own = new Set(words(question).filter((w) => !known.has(w) && !(w.length >= 5 && known.has(w.slice(0, 5)))));
+  return !words(reply).some((w) => own.has(w));
+}
+
 /** The body as JSON, or null if it is too big or not JSON. */
 async function readJson(request: Request): Promise<unknown> {
   const declared = Number(request.headers.get('content-length') ?? 0);
@@ -185,7 +204,9 @@ export async function chat(request: Request, ip: string, deps: Deps): Promise<Ou
     }
 
     const reply = buildReply(out.text, passages.map((p) => p.key), deps.index.documents);
-    if (cacheable && reply.kind === 'answer') await deps.store.cachePut(cacheKey, deps.index.version, JSON.stringify(reply), now);
+    if (cacheable && reply.kind === 'answer' && safeToCache(input.message, passages.map((p) => p.text), reply.text)) {
+      await deps.store.cachePut(cacheKey, deps.index.version, JSON.stringify(reply), now);
+    }
     return done(reply);
   } catch {
     return fail(503, 'unavailable', undefined, log);
