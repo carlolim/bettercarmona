@@ -34,5 +34,17 @@
   "defer": {
     "reason": "Pandemic-era ordinances, decided 2026-11-13: most have lapsed, so they come last.",
     "pattern": "covid|pandemic|face ?mask|quarantine|\\bIATF\\b|contact tracing|ncov|corona ?virus"
+  },
+  "full_text_ids": {
+    "reason": "Fee and tax ordinances in summary-only categories, decided 2026-11-13: residents ask how much, where to pay, and who collects, which a summary cannot answer. They are queued with WAYS & MEANS.",
+    "ids": [
+      691,
+      553,
+      550,
+      510,
+      529,
+      531,
+      704
+    ]
   }
 }

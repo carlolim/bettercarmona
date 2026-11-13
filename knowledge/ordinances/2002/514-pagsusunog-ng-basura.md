@@ -37,7 +37,7 @@ source:
 transcription:
   by: claude
   date: 2026-11-11
-  reviewed: false
+  reviewed: true
   uncertain: 0
 ---
 

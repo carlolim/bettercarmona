@@ -48,8 +48,10 @@ const priorities = JSON.parse(readFileSync(PRIORITIES, 'utf8')) as {
   full_text: string[];
   summary_only: string[];
   defer?: { pattern: string };
+  full_text_ids?: { ids: number[] };
 };
-const isSummaryOnly = (e: Entry) => priorities.summary_only.includes(e.category ?? '');
+const fullTextIds = new Set(priorities.full_text_ids?.ids ?? []);
+const isSummaryOnly = (e: Entry) => priorities.summary_only.includes(e.category ?? '') && !fullTextIds.has(e.sb_id);
 const deferred = priorities.defer ? new RegExp(priorities.defer.pattern, 'i') : undefined;
 
 /** The year in an item's listed number or title, for newest-first order. */
@@ -66,7 +68,8 @@ export function yearOf(e: Entry): number {
 function rank(e: Entry): number {
   const order = [...priorities.full_text, ...priorities.summary_only];
   if (deferred?.test(`${e.title} ${e.description}`)) return order.length + 1;
-  const i = order.indexOf(e.category ?? '');
+  // Fee and tax ordinances picked out of a summary-only category are queued with WAYS & MEANS.
+  const i = order.indexOf(fullTextIds.has(e.sb_id) ? 'WAYS & MEANS' : (e.category ?? ''));
   return i < 0 ? order.length : i;
 }
 

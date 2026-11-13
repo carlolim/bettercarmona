@@ -42,7 +42,7 @@ source:
 transcription:
   by: claude
   date: 2026-11-12
-  reviewed: false
+  reviewed: true
   uncertain: 1
 ---
 
