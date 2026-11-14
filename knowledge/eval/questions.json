@@ -873,6 +873,40 @@
       ],
       "must_not_contain": [],
       "note": "The user's question, 2026-11-14. The charter's step 1 gives the basic community tax as P10.00; its total row says None."
+    },
+    {
+      "id": "q36",
+      "language": "tl",
+      "group": "user",
+      "turns": [
+        "Magkano ang building permit sa Carmona?"
+      ],
+      "expect_kind": [
+        "answer"
+      ],
+      "must_cite": [
+        [
+          "charter-index/161-building-permit.md",
+          "charter-index/161-basic-application.md",
+          "charter-index/163-simple-application.md",
+          "charter-index/166-complex-application.md",
+          "charter-index/169-highly-technical-application.md"
+        ]
+      ],
+      "must_feature": null,
+      "must_contain": [
+        [
+          "wala",
+          "hindi",
+          "not in",
+          "not available"
+        ]
+      ],
+      "must_not_contain": [],
+      "must_notice": [
+        "not_on_site_yet"
+      ],
+      "note": "The user's question, 2026-11-14. Building permits are only in the charter index (pages 161 to 169), with no fee in the knowledge base: the answer says the fee is not in the saved documents, points to the charter, whose page each source links, and invents no amount."
     }
   ]
 }
