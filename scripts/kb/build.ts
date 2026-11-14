@@ -289,6 +289,15 @@ export function splitAtSections(text: string, size = PART_SIZE): string[] {
   return parts;
 }
 
+/** The pandemic-era pattern from priorities.json, which also sends these ordinances to the end of the transcription queue. */
+const PANDEMIC = (() => {
+  const p = readJson<{ defer?: { pattern: string } }>(join(ROOT, 'knowledge/sources/priorities.json'), {}).defer?.pattern;
+  return p ? new RegExp(p, 'i') : undefined;
+})();
+/** Added to a pandemic-era ordinance's header, so an answer from it says when it was made. Taken from its title only. */
+export const PANDEMIC_LINE =
+  'Pandemic-era: its title refers to COVID-19, quarantine, or face masks, so it was made for the COVID-19 emergency. Rules made for the pandemic may no longer apply.';
+
 function ordinanceDocs(): Doc[] {
   return ordinanceFiles().flatMap((path) => {
     const { front, body } = splitFile(readFileSync(path, 'utf8'));
@@ -300,6 +309,7 @@ function ordinanceDocs(): Doc[] {
       `Status: ${f.status === 'unverified' ? 'not verified; it may have been amended or repealed' : f.status}. ${f.transcription.reviewed ? 'The transcription was checked against the scan.' : 'The transcription has not been checked yet.'}`,
     ];
     if (f.title_en) details.push(`Title in English: ${f.title_en}`);
+    if (PANDEMIC?.test(`${f.title} ${f.title_en ?? ''} ${f.summary_en}`)) details.push(PANDEMIC_LINE);
     const summary = ['Summary (not part of the ordinance):', f.summary_en, '', f.summary_fil].join('\n');
     let text: string;
     if (f.coverage === 'summary') {
@@ -366,7 +376,10 @@ function ordinanceTitleDocs(transcribed: Set<number>): Doc[] {
         source_label: 'Carmona SB Office ordinance library',
         date: year ? String(year) : null,
         sourceLine: `Carmona SB Office ordinance library, item ${e.sb_id}, category ${e.category}`,
-        details: ['Only the title is known. The ordinance has not been transcribed, and its full text is in the scan on the library page.'],
+        details: [
+          'Only the title is known. The ordinance has not been transcribed, and its full text is in the scan on the library page.',
+          ...(PANDEMIC?.test(`${e.title} ${e.description}`) ? [PANDEMIC_LINE] : []),
+        ],
         keywords: { en: ['ordinance', 'local law'], fil: ['ordinansa', 'kautusan'] },
         body: [
           `The Carmona SB Office library lists this ordinance as: ${e.title}.`,
