@@ -1,6 +1,6 @@
-import { MessageCircle } from 'lucide-react';
 import { lazy, Suspense, useEffect, useRef, useState } from 'react';
 import { useLocale } from '../community/locale';
+import { AiChatIcon } from './AiChatIcon';
 import { chatEnabled } from './chat-client';
 import './chat-launcher.css';
 
@@ -63,7 +63,7 @@ export function ChatLauncher() {
           setOpen(true);
         }}
       >
-        <MessageCircle size={20} aria-hidden="true" />
+        <AiChatIcon size={22} />
         <span className="chat-launcher-label">{t('chat.launcher')}</span>
       </button>
       {loaded && (
