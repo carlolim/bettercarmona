@@ -20,6 +20,8 @@ export interface IndexEntry {
 
 export interface Source {
   n: number;
+  /** The document's path in the knowledge base, its key in kb-index.json. */
+  key: string;
   title: string;
   kind: string;
   site_url?: string;
@@ -126,7 +128,7 @@ export function buildReply(raw: string, sent: string[], index: Record<string, In
   const number = new Map(ranked.map((p, i) => [p, i + 1]));
   const sources: Source[] = ranked.map((p, i) => {
     const e = index[p];
-    return { n: i + 1, title: e.title, kind: e.kind, site_url: e.site_url, source_url: e.source_url, source_label: e.source_label, date: e.date };
+    return { n: i + 1, key: p, title: e.title, kind: e.kind, site_url: e.site_url, source_url: e.source_url, source_label: e.source_label, date: e.date };
   });
   text = text
     .replace(LABEL, (_m, n) => `[${number.get(labelToPath.get(Number(n))!)}]`)

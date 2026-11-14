@@ -42,7 +42,7 @@ const sha256 = (text: string) => createHash('sha256').update(text).digest('hex')
 export function localDocuments(): Map<string, string> {
   if (!existsSync(KB)) throw new Error('.kb/ is missing: run npm run kb:build first');
   const docs = new Map<string, string>();
-  for (const f of readdirSync(KB, { recursive: true, encoding: 'utf8' }).filter((p) => p.endsWith('.md')).sort()) {
+  for (const f of readdirSync(KB, { recursive: true, encoding: 'utf8' }).filter((p) => p.endsWith('.md') && !p.startsWith('eval-cache')).sort()) {
     docs.set(f, readFileSync(join(KB, f), 'utf8'));
   }
   return docs;

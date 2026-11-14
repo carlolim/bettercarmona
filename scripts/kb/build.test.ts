@@ -67,9 +67,9 @@ test('a service added to SERVICES leaves the charter index', () => {
   const added = { ...SERVICES[0], id: 'cso-accreditation', title: 'Application for Civil Society Organization Accreditation', pages: [2, 3] } as Service;
   assert.equal(isOnSite(entry, [...SERVICES, added]), true);
   assert.equal(isOnSite({ ...entry, page: 4 }, [...SERVICES, added]), false);
-  const listed = Object.keys(index.documents).filter((p) => p.startsWith('charter-index/')).map(doc).join('\n');
+  const listed = Object.values(index.documents).filter((e) => e.kind === 'charter-index').map((e) => e.title).join('\n');
   assert.match(listed, /Application For Civil Society Organization \(CSO\) Accreditation/);
-  assert.doesNotMatch(listed, /- Registration of Certificate of Live Birth\./);
+  assert.doesNotMatch(listed, /^Registration of Certificate of Live Birth \(/m);
 });
 
 test('long text splits between sections', () => {

@@ -3,15 +3,15 @@
  * with fixtures and an in-memory store. A failed check stops the request before anything costs.
  */
 import {
-  BODY_MAX_BYTES, CACHE_DAYS, KEYWORD_PER_MONTH, MAX_PASSAGES, NEURONS_PER_DAY, NEURON_RATES, PER_IP_PER_DAY,
-  PREVIEW_HOSTNAME, QUESTION_MAX_CHARS, SCORE_THRESHOLD, SEMANTIC_PER_MONTH, SESSION_MINUTES, SITE_HOSTNAMES, SITE_PER_DAY,
+  BODY_MAX_BYTES, CACHE_DAYS, KEYWORD_PER_MONTH, NEURONS_PER_DAY, NEURON_RATES, PER_IP_PER_DAY,
+  PREVIEW_HOSTNAME, QUESTION_MAX_CHARS, SEMANTIC_PER_MONTH, SESSION_MINUTES, SITE_HOSTNAMES, SITE_PER_DAY,
 } from './config.ts';
-import { expandQuestion } from './glossary.ts';
 import { checkChatInput, checkFeedback } from './input.ts';
 import { neurons, type Model } from './model.ts';
 import { buildMessages } from './prompt.ts';
 import { buildReply, notFound, type ChatReply, type IndexEntry } from './reply.ts';
-import type { Search, SearchType } from './search.ts';
+import { searchQuery } from './query.ts';
+import { selectPassages, type Search, type SearchType } from './search.ts';
 import { dailyIpHash, randomId, sessionIpHash, sha256, signSession, verifySession } from './session.ts';
 import { secondsToMidnight, secondsToMonthEnd, utcDay, utcMonth, type Store } from './store.ts';
 import { verifyTurnstile } from './turnstile.ts';
@@ -166,7 +166,7 @@ export async function chat(request: Request, ip: string, deps: Deps): Promise<Ou
       log: { ...log, ...extra, kind: reply.kind },
     });
 
-    const query = expandQuestion(input.message, deps.glossary);
+    const query = searchQuery(input.message, input.history, deps.glossary);
     const cacheable = input.history.length === 0;
     const cacheKey = cacheable ? await sha256(`${input.message.toLowerCase()}|${input.locale}|${deps.index.version}`) : '';
     if (cacheable) {
@@ -188,9 +188,7 @@ export async function chat(request: Request, ip: string, deps: Deps): Promise<Ou
     const t0 = Date.now();
     const found = await deps.search.search(query, type);
     log.search_ms = Date.now() - t0;
-    const passages = found
-      .filter((p) => deps.index.documents[p.key] !== undefined && p.score >= SCORE_THRESHOLD)
-      .slice(0, MAX_PASSAGES);
+    const passages = selectPassages(found, deps.index.documents);
     log.passages = passages.length;
     if (!passages.length) return done(notFound());
 

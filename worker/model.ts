@@ -27,6 +27,38 @@ export function neurons(model: string, inputTokens: number, outputTokens: number
   return Math.ceil((inputTokens * rate.input + outputTokens * rate.output) / 1_000_000);
 }
 
+/**
+ * The request body for a model: the same for the Worker's binding and the test set's REST calls, so
+ * both run the model the same way. JSON output, the answer length, a low temperature, and no
+ * thinking before the answer where the model allows turning it off.
+ */
+export function modelRequest(model: string, messages: Message[]): Record<string, unknown> {
+  const body: Record<string, unknown> = {
+    messages,
+    max_tokens: MAX_OUTPUT_TOKENS,
+    temperature: TEMPERATURE,
+    response_format: { type: 'json_object' },
+  };
+  if (model.startsWith('@cf/google/gemma') || model.startsWith('@cf/qwen/')) body.chat_template_kwargs = { enable_thinking: false };
+  if (model === '@cf/openai/gpt-oss-120b') body.reasoning_effort = 'low';
+  return body;
+}
+
+/** The reply text and token counts from a model's output, whichever shape it uses. */
+export function readModelOutput(out: unknown): ModelReply {
+  const o = out as {
+    choices?: { message?: { content?: string | null } }[];
+    response?: string | object;
+    usage?: { prompt_tokens?: number; completion_tokens?: number };
+  };
+  const response = typeof o.response === 'object' && o.response !== null ? JSON.stringify(o.response) : o.response;
+  return {
+    text: o.choices?.[0]?.message?.content ?? response ?? '',
+    inputTokens: o.usage?.prompt_tokens ?? 0,
+    outputTokens: o.usage?.completion_tokens ?? MAX_OUTPUT_TOKENS,
+  };
+}
+
 export class WorkersAiModel implements Model {
   name = MODEL;
   private ai: Ai;
@@ -36,23 +68,7 @@ export class WorkersAiModel implements Model {
   }
 
   async run(messages: Message[]): Promise<ModelReply> {
-    const out = (await this.ai.run(MODEL, {
-      messages,
-      max_tokens: MAX_OUTPUT_TOKENS,
-      temperature: TEMPERATURE,
-      response_format: { type: 'json_object' },
-      // The reply is short and checked whole. Thinking would spend output tokens before it.
-      chat_template_kwargs: { enable_thinking: false },
-    })) as unknown as {
-      choices?: { message?: { content?: string | null } }[];
-      response?: string;
-      usage?: { prompt_tokens?: number; completion_tokens?: number };
-    };
-    return {
-      text: out.choices?.[0]?.message?.content ?? out.response ?? '',
-      inputTokens: out.usage?.prompt_tokens ?? 0,
-      outputTokens: out.usage?.completion_tokens ?? MAX_OUTPUT_TOKENS,
-    };
+    return readModelOutput(await this.ai.run(MODEL, modelRequest(MODEL, messages) as never));
   }
 }
 

@@ -6,7 +6,7 @@ import { INDEX } from './helpers.ts';
 
 const docs = INDEX.documents;
 const reply = (o: unknown) => JSON.stringify(o);
-const SIX = ['hotlines/_all.md', 'services/registration-of-live-birth.md', 'charter-index/1.md', 'ordinances/514.md', 'ordinances/23.md', 'officials.md'];
+const SIX = ['hotlines/_all.md', 'services/registration-of-live-birth.md', 'charter-index/547-real-property-tax.md', 'ordinances/514.md', 'ordinances/23.md', 'officials.md'];
 
 test('a reply citing only S9, when six passages were sent, is not_found', () => {
   const r = buildReply(reply({ kind: 'answer', text: 'Pay at the office. [S9]', sources: ['S9'] }), SIX, docs);
@@ -25,7 +25,7 @@ test('unknown labels and model-written links are removed from the text', () => {
 
 test('every link comes from the index, sources with a page here first, the featured one as number 1', () => {
   const r = buildReply(reply({ kind: 'answer', text: 'Call [S1]. Register at the office [S2]. See [S3].', sources: ['S1', 'S3', 'S2'] }), SIX, docs);
-  assert.deepEqual(r.sources.map((s) => s.title), [docs['services/registration-of-live-birth.md'].title, docs['hotlines/_all.md'].title, docs['charter-index/1.md'].title]);
+  assert.deepEqual(r.sources.map((s) => s.title), [docs['services/registration-of-live-birth.md'].title, docs['hotlines/_all.md'].title, docs['charter-index/547-real-property-tax.md'].title]);
   assert.deepEqual(r.featured, { title: docs['services/registration-of-live-birth.md'].title, kind: 'service', site_url: '/services/registration-of-live-birth' });
   for (const s of r.sources) {
     const e = Object.values(docs).find((d) => d.title === s.title)!;
@@ -36,7 +36,7 @@ test('every link comes from the index, sources with a page here first, the featu
 });
 
 test('a reply whose only source is a charter index entry has no featured page and says so', () => {
-  const r = buildReply(reply({ kind: 'answer', text: 'It is on page 2 of the charter. [S3]', sources: ['S3'] }), SIX, docs);
+  const r = buildReply(reply({ kind: 'answer', text: 'It is on page 547 of the charter. [S3]', sources: ['S3'] }), SIX, docs);
   assert.equal(r.featured, null);
   assert.deepEqual(r.notices, ['not_on_site_yet']);
 });

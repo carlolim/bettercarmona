@@ -9,7 +9,7 @@
  * document on the next build.
  */
 import { createHash } from 'node:crypto';
-import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { argv } from 'node:process';
 import { pathToFileURL } from 'node:url';
@@ -31,7 +31,6 @@ export const INDEX = join(KB, 'kb-index.json');
 const CHARTER_INDEX = join(ROOT, 'knowledge/charter/index-2026.json');
 const GLOSSARY = join(ROOT, 'knowledge/keywords/glossary.json');
 const SERVICE_KEYWORDS = join(ROOT, 'knowledge/keywords/services.json');
-const CHARTER_GROUP = 25;
 /** An ordinance longer than this is split into parts at its sections, to stay under the validator's 60,000 characters. */
 const PART_SIZE = 45_000;
 /** At most this many glossary terms are added to one document's "Also asked as" line. */
@@ -77,7 +76,7 @@ export interface GlossaryEntry {
 const KIND_LABEL: Record<string, string> = {
   service: 'City service',
   'service-list': 'List of city services',
-  'charter-index': "Citizen's Charter list of services",
+  'charter-index': "Citizen's Charter service not yet on this site",
   ordinance: 'Ordinance, full text',
   'ordinance-summary': 'Ordinance, summary only',
   'ordinance-titles': 'List of ordinances not yet transcribed',
@@ -86,6 +85,7 @@ const KIND_LABEL: Record<string, string> = {
   office: 'City office',
   officials: 'Elected officials',
   barangay: 'Barangay',
+  'barangay-list': 'List of barangays',
   about: 'About this site',
 };
 
@@ -211,24 +211,33 @@ export function isOnSite(e: CharterEntry, services: Service[] = SERVICES): boole
   });
 }
 
+/**
+ * One small document per charter service not yet on the site. One document per service, not a list
+ * of 25, because search ranks a short document about one thing far above a line inside a long one.
+ */
 function charterIndexDocs(): Doc[] {
   const entries = readJson<{ services: CharterEntry[] }>(CHARTER_INDEX, { services: [] }).services.filter((e) => !isOnSite(e));
   const docs: Doc[] = [];
-  for (let i = 0; i < entries.length; i += CHARTER_GROUP) {
-    const group = entries.slice(i, i + CHARTER_GROUP);
-    const n = i / CHARTER_GROUP + 1;
-    const offices = unique(group.map((e) => e.office));
+  const paths = new Set<string>();
+  for (const e of entries) {
+    const name = e.part_of ? `${e.part_of}: ${e.title}` : e.title;
+    let path = `charter-index/${e.page}-${slug(e.title).split('-').slice(0, 6).join('-')}.md`;
+    for (let n = 2; paths.has(path); n++) path = path.replace(/(-\d+)?\.md$/, `-${n}.md`);
+    paths.add(path);
     docs.push({
-      path: `charter-index/${n}.md`,
-      title: `Citizen's Charter services, part ${n}: ${offices.slice(0, 3).join('; ')}${offices.length > 3 ? '; and others' : ''}`,
+      path,
+      title: `${name} (Citizen's Charter, page ${e.page})`,
       kind: 'charter-index',
-      source_url: charterPageUrl(charter, group[0].page),
-      source_label: `${charter.title}, list of services`,
+      source_url: charterPageUrl(charter, e.page),
+      source_label: `${charter.title}, page ${e.page}`,
       date: charter.recordedAt,
       sourceLine: `${charterLabel}, list of services, recorded ${charter.recordedAt}`,
-      details: ['These services are in the charter but not yet described on BetterCarmona. Each line gives the charter page that describes it.'],
       keywords: { en: [], fil: [] },
-      body: group.map((e) => `- ${e.part_of ? `${e.part_of}: ` : ''}${e.title}. ${e.office}. Charter page ${e.page}, ${charterPageUrl(charter, e.page)}`).join('\n'),
+      body: [
+        `${name} is a service of the City Government of Carmona, from the ${e.office}.`,
+        `The Citizen's Charter 2026 describes it on page ${e.page}: ${charterPageUrl(charter, e.page)}`,
+        'BetterCarmona does not describe this service yet, so its requirements, steps, and fees are only in the charter.',
+      ].join('\n'),
     });
   }
   return docs;
@@ -456,7 +465,22 @@ function officialsDoc(): Doc {
 }
 
 function barangayDocs(): Doc[] {
-  return BARANGAYS.map((b: Barangay) => {
+  const list: Doc = {
+    path: 'barangays/_all.md',
+    title: `The ${BARANGAYS.length} barangays of the City of Carmona`,
+    kind: 'barangay-list',
+    site_url: '/barangays',
+    source_url: BARANGAY_OFFICIALS_URL,
+    source_label: "City of Carmona's barangay officials page",
+    date: BARANGAYS_RECORDED_AT,
+    sourceLine: `City of Carmona website, Barangay Officials page, recorded ${BARANGAYS_RECORDED_AT}`,
+    keywords: { en: ['how many barangays', 'list of barangays', 'barangay captains'], fil: ['ilan ang barangay', 'mga barangay', 'listahan ng barangay', 'mga kapitan'] },
+    body: [
+      `The City of Carmona has ${BARANGAYS.length} barangays. Each is listed with its punong barangay (barangay captain):`,
+      ...BARANGAYS.map((b) => `- Barangay ${b.number}${b.name ? ` (${b.name})` : ''}: ${b.captain}`),
+    ].join('\n'),
+  };
+  return [list, ...BARANGAYS.map((b: Barangay) => {
     const hotline = HOTLINES.find((h) => h.label === b.hotline);
     const title = `Barangay ${b.number}${b.name ? ` (${b.name})` : ''}`;
     return {
@@ -476,7 +500,7 @@ function barangayDocs(): Doc[] {
         hotline ? `Hotline: ${hotline.numbers.map((n) => (n.areaCode ? `(${n.areaCode}) ${n.display}` : n.display)).join(', ')}` : '',
       ].filter(Boolean).join('\n'),
     };
-  });
+  })];
 }
 
 function aboutDoc(): Doc {
@@ -582,7 +606,10 @@ function fixturePassages(docs: Doc[], glossary: GlossaryEntry[]): { key: string;
 export function build(): KbIndex {
   const glossary = readJson<{ entries: GlossaryEntry[] }>(GLOSSARY, { entries: [] }).entries;
   const docs = buildDocs();
-  rmSync(KB, { recursive: true, force: true });
+  // Clears .kb/ but keeps the test set's saved searches, which kb:eval checks against the index version.
+  for (const entry of existsSync(KB) ? readdirSync(KB) : []) {
+    if (entry !== 'eval-cache') rmSync(join(KB, entry), { recursive: true, force: true });
+  }
   const hash = createHash('sha256');
   const documents: Record<string, IndexEntry> = {};
   for (const d of docs) {
