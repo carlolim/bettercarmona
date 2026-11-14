@@ -844,6 +844,35 @@
       ],
       "must_not_contain": [],
       "smoke": true
+    },
+    {
+      "id": "q35",
+      "language": "tl",
+      "group": "user",
+      "turns": [
+        "Pano kumuha ng cedula sa Carmona?"
+      ],
+      "expect_kind": [
+        "answer"
+      ],
+      "must_cite": [
+        [
+          "services/community-tax-certificate.md"
+        ]
+      ],
+      "must_feature": "/services/community-tax-certificate",
+      "must_contain": [
+        [
+          "Treasurer",
+          "Ingat-yaman"
+        ],
+        [
+          "10.00",
+          "P10"
+        ]
+      ],
+      "must_not_contain": [],
+      "note": "The user's question, 2026-11-14. The charter's step 1 gives the basic community tax as P10.00; its total row says None."
     }
   ]
 }

@@ -300,7 +300,9 @@ function writeReport(model: string, rows: { q: Question; reply: ChatReply; verdi
     if (r.reply.sources.length) lines.push(`Sources: ${r.reply.sources.map((s) => `[${s.n}] ${s.key}`).join(', ')}`, '');
   }
   mkdirSync(REPORTS, { recursive: true });
-  const file = join(REPORTS, `${today()}-${model.split('/').pop()}.md`);
+  // A run of part of the set gets its own name, so it never replaces a full report.
+  const partial = flag('--only') || flag('--limit') ? '-partial' : '';
+  const file = join(REPORTS, `${today()}-${model.split('/').pop()}${partial}.md`);
   writeFileSync(file, `${lines.join('\n')}\n`);
   console.log(`\n${lines.slice(4, 16).join('\n')}\n\nReport: ${file.slice(ROOT.length + 1)}`);
 }
