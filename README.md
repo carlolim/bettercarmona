@@ -11,13 +11,17 @@ The site is built on the [BetterGov.ph transparency portal template](https://git
 [BetterGov.ph Budget API](https://budget.bettergov.ph/docs). They do not show the city's own budget, and the amounts
 are as published, not spending.
 
+Its community pages cover city services from the Citizen's Charter (`/services`), the city's ordinances from the SB
+Office's public library (`/ordinances`), hotlines, barangays, and city offices. How the ordinances and the assistant's
+search documents are gathered and built is in `knowledge/README.md` and `docs/chatbot.md`.
+
 ## Run it locally
 
 Needs Node `^20.19.0 || >=22.12.0`.
 
 ```bash
 npm ci
-npm run dev       # http://localhost:5132
+npm run dev       # http://localhost:5132, after building the ordinance pages' data
 ```
 
 | Command | What it does |

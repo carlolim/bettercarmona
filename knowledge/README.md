@@ -160,3 +160,12 @@ how many of the five test searches found the right document. The full test set i
 `kb:sync` reads `KB_ACCOUNT_ID`, `KB_API_TOKEN`, `KB_NAMESPACE`, and `KB_INSTANCE` from `.env`. The token needs only
 AI Search Edit and AI Search Run, and it is never printed. `npm run kb:sync -- --dry-run` shows the plan, and
 `--full` uploads every document again.
+
+## Ordinance pages
+
+`npm run kb:build` also writes the data for the ordinance pages on the site to `public/data/ordinances/`, which is not
+committed: `index.json`, one line per library item for the list at `/ordinances`, and `{sb_id}.json` for each page at
+`/ordinances/{sb_id}`. A transcribed ordinance's text is parsed at build time into plain blocks (headings, paragraphs,
+lists, tables, page markers, and the bracketed marks), so the page renders it without markdown or HTML. Every library
+item has a page: the text, or the summary and key facts, or the library's own description, with the status line and
+links to the library page and the scan. `npm run dev` and `npm run build` run `kb:build` first.
