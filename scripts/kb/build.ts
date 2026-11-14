@@ -567,6 +567,18 @@ export function buildDocs(): Doc[] {
   ];
 }
 
+/**
+ * The documents cut at their `##` sections, for the chat API's fixture search (CHAT_FIXTURES=1), which
+ * stands in for AI Search in tests and local work. Each passage keeps its document's header.
+ */
+function fixturePassages(docs: Doc[], glossary: GlossaryEntry[]): { key: string; title: string; text: string }[] {
+  return docs.flatMap((d) => {
+    const [head, ...rest] = render(d, glossary).split(/\n(?=## )/);
+    const intro = head.split('\n\n')[0];
+    return [head, ...rest.map((section) => `${intro}\n\n${section}`)].map((text) => ({ key: d.path, title: d.title, text }));
+  });
+}
+
 export function build(): KbIndex {
   const glossary = readJson<{ entries: GlossaryEntry[] }>(GLOSSARY, { entries: [] }).entries;
   const docs = buildDocs();
@@ -582,6 +594,7 @@ export function build(): KbIndex {
     documents[d.path] = indexEntry(d);
   }
   writeFileSync(join(KB, 'glossary.json'), `${JSON.stringify(compactGlossary(glossary))}\n`);
+  writeFileSync(join(KB, 'fixture-passages.json'), `${JSON.stringify(fixturePassages(docs, glossary))}\n`);
   const index: KbIndex = { version: hash.digest('hex').slice(0, 16), documents };
   writeFileSync(INDEX, `${JSON.stringify(index, null, 2)}\n`);
   return index;
