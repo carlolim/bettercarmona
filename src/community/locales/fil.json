@@ -97,6 +97,10 @@
       "body": "Nakalista ang BetterCarmona sa Better LGU Directory, isang community-maintained na listahan ng mga Better LGU portal sa buong Pilipinas. Public din ang code ng site na ito.",
       "link": "Tingnan ang Better LGU Directory",
       "repository": "Tingnan ang project na ito sa GitHub"
+    },
+    "assistant": {
+      "heading": "Ang assistant",
+      "body": "Sinasagot ng assistant na \"Magtanong sa BetterCarmona AI\" ang mga tanong mula sa parehong mga public document na ipinapakita ng site na ito: ang mga serbisyo ng lungsod sa Citizen's Charter, ang mga ordinansa sa library ng SB Office ng Carmona, at ang mga hotline, opisina, at barangay. AI ang sumusulat ng mga sagot nito at puwedeng mali ang mga ito, kaya may link sa mga source ang bawat sagot. Naka-save lang ang usapan sa sarili mong device hanggang i-clear mo ito, at may limit kada araw ang assistant para manatili itong libre."
     }
   },
   "hotlines": {
@@ -210,5 +214,78 @@
   "notFound": {
     "message": "Walang ganitong page.",
     "homeLink": "Pumunta sa home page"
+  },
+  "chat": {
+    "launcher": "Magtanong sa BetterCarmona AI",
+    "title": "Magtanong sa BetterCarmona AI",
+    "close": "Isara ang assistant",
+    "notice": "Hindi ito official na website ng gobyerno. AI ang sumusulat ng mga sagot mula sa mga public document, at puwedeng mali ang mga ito. I-check ang naka-link na source.",
+    "noticeLink": "Tungkol sa assistant na ito",
+    "intro": "Magtanong tungkol sa mga serbisyo ng lungsod, bayarin, ordinansa, opisina, barangay, at hotline sa Carmona.",
+    "examplesLabel": "Subukang itanong",
+    "examples": [
+      "Bawal ba magsiga ng basura?",
+      "Paano magbayad ng amilyar?",
+      "Paano magparehistro ng birth certificate ng anak ko?"
+    ],
+    "inputLabel": "Ang tanong mo",
+    "send": "Ipadala",
+    "counter": "{{count}} character na lang",
+    "footer": "Huwag ibahagi ang personal na detalye. Naka-save ang usapang ito sa device na ito hanggang i-clear mo.",
+    "thinking": "Hinahanap sa mga dokumento",
+    "you": "Sabi mo",
+    "assistant": "Sagot ng BetterCarmona",
+    "featured": "Tingnan ito sa BetterCarmona",
+    "sources": "Mga source",
+    "sitePage": "Sa BetterCarmona",
+    "originalSource": "Original na source",
+    "sourceRef": "Source {{n}}",
+    "helpful": "Nakatulong ba ito?",
+    "helpfulYes": "Oo, nakatulong",
+    "helpfulNo": "Hindi nakatulong",
+    "thanks": "Salamat sa feedback.",
+    "retry": "Subukan ulit",
+    "nextSteps": "Puwede mo ring:",
+    "links": {
+      "hotlines": "Tingnan ang mga emergency hotline",
+      "services": "Tingnan ang mga serbisyo ng lungsod",
+      "official_site": "Pumunta sa official na website ng Carmona"
+    },
+    "notFound": "Wala akong nahanap tungkol diyan sa mga naka-save na dokumento.",
+    "kinds": {
+      "service": "Serbisyo ng lungsod",
+      "service-list": "Mga serbisyo ng lungsod",
+      "charter-index": "Citizen's Charter",
+      "ordinance": "Ordinansa",
+      "ordinance-summary": "Ordinansa, buod",
+      "ordinance-titles": "Ordinansa, pamagat lang",
+      "hotline": "Hotline",
+      "hotline-list": "Mga hotline",
+      "office": "Opisina ng lungsod",
+      "officials": "Mga opisyal",
+      "barangay": "Barangay",
+      "barangay-list": "Mga barangay",
+      "about": "Tungkol sa site"
+    },
+    "notices": {
+      "ordinance_may_have_changed": "Ang teksto ng ordinansa ay ang naipasa noon. Puwedeng nabago o napawalang-bisa na ito. Kumpirmahin sa SB Office.",
+      "unreviewed_transcription": "Ang teksto ng ordinansang ito ay transcription na hindi pa nache-check laban sa scan.",
+      "summary_only": "Buod lang ng ordinansang ito ang naka-save. Nasa scan ang buong teksto, na naka-link bilang original na source.",
+      "not_on_site_yet": "Nasa Citizen's Charter ang serbisyong ito pero hindi pa ito nailalarawan sa BetterCarmona. Nasa pahina ng charter ang detalye."
+    },
+    "errors": {
+      "slow_down": "Masyadong mabilis ang mga tanong. Maghintay ng isang minuto, saka subukan ulit.",
+      "daily_limit": "Naabot mo na ang limit ng tanong ngayong araw. Puwede ka ulit magtanong bukas.",
+      "site_busy": "Naubos na ang kayang sagutin ng assistant ngayong araw. Babalik ito bukas.",
+      "monthly_limit": "Naubos na ang mga search ng assistant ngayong buwan. Babalik ito sa susunod na buwan.",
+      "unavailable": "Paumanhin, hindi gumagana ang assistant ngayon.",
+      "network": "Paumanhin, hindi naipadala ang tanong. I-check ang internet connection mo.",
+      "turnstile": "Hindi natapos ang pag-check kung tao ka. Pakisubukan ulit.",
+      "session": "Natapos na ang session mo. Pakisubukan ulit.",
+      "origin": "Na-block ang request na ito. Paki-reload ang page.",
+      "input": "Hindi maipadala ang tanong. Dapat mas maikli ito sa 500 character.",
+      "disabled": "Naka-off ang assistant ngayon."
+    },
+    "clear": "I-clear ang usapan"
   }
 }
