@@ -22,8 +22,8 @@ import {
 import { OFFICIAL_PORTAL_URL } from '../../src/community/links.ts';
 import en from '../../src/community/locales/en.json' with { type: 'json' };
 import fil from '../../src/community/locales/fil.json' with { type: 'json' };
-import { loadManifest, ROOT, yearOf, type Entry } from './manifest.ts';
-import { categoryUrl, LIBRARY } from './sb-office.ts';
+import { loadManifest, ROOT, yearOf } from './manifest.ts';
+import { LIBRARY } from './sb-office.ts';
 import { ordinanceFiles, splitFile } from './validate.ts';
 
 export const KB = join(ROOT, '.kb');
@@ -79,7 +79,7 @@ const KIND_LABEL: Record<string, string> = {
   'charter-index': "Citizen's Charter service not yet on this site",
   ordinance: 'Ordinance, full text',
   'ordinance-summary': 'Ordinance, summary only',
-  'ordinance-titles': 'List of ordinances not yet transcribed',
+  'ordinance-titles': 'Ordinance, title only (not yet transcribed)',
   hotline: 'Hotline',
   'hotline-list': 'List of hotlines',
   office: 'City office',
@@ -236,7 +236,7 @@ function charterIndexDocs(): Doc[] {
       body: [
         `${name} is a service of the City Government of Carmona, from the ${e.office}.`,
         `The Citizen's Charter 2026 describes it on page ${e.page}: ${charterPageUrl(charter, e.page)}`,
-        'BetterCarmona does not describe this service yet, so its requirements, steps, and fees are only in the charter.',
+        'BetterCarmona does not describe this service yet. The charter page has the details.',
       ].join('\n'),
     });
   }
@@ -346,35 +346,37 @@ function ordinanceDocs(): Doc[] {
   });
 }
 
+/**
+ * One small document per library item not yet transcribed, with its listed number, title, and the
+ * library's description. One per item, not a list per category, so a title can be found on its own.
+ */
 function ordinanceTitleDocs(transcribed: Set<number>): Doc[] {
   const m = loadManifest(LIBRARY);
-  const docs: Doc[] = [];
-  for (const c of m.categories) {
-    const items = m.items
-      .filter((e) => e.category === c.name && !e.removed_at && !transcribed.has(e.sb_id))
-      .sort((a, b) => yearOf(b) - yearOf(a) || b.sb_id - a.sb_id);
-    if (!items.length) continue;
-    const line = (e: Entry) => {
-      const year = yearOf(e) || 'year not given';
-      const desc = e.description && !e.title.includes(e.description.split('\n')[0]) ? ` Library description: ${e.description.replaceAll('\n', ' ')}` : '';
-      const file = e.state === 'missing-file' ? ' The library has no file for it.' : '';
-      return `- ${e.number_listed ?? 'No number'} (${year}): ${e.title}. Library item ${e.sb_id}, ${e.page_url}.${desc}${file}`;
-    };
-    docs.push({
-      path: `ordinance-titles/${slug(c.name)}.md`,
-      title: `Ordinances in ${c.name} not yet transcribed`,
-      kind: 'ordinance-titles',
-      site_url: `/ordinances?category=${encodeURIComponent(c.name)}`,
-      source_url: categoryUrl(c.id),
-      source_label: 'Carmona SB Office ordinance library',
-      date: null,
-      sourceLine: `Carmona SB Office ordinance library, category ${c.name}`,
-      details: ['Only the titles are known for these. The full text is in the scan on the library page each line names.'],
-      keywords: { en: ['ordinance', 'local law', c.name.toLowerCase()], fil: ['ordinansa', 'kautusan'] },
-      body: items.map(line).join('\n'),
+  return m.items
+    .filter((e) => !e.removed_at && !transcribed.has(e.sb_id))
+    .map((e) => {
+      const year = yearOf(e);
+      const desc = e.description && !e.title.includes(e.description.split('\n')[0]) ? e.description.replaceAll('\n', ' ') : '';
+      return {
+        path: `ordinance-titles/${e.sb_id}.md`,
+        title: `${e.number_listed ? `No. ${e.number_listed}` : 'Ordinance'}${year ? ` (${year})` : ''}: ${e.title}`,
+        kind: 'ordinance-titles',
+        site_url: `/ordinances?category=${encodeURIComponent(e.category ?? '')}`,
+        source_url: e.page_url,
+        source_label: 'Carmona SB Office ordinance library',
+        date: year ? String(year) : null,
+        sourceLine: `Carmona SB Office ordinance library, item ${e.sb_id}, category ${e.category}`,
+        details: ['Only the title is known. The ordinance has not been transcribed, and its full text is in the scan on the library page.'],
+        keywords: { en: ['ordinance', 'local law'], fil: ['ordinansa', 'kautusan'] },
+        body: [
+          `The Carmona SB Office library lists this ordinance as: ${e.title}.`,
+          desc ? `The library's description: ${desc}` : '',
+          `Category: ${e.category}. Library item ${e.sb_id}: ${e.page_url}`,
+          e.state === 'missing-file' ? 'The library has no file for it.' : '',
+          'It may have been amended or repealed since.',
+        ].filter(Boolean).join('\n'),
+      };
     });
-  }
-  return docs;
 }
 
 // Hotlines, offices, officials, barangays

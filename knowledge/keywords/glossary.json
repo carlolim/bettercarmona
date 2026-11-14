@@ -313,7 +313,11 @@
         "death certificate",
         "namatay",
         "pagkamatay",
-        "kamatayan"
+        "kamatayan",
+        "passed away",
+        "died",
+        "pumanaw",
+        "yumao"
       ],
       "official": [
         "certificate of death",
@@ -519,7 +523,11 @@
       "everyday": [
         "kagat ng aso",
         "kagat ng pusa",
-        "anti-rabies"
+        "anti-rabies",
+        "nakagat ng aso",
+        "nakagat ng pusa",
+        "kinagat ng aso",
+        "kagat ng hayop"
       ],
       "official": [
         "animal bite",

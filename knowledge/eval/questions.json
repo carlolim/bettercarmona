@@ -981,6 +981,215 @@
         "not_on_site_yet"
       ],
       "note": "The user's question, 2026-11-14. The OSCA ID is in the charter index (page 324, City Social Welfare and Development Officer): the answer names the office and points to the charter, with no invented requirements."
+    },
+    {
+      "id": "q40",
+      "language": "taglish",
+      "group": "user",
+      "turns": [
+        "pano mag renew ng business permit online?"
+      ],
+      "expect_kind": [
+        "answer"
+      ],
+      "must_cite": [
+        [
+          "services/business-permit-renewal-eboss.md"
+        ]
+      ],
+      "must_feature": "/services/business-permit-renewal-eboss",
+      "must_contain": [
+        [
+          "eBOSS",
+          "eboss"
+        ]
+      ],
+      "must_not_contain": [],
+      "note": "Suggested on 2026-11-14 and approved by the user. The online renewal service is on the site; the answer leads with it and names eBOSS."
+    },
+    {
+      "id": "q41",
+      "language": "en",
+      "group": "user",
+      "turns": [
+        "My father passed away at home. How do we register his death?"
+      ],
+      "expect_kind": [
+        "answer"
+      ],
+      "must_cite": [
+        [
+          "services/registration-of-death-timely.md",
+          "services/delayed-registration-of-death.md"
+        ]
+      ],
+      "must_feature": "/services/registration-of-death-timely",
+      "must_contain": [
+        [
+          "Certificate of Death"
+        ]
+      ],
+      "must_not_contain": [],
+      "note": "Suggested on 2026-11-14 and approved by the user. A sensitive question about a service on the site: leads with timely death registration and gives its requirements, starting with the Certificate of Death."
+    },
+    {
+      "id": "q42",
+      "language": "taglish",
+      "group": "user",
+      "turns": [
+        "pano kumuha ng PWD id para sa anak ko"
+      ],
+      "expect_kind": [
+        "answer"
+      ],
+      "must_cite": [
+        [
+          "charter-index/369-availing-privileged-persons-with-disability-identification.md"
+        ]
+      ],
+      "must_feature": null,
+      "must_contain": [
+        [
+          "Disability",
+          "PWD",
+          "PDAO"
+        ]
+      ],
+      "must_not_contain": [],
+      "must_notice": [
+        "not_on_site_yet"
+      ],
+      "note": "Suggested on 2026-11-14 and approved by the user. Only in the charter index (page 369, Persons with Disability Affairs Officer): names the office, points to the charter, invents no requirements."
+    },
+    {
+      "id": "q43",
+      "language": "tl",
+      "group": "user",
+      "turns": [
+        "Saan nag-aaply ng prangkisa ng tricycle?"
+      ],
+      "expect_kind": [
+        "answer"
+      ],
+      "must_cite": [
+        [
+          "charter-index/150-new-franchise-of-tricycle.md",
+          "charter-index/152-renewal-of-franchise-of-tricycle.md"
+        ]
+      ],
+      "must_feature": null,
+      "must_contain": [
+        [
+          "Tricycle Franchise",
+          "TRICYCLE FRANCHISE",
+          "Tricycle"
+        ]
+      ],
+      "must_not_contain": [],
+      "must_notice": [
+        "not_on_site_yet"
+      ],
+      "note": "Suggested on 2026-11-14 and approved by the user. Only in the charter index (page 150, City Tricycle Franchise and Regulation Board)."
+    },
+    {
+      "id": "q44",
+      "language": "taglish",
+      "group": "user",
+      "turns": [
+        "Kelan dumadaan yung basurero sa amin?"
+      ],
+      "expect_kind": [
+        "answer",
+        "not_found"
+      ],
+      "must_cite": [],
+      "must_feature": null,
+      "must_contain": [],
+      "must_not_contain": [
+        "Lunes",
+        "Martes",
+        "Miyerkules",
+        "Huwebes",
+        "Biyernes",
+        "Sabado",
+        "Linggo",
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday"
+      ],
+      "note": "Suggested on 2026-11-14 and approved by the user. No saved document gives a collection schedule. Not found, or a pointer to the charter entry on waste collection for Barangays 1 to 8 (page 430), with no invented days or times."
+    },
+    {
+      "id": "q45",
+      "language": "tl",
+      "group": "user",
+      "turns": [
+        "May curfew ba sa mga bata dito sa Carmona?"
+      ],
+      "expect_kind": [
+        "answer"
+      ],
+      "must_cite": [
+        [
+          "ordinance-titles/193.md",
+          "ordinance-titles/"
+        ]
+      ],
+      "must_feature": null,
+      "must_contain": [
+        [
+          "04-2018"
+        ]
+      ],
+      "must_not_contain": [],
+      "note": "Suggested on 2026-11-14 and approved by the user. The library lists Municipal Ordinance No. 04-2018, curfew hours for minors from 10:00 P.M. to 5:00 A.M., by title only. The answer may give the hours from the title, names the ordinance, and says the full text is in the scan."
+    },
+    {
+      "id": "q46",
+      "language": "en",
+      "group": "user",
+      "turns": [
+        "How much is the water bill per cubic meter?"
+      ],
+      "expect_kind": [
+        "not_found",
+        "out_of_scope"
+      ],
+      "must_cite": [],
+      "must_feature": null,
+      "must_contain": [],
+      "must_not_contain": [],
+      "note": "Suggested on 2026-11-14 and approved by the user. Not in the city documents. No invented rate."
+    },
+    {
+      "id": "q47",
+      "language": "tl",
+      "group": "user",
+      "turns": [
+        "Ano ang dapat gawin pag nakagat ng aso?"
+      ],
+      "expect_kind": [
+        "answer"
+      ],
+      "must_cite": [
+        [
+          "charter-index/248-animal-bite-treatment-center.md",
+          "hotlines/hotline-city-health-office.md",
+          "hotlines/hotline-pagamutang-bayan-ng-carmona.md"
+        ]
+      ],
+      "must_feature": null,
+      "must_contain": [
+        [
+          "Animal Bite",
+          "animal bite"
+        ]
+      ],
+      "must_not_contain": [],
+      "note": "Suggested on 2026-11-14 and approved by the user. Points to the Animal Bite Treatment Center (charter page 248, Pagamutang Bayan ng Carmona), with a health hotline where one is retrieved. No invented medical advice."
     }
   ]
 }
