@@ -83,3 +83,9 @@ test('two passages from one document make one source', () => {
   assert.equal(r.sources.length, 1);
   assert.equal(r.text, 'A [1]. B [1].');
 });
+
+test('a bracket of several labels is split, checked, and numbered', () => {
+  const r = buildReply(reply({ kind: 'answer', text: 'Call 0917 [S1, S2, S9].', sources: ['S1', 'S2'] }), SIX, docs);
+  assert.equal(r.text, 'Call 0917 [2][1].');
+  assert.equal(r.sources.length, 2);
+});

@@ -54,7 +54,7 @@ export function makeDeps(over: Partial<Deps> = {}): Deps & { store: MemoryStore;
     index: INDEX,
     glossary: GLOSSARY,
     secrets: SECRETS,
-    fixtures: true,
+    local: true,
     now: () => NOW,
     ...over,
   } as Deps & { store: MemoryStore; search: SpySearch };

@@ -123,7 +123,7 @@ Each request logs one line: the route, the status, the error code, timings, the 
 |---|---|---|
 | `ASSETS` | The site's static files | `wrangler.jsonc` |
 | `AI` | Workers AI | `wrangler.jsonc` |
-| `KB` | AI Search instance `bettercarmona-kb` | `wrangler.jsonc`. The instance must exist before a deploy |
+| `KB` | AI Search namespace `bettercarmona-kb`. The Worker opens the instance `KB_INSTANCE` (`worker/config.ts`) in it | `wrangler.jsonc`. Both must exist before a deploy |
 | `DB` | D1 database `bettercarmona-chat`, tables in `worker/migrations/` | `wrangler.jsonc` |
 | `PER_MINUTE` | Rate limiting, 5 per 60 seconds | `wrangler.jsonc` |
 | `CHAT_ENABLED` | The on switch: `"true"` or anything else | Dashboard secret |
@@ -140,22 +140,51 @@ npx wrangler d1 migrations apply DB --remote
 ## Running it locally
 
 ```bash
-cp .dev.vars.example .dev.vars   # once: Cloudflare's test keys, CHAT_ENABLED=true, CHAT_FIXTURES=1
+cp .dev.vars.example .dev.vars   # once: Cloudflare's test keys and CHAT_ENABLED=true
 npm run build                    # once, so dist/ exists for the static files
-npm run dev:api                  # the Worker on http://localhost:8787, with a local database
+npm run dev:api                  # the Worker on http://localhost:8787: real search and model, local database
+npm run dev:api:fixtures         # the same, with fixtures: nothing leaves this machine and nothing costs
 npm run dev                      # the site on http://localhost:5132; /api goes to the Worker
 ```
 
-`npm run dev:api` uses the `dev` environment in `wrangler.jsonc` and `worker/dev.ts`. With `CHAT_FIXTURES=1`, search
-is a keyword match over `.kb/` and the model returns a fixed answer citing S1, so nothing reaches Cloudflare and
-nothing costs. The deployed Worker, `worker/index.ts`, carries none of the fixture documents.
+`npm run dev:api` uses the real AI Search instance and Workers AI through your `wrangler login`, so each question
+spends one search query and about 30 to 50 Neurons. `npm run dev:api:fixtures` uses the `dev` environment in
+`wrangler.jsonc` and `worker/dev.ts`: search is a keyword match over `.kb/`, and the model returns a fixed answer citing
+S1. The deployed Worker, `worker/index.ts`, carries none of the fixture documents.
 
-With the test keys, the session route accepts Turnstile's dummy token:
+With Cloudflare's test Turnstile secret, which `.dev.vars` sets, the session route accepts the dummy token, and
+requests from `http://localhost` are allowed. A real secret allows neither:
 
 ```bash
 curl -s -X POST localhost:8787/api/chat/session -H 'origin: http://localhost:5132' \
   -H 'content-type: application/json' -d '{"turnstile_token":"XXXX.DUMMY.TOKEN.XXXX"}'
 ```
+
+## Keeping the knowledge current
+
+```bash
+npm run kb:update                  # fetch, transcribe up to 10, validate, build, sync, and test search
+npm run kb:update -- --convert 0   # skip transcription
+npm run kb:sync -- --dry-run       # what a sync would upload and delete
+```
+
+`kb:update` stops at the first step that fails and says what to do. It ends with one line, for example: "2 new
+ordinance files written and need review. 3 documents uploaded, 0 deleted. Search answered 3 of 3." See
+`knowledge/README.md` for each step.
+
+`kb:sync` and `kb:update` read `KB_ACCOUNT_ID`, `KB_API_TOKEN`, `KB_NAMESPACE`, and `KB_INSTANCE` from `.env` (see
+`.env.example`). The token needs only AI Search Edit and AI Search Run. The names are not `CLOUDFLARE_*`, because
+Wrangler reads those from `.env` as its own login, and this token cannot run `wrangler dev` or `wrangler deploy`.
+
+How AI Search behaved when tested on 2026-11-14:
+
+- An item's key is the uploaded file name, folders included, so `ordinances/514.md` in `.kb/` is the same key in the
+  instance, in each search result's `item.key`, and in `kb-index.json`.
+- Uploading the same name again replaces the item, keeping its id.
+- The item's `checksum` is always "0", so `kb:sync` keeps its own hashes in `knowledge/sources/synced.json`.
+- Indexing takes from seconds to a few minutes. An item can fail with a timeout on Cloudflare's side; the next sync
+  uploads it again.
+- While items are indexing, listed pages can shift, so `kb:sync` lists by modification time and checks the total.
 
 ## Tests
 

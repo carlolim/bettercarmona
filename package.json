@@ -17,12 +17,15 @@
     "build:neighbors": "tsx scripts/build-neighbors.ts",
     "kb:fetch": "tsx scripts/kb/fetch.ts",
     "kb:status": "tsx scripts/kb/status.ts",
-    "kb:test": "tsx --test scripts/kb/sb-office.test.ts scripts/kb/validate.test.ts scripts/kb/build.test.ts",
+    "kb:test": "tsx --test --test-concurrency=1 scripts/kb/sb-office.test.ts scripts/kb/validate.test.ts scripts/kb/build.test.ts",
     "kb:validate": "tsx scripts/kb/validate.ts",
     "kb:convert": "tsx scripts/kb/convert.ts",
     "kb:build": "tsx scripts/kb/build.ts",
-    "dev:api": "tsx scripts/kb/build.ts && wrangler d1 migrations apply DB --local --env dev && wrangler dev worker/dev.ts --env dev --port 8787",
-    "test": "tsx --tsconfig tsconfig.worker.json --test worker/test/*.test.ts scripts/kb/*.test.ts"
+    "dev:api": "tsx scripts/kb/build.ts && wrangler d1 migrations apply DB --local && wrangler dev --port 8787 --var CHAT_FIXTURES:0",
+    "test": "tsx --tsconfig tsconfig.worker.json --test --test-concurrency=1 worker/test/*.test.ts scripts/kb/*.test.ts",
+    "kb:sync": "tsx scripts/kb/sync.ts",
+    "dev:api:fixtures": "tsx scripts/kb/build.ts && wrangler d1 migrations apply DB --local --env dev && wrangler dev worker/dev.ts --env dev --port 8787",
+    "kb:update": "tsx scripts/kb/update.ts"
   },
   "dependencies": {
     "d3-geo": "3.1.1",

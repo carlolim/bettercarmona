@@ -2,7 +2,7 @@
  * Search, behind a small interface. The real one is the AI Search binding. The fixture does a plain
  * keyword match over the documents kb:build wrote, costs nothing, and is used in tests and local work.
  */
-import { MAX_PASSAGES } from './config.ts';
+import { MAX_PASSAGES, SCORE_THRESHOLD } from './config.ts';
 
 export type SearchType = 'hybrid' | 'keyword';
 
@@ -29,7 +29,7 @@ export class AiSearch implements Search {
     const res = await this.kb.search({
       query,
       ai_search_options: {
-        retrieval: { retrieval_type: type, max_num_results: MAX_PASSAGES, keyword_match_mode: 'or', return_on_failure: false },
+        retrieval: { retrieval_type: type, max_num_results: MAX_PASSAGES, match_threshold: SCORE_THRESHOLD, keyword_match_mode: 'or', return_on_failure: false },
         query_rewrite: { enabled: false },
       },
     });

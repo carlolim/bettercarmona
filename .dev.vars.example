@@ -1,4 +1,4 @@
-# Local settings for `npm run dev:api`. Copy to .dev.vars, which git ignores.
+# Local settings for `npm run dev:api` and `npm run dev:api:fixtures`. Copy to .dev.vars, which git ignores.
 # These are Cloudflare's public Turnstile test keys and throwaway values, not real secrets.
 # The real values are set in the Cloudflare dashboard, never in a file.
 CHAT_ENABLED=true

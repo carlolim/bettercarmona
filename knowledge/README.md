@@ -18,6 +18,7 @@ title, a short description, and a scanned PDF.
 | `charter/index-2026.json` | Every service the 2026 Citizen's Charter lists, with its office and first page | Yes |
 | `keywords/glossary.json` | Everyday words mapped to official terms | Yes |
 | `keywords/services.json` | Everyday keywords for each city service, in English and Filipino | Yes |
+| `sources/synced.json` | The hash of each document as last uploaded to AI Search | Yes |
 | `raw/{id}.pdf` | The downloaded files | No |
 | `raw/pages/view-{id}.html` | The item pages as last read | No |
 
@@ -133,3 +134,28 @@ for every service.
   avoid very short ones, since matching ignores case.
 - **A new service:** add six to ten keywords in each language under its id in `keywords/services.json`. The build
   fails until it has them. The service then leaves the charter index by itself, matched on its first page and title.
+
+## The one command
+
+```bash
+npm run kb:update                  # everything below, in order
+npm run kb:update -- --convert 3   # transcribe at most 3 (default 10; 0 skips)
+npm run kb:update -- --no-fetch    # skip the SB Office library
+```
+
+| Step | Does | If it fails |
+|---|---|---|
+| Fetch | `kb:fetch`: new library items only | The library may be down or slow. Run it again later; it picks up where it stopped |
+| Transcribe | `kb:convert --limit N` | A usage limit stops the batch with nothing marked. A file that fails the checks is kept as `needs-attention`: see `npm run kb:status`, fix or `--redo` it |
+| Validate | `kb:validate` on the ordinance files | Fix the files it names |
+| Build | `kb:build`, then the index checks | Fix what it names, usually a missing keyword list for a new service |
+| Sync | `kb:sync`: upload new and changed documents, delete removed ones | Run `npm run kb:sync` again to retry. An authentication error means the token in `.env` is wrong or lacks AI Search Edit and Run |
+| Test | Three searches that must find the burning ordinance, birth registration, and the emergency hotline | Check the instance in the dashboard; indexing may still be running |
+
+It ends with one line saying how many ordinance files need review, how many documents were uploaded and deleted, and
+how many test searches found the right document. Run twice, the second run uploads nothing. Commit
+`knowledge/sources/synced.json` along with the files that changed, so the next run starts from the same state.
+
+`kb:sync` reads `KB_ACCOUNT_ID`, `KB_API_TOKEN`, `KB_NAMESPACE`, and `KB_INSTANCE` from `.env`. The token needs only
+AI Search Edit and AI Search Run, and it is never printed. `npm run kb:sync -- --dry-run` shows the plan, and
+`--full` uploads every document again.
