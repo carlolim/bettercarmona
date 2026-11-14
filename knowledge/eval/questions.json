@@ -907,6 +907,30 @@
         "not_on_site_yet"
       ],
       "note": "The user's question, 2026-11-14. Building permits are only in the charter index (pages 161 to 169), with no fee in the knowledge base: the answer says the fee is not in the saved documents, points to the charter, whose page each source links, and invents no amount."
+    },
+    {
+      "id": "q37",
+      "language": "taglish",
+      "group": "user",
+      "turns": [
+        "Pano magbayad ng amilyar online?"
+      ],
+      "expect_kind": [
+        "answer"
+      ],
+      "must_cite": [
+        [
+          "charter-index/548-real-property-tax-online.md",
+          "services/real-property-tax-online.md"
+        ]
+      ],
+      "must_feature": null,
+      "must_contain": [],
+      "must_not_contain": [],
+      "must_notice": [
+        "not_on_site_yet"
+      ],
+      "note": "The user's question, 2026-11-14. Online real property tax is only in the charter index (page 548), so the answer points there and invents no steps."
     }
   ]
 }
