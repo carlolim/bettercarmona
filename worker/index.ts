@@ -5,10 +5,12 @@
 import kbIndex from '../.kb/kb-index.json' with { type: 'json' };
 import glossary from '../.kb/glossary.json' with { type: 'json' };
 import { chat, createSession, feedback, status, type Deps, type KbIndex, type Outcome } from './chat.ts';
+import { KB_INSTANCE } from './config.ts';
 import type { Env } from './env.ts';
 import { FixtureModel, WorkersAiModel } from './model.ts';
 import { AiSearch, FixtureSearch, type FixturePassage } from './search.ts';
 import { D1Store } from './store.ts';
+import { isTestSecret } from './turnstile.ts';
 
 const json = (status: number, body: unknown) =>
   new Response(JSON.stringify(body), {
@@ -23,13 +25,13 @@ function deps(env: Env, fixturePassages: FixturePassage[]): Deps {
   const fixtures = env.CHAT_FIXTURES === '1';
   return {
     store: new D1Store(env.DB),
-    search: fixtures ? new FixtureSearch(fixturePassages) : new AiSearch(env.KB),
+    search: fixtures ? new FixtureSearch(fixturePassages) : new AiSearch(env.KB.get(KB_INSTANCE)),
     model: fixtures ? new FixtureModel() : new WorkersAiModel(env.AI),
     limiter: env.PER_MINUTE ?? noLimit,
     index: kbIndex as unknown as KbIndex,
     glossary: glossary as Record<string, string[]>,
     secrets: { session: env.SESSION_SECRET ?? '', salt: env.IP_HASH_SALT ?? '', turnstile: env.TURNSTILE_SECRET_KEY ?? '' },
-    fixtures,
+    local: fixtures || isTestSecret(env.TURNSTILE_SECRET_KEY ?? ''),
     now: () => Date.now(),
   };
 }

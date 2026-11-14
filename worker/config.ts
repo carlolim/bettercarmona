@@ -3,6 +3,9 @@
  * assistant stops answering before anything could be billed. See docs/chatbot.md.
  */
 
+/** The AI Search instance, in the namespace bound as KB in wrangler.jsonc. kb:sync uploads to it. */
+export const KB_INSTANCE = 'bettercarmona-kb';
+
 /** The placeholder model. Task 026 chooses the real one. */
 export const MODEL = '@cf/google/gemma-4-26b-a4b-it';
 
@@ -49,8 +52,12 @@ export const KEYWORD_PER_MONTH = 900;
 export const MAX_PASSAGES = 6;
 /** Longest passage sent to the model, in characters. */
 export const PASSAGE_MAX_CHARS = 2500;
-/** Passages scoring below this are dropped. When none is left, the reply is "not found", with no model call. */
-export const SCORE_THRESHOLD = 0.4;
+/**
+ * Passages scoring below this are dropped. When none is left, the reply is "not found", with no model call.
+ * On 2026-11-14 (reranked hybrid search, five test questions), good matches scored 0.85 to 1.00 and weak
+ * ones 0.45 to 0.79, such as a COVID ordinance at 0.50 for an open burning question. Task 026 tunes it.
+ */
+export const SCORE_THRESHOLD = 0.6;
 
 /** How long a session lasts. A Turnstile token works once, so later messages carry the session instead. */
 export const SESSION_MINUTES = 30;

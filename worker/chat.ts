@@ -29,7 +29,11 @@ export interface Deps {
   index: KbIndex;
   glossary: Record<string, string[]>;
   secrets: { session: string; salt: string; turnstile: string };
-  fixtures: boolean;
+  /**
+   * Local work: fixtures, or Cloudflare's test Turnstile secret. Allows localhost origins and the test
+   * hostname. Never true when deployed, where the secret is real and fixtures are off.
+   */
+  local: boolean;
   now: () => number;
   fetcher?: typeof fetch;
 }
@@ -48,8 +52,8 @@ const fail = (status: number, error: string, retryAfter?: number, log: Outcome['
   log: { ...log, error },
 });
 
-/** A request from this site: its own origin, a site hostname over https, or localhost in fixture mode. */
-export function sameSite(origin: string | null, requestUrl: string, fixtures: boolean): boolean {
+/** A request from this site: its own origin, a site hostname over https, or localhost in local work. */
+export function sameSite(origin: string | null, requestUrl: string, local: boolean): boolean {
   if (!origin) return false;
   if (origin === new URL(requestUrl).origin) return true;
   let url: URL;
@@ -59,7 +63,7 @@ export function sameSite(origin: string | null, requestUrl: string, fixtures: bo
     return false;
   }
   if (url.protocol === 'https:' && (SITE_HOSTNAMES.includes(url.hostname) || PREVIEW_HOSTNAME.test(url.hostname))) return true;
-  return fixtures && url.protocol === 'http:' && (url.hostname === 'localhost' || url.hostname === '127.0.0.1');
+  return local && url.protocol === 'http:' && (url.hostname === 'localhost' || url.hostname === '127.0.0.1');
 }
 
 /** Words worth comparing: four letters or more, or three digits or more, such as part of a phone number. */
@@ -107,13 +111,13 @@ export function status(enabled: boolean): Outcome {
 
 /** POST /api/chat/session: a Turnstile token buys a signed session for SESSION_MINUTES. */
 export async function createSession(request: Request, ip: string, deps: Deps): Promise<Outcome> {
-  if (!sameSite(request.headers.get('origin'), request.url, deps.fixtures)) return fail(403, 'origin');
+  if (!sameSite(request.headers.get('origin'), request.url, deps.local)) return fail(403, 'origin');
   const body = (await readJson(request)) as { turnstile_token?: unknown } | null;
   const token = typeof body?.turnstile_token === 'string' ? body.turnstile_token : '';
   if (!token) return fail(400, 'input');
   let ok: boolean;
   try {
-    ok = await verifyTurnstile(token, deps.secrets.turnstile, ip, deps.fixtures, deps.fetcher);
+    ok = await verifyTurnstile(token, deps.secrets.turnstile, ip, deps.local, deps.fetcher);
   } catch {
     return fail(503, 'unavailable');
   }
@@ -126,7 +130,7 @@ export async function createSession(request: Request, ip: string, deps: Deps): P
 /** POST /api/chat/feedback: adds one to a count. */
 export async function feedback(request: Request, ip: string, deps: Deps): Promise<Outcome> {
   if (!(await session(request, ip, deps))) return fail(401, 'session');
-  if (!sameSite(request.headers.get('origin'), request.url, deps.fixtures)) return fail(403, 'origin');
+  if (!sameSite(request.headers.get('origin'), request.url, deps.local)) return fail(403, 'origin');
   const input = checkFeedback(await readJson(request));
   if (!input) return fail(400, 'input');
   try {
@@ -143,7 +147,7 @@ export async function chat(request: Request, ip: string, deps: Deps): Promise<Ou
   const day = utcDay(now);
   const month = utcMonth(now);
   if (!(await session(request, ip, deps))) return fail(401, 'session');
-  if (!sameSite(request.headers.get('origin'), request.url, deps.fixtures)) return fail(403, 'origin');
+  if (!sameSite(request.headers.get('origin'), request.url, deps.local)) return fail(403, 'origin');
   const input = checkChatInput(await readJson(request));
   if (!input) return fail(400, 'input');
 

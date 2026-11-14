@@ -5,6 +5,7 @@ import { chat, createSession, feedback, safeToCache } from '../chat.ts';
 import { KEYWORD_PER_MONTH, PER_IP_PER_DAY, SEMANTIC_PER_MONTH, SITE_PER_DAY } from '../config.ts';
 import { FixtureModel } from '../model.ts';
 import { utcMonth } from '../store.ts';
+import { isTestSecret } from '../turnstile.ts';
 import { ask, IP, makeDeps, NOW, post, sessionFor } from './helpers.ts';
 
 const BIRTH = 'How do I register the birth of my newborn baby?';
@@ -130,8 +131,11 @@ test('Turnstile: a passing token buys a session; an invalid or reused one does n
   assert.deepEqual([invalid.status, body(invalid).error], [403, 'turnstile']);
   const reused = await createSession(req(), IP, makeDeps({ fetcher: siteverify({ success: false, 'error-codes': ['timeout-or-duplicate'] }) }));
   assert.equal(reused.status, 403);
-  const elsewhere = await createSession(req(), IP, makeDeps({ fixtures: false, fetcher: siteverify({ success: true, hostname: 'example.com' }) }));
-  assert.equal(elsewhere.status, 403);
+  const real = { ...makeDeps().secrets, turnstile: '0x4AAAAAAAexamplerealsecret' };
+  const elsewhere = await createSession(req(), IP, makeDeps({ local: false, secrets: real, fetcher: siteverify({ success: true, hostname: 'example.com' }) }));
+  assert.equal(elsewhere.status, 403, 'a real secret never accepts the test hostname');
+  assert.equal(isTestSecret('1x0000000000000000000000000000000AA'), true);
+  assert.equal(isTestSecret(real.turnstile), false);
 });
 
 test('feedback adds one to a count', async () => {

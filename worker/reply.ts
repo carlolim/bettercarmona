@@ -51,6 +51,8 @@ const KINDS: ReplyKind[] = ['answer', 'clarify', 'not_found', 'out_of_scope'];
 const SINGLE_SUBJECT = ['service', 'ordinance', 'ordinance-summary'];
 const ORDINANCE = ['ordinance', 'ordinance-summary'];
 const LABEL = /\[S(\d+)\]/g;
+/** A bracket of several labels, such as "[S1, S2]" or "[S1 S3]", which models sometimes write. */
+const GROUP = /\[\s*S\d+(?:\s*[,;]?\s*S\d+)+\s*\]/g;
 const URL_TEXT = /\[([^\]]*)\]\((?:https?:)?\/\/[^)]*\)|(?:https?:\/\/|www\.)\S+/gi;
 
 export const NEXT_STEPS: Link[] = [
@@ -85,6 +87,8 @@ export function parseModelJson(raw: string): { kind?: unknown; text?: unknown; s
 export function buildReply(raw: string, sent: string[], index: Record<string, IndexEntry>): ChatReply {
   const parsed = parseModelJson(raw);
   if (!parsed || typeof parsed.text !== 'string' || !KINDS.includes(parsed.kind as ReplyKind)) return notFound();
+  // "[S1, S2]" becomes "[S1][S2]", so every label is checked and numbered the same way.
+  const said = parsed.text.replace(GROUP, (m) => (m.match(/S\d+/g) ?? []).map((l) => `[${l}]`).join(''));
   const kind = parsed.kind as ReplyKind;
   if (kind === 'not_found') return notFound();
 
@@ -92,11 +96,11 @@ export function buildReply(raw: string, sent: string[], index: Record<string, In
   const listed = Array.isArray(parsed.sources)
     ? parsed.sources.map((s) => (typeof s === 'string' ? Number(/^S(\d+)$/.exec(s.trim())?.[1]) : NaN))
     : [];
-  const inText = [...parsed.text.matchAll(LABEL)].map((m) => Number(m[1]));
+  const inText = [...said.matchAll(LABEL)].map((m) => Number(m[1]));
   const order = [...new Set([...listed, ...inText])].filter(valid);
 
   // Labels outside S1 to Sn are dropped from the text, as are any links the model wrote.
-  let text = parsed.text.replace(URL_TEXT, (_m, label: string | undefined) => label ?? '').replace(LABEL, (m, n) => (valid(Number(n)) ? m : ''));
+  let text = said.replace(URL_TEXT, (_m, label: string | undefined) => label ?? '').replace(LABEL, (m, n) => (valid(Number(n)) ? m : ''));
   text = text.replace(/[ \t]+([.,;:])/g, '$1').replace(/[ \t]{2,}/g, ' ').trim();
 
   if (kind === 'out_of_scope') return { kind, text, featured: null, sources: [], notices: [], links: NEXT_STEPS };

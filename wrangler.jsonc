@@ -14,7 +14,8 @@
 		"run_worker_first": ["/api/*"]
 	},
 	"ai": { "binding": "AI" },
-	"ai_search": [{ "binding": "KB", "instance_name": "bettercarmona-kb" }],
+	// The AI Search namespace. The Worker opens the instance in it named KB_INSTANCE in worker/config.ts.
+	"ai_search_namespaces": [{ "binding": "KB", "namespace": "bettercarmona-kb" }],
 	"d1_databases": [
 		{
 			"binding": "DB",

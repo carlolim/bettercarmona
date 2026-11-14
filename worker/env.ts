@@ -2,7 +2,8 @@
 export interface Env {
   ASSETS: Fetcher;
   AI: Ai;
-  KB: AiSearchInstance;
+  /** The AI Search namespace; the instance is KB_INSTANCE in config.ts. */
+  KB: AiSearchNamespace;
   DB: D1Database;
   PER_MINUTE: RateLimit;
   /** The on switch, a dashboard secret. Anything but "true", or no value, is off. */
