@@ -964,6 +964,20 @@
       "official": [
         "barangays of the City of Carmona"
       ]
+    },
+    {
+      "topic": "health",
+      "everyday": [
+        "gamot",
+        "libreng gamot",
+        "reseta",
+        "botika"
+      ],
+      "official": [
+        "medicine",
+        "prescription",
+        "pharmacy"
+      ]
     }
   ]
 }

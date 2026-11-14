@@ -931,6 +931,27 @@
         "not_on_site_yet"
       ],
       "note": "The user's question, 2026-11-14. Online real property tax is only in the charter index (page 548), so the answer points there and invents no steps."
+    },
+    {
+      "id": "q38",
+      "language": "tl",
+      "group": "user",
+      "turns": [
+        "May libreng gamot ba sa health center?"
+      ],
+      "expect_kind": [
+        "answer",
+        "not_found"
+      ],
+      "must_cite": [],
+      "must_feature": null,
+      "must_contain": [],
+      "must_not_contain": [
+        "libre ang gamot",
+        "free medicine is available",
+        "libreng gamot ay ibinibigay"
+      ],
+      "note": "The user's question, 2026-11-14. Health services are only in the charter index, and no saved document says medicine is free. The answer may point to the charter's prescription, pharmacy, or medical assistance entries, but must not promise free medicine."
     }
   ]
 }
