@@ -100,7 +100,7 @@
     },
     "assistant": {
       "heading": "Ang assistant",
-      "body": "Sinasagot ng assistant na \"Magtanong sa BetterCarmona AI\" ang mga tanong mula sa parehong mga public document na ipinapakita ng site na ito: ang mga serbisyo ng lungsod sa Citizen's Charter, ang mga ordinansa sa library ng SB Office ng Carmona, at ang mga hotline, opisina, at barangay. AI ang sumusulat ng mga sagot nito at puwedeng mali ang mga ito, kaya may link sa mga source ang bawat sagot. Hindi sine-save ang mga usapan, at may limit kada araw ang assistant para manatili itong libre."
+      "body": "Sinasagot ng assistant na \"Magtanong sa BetterCarmona AI\" ang mga tanong mula sa parehong mga public document na ipinapakita ng site na ito: ang mga serbisyo ng lungsod sa Citizen's Charter, ang mga ordinansa sa library ng SB Office ng Carmona, at ang mga hotline, opisina, at barangay. AI ang sumusulat ng mga sagot nito at puwedeng mali ang mga ito, kaya may link sa mga source ang bawat sagot. Naka-save lang ang usapan sa sarili mong device hanggang i-clear mo ito, at may limit kada araw ang assistant para manatili itong libre."
     }
   },
   "hotlines": {
@@ -231,7 +231,7 @@
     "inputLabel": "Ang tanong mo",
     "send": "Ipadala",
     "counter": "{{count}} character na lang",
-    "footer": "Huwag ibahagi ang personal na detalye. Hindi sine-save ang mga usapan.",
+    "footer": "Huwag ibahagi ang personal na detalye. Naka-save ang usapang ito sa device na ito hanggang i-clear mo.",
     "thinking": "Hinahanap sa mga dokumento",
     "you": "Sabi mo",
     "assistant": "Sagot ng BetterCarmona",
@@ -285,6 +285,7 @@
       "origin": "Na-block ang request na ito. Paki-reload ang page.",
       "input": "Hindi maipadala ang tanong. Dapat mas maikli ito sa 500 character.",
       "disabled": "Naka-off ang assistant ngayon."
-    }
+    },
+    "clear": "I-clear ang usapan"
   }
 }

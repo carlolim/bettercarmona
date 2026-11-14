@@ -100,7 +100,7 @@
     },
     "assistant": {
       "heading": "The assistant",
-      "body": "The \"Ask BetterCarmona AI\" assistant answers questions from the same public documents this site shows: the city services in the Citizen's Charter, the ordinances in the Carmona SB Office library, and the hotlines, offices, and barangays. Its answers are written by AI and can be wrong, so each answer links to its sources. Conversations are not saved, and the assistant has daily limits so it stays free to run."
+      "body": "The \"Ask BetterCarmona AI\" assistant answers questions from the same public documents this site shows: the city services in the Citizen's Charter, the ordinances in the Carmona SB Office library, and the hotlines, offices, and barangays. Its answers are written by AI and can be wrong, so each answer links to its sources. A conversation is saved only on your own device, until you clear it, and the assistant has daily limits so it stays free to run."
     }
   },
   "hotlines": {
@@ -230,7 +230,7 @@
     "inputLabel": "Your question",
     "send": "Send",
     "counter": "{{count}} characters left",
-    "footer": "Please don't share personal details. Conversations are not saved.",
+    "footer": "Please don't share personal details. This conversation is saved on this device until you clear it.",
     "thinking": "Looking through the documents",
     "you": "You said",
     "assistant": "BetterCarmona answered",
@@ -284,6 +284,7 @@
       "origin": "This request was blocked. Please reload the page.",
       "input": "That question couldn't be sent. Keep it under 500 characters.",
       "disabled": "The assistant is switched off right now."
-    }
+    },
+    "clear": "Clear conversation"
   }
 }

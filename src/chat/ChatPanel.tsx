@@ -1,4 +1,4 @@
-import { ArrowRight, FileText, Info, RotateCcw, SendHorizontal, ThumbsDown, ThumbsUp, X } from 'lucide-react';
+import { ArrowRight, FileText, Info, RotateCcw, SendHorizontal, ThumbsDown, ThumbsUp, Trash2, X } from 'lucide-react';
 import { Fragment, useEffect, useId, useMemo, useRef, useState, type KeyboardEvent, type ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import { ExternalLink } from '../community/ExternalLink';
@@ -16,6 +16,31 @@ const NARROW = '(max-width: 640px)';
 type Message =
   | { id: number; role: 'user'; text: string }
   | { id: number; role: 'assistant'; reply: ChatReply; rated?: 'up' | 'down' };
+
+/**
+ * The conversation is kept on the visitor's own device until they clear it (the user's decision, 2026-11-14).
+ * Storage can be blocked, as in a private window: then nothing is saved and the panel works as before.
+ */
+const STORAGE_KEY = 'bettercarmona-chat-v1';
+const KEEP_MESSAGES = 50;
+
+function loadMessages(): Message[] {
+  try {
+    const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) ?? '[]') as unknown;
+    return Array.isArray(saved) ? (saved as Message[]).filter((m) => m && (m.role === 'user' || m.role === 'assistant')) : [];
+  } catch {
+    return [];
+  }
+}
+
+function saveMessages(messages: Message[]): void {
+  try {
+    if (messages.length) localStorage.setItem(STORAGE_KEY, JSON.stringify(messages.slice(-KEEP_MESSAGES)));
+    else localStorage.removeItem(STORAGE_KEY);
+  } catch {
+    // Storage is full or blocked; the conversation still works for this page.
+  }
+}
 
 function useNarrow(): boolean {
   const [narrow, setNarrow] = useState(() => window.matchMedia(NARROW).matches);
@@ -173,14 +198,14 @@ function Answer({ message, onRate, onSiteLink }: { message: Extract<Message, { r
 }
 
 /**
- * The chat panel. The conversation lives in memory only: nothing is written to storage, and a reload ends it.
+ * The chat panel. The conversation is saved on the visitor's device until they clear it.
  * On a phone it fills the screen and is modal; on a wide screen it sits beside the page and leaves it usable.
  */
 export default function ChatPanel({ open, onClose }: { open: boolean; onClose: () => void }) {
   const { locale, t, path } = useLocale();
   const narrow = useNarrow();
   const titleId = useId();
-  const [messages, setMessages] = useState<Message[]>([]);
+  const [messages, setMessages] = useState<Message[]>(loadMessages);
   const [draft, setDraft] = useState('');
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<{ code: ErrorCode; question: string } | null>(null);
@@ -189,7 +214,7 @@ export default function ChatPanel({ open, onClose }: { open: boolean; onClose: (
   const input = useRef<HTMLTextAreaElement>(null);
   const log = useRef<HTMLDivElement>(null);
   const widgetBox = useRef<HTMLDivElement>(null);
-  const nextId = useRef(1);
+  const nextId = useRef(Math.max(0, ...messages.map((m) => m.id)) + 1);
   const widget = useMemo(() => new TurnstileWidget(), []);
   const client = useMemo(() => new ChatClient(() => widget.token()), [widget]);
 
@@ -219,6 +244,15 @@ export default function ChatPanel({ open, onClose }: { open: boolean; onClose: (
   useEffect(() => {
     log.current?.lastElementChild?.scrollIntoView({ block: 'nearest' });
   }, [messages, pending]);
+
+  useEffect(() => saveMessages(messages), [messages]);
+
+  function clear() {
+    setMessages([]);
+    setError(null);
+    setAnnounce('');
+    input.current?.focus();
+  }
 
   const history = (): Turn[] =>
     messages.map((m) => (m.role === 'user' ? { role: 'user', content: m.text } : { role: 'assistant', content: m.reply.text.slice(0, MAX_CHARS) }));
@@ -291,6 +325,12 @@ export default function ChatPanel({ open, onClose }: { open: boolean; onClose: (
     >
       <div className="chat-head">
         <h2 id={titleId}>{t('chat.title')}</h2>
+        {messages.length > 0 && (
+          <button type="button" className="chat-icon-btn chat-clear" onClick={clear}>
+            <Trash2 size={18} aria-hidden="true" />
+            <span className="sr-only">{t('chat.clear')}</span>
+          </button>
+        )}
         <button type="button" className="chat-icon-btn" onClick={onClose}>
           <X size={20} aria-hidden="true" />
           <span className="sr-only">{t('chat.close')}</span>

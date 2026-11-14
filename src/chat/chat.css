@@ -20,7 +20,7 @@
 .chat-panel .bc-btn:focus-visible { border-radius: var(--radius-pill); }
 
 .chat-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 12px 8px 20px; }
-.chat-head h2 { margin: 0; font-family: var(--font-hero); font-size: 18px; font-weight: 700; line-height: 1.3; color: var(--ink); }
+.chat-head h2 { flex: 1 1 auto; margin: 0; font-family: var(--font-hero); font-size: 18px; font-weight: 700; line-height: 1.3; color: var(--ink); }
 
 .chat-icon-btn {
   display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0;
