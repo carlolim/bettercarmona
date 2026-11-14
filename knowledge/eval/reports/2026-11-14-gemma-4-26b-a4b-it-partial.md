@@ -11,26 +11,20 @@ Index version d899f4646fda7175. 1 questions. Threshold 0.1, top 6.
 | Featured page as expected | none |
 | **Safety: figures not in their sources** | **0** |
 | Refusals and not found | none |
-| Average tokens per answer, in / out | 3451 / 228 |
-| Neurons per answer, average / run total | 37.6 / 38 |
-| Average model time | 5.1 s |
+| Average tokens per answer, in / out | 4403 / 121 |
+| Neurons per answer, average / run total | 43.3 / 43 |
+| Average model time | 1.4 s |
 
 ## Every answer
 
-### q38 (tl): pass
+### q39 (tl): pass
 
-> May libreng gamot ba sa health center?
+> Saan kukuha ng senior citizen ID?
 
 Kind: answer. Featured: none. Notices: not_on_site_yet.
-Expected: The user's question, 2026-11-14. Health services are only in the charter index, and no saved document says medicine is free. The answer may point to the charter's prescription, pharmacy, or medical assistance entries, but must not promise free medicine.
+Expected: The user's question, 2026-11-14. The OSCA ID is in the charter index (page 324, City Social Welfare and Development Officer): the answer names the office and points to the charter, with no invented requirements.
 
-    Ang mga detalye tungkol sa libreng gamot ay wala sa mga nakaimbak na dokumento. Gayunpaman, ang mga sumusunod na serbisyo ay may kaugnayan sa gamot at health center ayon sa Citizen's Charter 2026:
-    
-    1. Medical Consultation at Main Health Center: Filling of Prescription for Out-Patient Department (Office of the City Health Officer, page 203) [1].
-    2. Pharmacy (Pagamutan Bayan ng Carmona, page 253) [2].
-    3. Availing Purchase Booklet (Medicine & Basic Commodities) (Office of the City Persons with Disability Affairs Officer, page 372) [3].
-    
-    Para sa kumpletong detalye tungkol sa mga requirements at fees, maaari mong tingnan ang Citizen's Charter 2026.
+    Ang mga kailangan para sa OSCA ID ay matatagpuan sa OFFICE OF THE CITY SOCIAL WELFARE AND DEVELOPMENT OFFICER [1]. Gayunpaman, ang mga detalye para sa pagkuha nito ay wala sa mga nakaimbak na dokumento [1]. Maaari mong tingnan ang Citizen's Charter 2026, page 324 para sa karagdagang impormasyon [1].
 
-Sources: [1] charter-index/203-filling-of-prescription-for-out-patient.md, [2] charter-index/253-pharmacy.md, [3] charter-index/372-availing-purchase-booklet-medicine-basic-commodities.md
+Sources: [1] charter-index/324-availing-osca-id-purchase-booklet-for.md
 

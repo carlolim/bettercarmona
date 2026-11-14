@@ -952,6 +952,35 @@
         "libreng gamot ay ibinibigay"
       ],
       "note": "The user's question, 2026-11-14. Health services are only in the charter index, and no saved document says medicine is free. The answer may point to the charter's prescription, pharmacy, or medical assistance entries, but must not promise free medicine."
+    },
+    {
+      "id": "q39",
+      "language": "tl",
+      "group": "user",
+      "turns": [
+        "Saan kukuha ng senior citizen ID?"
+      ],
+      "expect_kind": [
+        "answer"
+      ],
+      "must_cite": [
+        [
+          "charter-index/324-availing-osca-id-purchase-booklet-for.md"
+        ]
+      ],
+      "must_feature": null,
+      "must_contain": [
+        [
+          "Social Welfare",
+          "CSWD",
+          "OSCA"
+        ]
+      ],
+      "must_not_contain": [],
+      "must_notice": [
+        "not_on_site_yet"
+      ],
+      "note": "The user's question, 2026-11-14. The OSCA ID is in the charter index (page 324, City Social Welfare and Development Officer): the answer names the office and points to the charter, with no invented requirements."
     }
   ]
 }
