@@ -185,6 +185,8 @@ How AI Search behaved when tested on 2026-11-14:
 - Indexing takes from seconds to a few minutes. An item can fail with a timeout on Cloudflare's side; the next sync
   uploads it again.
 - While items are indexing, listed pages can shift, so `kb:sync` lists by modification time and checks the total.
+- One hybrid search counts as one search request: 26 hybrid searches showed as "search 26" on the instance's Metrics
+  page. The bill is the final word; check it monthly.
 
 ## Tests
 
