@@ -1020,6 +1020,24 @@
         "minors",
         "children"
       ]
+    },
+    {
+      "topic": "traffic",
+      "everyday": [
+        "e-bike",
+        "ebike",
+        "e bike",
+        "e-scooter",
+        "electric bike",
+        "electric scooter",
+        "e-trike",
+        "etrike"
+      ],
+      "official": [
+        "energized vehicles",
+        "E-vehicles",
+        "e-vehicle"
+      ]
     }
   ]
 }

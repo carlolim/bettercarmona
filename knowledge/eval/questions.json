@@ -1190,6 +1190,33 @@
       ],
       "must_not_contain": [],
       "note": "Suggested on 2026-11-14 and approved by the user. Points to the Animal Bite Treatment Center (charter page 248, Pagamutang Bayan ng Carmona), with a health hotline where one is retrieved. No invented medical advice."
+    },
+    {
+      "id": "q48",
+      "language": "en",
+      "group": "user",
+      "turns": [
+        "Is there e-bike regulation in Carmona?"
+      ],
+      "expect_kind": [
+        "answer"
+      ],
+      "must_cite": [
+        [
+          "ordinances/685.md"
+        ]
+      ],
+      "must_feature": "/ordinances/685",
+      "must_contain": [
+        [
+          "16-2022"
+        ]
+      ],
+      "must_not_contain": [],
+      "must_notice": [
+        "ordinance_may_have_changed"
+      ],
+      "note": "The user's question, 2026-11-14. Municipal Ordinance No. 16-2022 (library item 685) regulates energized vehicles, including e-bikes; transcribed the same day."
     }
   ]
 }
