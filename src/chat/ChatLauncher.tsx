@@ -8,7 +8,7 @@ import './chat-launcher.css';
 const ChatPanel = lazy(() => import('./ChatPanel'));
 
 /**
- * The "Ask BetterCarmona" button, mounted once in CommunityLayout above the routes, so the conversation survives
+ * The "Ask BetterCarmona AI" button, mounted once in CommunityLayout above the routes, so the conversation survives
  * moving between pages. It asks /api/chat/status once per page load and renders nothing unless the assistant is on.
  * Once opened, the panel stays mounted while closed, so reopening shows the conversation as it was.
  */

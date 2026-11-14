@@ -100,7 +100,7 @@
     },
     "assistant": {
       "heading": "The assistant",
-      "body": "The \"Ask BetterCarmona\" assistant answers questions from the same public documents this site shows: the city services in the Citizen's Charter, the ordinances in the Carmona SB Office library, and the hotlines, offices, and barangays. Its answers are written by AI and can be wrong, so each answer links to its sources. Conversations are not saved, and the assistant has daily limits so it stays free to run."
+      "body": "The \"Ask BetterCarmona AI\" assistant answers questions from the same public documents this site shows: the city services in the Citizen's Charter, the ordinances in the Carmona SB Office library, and the hotlines, offices, and barangays. Its answers are written by AI and can be wrong, so each answer links to its sources. Conversations are not saved, and the assistant has daily limits so it stays free to run."
     }
   },
   "hotlines": {
@@ -215,8 +215,8 @@
     "homeLink": "Go to the home page"
   },
   "chat": {
-    "launcher": "Ask BetterCarmona",
-    "title": "Ask BetterCarmona",
+    "launcher": "Ask BetterCarmona AI",
+    "title": "Ask BetterCarmona AI",
     "close": "Close the assistant",
     "notice": "Not an official government site. Answers are written by AI from public documents and can be wrong. Check the linked source.",
     "noticeLink": "About this assistant",

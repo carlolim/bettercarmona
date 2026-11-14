@@ -100,7 +100,7 @@
     },
     "assistant": {
       "heading": "Ang assistant",
-      "body": "Sinasagot ng assistant na \"Magtanong sa BetterCarmona\" ang mga tanong mula sa parehong mga public document na ipinapakita ng site na ito: ang mga serbisyo ng lungsod sa Citizen's Charter, ang mga ordinansa sa library ng SB Office ng Carmona, at ang mga hotline, opisina, at barangay. AI ang sumusulat ng mga sagot nito at puwedeng mali ang mga ito, kaya may link sa mga source ang bawat sagot. Hindi sine-save ang mga usapan, at may limit kada araw ang assistant para manatili itong libre."
+      "body": "Sinasagot ng assistant na \"Magtanong sa BetterCarmona AI\" ang mga tanong mula sa parehong mga public document na ipinapakita ng site na ito: ang mga serbisyo ng lungsod sa Citizen's Charter, ang mga ordinansa sa library ng SB Office ng Carmona, at ang mga hotline, opisina, at barangay. AI ang sumusulat ng mga sagot nito at puwedeng mali ang mga ito, kaya may link sa mga source ang bawat sagot. Hindi sine-save ang mga usapan, at may limit kada araw ang assistant para manatili itong libre."
     }
   },
   "hotlines": {
@@ -216,8 +216,8 @@
     "homeLink": "Pumunta sa home page"
   },
   "chat": {
-    "launcher": "Magtanong sa BetterCarmona",
-    "title": "Magtanong sa BetterCarmona",
+    "launcher": "Magtanong sa BetterCarmona AI",
+    "title": "Magtanong sa BetterCarmona AI",
     "close": "Isara ang assistant",
     "notice": "Hindi ito official na website ng gobyerno. AI ang sumusulat ng mga sagot mula sa mga public document, at puwedeng mali ang mga ito. I-check ang naka-link na source.",
     "noticeLink": "Tungkol sa assistant na ito",
