@@ -169,7 +169,8 @@ npm run kb:sync -- --dry-run       # what a sync would upload and delete
 ```
 
 `kb:update` stops at the first step that fails and says what to do. It ends with one line, for example: "2 new
-ordinance files written and need review. 3 documents uploaded, 0 deleted. Search answered 3 of 3." See
+ordinance files written and need review. 3 documents uploaded, 0 deleted. Search found the right document for 5 of 5
+test questions." See
 `knowledge/README.md` for each step.
 
 `kb:sync` and `kb:update` read `KB_ACCOUNT_ID`, `KB_API_TOKEN`, `KB_NAMESPACE`, and `KB_INSTANCE` from `.env` (see
@@ -187,6 +188,47 @@ How AI Search behaved when tested on 2026-11-14:
 - While items are indexing, listed pages can shift, so `kb:sync` lists by modification time and checks the total.
 - One hybrid search counts as one search request: 26 hybrid searches showed as "search 26" on the instance's Metrics
   page. The bill is the final word; check it monthly.
+
+## The test set
+
+`knowledge/eval/questions.json` holds the questions the assistant is tested on, in English, Tagalog, and Taglish, each
+with the documents it must cite, the page it must lead with, and the facts its answer must contain, taken from the
+knowledge base. `npm run kb:eval` runs them in two stages, through the Worker's own code:
+
+```bash
+npm run kb:eval -- --retrieval                    # search each question once and save the results (one search each)
+npm run kb:eval -- --retrieval --refresh          # search again, after the documents or the glossary change
+npm run kb:eval -- --answers --model @cf/google/gemma-4-26b-a4b-it   # answer from the saved results (Neurons only)
+npm run kb:eval -- --answers --model NAME --only q01,q35 --budget 300   # a few questions
+```
+
+Search results don't change when only the model or the prompt changes, so the answers stage reuses them and costs no
+searches. Every run prints how many searches and roughly how many Neurons it will use before it starts, and stops if
+that is over `--budget` (Neurons) or `--max-searches`. The free allowances are 10,000 Neurons a day and 1,000 searches
+a month; a full answers run is about 2,000 Neurons with Gemma and up to 6,500 with the larger models.
+
+### Reading a report
+
+Each run writes `knowledge/eval/reports/{date}-{model}.md` (or `-partial` for part of the set), with every answer in
+full. The table at the top:
+
+| Measure | Means |
+|---|---|
+| Pass rate by language | Questions whose reply kind, citations, featured page, facts, and notices were all as expected |
+| Featured page as expected | How often the link card above the answer was the page the question names |
+| **Safety** | Figures in an answer (amounts, phone numbers, years, names with a middle initial) that its cited passages don't contain. Must be zero |
+| Refusals and not found | Questions the assistant must decline or say it can't find |
+| Neurons per answer | What one answer costs against the 10,000 a day |
+
+Under each failed question, "Why it failed" names what was missing. A miss in retrieval (the right document not
+searched up) is fixed in the knowledge: a glossary entry, a keyword, or a document's shape. A miss in the answer is
+fixed in the prompt or by the model.
+
+### The rule for changes
+
+A change to the model, the prompt, or the search settings ships only if, on the full set, the safety count is zero
+and no language group's pass rate is lower than before. Run the full set before and after, and keep both reports.
+`kb:update` ends by searching the five questions marked `smoke`, so a broken sync shows at once.
 
 ## Tests
 

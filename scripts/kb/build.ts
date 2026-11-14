@@ -316,7 +316,8 @@ function ordinanceDocs(): Doc[] {
       const facts = (f.key_facts ?? []).map((k) => `- ${k.label}: ${k.value} (page ${k.page})`);
       text = [summary, '', 'Key facts, as printed:', ...facts, '', `The full text is not transcribed. It is in the scan: ${f.source.file_url}`].join('\n');
     } else {
-      const marker = `${f.number_printed ?? 'Ordinance'} (${f.year}), ${f.title}`;
+      // The English title rides along on a Tagalog ordinance, so every section reads in both languages.
+      const marker = `${f.number_printed ?? 'Ordinance'} (${f.year}), ${f.title}${f.title_en ? ` (${f.title_en})` : ''}`;
       const ordinance = body
         .replace(/<!-- page (\d+) -->/g, '[Page $1]')
         .split('\n')

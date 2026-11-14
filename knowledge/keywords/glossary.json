@@ -286,14 +286,10 @@
       "topic": "civil registry",
       "everyday": [
         "birth certificate",
-        "magparehistro ng bagong silang",
-        "irehistro ang anak",
         "kapanganakan"
       ],
       "official": [
-        "certificate of live birth",
-        "registration of live birth",
-        "COLB"
+        "certificate of live birth"
       ]
     },
     {
@@ -985,6 +981,44 @@
         "medicine",
         "prescription",
         "pharmacy"
+      ]
+    },
+    {
+      "topic": "civil registry",
+      "everyday": [
+        "magparehistro ng bagong silang",
+        "irehistro ang anak",
+        "iparehistro ang anak",
+        "magparehistro ng anak",
+        "register my baby"
+      ],
+      "official": [
+        "registration of live birth",
+        "COLB"
+      ]
+    },
+    {
+      "topic": "social welfare",
+      "everyday": [
+        "PWD ID",
+        "ID ng PWD",
+        "PWD card"
+      ],
+      "official": [
+        "Persons with Disability Identification Card"
+      ]
+    },
+    {
+      "topic": "government",
+      "everyday": [
+        "mga bata",
+        "menor de edad",
+        "kabataan",
+        "bata"
+      ],
+      "official": [
+        "minors",
+        "children"
       ]
     }
   ]

@@ -50,7 +50,7 @@ test("ordinance 514's header has the words residents use", () => {
 
 test('each ordinance section names its ordinance', () => {
   const text = doc('ordinances/514.md');
-  assert.match(text, /002-02 \(2002\), Kautusang Sumasakop sa Pagsusunog ng mga Basura sa Bayan ng Carmona, Cavite\n## SEKSIYON 4\. KAPARUSAHAN\./);
+  assert.match(text, /002-02 \(2002\), Kautusang Sumasakop sa Pagsusunog ng mga Basura sa Bayan ng Carmona, Cavite \(Ordinance covering the burning of garbage in the Municipality of Carmona, Cavite\)\n## SEKSIYON 4\. KAPARUSAHAN\./);
 });
 
 test('every index entry has a document and a link, and the other way round', () => {
