@@ -28,7 +28,8 @@ export interface Source {
   date: string | null;
 }
 
-export type Notice = 'ordinance_may_have_changed' | 'unreviewed_transcription' | 'summary_only' | 'not_on_site_yet';
+export const NOTICES = ['ordinance_may_have_changed', 'unreviewed_transcription', 'summary_only', 'not_on_site_yet'] as const;
+export type Notice = (typeof NOTICES)[number];
 
 export interface Link {
   label: 'hotlines' | 'official_site';

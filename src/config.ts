@@ -151,3 +151,10 @@ export function lineNote(config: PortalConfig, key: string): LineNote | undefine
 export function shortNameOf(config: PortalConfig): string {
   return config.shortName?.trim() || config.name;
 }
+
+/**
+ * Cloudflare Turnstile, the check the chat assistant uses to tell people from bots. Site keys are public by
+ * design. The test key always passes and only works with Cloudflare's test secret, which local work uses.
+ */
+export const TURNSTILE_SITE_KEY = '';
+export const TURNSTILE_TEST_SITE_KEY = '1x00000000000000000000AA';

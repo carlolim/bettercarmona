@@ -1,0 +1,25 @@
+/* The "Ask BetterCarmona" button. Loaded with every community page; the panel's styles load with the panel. */
+.chat-launcher {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  z-index: 25;
+  min-height: 50px;
+  box-shadow: var(--shadow-lg);
+}
+.chat-launcher[hidden] { display: none; }
+.chat-launcher:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+
+/* Room at the foot of the page, so the button never covers the footer's last links. */
+html.has-chat-launcher .site-footer-inner { padding-bottom: 96px; }
+
+@media (max-width: 560px) {
+  .chat-launcher { padding: 0 15px; }
+  .chat-launcher-label {
+    position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap;
+  }
+}
+
+@media print {
+  .chat-launcher, .chat-panel { display: none !important; }
+}
