@@ -119,6 +119,8 @@ function serviceBody(s: Service): string {
     `${en.services.office}: ${s.office}`,
     `${en.services.classification}: ${s.classification}`,
     `${en.services.transactionType}: ${s.transactionType}`,
+    // The total again near the top, as the top of a document is the part search finds most.
+    `${en.services.fees}: ${s.total.fee.length ? s.total.fee.join('; ') : en.services.noTotalFee}`,
     `${en.services.whoMayAvail}:`,
     ...s.whoMayAvail.map((w) => `- ${w}`),
     '',

@@ -1,4 +1,4 @@
-/** Session signing, input checks, counters, and glossary expansion. */
+/** Session signing, input checks, counters, glossary expansion, and passage selection. */
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { expandQuestion } from '../glossary.ts';
@@ -6,6 +6,7 @@ import { checkChatInput, checkFeedback } from '../input.ts';
 import { neurons } from '../model.ts';
 import { dailyIpHash, sessionIpHash, signSession, verifySession } from '../session.ts';
 import { MemoryStore, secondsToMidnight, secondsToMonthEnd, utcDay, utcMonth } from '../store.ts';
+import { selectPassages } from '../search.ts';
 import { allowedHostname } from '../turnstile.ts';
 import { GLOSSARY, IP, NOW, SECRETS } from './helpers.ts';
 
@@ -75,4 +76,18 @@ test('Turnstile hostnames: the site, the preview, and test hosts only in fixture
   assert.equal(allowedHostname('example.com', false), false);
   assert.ok(allowedHostname('example.com', true));
   assert.equal(allowedHostname('evil.example', true), false);
+});
+
+test('passages pass the threshold, or come from a document that has one that does', () => {
+  const docs = { 'a.md': {}, 'b.md': {}, 'c.md': {} } as unknown as Parameters<typeof selectPassages>[1];
+  const found = [
+    { key: 'a.md', text: 'a1', score: 0.5 },
+    { key: 'gone.md', text: 'not in the index', score: 0.4 },
+    { key: 'b.md', text: 'b1', score: 0.05 },
+    { key: 'a.md', text: 'a2', score: 0.02 },
+    { key: 'c.md', text: 'c1', score: 0.01 },
+  ];
+  assert.deepEqual(selectPassages(found, docs, 0.1).map((p) => p.text), ['a1', 'a2']);
+  assert.deepEqual(selectPassages(found, docs, 0.6), [], 'nothing passes, so nothing comes along');
+  assert.deepEqual(selectPassages(found, docs, 0.01, 2).map((p) => p.text), ['a1', 'b1'], 'rank order and the cap');
 });

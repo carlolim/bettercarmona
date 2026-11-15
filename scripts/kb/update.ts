@@ -12,7 +12,7 @@ import { spawnSync } from 'node:child_process';
 import { argv, exit } from 'node:process';
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { MAX_PASSAGES, SCORE_THRESHOLD } from '../../worker/config.ts';
+import { MAX_PASSAGES } from '../../worker/config.ts';
 import { searchQuery } from '../../worker/query.ts';
 import { selectPassages } from '../../worker/search.ts';
 import { AiSearchClient, AuthError, loadSettings } from './ai-search.ts';
@@ -90,8 +90,8 @@ async function main() {
     const question = q.turns.at(-1)!;
     const chunks = await client.search(
       searchQuery(question, [], glossary),
-      { max_num_results: MAX_PASSAGES, match_threshold: SCORE_THRESHOLD },
-      { enabled: true, match_threshold: SCORE_THRESHOLD },
+      { max_num_results: MAX_PASSAGES, match_threshold: 0 },
+      { enabled: true, match_threshold: 0 },
     );
     const kept = selectPassages(chunks.map((c) => ({ key: c.item.key, text: c.text, score: c.score })), index.documents);
     const ok = q.must_cite.every((group) => kept.some((p) => group.some((g) => (g.endsWith('/') ? p.key.startsWith(g) : p.key === g))));

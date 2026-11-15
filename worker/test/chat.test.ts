@@ -110,6 +110,16 @@ test('a repeated first question comes from the cache, without a search', async (
   assert.equal(deps.search.calls.length, 2);
 });
 
+test('a new model does not reuse answers cached for the old one', async () => {
+  const deps = makeDeps({ limiter: { limit: async () => ({ success: true }) } });
+  await ask(deps, BIRTH);
+  const old = deps.model;
+  deps.model = { name: 'another-model', run: (m) => old.run(m) };
+  await ask(deps, BIRTH);
+  assert.equal(deps.search.calls.length, 2);
+  assert.equal(deps.store.cache.size, 2);
+});
+
 test('the store keeps counts and hashes, never the question or the IP; the log neither', async () => {
   const deps = makeDeps();
   const secret = 'Juan dela Cruz 0917 555 1234 birth';
