@@ -35,6 +35,14 @@ test('every link comes from the index, sources with a page here first, the featu
   assert.equal(r.text, 'Call [2]. Register at the office [1]. See [3].');
 });
 
+test('the featured page is the one the text cites most; a tie goes to the model\'s order', () => {
+  const most = buildReply(reply({ kind: 'answer', text: 'Burning is banned [S4]. Bring the form [S2]. Pay at the office [S2]. Claim it [S2].', sources: ['S4', 'S2'] }), SIX, docs);
+  assert.equal(most.featured?.site_url, '/services/registration-of-live-birth');
+  assert.equal(most.sources[0].key, 'services/registration-of-live-birth.md', 'the featured page is number 1');
+  const tie = buildReply(reply({ kind: 'answer', text: 'Burning is banned [S4]. Bring the form [S2].', sources: ['S4', 'S2'] }), SIX, docs);
+  assert.equal(tie.featured?.site_url, '/ordinances/514');
+});
+
 test('a reply whose only source is a charter index entry has no featured page and says so', () => {
   const r = buildReply(reply({ kind: 'answer', text: 'It is on page 547 of the charter. [S3]', sources: ['S3'] }), SIX, docs);
   assert.equal(r.featured, null);
