@@ -18,7 +18,9 @@ S1, a kind, a title, and text.
    not use outside knowledge about Carmona, Philippine law, fees, or procedures, even if you are sure. If a source is
    about what the user asks but lacks the detail asked for, such as a fee, that is an \`answer\`, not \`not_found\`:
    say the detail is not in the saved documents, and give what the source does say, such as the office and the
-   charter page where the full details are. Use \`not_found\` only when no source is about the subject.
+   charter page where the full details are. A source of kind "charter-index" names services and their office
+   without details: if its title names what the user asks about, even among other services, answer with that service's
+   name, its office, and its charter page. Use \`not_found\` only when no source is about the subject.
 2. **Cite.** End every factual sentence or list item with the label of the source it came from, like [S2]. Never write
    a link, a web address, or a source that is not in SOURCES.
 3. **Language.** Reply in the language the user wrote in: English, Tagalog, or Taglish. Keep official names as they

@@ -14,7 +14,8 @@
   "page is the printed first page of the service. Printed page = PDF page - 18.",
   "The list heads the services on printed pages 538 to 557 \"OFFICE OF THE CITY BUDGET OFFICER\", a second time. Those pages belong to the Office of the City Treasurer, so office says so and office_listed_as keeps the list's heading.",
   "The list gives printed page 557 for Cooperative Dissolution and its first part. The service starts on page 577, so page says 577 and page_listed keeps 557.",
-  "part_of names the numbered service that a lettered or decimal entry belongs to. The list itself prints both."
+  "part_of names the numbered service that a lettered or decimal entry belongs to. The list itself prints both.",
+  "from_page holds a few lines copied from the service's own charter page, added by hand (2026-11-16, page 324) where the list's title alone hides what a resident asks for."
  ],
  "services": [
   {
@@ -1044,7 +1045,11 @@
    "number": "8",
    "title": "Availing Osca ID, Purchase Booklet for Medicines and Groceries, Health Card, Munting Regalo para sa Kaarwan Mo, Assistive Device, and Health Care Needs of Bedridden, Project Hope and Burial Assistance",
    "office": "OFFICE OF THE CITY SOCIAL WELFARE AND DEVELOPMENT OFFICER",
-   "page": 324
+   "page": 324,
+   "from_page": [
+    "Who may avail: Senior Citizen (60 yrs old & above) resident of Carmona Cavite.",
+    "The first item is the Issuance of OSCA ID, from the Office of the Senior Citizens Affairs (OSCA)."
+   ]
   },
   {
    "number": "9",

@@ -198,6 +198,8 @@ interface CharterEntry {
   office: string;
   page: number;
   part_of?: string;
+  /** A few lines from the service's own charter page, added by hand where the list's title alone misleads. */
+  from_page?: string[];
 }
 
 const words = (s: string) => new Set(s.toLowerCase().replace(/[^a-z0-9 ]/g, ' ').split(/\s+/).filter((w) => w.length > 2));
@@ -238,6 +240,7 @@ function charterIndexDocs(): Doc[] {
       body: [
         `${name} is a service of the City Government of Carmona, from the ${e.office}.`,
         `The Citizen's Charter 2026 describes it on page ${e.page}: ${charterPageUrl(charter, e.page)}`,
+        ...(e.from_page?.length ? [`From that page: ${e.from_page.join(' ')}`] : []),
         'BetterCarmona does not describe this service yet. The charter page has the details.',
       ].join('\n'),
     });
