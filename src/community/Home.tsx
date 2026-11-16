@@ -1,4 +1,4 @@
-import { ArrowRight, ExternalLink as ExternalLinkIcon, Phone } from 'lucide-react';
+import { ArrowRight, ExternalLink as ExternalLinkIcon, FileText, Phone } from 'lucide-react';
 import { Link, Navigate, useLocation } from 'react-router-dom';
 import { useTitle } from '../lib/use-title';
 import { BarangayFinder } from './BarangayFinder';
@@ -55,6 +55,17 @@ export function CommunityHome() {
         </section>
 
         <BarangayFinder />
+
+        <section aria-labelledby="home-ordinances" className="bc-card home-ordinances">
+          <span className="bc-icon bc-icon--lg"><FileText size={24} aria-hidden="true" /></span>
+          <div className="home-ordinances-text">
+            <h2 id="home-ordinances">{t('home.ordinances.heading')}</h2>
+            <p>{t('home.ordinances.body')}</p>
+          </div>
+          <Link to={path('/ordinances')} className="bc-btn bc-btn--primary">
+            {t('home.ordinances.link')} <ArrowRight size={18} aria-hidden="true" />
+          </Link>
+        </section>
 
         <section aria-labelledby="home-transparency" className="home-band">
           <div className="home-band-text">

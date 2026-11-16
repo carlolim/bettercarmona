@@ -22,7 +22,8 @@
     "barangays": "Mga barangay",
     "government": "Gobyerno",
     "transparency": "Transparency",
-    "about": "About"
+    "about": "About",
+    "ordinances": "Mga Ordinansa"
   },
   "brand": "Home ng BetterCarmona",
   "footer": {
@@ -68,6 +69,11 @@
     },
     "official": {
       "heading": "Mga official website ng city"
+    },
+    "ordinances": {
+      "heading": "Mga ordinansa ng lungsod",
+      "body": "Basahin ang mga ordinansa ng lungsod mula sa public library ng SB Office: ang teksto kung na-transcribe na namin, at ang buod at scan ng bawat isa.",
+      "link": "Tingnan ang mga ordinansa"
     }
   },
   "about": {
@@ -287,5 +293,75 @@
       "disabled": "Naka-off ang assistant ngayon."
     },
     "clear": "I-clear ang usapan"
+  },
+  "ordinances": {
+    "pageTitle": "Mga Ordinansa",
+    "heading": "Mga ordinansa ng lungsod",
+    "intro": "Lahat ng nasa public ordinance library ng SB Office ng Carmona, kasama ang teksto o buod kung na-transcribe na namin.",
+    "standing": "Mga kopya ito mula sa public library ng SB Office. Hindi ito official na website. Puwedeng nabago o napawalang-bisa na ang isang ordinansa mula nang maipasa ito.",
+    "searchLabel": "Maghanap ng ordinansa",
+    "searchPlaceholder": "Isang salita, pamagat, o numero",
+    "searchCount": "{{shown}} sa {{total}} na ordinansa",
+    "category": "Kategorya",
+    "allCategories": "Lahat ng kategorya",
+    "year": "Taon",
+    "allYears": "Lahat ng taon",
+    "noResults": "Walang ordinansang tugma sa mga filter na ito.",
+    "showMore": "Ipakita pa",
+    "shown": "Ipinapakita ang {{shown}} sa {{total}}",
+    "coverage": {
+      "full": "Buong teksto",
+      "summary": "Buod",
+      "none": "Scan lang"
+    },
+    "noNumber": "Walang numero",
+    "noYear": "Walang taon",
+    "notFound": "Wala kaming ordinansa sa address na ito.",
+    "allOrdinances": "Lahat ng ordinansa",
+    "backToCategory": "Iba pang ordinansa sa {{category}}",
+    "translation": "English translation ng pamagat:",
+    "facts": {
+      "kind": "Uri",
+      "issuingBody": "Nagpasa",
+      "session": "Sesyon",
+      "dateEnacted": "Petsa ng pagpasa",
+      "dateApproved": "Petsa ng pag-apruba",
+      "category": "Kategorya",
+      "introducedBy": "Nagpanukala",
+      "committees": "Mga komite",
+      "notStated": "Hindi nakasaad",
+      "listed": "Numero sa library"
+    },
+    "kinds": {
+      "ordinance": "Ordinansa",
+      "appropriation-ordinance": "Ordinansa sa paglalaan ng pondo",
+      "resolution": "Resolusyon",
+      "other": "Iba pa"
+    },
+    "status": {
+      "unverified": "Hindi namin alam kung may bisa pa ang ordinansang ito. Puwedeng nabago o napawalang-bisa na ito. Kumpirmahin sa SB Office.",
+      "in-force": "Naka-mark na may bisa, ayon sa source na naitala namin. Kumpirmahin sa SB Office bago ito sundin.",
+      "amended": "Nabago na ang ordinansang ito. Kumpirmahin ang kasalukuyang teksto sa SB Office.",
+      "repealed": "Napawalang-bisa na ang ordinansang ito."
+    },
+    "unreviewed": "Ang teksto o buod sa ibaba ay transcription na hindi pa nache-check laban sa scan.",
+    "pandemic": "Ginawa ang ordinansang ito para sa COVID-19 emergency. Puwedeng hindi na umiiral ang mga patakarang ginawa para sa pandemya.",
+    "summary": "Buod",
+    "summaryNote": "Isinulat ng BetterCarmona. Hindi bahagi ng ordinansa.",
+    "keyFacts": "Mahahalagang detalye, ayon sa pagkakalimbag",
+    "page": "pahina {{page}}",
+    "summaryOnly": "Buod lang ang nasa site na ito. Nasa scan ang buong teksto.",
+    "text": "Ang ordinansa",
+    "textNote": "Salita sa salita, sa wikang ginamit nito.",
+    "pageMarker": "Pahina {{n}}",
+    "none": "Hindi pa na-transcribe ang ordinansang ito. Nasa scan ang buong teksto.",
+    "description": "Paglalarawan ng library",
+    "missingFile": "Walang file ang library para sa ordinansang ito.",
+    "source": "Source",
+    "sourceText": "Mula sa public ordinance library ng SB Office ng Carmona, kinuha noong {{date}}.",
+    "libraryPage": "Ang pahina sa library",
+    "scan": "Ang scan (PDF)",
+    "loading": "Nilo-load ang mga ordinansa",
+    "failed": "Hindi ma-load ang mga ordinansa. Paki-reload ang page."
   }
 }

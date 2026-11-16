@@ -51,7 +51,7 @@ export interface ChatReply {
 
 const KINDS: ReplyKind[] = ['answer', 'clarify', 'not_found', 'out_of_scope'];
 /** Pages about one thing, preferred for the featured card over list pages such as /hotlines or /services. */
-const SINGLE_SUBJECT = ['service', 'ordinance', 'ordinance-summary'];
+const SINGLE_SUBJECT = ['service', 'ordinance', 'ordinance-summary', 'ordinance-titles'];
 const ORDINANCE = ['ordinance', 'ordinance-summary'];
 const LABEL = /\[S(\d+)\]/g;
 /** A bracket of several labels, such as "[S1, S2]" or "[S1 S3]", which models sometimes write. */

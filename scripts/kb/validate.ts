@@ -214,8 +214,6 @@ export function validate(paths = ordinanceFiles()): Result {
 const KB = join(ROOT, '.kb');
 const KB_INDEX = join(KB, 'kb-index.json');
 const MAX_DOCUMENT = 60_000;
-/** Ordinance pages come in task 029. Until then their links are allowed without a route. */
-const PENDING_ROUTES = ['/ordinances'];
 
 /** The community routes in src/App.tsx, as patterns. */
 export function siteRoutes(app = readFileSync(join(ROOT, 'src/App.tsx'), 'utf8')): RegExp[] {
@@ -245,8 +243,11 @@ export function indexProblems(): string[] {
     if (!e.site_url && !e.source_url) problems.push(`${at}: the index gives neither a site_url nor a source_url`);
     if (e.site_url) {
       const route = e.site_url.split(/[?#]/)[0];
-      const pending = PENDING_ROUTES.some((p) => route === p || route.startsWith(`${p}/`));
-      if (!route.startsWith('/') || (!pending && !routes.some((r) => r.test(route)))) problems.push(`${at}: site_url ${e.site_url} matches no route in src/App.tsx`);
+      if (!route.startsWith('/') || !routes.some((r) => r.test(route))) problems.push(`${at}: site_url ${e.site_url} matches no route in src/App.tsx`);
+      const ordinance = /^\/ordinances\/(\d+)$/.exec(route);
+      if (ordinance && !existsSync(join(ROOT, 'public/data/ordinances', `${ordinance[1]}.json`))) {
+        problems.push(`${at}: site_url ${e.site_url} has no page data in public/data/ordinances/`);
+      }
     }
     if (e.source_url && !/^https?:\/\//.test(e.source_url)) problems.push(`${at}: source_url must be an absolute link`);
     const file = join(KB, path);

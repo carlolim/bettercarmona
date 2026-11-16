@@ -24,6 +24,8 @@ import en from '../../src/community/locales/en.json' with { type: 'json' };
 import fil from '../../src/community/locales/fil.json' with { type: 'json' };
 import { loadManifest, ROOT, yearOf } from './manifest.ts';
 import { LIBRARY } from './sb-office.ts';
+import type { OrdinanceListItem } from '../../src/community/data/ordinances.ts';
+import { toBlocks } from './blocks.ts';
 import { ordinanceFiles, splitFile } from './validate.ts';
 
 export const KB = join(ROOT, '.kb');
@@ -252,7 +254,11 @@ function charterIndexDocs(): Doc[] {
 
 interface Front {
   sb_id: number;
+  kind: string;
   coverage: 'full' | 'summary';
+  session?: string | null;
+  introduced_by?: string[];
+  committees?: string[];
   number_printed: string | null;
   number_listed: string | null;
   year: number;
@@ -377,7 +383,7 @@ function ordinanceTitleDocs(transcribed: Set<number>): Doc[] {
         path: `ordinance-titles/${e.sb_id}.md`,
         title: `${e.number_listed ? `No. ${e.number_listed}` : 'Ordinance'}${year ? ` (${year})` : ''}: ${e.title}`,
         kind: 'ordinance-titles',
-        site_url: `/ordinances?category=${encodeURIComponent(e.category ?? '')}`,
+        site_url: `/ordinances/${e.sb_id}`,
         source_url: e.page_url,
         source_label: 'Carmona SB Office ordinance library',
         date: year ? String(year) : null,
@@ -624,6 +630,71 @@ function fixturePassages(docs: Doc[], glossary: GlossaryEntry[]): { key: string;
   });
 }
 
+// The ordinance pages' data, in public/data/ordinances/, for /ordinances and /ordinances/{sb_id}
+
+export const PAGE_DATA = join(ROOT, 'public/data/ordinances');
+
+function writeOrdinancePages(): number {
+  const m = loadManifest(LIBRARY);
+  const files = new Map<number, Front & { body: string }>();
+  for (const path of ordinanceFiles()) {
+    const { front, body } = splitFile(readFileSync(path, 'utf8'));
+    const f = front as unknown as Front;
+    files.set(f.sb_id, { ...f, body });
+  }
+  rmSync(PAGE_DATA, { recursive: true, force: true });
+  mkdirSync(PAGE_DATA, { recursive: true });
+  const list: OrdinanceListItem[] = [];
+  for (const e of m.items.filter((x) => !x.removed_at)) {
+    const f = files.get(e.sb_id);
+    const year = f?.year ?? (yearOf(e) || null);
+    const item: OrdinanceListItem = {
+      sb_id: e.sb_id,
+      kind: f?.kind ?? null,
+      number_printed: f?.number_printed ?? null,
+      number_listed: e.number_listed,
+      title: f?.title ?? e.title,
+      title_en: f?.title_en ?? null,
+      year,
+      category: e.category,
+      language: f?.language ?? null,
+      coverage: f ? f.coverage : 'none',
+      reviewed: f?.transcription.reviewed ?? false,
+      status: f?.status ?? 'unverified',
+      keywords: f ? unique([...f.keywords_en, ...f.keywords_fil]) : [],
+    };
+    list.push(item);
+    const source = {
+      page_url: e.page_url,
+      file_url: e.file_url,
+      fetched_at: (f?.source.fetched_at ?? e.fetched_at ?? e.first_seen).slice(0, 10),
+    };
+    const pandemic = Boolean(PANDEMIC?.test(`${item.title} ${item.title_en ?? ''} ${f?.summary_en ?? e.description}`));
+    const detail = f
+      ? {
+          ...item,
+          listed_title: e.title,
+          issuing_body: f.issuing_body,
+          session: f.session ?? null,
+          date_enacted: f.date_enacted,
+          date_approved: f.date_approved,
+          introduced_by: f.introduced_by ?? [],
+          committees: f.committees ?? [],
+          summary_en: f.summary_en,
+          summary_fil: f.summary_fil,
+          key_facts: f.key_facts ?? [],
+          blocks: f.coverage === 'full' ? toBlocks(f.body) : [],
+          pandemic,
+          source,
+        }
+      : { ...item, listed_title: e.title, description: e.description, missing_file: e.state === 'missing-file', pandemic, source };
+    writeFileSync(join(PAGE_DATA, `${e.sb_id}.json`), JSON.stringify(detail));
+  }
+  list.sort((a, b) => (b.year ?? 0) - (a.year ?? 0) || b.sb_id - a.sb_id);
+  writeFileSync(join(PAGE_DATA, 'index.json'), JSON.stringify(list));
+  return list.length;
+}
+
 export function build(): KbIndex {
   const glossary = readJson<{ entries: GlossaryEntry[] }>(GLOSSARY, { entries: [] }).entries;
   const docs = buildDocs();
@@ -645,6 +716,7 @@ export function build(): KbIndex {
   writeFileSync(join(KB, 'fixture-passages.json'), `${JSON.stringify(fixturePassages(docs, glossary))}\n`);
   const index: KbIndex = { version: hash.digest('hex').slice(0, 16), documents };
   writeFileSync(INDEX, `${JSON.stringify(index, null, 2)}\n`);
+  writeOrdinancePages();
   return index;
 }
 

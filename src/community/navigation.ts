@@ -2,6 +2,7 @@
 export const NAVIGATION = [
   { key: 'nav.home', href: '/' },
   { key: 'nav.services', href: '/services' },
+  { key: 'nav.ordinances', href: '/ordinances' },
   { key: 'nav.hotlines', href: '/hotlines' },
   { key: 'nav.barangays', href: '/barangays' },
   { key: 'nav.government', href: '/government' },
