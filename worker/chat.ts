@@ -4,7 +4,7 @@
  */
 import {
   BODY_MAX_BYTES, CACHE_DAYS, KEYWORD_PER_MONTH, NEURONS_PER_DAY, NEURON_RATES, PER_IP_PER_DAY,
-  PREVIEW_HOSTNAME, QUESTION_MAX_CHARS, SEMANTIC_PER_MONTH, SESSION_MINUTES, SITE_HOSTNAMES, SITE_PER_DAY,
+  WORKERS_DEV_HOSTNAME, QUESTION_MAX_CHARS, SEMANTIC_PER_MONTH, SESSION_MINUTES, SITE_HOSTNAMES, SITE_PER_DAY,
 } from './config.ts';
 import { checkChatInput, checkFeedback } from './input.ts';
 import { neurons, type Model } from './model.ts';
@@ -62,7 +62,7 @@ export function sameSite(origin: string | null, requestUrl: string, local: boole
   } catch {
     return false;
   }
-  if (url.protocol === 'https:' && (SITE_HOSTNAMES.includes(url.hostname) || PREVIEW_HOSTNAME.test(url.hostname))) return true;
+  if (url.protocol === 'https:' && (SITE_HOSTNAMES.includes(url.hostname) || WORKERS_DEV_HOSTNAME.test(url.hostname))) return true;
   return local && url.protocol === 'http:' && (url.hostname === 'localhost' || url.hostname === '127.0.0.1');
 }
 

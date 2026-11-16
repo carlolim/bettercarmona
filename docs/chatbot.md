@@ -92,8 +92,8 @@ well, in D1, and `CHAT_ENABLED` turns it all off without a deploy.
 |---|---|---|
 | `PER_IP_PER_MINUTE` | 5 | Fairness. Also set in `wrangler.jsonc` |
 | `PER_IP_PER_DAY` | 20 | Fairness |
-| `SITE_PER_DAY` | 40 | Workers AI: 10,000 Neurons a day |
-| `NEURONS_PER_DAY` | 8,000 | Workers AI: 10,000 Neurons a day, counted from each reply's tokens |
+| `SITE_PER_DAY` | 40 | Workers AI's daily Neurons: about 1,700 at 43 an answer |
+| `NEURONS_PER_DAY` | 6,000 | Workers AI's daily Neurons, counted from each reply's tokens |
 | `SEMANTIC_PER_MONTH` | 900 | AI Search: 1,000 semantic queries a month |
 | `KEYWORD_PER_MONTH` | 900 | AI Search: 1,000 keyword queries a month |
 | `QUESTION_MAX_CHARS`, `HISTORY_MAX_ITEMS` | 500, 6 | Model input, and so Neurons |
@@ -104,8 +104,13 @@ well, in D1, and `CHAT_ENABLED` turns it all off without a deploy.
 Daily counts reset at 00:00 UTC, as Cloudflare's do. Monthly counts reset on the first of the month, UTC. The
 per-minute binding counts per Cloudflare location and is not exact, so the D1 counts are the hard limits.
 
-`MODEL` is a placeholder until the test set picks one. `NEURON_RATES` holds the Neurons per million tokens from the
-Workers AI pricing page, for counting.
+`MODEL` is Gemma 4 26B (`@cf/google/gemma-4-26b-a4b-it`), chosen on the test set on 2026-11-16. `NEURON_RATES` holds
+the Neurons per million tokens from the Workers AI pricing page, for counting.
+
+Workers AI's free allowance is listed as 10,000 Neurons a day, but on 2026-11-15 and 2026-11-16 it ran out at 6,700
+and 7,500 of the Neurons its analytics showed, with error 4006. The Worker's own count matched the analytics within 4%,
+so `NEURONS_PER_DAY` sits below both. Test runs from `npm run kb:eval` spend the same allowance and are not in the
+Worker's count, so don't run a full answers run on a day the assistant is busy.
 
 ### What is kept
 
@@ -126,16 +131,84 @@ Each request logs one line: the route, the status, the error code, timings, the 
 | `KB` | AI Search namespace `bettercarmona-kb`. The Worker opens the instance `KB_INSTANCE` (`worker/config.ts`) in it | `wrangler.jsonc`. Both must exist before a deploy |
 | `DB` | D1 database `bettercarmona-chat`, tables in `worker/migrations/` | `wrangler.jsonc` |
 | `PER_MINUTE` | Rate limiting, 5 per 60 seconds | `wrangler.jsonc` |
-| `CHAT_ENABLED` | The on switch: `"true"` or anything else | Dashboard secret |
-| `TURNSTILE_SECRET_KEY` | Turnstile's secret key | Dashboard secret |
-| `SESSION_SECRET` | Signs sessions | Dashboard secret |
-| `IP_HASH_SALT` | Salts IP hashes | Dashboard secret |
+| `CHAT_ENABLED` | The on switch: `"true"` or anything else | Secret, set in the dashboard |
+| `TURNSTILE_SECRET_KEY` | Turnstile's secret key | Secret, set in the dashboard |
+| `SESSION_SECRET` | Signs sessions | Secret, set in the dashboard |
+| `IP_HASH_SALT` | Salts IP hashes | Secret, set in the dashboard |
+
+The secrets go in Workers & Pages, `bettercarmona`, Settings, **Variables and secrets**, with the type Secret. Not in
+the Variables and secrets of the Builds box: those are seen only while the site builds, never by the running Worker.
+The runtime section opens only once a version with `worker/index.ts` is deployed; while the Worker served only static
+files, it said variables cannot be added. A deploy keeps the secrets, and saving one makes a new version at once,
+with no build.
 
 Apply the tables once, and after any new migration:
 
 ```bash
 npx wrangler d1 migrations apply DB --remote
 ```
+
+## Switching it on and off
+
+The assistant is on only while `CHAT_ENABLED` is exactly `true`. To switch it off, edit the secret to `false`, or
+delete it. The change takes effect in seconds and needs no deploy. Within a minute, `/api/chat/status` says
+`enabled: false`, every other chat route returns 503 `disabled`, and a page loaded after that shows no chat button.
+A panel already open shows "The assistant is switched off right now." on its next question.
+
+To go live the first time:
+
+1. Merge to `main` with `CHAT_ENABLED` not set. The site builds and deploys as usual, and the chat button stays hidden.
+2. Add `TURNSTILE_SECRET_KEY`, `SESSION_SECRET`, and `IP_HASH_SALT` in the runtime Variables and secrets, as above.
+3. Check that `curl -s https://bettercarmona.org/api/chat/status` says `"enabled":false`.
+4. Add `CHAT_ENABLED` with the value `true`. Reload the site, open the chat, and ask two or three questions: one about
+   a service, one about an ordinance, and one in Tagalog. Each answer should have a source that opens a real page.
+5. If anything is wrong, set `CHAT_ENABLED` to `false` and look at the logs (Workers & Pages, `bettercarmona`,
+   Observability).
+
+## Checking usage
+
+Once a month, and after any busy day, compare Cloudflare's figures with the Worker's own counts:
+
+| What | Cloudflare | The Worker's count |
+|---|---|---|
+| Neurons per day | Workers AI, the account's usage page | `neurons-day` |
+| Searches per month | AI Search, `bettercarmona-kb`, Metrics | `semantic-month` and `keyword-month` |
+| Questions per day | Workers & Pages, `bettercarmona`, Metrics, requests to `/api/chat` | `site-day` |
+
+```bash
+npx wrangler d1 execute bettercarmona-chat --remote \
+  --command "select scope, period, count from counters where scope <> 'ip-day' order by period desc, scope limit 40"
+```
+
+Dates are UTC. If the two differ by more than a tenth, find out why before raising anything. `kb:eval` and `kb:update`
+spend from the same allowances and are not in the Worker's counts. The bill is the final word: Workers Free has no bill,
+so an allowance that runs out shows as 503 `unavailable` until it resets.
+
+## Changing a limit
+
+The limits are constants in `worker/config.ts`, each with a comment saying which allowance it protects. Change one
+there, run `npm test`, and merge to `main`; the deploy takes it. `PER_IP_PER_MINUTE` is also in `wrangler.jsonc`, under
+`ratelimits`, and the two must match. Keep every limit below the allowance it protects. To stop at once rather than
+wait for a deploy, switch the assistant off.
+
+## What the error messages mean
+
+| Code | The panel says | Why | What to do |
+|---|---|---|---|
+| `slow_down` | You're asking quickly | 5 questions in a minute from one address | Nothing |
+| `daily_limit` | You've reached today's limit | 20 questions today from one address | Nothing; resets at 08:00 Philippine time |
+| `site_busy` | answered as many questions as it can today | 40 answers today, or the day's Neurons | Nothing; resets at 08:00 Philippine time. If it happens often, read the usage |
+| `monthly_limit` | used this month's searches | 900 hybrid and 900 keyword searches this month | Nothing; resets on the 1st |
+| `unavailable` | isn't working right now | A Cloudflare service failed or its free allowance ran out | Read the logs; if it lasts past 08:00 the next day, switch off and check |
+| `disabled` | switched off right now | `CHAT_ENABLED` is not `true` | Switch it on, if that was not meant |
+| `session` | Your session ended | The 30-minute session expired, or the address changed | Nothing |
+| `turnstile` | The check that you're a person didn't finish | Turnstile failed or was blocked | If everyone gets it, check the Turnstile widget's hostnames and secret |
+| `origin` | This request was blocked | The request did not come from the site | If everyone gets it, check `SITE_HOSTNAMES` in `worker/config.ts` |
+| `input` | Keep it under 500 characters | An empty or too long question | Nothing |
+| `network` | couldn't be sent | The browser could not reach the Worker | If everyone gets it, check that the site deployed |
+
+The Worker can also be tried on its own workers.dev address, `bettercarmona.cryptoemail64.workers.dev`
+(`WORKERS_DEV_HOSTNAME`), if the Turnstile widget lists `cryptoemail64.workers.dev` among its hostnames.
 
 ## Running it locally
 
@@ -204,8 +277,9 @@ npm run kb:eval -- --answers --model NAME --only q01,q35 --budget 300   # a few 
 
 Search results don't change when only the model or the prompt changes, so the answers stage reuses them and costs no
 searches. Every run prints how many searches and roughly how many Neurons it will use before it starts, and stops if
-that is over `--budget` (Neurons) or `--max-searches`. The free allowances are 10,000 Neurons a day and 1,000 searches
-a month; a full answers run is about 2,000 Neurons with Gemma and up to 6,500 with the larger models.
+that is over `--budget` (Neurons) or `--max-searches`. The free allowances are 1,000 searches a month and 10,000
+Neurons a day, which in practice ran out near 7,000 (see Limits). A full answers run is about 2,000 Neurons with Gemma
+and up to 6,500 with the larger models.
 
 ### Reading a report
 
@@ -218,7 +292,7 @@ full. The table at the top:
 | Featured page as expected | How often the link card above the answer was the page the question names |
 | **Safety** | Figures in an answer (amounts, phone numbers, years, names with a middle initial) that its cited passages don't contain. Must be zero |
 | Refusals and not found | Questions the assistant must decline or say it can't find |
-| Neurons per answer | What one answer costs against the 10,000 a day |
+| Neurons per answer | What one answer costs against the daily allowance |
 
 Under each failed question, "Why it failed" names what was missing. A miss in retrieval (the right document not
 searched up) is fixed in the knowledge: a glossary entry, a keyword, or a document's shape. A miss in the answer is

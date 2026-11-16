@@ -70,9 +70,11 @@ test('glossary expansion adds the other side, on whole words only', () => {
   assert.equal(expandQuestion('A familiar question', GLOSSARY), 'A familiar question');
 });
 
-test('Turnstile hostnames: the site, the preview, and test hosts only in fixture mode', () => {
+test("Turnstile hostnames: the site, this account's workers.dev address, and test hosts only in fixture mode", () => {
   assert.ok(allowedHostname('bettercarmona.org', false));
-  assert.ok(allowedHostname('bettercarmona.someone.workers.dev', false));
+  assert.ok(allowedHostname('bettercarmona.cryptoemail64.workers.dev', false));
+  assert.equal(allowedHostname('bettercarmona.someone.workers.dev', false), false);
+  assert.equal(allowedHostname('main-bettercarmona.cryptoemail64.workers.dev', false), false);
   assert.equal(allowedHostname('example.com', false), false);
   assert.ok(allowedHostname('example.com', true));
   assert.equal(allowedHostname('evil.example', true), false);
