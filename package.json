@@ -25,7 +25,8 @@
     "test": "tsx --tsconfig tsconfig.worker.json --test --test-concurrency=1 worker/test/*.test.ts scripts/kb/*.test.ts",
     "kb:sync": "tsx scripts/kb/sync.ts",
     "dev:api:fixtures": "tsx scripts/kb/build.ts && wrangler d1 migrations apply DB --local --env dev && wrangler dev worker/dev.ts --env dev --port 8787",
-    "kb:update": "tsx scripts/kb/update.ts"
+    "kb:update": "tsx scripts/kb/update.ts",
+    "kb:eval": "tsx scripts/kb/eval.ts"
   },
   "dependencies": {
     "d3-geo": "3.1.1",

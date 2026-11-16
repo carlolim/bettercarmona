@@ -146,8 +146,32 @@ export class AiSearchClient {
     await this.call('DELETE', `/items/${id}`);
   }
 
-  async search(query: string, retrieval: Record<string, unknown> = {}): Promise<Chunk[]> {
-    const body = JSON.stringify({ query, ai_search_options: { retrieval: { retrieval_type: 'hybrid', keyword_match_mode: 'or', ...retrieval }, query_rewrite: { enabled: false } } });
+  /** Runs a Workers AI model through the REST API. The output has the same shape as the Worker's binding. */
+  async run(model: string, body: Record<string, unknown>): Promise<Record<string, unknown>> {
+    const url = `https://api.cloudflare.com/client/v4/accounts/${this.s.accountId}/ai/run/${model}`;
+    for (let attempt = 0; ; attempt++) {
+      const res = await fetch(url, { method: 'POST', headers: { Authorization: `Bearer ${this.s.token}`, 'content-type': 'application/json' }, body: JSON.stringify(body) });
+      if (res.status === 401 || res.status === 403) throw new AuthError(`Cloudflare refused the token for Workers AI (HTTP ${res.status}). It needs Workers AI Read.`);
+      if ((res.status === 429 || res.status >= 500) && attempt < RETRIES) {
+        await sleep(2000 * 2 ** attempt);
+        continue;
+      }
+      const out = (await res.json().catch(() => ({}))) as { success?: boolean; result?: Record<string, unknown>; errors?: { message?: string }[] };
+      if (!res.ok || out.success === false) throw new Error(`${model}: ${(out.errors ?? []).map((e) => e.message).join('; ') || `HTTP ${res.status}`}`);
+      return out.result ?? {};
+    }
+  }
+
+  /** `reranking` overrides the instance's reranking, which drops results under its own threshold (0.4 by default). */
+  async search(query: string, retrieval: Record<string, unknown> = {}, reranking?: Record<string, unknown>): Promise<Chunk[]> {
+    const body = JSON.stringify({
+      query,
+      ai_search_options: {
+        retrieval: { retrieval_type: 'hybrid', keyword_match_mode: 'or', ...retrieval },
+        query_rewrite: { enabled: false },
+        ...(reranking ? { reranking } : {}),
+      },
+    });
     return (await this.call<{ chunks: Chunk[] }>('POST', '/search', body, true)).chunks;
   }
 }

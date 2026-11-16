@@ -50,7 +50,7 @@ test("ordinance 514's header has the words residents use", () => {
 
 test('each ordinance section names its ordinance', () => {
   const text = doc('ordinances/514.md');
-  assert.match(text, /002-02 \(2002\), Kautusang Sumasakop sa Pagsusunog ng mga Basura sa Bayan ng Carmona, Cavite\n## SEKSIYON 4\. KAPARUSAHAN\./);
+  assert.match(text, /002-02 \(2002\), Kautusang Sumasakop sa Pagsusunog ng mga Basura sa Bayan ng Carmona, Cavite \(Ordinance covering the burning of garbage in the Municipality of Carmona, Cavite\)\n## SEKSIYON 4\. KAPARUSAHAN\./);
 });
 
 test('every index entry has a document and a link, and the other way round', () => {
@@ -67,9 +67,9 @@ test('a service added to SERVICES leaves the charter index', () => {
   const added = { ...SERVICES[0], id: 'cso-accreditation', title: 'Application for Civil Society Organization Accreditation', pages: [2, 3] } as Service;
   assert.equal(isOnSite(entry, [...SERVICES, added]), true);
   assert.equal(isOnSite({ ...entry, page: 4 }, [...SERVICES, added]), false);
-  const listed = Object.keys(index.documents).filter((p) => p.startsWith('charter-index/')).map(doc).join('\n');
+  const listed = Object.values(index.documents).filter((e) => e.kind === 'charter-index').map((e) => e.title).join('\n');
   assert.match(listed, /Application For Civil Society Organization \(CSO\) Accreditation/);
-  assert.doesNotMatch(listed, /- Registration of Certificate of Live Birth\./);
+  assert.doesNotMatch(listed, /^Registration of Certificate of Live Birth \(/m);
 });
 
 test('long text splits between sections', () => {

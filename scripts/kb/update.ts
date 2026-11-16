@@ -1,7 +1,7 @@
 /**
  * The one command that brings the assistant up to date. In order, stopping at the first failure:
  * fetch new library items, transcribe the next few, validate, build the search documents, sync them to
- * AI Search, and ask three test questions.
+ * AI Search, and search the five smoke questions from knowledge/eval/questions.json.
  *
  *   npm run kb:update                  transcribes up to 10 new items
  *   npm run kb:update -- --convert 3   up to 3
@@ -10,20 +10,18 @@
  */
 import { spawnSync } from 'node:child_process';
 import { argv, exit } from 'node:process';
-import { SCORE_THRESHOLD } from '../../worker/config.ts';
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
+import { MAX_PASSAGES } from '../../worker/config.ts';
+import { searchQuery } from '../../worker/query.ts';
+import { selectPassages } from '../../worker/search.ts';
 import { AiSearchClient, AuthError, loadSettings } from './ai-search.ts';
-import { build } from './build.ts';
+import { build, KB } from './build.ts';
+import { loadQuestions } from './eval.ts';
 import { loadManifest, ROOT } from './manifest.ts';
 import { LIBRARY } from './sb-office.ts';
 import { sync } from './sync.ts';
 import { indexProblems, keywordProblems, validate } from './validate.ts';
-
-/** Three questions and the document each should find first. A path ending in "/" matches any document under it. */
-const SMOKE = [
-  { question: 'pagsisiga ng basura', expect: 'ordinances/514.md' },
-  { question: 'registration of live birth', expect: 'services/registration-of-live-birth.md' },
-  { question: 'emergency hotline number', expect: 'hotlines/' },
-];
 
 const args = argv.slice(2);
 const convert = args.includes('--convert') ? Number(args[args.indexOf('--convert') + 1]) : 10;
@@ -83,14 +81,22 @@ async function main() {
   for (const f of s.failed) console.log(`  failed ${f}`);
   if (s.failed.length) throw new StepFailed('Some documents did not upload or index. Run npm run kb:sync to retry them.');
 
-  step('Ask three test questions');
+  step('Search the smoke questions');
   const client = new AiSearchClient(loadSettings());
+  const smoke = loadQuestions().filter((q) => q.smoke);
+  const glossary = JSON.parse(readFileSync(join(KB, 'glossary.json'), 'utf8')) as Record<string, string[]>;
   let answered = 0;
-  for (const t of SMOKE) {
-    const top = (await client.search(t.question, { max_num_results: 3, match_threshold: SCORE_THRESHOLD }))[0];
-    const ok = top !== undefined && (t.expect.endsWith('/') ? top.item.key.startsWith(t.expect) : top.item.key === t.expect);
+  for (const q of smoke) {
+    const question = q.turns.at(-1)!;
+    const chunks = await client.search(
+      searchQuery(question, [], glossary),
+      { max_num_results: MAX_PASSAGES, match_threshold: 0 },
+      { enabled: true, match_threshold: 0 },
+    );
+    const kept = selectPassages(chunks.map((c) => ({ key: c.item.key, text: c.text, score: c.score })), index.documents);
+    const ok = q.must_cite.every((group) => kept.some((p) => group.some((g) => (g.endsWith('/') ? p.key.startsWith(g) : p.key === g))));
     if (ok) answered++;
-    console.log(`  ${ok ? 'ok  ' : 'MISS'} "${t.question}": ${top ? `${top.item.key} (${top.score.toFixed(2)})` : 'nothing found'}`);
+    console.log(`  ${ok ? 'ok  ' : 'MISS'} ${q.id} "${question}": ${kept[0] ? `${kept[0].key} (${kept[0].score.toFixed(2)})` : 'nothing found'}`);
   }
 
   const after = counts();
@@ -99,10 +105,10 @@ async function main() {
     transcribed ? `${transcribed} new ordinance file${transcribed === 1 ? '' : 's'} written and need${transcribed === 1 ? 's' : ''} review.` : 'No new ordinance files.',
     after.attention ? `${after.attention} need${after.attention === 1 ? 's' : ''} attention (npm run kb:status).` : '',
     `${s.uploaded.length} document${s.uploaded.length === 1 ? '' : 's'} uploaded, ${s.deleted.length} deleted.`,
-    `Search answered ${answered} of ${SMOKE.length}.`,
+    `Search found the right document for ${answered} of ${smoke.length} test questions.`,
   ];
   console.log(`\n${parts.filter(Boolean).join(' ')}`);
-  if (answered < SMOKE.length) exit(1);
+  if (answered < smoke.length) exit(1);
 }
 
 main().catch((err) => {

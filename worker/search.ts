@@ -3,6 +3,7 @@
  * keyword match over the documents kb:build wrote, costs nothing, and is used in tests and local work.
  */
 import { MAX_PASSAGES, SCORE_THRESHOLD } from './config.ts';
+import type { IndexEntry } from './reply.ts';
 
 export type SearchType = 'hybrid' | 'keyword';
 
@@ -11,6 +12,18 @@ export interface Passage {
   key: string;
   text: string;
   score: number;
+}
+
+/**
+ * The passages the model sees, in rank order: those whose document is in the index and that score at least the
+ * threshold, and any other passage of a document that already has one. The reranker scores Tagalog passages near
+ * zero even when they hold the answer (the bonfire exception of ordinance 514 came third at 0.02), so once a
+ * document is in, its other ranked passages come with it.
+ */
+export function selectPassages(found: Passage[], documents: Record<string, IndexEntry>, threshold = SCORE_THRESHOLD, max = MAX_PASSAGES): Passage[] {
+  const known = found.filter((p) => documents[p.key] !== undefined);
+  const inside = new Set(known.filter((p) => p.score >= threshold).map((p) => p.key));
+  return known.filter((p) => inside.has(p.key)).slice(0, max);
 }
 
 export interface Search {
@@ -29,8 +42,11 @@ export class AiSearch implements Search {
     const res = await this.kb.search({
       query,
       ai_search_options: {
-        retrieval: { retrieval_type: type, max_num_results: MAX_PASSAGES, match_threshold: SCORE_THRESHOLD, keyword_match_mode: 'or', return_on_failure: false },
+        // No threshold here: selectPassages applies it, and keeps a low passage of a document that passed.
+        retrieval: { retrieval_type: type, max_num_results: MAX_PASSAGES, match_threshold: 0, keyword_match_mode: 'or', return_on_failure: false },
         query_rewrite: { enabled: false },
+        // The instance's reranker has its own threshold, 0.4 by default, which would drop Tagalog matches first.
+        reranking: { enabled: true, match_threshold: 0 },
       },
     });
     return res.chunks.map((c) => ({ key: c.item.key.replace(/^\/+/, ''), text: c.text, score: c.score }));

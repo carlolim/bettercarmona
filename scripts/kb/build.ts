@@ -9,7 +9,7 @@
  * document on the next build.
  */
 import { createHash } from 'node:crypto';
-import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { argv } from 'node:process';
 import { pathToFileURL } from 'node:url';
@@ -22,8 +22,8 @@ import {
 import { OFFICIAL_PORTAL_URL } from '../../src/community/links.ts';
 import en from '../../src/community/locales/en.json' with { type: 'json' };
 import fil from '../../src/community/locales/fil.json' with { type: 'json' };
-import { loadManifest, ROOT, yearOf, type Entry } from './manifest.ts';
-import { categoryUrl, LIBRARY } from './sb-office.ts';
+import { loadManifest, ROOT, yearOf } from './manifest.ts';
+import { LIBRARY } from './sb-office.ts';
 import { ordinanceFiles, splitFile } from './validate.ts';
 
 export const KB = join(ROOT, '.kb');
@@ -31,7 +31,6 @@ export const INDEX = join(KB, 'kb-index.json');
 const CHARTER_INDEX = join(ROOT, 'knowledge/charter/index-2026.json');
 const GLOSSARY = join(ROOT, 'knowledge/keywords/glossary.json');
 const SERVICE_KEYWORDS = join(ROOT, 'knowledge/keywords/services.json');
-const CHARTER_GROUP = 25;
 /** An ordinance longer than this is split into parts at its sections, to stay under the validator's 60,000 characters. */
 const PART_SIZE = 45_000;
 /** At most this many glossary terms are added to one document's "Also asked as" line. */
@@ -77,15 +76,16 @@ export interface GlossaryEntry {
 const KIND_LABEL: Record<string, string> = {
   service: 'City service',
   'service-list': 'List of city services',
-  'charter-index': "Citizen's Charter list of services",
+  'charter-index': "Citizen's Charter service not yet on this site",
   ordinance: 'Ordinance, full text',
   'ordinance-summary': 'Ordinance, summary only',
-  'ordinance-titles': 'List of ordinances not yet transcribed',
+  'ordinance-titles': 'Ordinance, title only (not yet transcribed)',
   hotline: 'Hotline',
   'hotline-list': 'List of hotlines',
   office: 'City office',
   officials: 'Elected officials',
   barangay: 'Barangay',
+  'barangay-list': 'List of barangays',
   about: 'About this site',
 };
 
@@ -119,6 +119,8 @@ function serviceBody(s: Service): string {
     `${en.services.office}: ${s.office}`,
     `${en.services.classification}: ${s.classification}`,
     `${en.services.transactionType}: ${s.transactionType}`,
+    // The total again near the top, as the top of a document is the part search finds most.
+    `${en.services.fees}: ${s.total.fee.length ? s.total.fee.join('; ') : en.services.noTotalFee}`,
     `${en.services.whoMayAvail}:`,
     ...s.whoMayAvail.map((w) => `- ${w}`),
     '',
@@ -196,6 +198,8 @@ interface CharterEntry {
   office: string;
   page: number;
   part_of?: string;
+  /** A few lines from the service's own charter page, added by hand where the list's title alone misleads. */
+  from_page?: string[];
 }
 
 const words = (s: string) => new Set(s.toLowerCase().replace(/[^a-z0-9 ]/g, ' ').split(/\s+/).filter((w) => w.length > 2));
@@ -211,24 +215,34 @@ export function isOnSite(e: CharterEntry, services: Service[] = SERVICES): boole
   });
 }
 
+/**
+ * One small document per charter service not yet on the site. One document per service, not a list
+ * of 25, because search ranks a short document about one thing far above a line inside a long one.
+ */
 function charterIndexDocs(): Doc[] {
   const entries = readJson<{ services: CharterEntry[] }>(CHARTER_INDEX, { services: [] }).services.filter((e) => !isOnSite(e));
   const docs: Doc[] = [];
-  for (let i = 0; i < entries.length; i += CHARTER_GROUP) {
-    const group = entries.slice(i, i + CHARTER_GROUP);
-    const n = i / CHARTER_GROUP + 1;
-    const offices = unique(group.map((e) => e.office));
+  const paths = new Set<string>();
+  for (const e of entries) {
+    const name = e.part_of ? `${e.part_of}: ${e.title}` : e.title;
+    let path = `charter-index/${e.page}-${slug(e.title).split('-').slice(0, 6).join('-')}.md`;
+    for (let n = 2; paths.has(path); n++) path = path.replace(/(-\d+)?\.md$/, `-${n}.md`);
+    paths.add(path);
     docs.push({
-      path: `charter-index/${n}.md`,
-      title: `Citizen's Charter services, part ${n}: ${offices.slice(0, 3).join('; ')}${offices.length > 3 ? '; and others' : ''}`,
+      path,
+      title: `${name} (Citizen's Charter, page ${e.page})`,
       kind: 'charter-index',
-      source_url: charterPageUrl(charter, group[0].page),
-      source_label: `${charter.title}, list of services`,
+      source_url: charterPageUrl(charter, e.page),
+      source_label: `${charter.title}, page ${e.page}`,
       date: charter.recordedAt,
       sourceLine: `${charterLabel}, list of services, recorded ${charter.recordedAt}`,
-      details: ['These services are in the charter but not yet described on BetterCarmona. Each line gives the charter page that describes it.'],
       keywords: { en: [], fil: [] },
-      body: group.map((e) => `- ${e.part_of ? `${e.part_of}: ` : ''}${e.title}. ${e.office}. Charter page ${e.page}, ${charterPageUrl(charter, e.page)}`).join('\n'),
+      body: [
+        `${name} is a service of the City Government of Carmona, from the ${e.office}.`,
+        `The Citizen's Charter 2026 describes it on page ${e.page}: ${charterPageUrl(charter, e.page)}`,
+        ...(e.from_page?.length ? [`From that page: ${e.from_page.join(' ')}`] : []),
+        'BetterCarmona does not describe this service yet. The charter page has the details.',
+      ].join('\n'),
     });
   }
   return docs;
@@ -280,6 +294,15 @@ export function splitAtSections(text: string, size = PART_SIZE): string[] {
   return parts;
 }
 
+/** The pandemic-era pattern from priorities.json, which also sends these ordinances to the end of the transcription queue. */
+const PANDEMIC = (() => {
+  const p = readJson<{ defer?: { pattern: string } }>(join(ROOT, 'knowledge/sources/priorities.json'), {}).defer?.pattern;
+  return p ? new RegExp(p, 'i') : undefined;
+})();
+/** Added to a pandemic-era ordinance's header, so an answer from it says when it was made. Taken from its title only. */
+export const PANDEMIC_LINE =
+  'Pandemic-era: its title refers to COVID-19, quarantine, or face masks, so it was made for the COVID-19 emergency. Rules made for the pandemic may no longer apply.';
+
 function ordinanceDocs(): Doc[] {
   return ordinanceFiles().flatMap((path) => {
     const { front, body } = splitFile(readFileSync(path, 'utf8'));
@@ -291,13 +314,15 @@ function ordinanceDocs(): Doc[] {
       `Status: ${f.status === 'unverified' ? 'not verified; it may have been amended or repealed' : f.status}. ${f.transcription.reviewed ? 'The transcription was checked against the scan.' : 'The transcription has not been checked yet.'}`,
     ];
     if (f.title_en) details.push(`Title in English: ${f.title_en}`);
+    if (PANDEMIC?.test(`${f.title} ${f.title_en ?? ''} ${f.summary_en}`)) details.push(PANDEMIC_LINE);
     const summary = ['Summary (not part of the ordinance):', f.summary_en, '', f.summary_fil].join('\n');
     let text: string;
     if (f.coverage === 'summary') {
       const facts = (f.key_facts ?? []).map((k) => `- ${k.label}: ${k.value} (page ${k.page})`);
       text = [summary, '', 'Key facts, as printed:', ...facts, '', `The full text is not transcribed. It is in the scan: ${f.source.file_url}`].join('\n');
     } else {
-      const marker = `${f.number_printed ?? 'Ordinance'} (${f.year}), ${f.title}`;
+      // The English title rides along on a Tagalog ordinance, so every section reads in both languages.
+      const marker = `${f.number_printed ?? 'Ordinance'} (${f.year}), ${f.title}${f.title_en ? ` (${f.title_en})` : ''}`;
       const ordinance = body
         .replace(/<!-- page (\d+) -->/g, '[Page $1]')
         .split('\n')
@@ -337,35 +362,40 @@ function ordinanceDocs(): Doc[] {
   });
 }
 
+/**
+ * One small document per library item not yet transcribed, with its listed number, title, and the
+ * library's description. One per item, not a list per category, so a title can be found on its own.
+ */
 function ordinanceTitleDocs(transcribed: Set<number>): Doc[] {
   const m = loadManifest(LIBRARY);
-  const docs: Doc[] = [];
-  for (const c of m.categories) {
-    const items = m.items
-      .filter((e) => e.category === c.name && !e.removed_at && !transcribed.has(e.sb_id))
-      .sort((a, b) => yearOf(b) - yearOf(a) || b.sb_id - a.sb_id);
-    if (!items.length) continue;
-    const line = (e: Entry) => {
-      const year = yearOf(e) || 'year not given';
-      const desc = e.description && !e.title.includes(e.description.split('\n')[0]) ? ` Library description: ${e.description.replaceAll('\n', ' ')}` : '';
-      const file = e.state === 'missing-file' ? ' The library has no file for it.' : '';
-      return `- ${e.number_listed ?? 'No number'} (${year}): ${e.title}. Library item ${e.sb_id}, ${e.page_url}.${desc}${file}`;
-    };
-    docs.push({
-      path: `ordinance-titles/${slug(c.name)}.md`,
-      title: `Ordinances in ${c.name} not yet transcribed`,
-      kind: 'ordinance-titles',
-      site_url: `/ordinances?category=${encodeURIComponent(c.name)}`,
-      source_url: categoryUrl(c.id),
-      source_label: 'Carmona SB Office ordinance library',
-      date: null,
-      sourceLine: `Carmona SB Office ordinance library, category ${c.name}`,
-      details: ['Only the titles are known for these. The full text is in the scan on the library page each line names.'],
-      keywords: { en: ['ordinance', 'local law', c.name.toLowerCase()], fil: ['ordinansa', 'kautusan'] },
-      body: items.map(line).join('\n'),
+  return m.items
+    .filter((e) => !e.removed_at && !transcribed.has(e.sb_id))
+    .map((e) => {
+      const year = yearOf(e);
+      const desc = e.description && !e.title.includes(e.description.split('\n')[0]) ? e.description.replaceAll('\n', ' ') : '';
+      return {
+        path: `ordinance-titles/${e.sb_id}.md`,
+        title: `${e.number_listed ? `No. ${e.number_listed}` : 'Ordinance'}${year ? ` (${year})` : ''}: ${e.title}`,
+        kind: 'ordinance-titles',
+        site_url: `/ordinances?category=${encodeURIComponent(e.category ?? '')}`,
+        source_url: e.page_url,
+        source_label: 'Carmona SB Office ordinance library',
+        date: year ? String(year) : null,
+        sourceLine: `Carmona SB Office ordinance library, item ${e.sb_id}, category ${e.category}`,
+        details: [
+          'Only the title is known. The ordinance has not been transcribed, and its full text is in the scan on the library page.',
+          ...(PANDEMIC?.test(`${e.title} ${e.description}`) ? [PANDEMIC_LINE] : []),
+        ],
+        keywords: { en: ['ordinance', 'local law'], fil: ['ordinansa', 'kautusan'] },
+        body: [
+          `The Carmona SB Office library lists this ordinance as: ${e.title}.`,
+          desc ? `The library's description: ${desc}` : '',
+          `Category: ${e.category}. Library item ${e.sb_id}: ${e.page_url}`,
+          e.state === 'missing-file' ? 'The library has no file for it.' : '',
+          'It may have been amended or repealed since.',
+        ].filter(Boolean).join('\n'),
+      };
     });
-  }
-  return docs;
 }
 
 // Hotlines, offices, officials, barangays
@@ -456,7 +486,22 @@ function officialsDoc(): Doc {
 }
 
 function barangayDocs(): Doc[] {
-  return BARANGAYS.map((b: Barangay) => {
+  const list: Doc = {
+    path: 'barangays/_all.md',
+    title: `The ${BARANGAYS.length} barangays of the City of Carmona`,
+    kind: 'barangay-list',
+    site_url: '/barangays',
+    source_url: BARANGAY_OFFICIALS_URL,
+    source_label: "City of Carmona's barangay officials page",
+    date: BARANGAYS_RECORDED_AT,
+    sourceLine: `City of Carmona website, Barangay Officials page, recorded ${BARANGAYS_RECORDED_AT}`,
+    keywords: { en: ['how many barangays', 'list of barangays', 'barangay captains'], fil: ['ilan ang barangay', 'mga barangay', 'listahan ng barangay', 'mga kapitan'] },
+    body: [
+      `The City of Carmona has ${BARANGAYS.length} barangays. Each is listed with its punong barangay (barangay captain):`,
+      ...BARANGAYS.map((b) => `- Barangay ${b.number}${b.name ? ` (${b.name})` : ''}: ${b.captain}`),
+    ].join('\n'),
+  };
+  return [list, ...BARANGAYS.map((b: Barangay) => {
     const hotline = HOTLINES.find((h) => h.label === b.hotline);
     const title = `Barangay ${b.number}${b.name ? ` (${b.name})` : ''}`;
     return {
@@ -476,7 +521,7 @@ function barangayDocs(): Doc[] {
         hotline ? `Hotline: ${hotline.numbers.map((n) => (n.areaCode ? `(${n.areaCode}) ${n.display}` : n.display)).join(', ')}` : '',
       ].filter(Boolean).join('\n'),
     };
-  });
+  })];
 }
 
 function aboutDoc(): Doc {
@@ -582,7 +627,10 @@ function fixturePassages(docs: Doc[], glossary: GlossaryEntry[]): { key: string;
 export function build(): KbIndex {
   const glossary = readJson<{ entries: GlossaryEntry[] }>(GLOSSARY, { entries: [] }).entries;
   const docs = buildDocs();
-  rmSync(KB, { recursive: true, force: true });
+  // Clears .kb/ but keeps the test set's saved searches, which kb:eval checks against the index version.
+  for (const entry of existsSync(KB) ? readdirSync(KB) : []) {
+    if (entry !== 'eval-cache') rmSync(join(KB, entry), { recursive: true, force: true });
+  }
   const hash = createHash('sha256');
   const documents: Record<string, IndexEntry> = {};
   for (const d of docs) {

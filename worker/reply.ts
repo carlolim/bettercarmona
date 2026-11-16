@@ -20,6 +20,8 @@ export interface IndexEntry {
 
 export interface Source {
   n: number;
+  /** The document's path in the knowledge base, its key in kb-index.json. */
+  key: string;
   title: string;
   kind: string;
   site_url?: string;
@@ -117,8 +119,14 @@ export function buildReply(raw: string, sent: string[], index: Record<string, In
     if (!paths.includes(path)) paths.push(path);
   }
   const onSite = paths.filter((p) => index[p].site_url);
-  // The featured page: the first one about a single thing (a service, an ordinance), else the first with a page here.
-  const featuredPath = kind === 'answer' ? (onSite.find((p) => SINGLE_SUBJECT.includes(index[p].kind)) ?? onSite[0]) : undefined;
+  // How often the text cites each document. Models tend to list sources in label order, not by weight, so the
+  // featured page is the one the answer leans on most: among pages about a single thing (a service, an ordinance)
+  // if any, else among all with a page here; ties go to the model's order.
+  const cites = new Map<string, number>();
+  for (const n of inText.filter(valid)) cites.set(sent[n - 1], (cites.get(sent[n - 1]) ?? 0) + 1);
+  const most = (list: string[]) => list.reduce<string | undefined>((best, p) => (best === undefined || (cites.get(p) ?? 0) > (cites.get(best) ?? 0) ? p : best), undefined);
+  const single = onSite.filter((p) => SINGLE_SUBJECT.includes(index[p].kind));
+  const featuredPath = kind === 'answer' ? most(single.length ? single : onSite) : undefined;
   const ranked = [
     ...(featuredPath ? [featuredPath] : []),
     ...onSite.filter((p) => p !== featuredPath),
@@ -127,7 +135,7 @@ export function buildReply(raw: string, sent: string[], index: Record<string, In
   const number = new Map(ranked.map((p, i) => [p, i + 1]));
   const sources: Source[] = ranked.map((p, i) => {
     const e = index[p];
-    return { n: i + 1, title: e.title, kind: e.kind, site_url: e.site_url, source_url: e.source_url, source_label: e.source_label, date: e.date };
+    return { n: i + 1, key: p, title: e.title, kind: e.kind, site_url: e.site_url, source_url: e.source_url, source_label: e.source_label, date: e.date };
   });
   text = text
     .replace(LABEL, (_m, n) => `[${number.get(labelToPath.get(Number(n))!)}]`)

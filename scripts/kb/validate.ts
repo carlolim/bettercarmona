@@ -258,7 +258,7 @@ export function indexProblems(): string[] {
     if (!size) problems.push(`${at}: the document is empty`);
     if (size > MAX_DOCUMENT) problems.push(`${at}: ${size} characters, over ${MAX_DOCUMENT}`);
   }
-  const files = readdirSync(KB, { recursive: true, encoding: 'utf8' }).filter((f) => f.endsWith('.md'));
+  const files = readdirSync(KB, { recursive: true, encoding: 'utf8' }).filter((f) => f.endsWith('.md') && !f.startsWith('eval-cache'));
   for (const f of files) if (!(f in documents)) problems.push(`.kb/${f}: not in kb-index.json`);
   return problems;
 }

@@ -150,10 +150,11 @@ npm run kb:update -- --no-fetch    # skip the SB Office library
 | Validate | `kb:validate` on the ordinance files | Fix the files it names |
 | Build | `kb:build`, then the index checks | Fix what it names, usually a missing keyword list for a new service |
 | Sync | `kb:sync`: upload new and changed documents, delete removed ones | Run `npm run kb:sync` again to retry. An authentication error means the token in `.env` is wrong or lacks AI Search Edit and Run |
-| Test | Three searches that must find the burning ordinance, birth registration, and the emergency hotline | Check the instance in the dashboard; indexing may still be running |
+| Test | Searches the five `smoke` questions in `eval/questions.json`, which must find their documents | Check the instance in the dashboard; indexing may still be running |
 
 It ends with one line saying how many ordinance files need review, how many documents were uploaded and deleted, and
-how many test searches found the right document. Run twice, the second run uploads nothing. Commit
+how many of the five test searches found the right document. The full test set is `npm run kb:eval`: see
+`docs/chatbot.md`. Run twice, the second run uploads nothing. Commit
 `knowledge/sources/synced.json` along with the files that changed, so the next run starts from the same state.
 
 `kb:sync` reads `KB_ACCOUNT_ID`, `KB_API_TOKEN`, `KB_NAMESPACE`, and `KB_INSTANCE` from `.env`. The token needs only
