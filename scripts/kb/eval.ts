@@ -113,6 +113,17 @@ export function safetyFlags(answer: string, cited: string): string[] {
   return [...found];
 }
 
+const TAGALOG_WORDS = /\b(?:ang|ng|mga|sa|ay|nito|para|kung|hindi|maaari|po|ito|na)\b/gi;
+
+/**
+ * The share of words that are common Tagalog function words. An English answer quoting a Tagalog ordinance title stays
+ * near 0.05; an answer in Tagalog or Taglish is well above 0.15.
+ */
+export function tagalogShare(text: string): number {
+  const words = text.split(/\s+/).filter(Boolean).length;
+  return words ? (text.match(TAGALOG_WORDS)?.length ?? 0) / words : 0;
+}
+
 export interface Verdict {
   pass: boolean;
   reasons: string[];
@@ -138,6 +149,9 @@ export function judge(q: Question, reply: ChatReply, citedText: string): Verdict
     const first = norm(reply.text.split('\n').find((l) => l.trim()) ?? '');
     if (!q.first_line_contains.some((g) => first.includes(norm(g)))) reasons.push(`first line lacks ${q.first_line_contains.join(' / ')}`);
   }
+  // Rule 3 of the prompt: the reply is in the user's language, whatever the source's.
+  if (q.language === 'en' && reply.text && tagalogShare(reply.text) > 0.1) reasons.push('answered in Tagalog, asked in English');
+  if (q.language === 'tl' && reply.text.split(/\s+/).length > 20 && tagalogShare(reply.text) < 0.03) reasons.push('answered in English, asked in Tagalog');
   const safety = safetyFlags(reply.text, citedText);
   if (safety.length) reasons.push(`not in its sources: ${safety.join(', ')}`);
   return { pass: reasons.length === 0, reasons, safety };
