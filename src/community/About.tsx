@@ -31,6 +31,11 @@ export function CommunityAbout() {
           </p>
         </section>
 
+        <section className="bc-card about-card" aria-labelledby="about-assistant">
+          <h2 id="about-assistant">{t('about.assistant.heading')}</h2>
+          <p>{t('about.assistant.body')}</p>
+        </section>
+
         <section className="bc-card about-card" aria-labelledby="about-errors">
           <h2 id="about-errors">{t('about.errors.heading')}</h2>
           <p>{t('about.errors.body')}</p>

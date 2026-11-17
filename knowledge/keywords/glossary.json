@@ -1,0 +1,1043 @@
+{
+  "note": "Everyday words, in Filipino, Taglish, or plain English, mapped to the official terms the documents use. kb:build adds an entry's words to every document that uses any of them, and writes .kb/glossary.json for expanding questions. Matching ignores case and needs whole words, so avoid very short terms such as \"OR\".",
+  "entries": [
+    {
+      "topic": "taxes",
+      "everyday": [
+        "amilyar",
+        "amilyaro",
+        "buwis sa lupa",
+        "buwis sa bahay",
+        "bayad sa lupa"
+      ],
+      "official": [
+        "real property tax",
+        "RPT"
+      ]
+    },
+    {
+      "topic": "taxes",
+      "everyday": [
+        "cedula",
+        "sedula"
+      ],
+      "official": [
+        "community tax certificate",
+        "community tax certification"
+      ]
+    },
+    {
+      "topic": "taxes",
+      "everyday": [
+        "buwis",
+        "magbayad ng buwis"
+      ],
+      "official": [
+        "tax",
+        "taxes"
+      ]
+    },
+    {
+      "topic": "taxes",
+      "everyday": [
+        "tax dec",
+        "deklarasyon ng lupa"
+      ],
+      "official": [
+        "tax declaration"
+      ]
+    },
+    {
+      "topic": "taxes",
+      "everyday": [
+        "buwis sa paglipat ng lupa",
+        "bentahan ng lupa"
+      ],
+      "official": [
+        "transfer tax",
+        "transfer of ownership"
+      ]
+    },
+    {
+      "topic": "taxes",
+      "everyday": [
+        "clearance sa buwis",
+        "walang utang na buwis"
+      ],
+      "official": [
+        "tax clearance"
+      ]
+    },
+    {
+      "topic": "taxes",
+      "everyday": [
+        "resibo"
+      ],
+      "official": [
+        "official receipt"
+      ]
+    },
+    {
+      "topic": "taxes",
+      "everyday": [
+        "PTR",
+        "buwis ng propesyonal"
+      ],
+      "official": [
+        "professional tax receipt"
+      ]
+    },
+    {
+      "topic": "taxes",
+      "everyday": [
+        "multa",
+        "babayaran na multa"
+      ],
+      "official": [
+        "fine",
+        "penalty",
+        "penalties"
+      ]
+    },
+    {
+      "topic": "taxes",
+      "everyday": [
+        "badyet",
+        "pondo ng lungsod",
+        "pondo ng bayan"
+      ],
+      "official": [
+        "budget",
+        "appropriation",
+        "annual budget"
+      ]
+    },
+    {
+      "topic": "taxes",
+      "everyday": [
+        "bayarin",
+        "singil"
+      ],
+      "official": [
+        "fee",
+        "fees",
+        "schedule of fees"
+      ]
+    },
+    {
+      "topic": "permits",
+      "everyday": [
+        "permit sa negosyo",
+        "permiso sa negosyo",
+        "mayor's permit",
+        "magtayo ng negosyo"
+      ],
+      "official": [
+        "business permit",
+        "new business permit"
+      ]
+    },
+    {
+      "topic": "permits",
+      "everyday": [
+        "renew ng permit",
+        "mag-renew ng business permit",
+        "renewal ng negosyo"
+      ],
+      "official": [
+        "business permit renewal",
+        "renewal of business permit"
+      ]
+    },
+    {
+      "topic": "permits",
+      "everyday": [
+        "isara ang negosyo",
+        "pagsasara ng negosyo",
+        "magsara ng tindahan"
+      ],
+      "official": [
+        "retirement of business",
+        "retirement business permit"
+      ]
+    },
+    {
+      "topic": "permits",
+      "everyday": [
+        "online na business permit",
+        "online permit"
+      ],
+      "official": [
+        "eBOSS"
+      ]
+    },
+    {
+      "topic": "permits",
+      "everyday": [
+        "permit sa pagpapatayo",
+        "magpatayo ng bahay",
+        "permit sa bahay"
+      ],
+      "official": [
+        "building permit"
+      ]
+    },
+    {
+      "topic": "permits",
+      "everyday": [
+        "permit sa bakod",
+        "magpabakod",
+        "renovation ng bahay"
+      ],
+      "official": [
+        "fencing",
+        "renovation",
+        "locational clearance for building permit"
+      ]
+    },
+    {
+      "topic": "permits",
+      "everyday": [
+        "zoning",
+        "pwede bang itayo dito"
+      ],
+      "official": [
+        "locational clearance",
+        "zoning clearance",
+        "zoning certification"
+      ]
+    },
+    {
+      "topic": "permits",
+      "everyday": [
+        "permit sa trabaho",
+        "work permit"
+      ],
+      "official": [
+        "working permit"
+      ]
+    },
+    {
+      "topic": "permits",
+      "everyday": [
+        "pangalan ng negosyo",
+        "magparehistro ng negosyo sa DTI"
+      ],
+      "official": [
+        "business name registration",
+        "DTI business name"
+      ]
+    },
+    {
+      "topic": "permits",
+      "everyday": [
+        "maliit na negosyo",
+        "sari-sari store"
+      ],
+      "official": [
+        "Barangay Micro-Business Enterprise",
+        "BMBE"
+      ]
+    },
+    {
+      "topic": "permits",
+      "everyday": [
+        "prangkisa ng traysikel",
+        "prangkisa"
+      ],
+      "official": [
+        "tricycle franchise",
+        "franchise"
+      ]
+    },
+    {
+      "topic": "permits",
+      "everyday": [
+        "pagputol ng puno",
+        "magpaputol ng puno"
+      ],
+      "official": [
+        "tree cutting permit"
+      ]
+    },
+    {
+      "topic": "permits",
+      "everyday": [
+        "clearance sa barangay",
+        "barangay clearance"
+      ],
+      "official": [
+        "barangay clearance fee",
+        "barangay clearance"
+      ]
+    },
+    {
+      "topic": "permits",
+      "everyday": [
+        "clearance sa kapaligiran",
+        "environmental clearance"
+      ],
+      "official": [
+        "OCENRO clearance",
+        "environmental protection fee"
+      ]
+    },
+    {
+      "topic": "civil registry",
+      "everyday": [
+        "birth certificate",
+        "kapanganakan"
+      ],
+      "official": [
+        "certificate of live birth"
+      ]
+    },
+    {
+      "topic": "civil registry",
+      "everyday": [
+        "late registration",
+        "huling rehistro",
+        "hindi naparehistro"
+      ],
+      "official": [
+        "delayed registration"
+      ]
+    },
+    {
+      "topic": "civil registry",
+      "everyday": [
+        "death certificate",
+        "namatay",
+        "pagkamatay",
+        "kamatayan",
+        "passed away",
+        "died",
+        "pumanaw",
+        "yumao"
+      ],
+      "official": [
+        "certificate of death",
+        "registration of death"
+      ]
+    },
+    {
+      "topic": "civil registry",
+      "everyday": [
+        "kasal",
+        "ikasal",
+        "magpakasal",
+        "marriage contract"
+      ],
+      "official": [
+        "marriage",
+        "certificate of marriage",
+        "civil wedding"
+      ]
+    },
+    {
+      "topic": "civil registry",
+      "everyday": [
+        "lisensya sa kasal",
+        "license para ikasal"
+      ],
+      "official": [
+        "marriage license"
+      ]
+    },
+    {
+      "topic": "civil registry",
+      "everyday": [
+        "CENOMAR",
+        "walang asawa na certificate"
+      ],
+      "official": [
+        "certificate of no marriage"
+      ]
+    },
+    {
+      "topic": "civil registry",
+      "everyday": [
+        "PSA birth certificate",
+        "kopya ng PSA",
+        "PSA copy"
+      ],
+      "official": [
+        "Batch Request System",
+        "BREQS",
+        "certified copy"
+      ]
+    },
+    {
+      "topic": "civil registry",
+      "everyday": [
+        "apelyido ng tatay",
+        "gamitin ang apelyido ng ama"
+      ],
+      "official": [
+        "affidavit to use the surname of the father",
+        "AUSF",
+        "R.A. 9255"
+      ]
+    },
+    {
+      "topic": "civil registry",
+      "everyday": [
+        "mali ang spelling",
+        "mali sa birth certificate",
+        "typo sa birth certificate"
+      ],
+      "official": [
+        "correction of clerical error",
+        "R.A. 9048"
+      ]
+    },
+    {
+      "topic": "civil registry",
+      "everyday": [
+        "palit ng pangalan",
+        "magpalit ng pangalan"
+      ],
+      "official": [
+        "change of first name"
+      ]
+    },
+    {
+      "topic": "civil registry",
+      "everyday": [
+        "mali ang birthday",
+        "mali ang kasarian"
+      ],
+      "official": [
+        "correction of sex",
+        "date of birth",
+        "R.A. 10172"
+      ]
+    },
+    {
+      "topic": "civil registry",
+      "everyday": [
+        "kasal na ang magulang pagkatapos ipanganak"
+      ],
+      "official": [
+        "legitimation"
+      ]
+    },
+    {
+      "topic": "civil registry",
+      "everyday": [
+        "libing",
+        "ilibing",
+        "sementeryo",
+        "nitso"
+      ],
+      "official": [
+        "burial",
+        "public cemetery",
+        "Santuario De Carmona"
+      ]
+    },
+    {
+      "topic": "civil registry",
+      "everyday": [
+        "cremate",
+        "pagsunog ng labi"
+      ],
+      "official": [
+        "cremation",
+        "cremation permit"
+      ]
+    },
+    {
+      "topic": "civil registry",
+      "everyday": [
+        "lamay",
+        "burol"
+      ],
+      "official": [
+        "viewing permit"
+      ]
+    },
+    {
+      "topic": "civil registry",
+      "everyday": [
+        "kolumbaryo",
+        "lalagyan ng abo"
+      ],
+      "official": [
+        "columbarium"
+      ]
+    },
+    {
+      "topic": "civil registry",
+      "everyday": [
+        "seminar bago ikasal",
+        "pre-marriage seminar"
+      ],
+      "official": [
+        "pre-marriage orientation",
+        "PMOC"
+      ]
+    },
+    {
+      "topic": "health",
+      "everyday": [
+        "ospital",
+        "pagamutan"
+      ],
+      "official": [
+        "Pagamutang Bayan ng Carmona",
+        "hospital"
+      ]
+    },
+    {
+      "topic": "health",
+      "everyday": [
+        "health center",
+        "magpa-check up",
+        "doktor"
+      ],
+      "official": [
+        "medical consultation",
+        "barangay health center",
+        "City Health Office"
+      ]
+    },
+    {
+      "topic": "health",
+      "everyday": [
+        "bakuna",
+        "magpabakuna",
+        "turok"
+      ],
+      "official": [
+        "immunization",
+        "vaccination"
+      ]
+    },
+    {
+      "topic": "health",
+      "everyday": [
+        "kagat ng aso",
+        "kagat ng pusa",
+        "anti-rabies",
+        "nakagat ng aso",
+        "nakagat ng pusa",
+        "kinagat ng aso",
+        "kagat ng hayop"
+      ],
+      "official": [
+        "animal bite",
+        "rabies"
+      ]
+    },
+    {
+      "topic": "health",
+      "everyday": [
+        "buntis",
+        "check-up ng buntis"
+      ],
+      "official": [
+        "pre-natal",
+        "prenatal check-up",
+        "post-natal"
+      ]
+    },
+    {
+      "topic": "health",
+      "everyday": [
+        "pills",
+        "kontrasepsyon",
+        "planong pampamilya"
+      ],
+      "official": [
+        "family planning",
+        "contraceptives"
+      ]
+    },
+    {
+      "topic": "health",
+      "everyday": [
+        "ambulansya",
+        "sasakyan papuntang ospital"
+      ],
+      "official": [
+        "ambulance"
+      ]
+    },
+    {
+      "topic": "health",
+      "everyday": [
+        "health card",
+        "health certificate para sa trabaho"
+      ],
+      "official": [
+        "health certificate",
+        "sanitary permit"
+      ]
+    },
+    {
+      "topic": "health",
+      "everyday": [
+        "kalusugan ng isip",
+        "depresyon",
+        "pagkabalisa"
+      ],
+      "official": [
+        "mental health"
+      ]
+    },
+    {
+      "topic": "health",
+      "everyday": [
+        "yosi",
+        "sigarilyo",
+        "vape",
+        "paninigarilyo"
+      ],
+      "official": [
+        "smoking",
+        "tobacco",
+        "cigarettes"
+      ]
+    },
+    {
+      "topic": "health",
+      "everyday": [
+        "nutrisyon",
+        "payat na bata",
+        "timbang ng bata"
+      ],
+      "official": [
+        "nutrition",
+        "Operation Timbang"
+      ]
+    },
+    {
+      "topic": "complaints",
+      "everyday": [
+        "reklamo",
+        "magreklamo",
+        "isumbong",
+        "ireklamo",
+        "saan magrereklamo",
+        "san magrereklamo",
+        "pwede magreklamo",
+        "saan pwede magreklamo"
+      ],
+      "official": [
+        "complaint",
+        "file a complaint",
+        "report"
+      ]
+    },
+    {
+      "topic": "complaints",
+      "everyday": [
+        "reklamo sa opisyal",
+        "isumbong ang empleyado"
+      ],
+      "official": [
+        "administrative complaint"
+      ]
+    },
+    {
+      "topic": "complaints",
+      "everyday": [
+        "nadaya sa binili",
+        "reklamo sa tindahan"
+      ],
+      "official": [
+        "consumer complaint"
+      ]
+    },
+    {
+      "topic": "complaints",
+      "everyday": [
+        "reklamo sa amo",
+        "hindi binayaran ang sahod"
+      ],
+      "official": [
+        "labor complaint"
+      ]
+    },
+    {
+      "topic": "emergencies",
+      "everyday": [
+        "sunog",
+        "bumbero",
+        "may nasusunog"
+      ],
+      "official": [
+        "fire",
+        "Bureau of Fire Protection",
+        "BFP"
+      ]
+    },
+    {
+      "topic": "emergencies",
+      "everyday": [
+        "pulis",
+        "presinto",
+        "magpa-blotter"
+      ],
+      "official": [
+        "police",
+        "Philippine National Police",
+        "PNP"
+      ]
+    },
+    {
+      "topic": "emergencies",
+      "everyday": [
+        "baha",
+        "bagyo",
+        "lindol",
+        "evacuation"
+      ],
+      "official": [
+        "disaster",
+        "Disaster Risk Reduction and Management",
+        "CDRRMO"
+      ]
+    },
+    {
+      "topic": "emergencies",
+      "everyday": [
+        "saklolo",
+        "tulong agad",
+        "aksidente",
+        "emergency number"
+      ],
+      "official": [
+        "emergency hotline",
+        "emergency"
+      ]
+    },
+    {
+      "topic": "environment",
+      "everyday": [
+        "siga",
+        "pagsisiga",
+        "magsiga",
+        "nagsisiga",
+        "nagsusunog ng basura",
+        "magsunog ng basura",
+        "nagsusunog ng plastic",
+        "pagsusunog",
+        "bonfire"
+      ],
+      "official": [
+        "open burning"
+      ]
+    },
+    {
+      "topic": "environment",
+      "everyday": [
+        "basura",
+        "hakot ng basura",
+        "kolekta ng basura"
+      ],
+      "official": [
+        "garbage",
+        "waste collection",
+        "solid waste"
+      ]
+    },
+    {
+      "topic": "environment",
+      "everyday": [
+        "usok",
+        "maruming hangin"
+      ],
+      "official": [
+        "smoke",
+        "air pollution"
+      ]
+    },
+    {
+      "topic": "social welfare",
+      "everyday": [
+        "ayuda",
+        "tulong pinansyal",
+        "humingi ng tulong"
+      ],
+      "official": [
+        "financial assistance",
+        "Assistance to Individuals in Crisis Situations",
+        "AICS"
+      ]
+    },
+    {
+      "topic": "social welfare",
+      "everyday": [
+        "senior",
+        "lolo",
+        "lola",
+        "matanda"
+      ],
+      "official": [
+        "senior citizen",
+        "OSCA ID"
+      ]
+    },
+    {
+      "topic": "social welfare",
+      "everyday": [
+        "may kapansanan",
+        "PWD"
+      ],
+      "official": [
+        "persons with disability",
+        "PWD ID"
+      ]
+    },
+    {
+      "topic": "social welfare",
+      "everyday": [
+        "solo parent",
+        "nag-iisang magulang"
+      ],
+      "official": [
+        "Solo Parent ID",
+        "Solo Parents Welfare Act"
+      ]
+    },
+    {
+      "topic": "social welfare",
+      "everyday": [
+        "mahirap",
+        "walang kakayahang magbayad",
+        "indigent"
+      ],
+      "official": [
+        "certificate of indigency",
+        "indigency"
+      ]
+    },
+    {
+      "topic": "social welfare",
+      "everyday": [
+        "scholar",
+        "iskolar",
+        "libreng pag-aaral"
+      ],
+      "official": [
+        "scholarship",
+        "educational assistance"
+      ]
+    },
+    {
+      "topic": "employment",
+      "everyday": [
+        "trabaho",
+        "hanap-trabaho",
+        "naghahanap ng trabaho"
+      ],
+      "official": [
+        "employment",
+        "Public Employment Service Office",
+        "PESO",
+        "job fair"
+      ]
+    },
+    {
+      "topic": "traffic",
+      "everyday": [
+        "huli sa traffic",
+        "tiket sa traffic",
+        "nahuli"
+      ],
+      "official": [
+        "traffic violation",
+        "apprehension"
+      ]
+    },
+    {
+      "topic": "traffic",
+      "everyday": [
+        "traysikel",
+        "tricycle"
+      ],
+      "official": [
+        "tricycle",
+        "TODA"
+      ]
+    },
+    {
+      "topic": "traffic",
+      "everyday": [
+        "inuman",
+        "alak",
+        "nag-iinuman sa labas"
+      ],
+      "official": [
+        "liquor",
+        "alcoholic beverages"
+      ]
+    },
+    {
+      "topic": "government",
+      "everyday": [
+        "ordinansa",
+        "kautusan",
+        "batas ng lungsod"
+      ],
+      "official": [
+        "ordinance",
+        "city ordinance",
+        "municipal ordinance"
+      ]
+    },
+    {
+      "topic": "government",
+      "everyday": [
+        "konseho",
+        "mga konsehal"
+      ],
+      "official": [
+        "Sangguniang Panlungsod",
+        "Sangguniang Bayan",
+        "city council"
+      ]
+    },
+    {
+      "topic": "government",
+      "everyday": [
+        "meyor",
+        "alkalde"
+      ],
+      "official": [
+        "mayor",
+        "City Mayor"
+      ]
+    },
+    {
+      "topic": "government",
+      "everyday": [
+        "kapitan",
+        "kapitan ng barangay"
+      ],
+      "official": [
+        "punong barangay",
+        "barangay captain"
+      ]
+    },
+    {
+      "topic": "environment",
+      "everyday": [
+        "dayami",
+        "sunog sa bukid",
+        "magsunog sa bukid"
+      ],
+      "official": [
+        "farm burning",
+        "burning of rice straw"
+      ]
+    },
+    {
+      "topic": "services",
+      "everyday": [
+        "gaano katagal",
+        "ilang araw",
+        "ilang minuto",
+        "kailan makukuha"
+      ],
+      "official": [
+        "processing time"
+      ]
+    },
+    {
+      "topic": "civil registry",
+      "everyday": [
+        "kopya ng birth certificate",
+        "copy of my birth certificate",
+        "copy of birth certificate",
+        "certified true copy"
+      ],
+      "official": [
+        "certified copy",
+        "Certified Photo Copy"
+      ]
+    },
+    {
+      "topic": "government",
+      "everyday": [
+        "ilan ang barangay",
+        "mga barangay"
+      ],
+      "official": [
+        "barangays of the City of Carmona"
+      ]
+    },
+    {
+      "topic": "health",
+      "everyday": [
+        "gamot",
+        "libreng gamot",
+        "reseta",
+        "botika"
+      ],
+      "official": [
+        "medicine",
+        "prescription",
+        "pharmacy"
+      ]
+    },
+    {
+      "topic": "civil registry",
+      "everyday": [
+        "magparehistro ng bagong silang",
+        "irehistro ang anak",
+        "iparehistro ang anak",
+        "magparehistro ng anak",
+        "register my baby"
+      ],
+      "official": [
+        "registration of live birth",
+        "COLB"
+      ]
+    },
+    {
+      "topic": "social welfare",
+      "everyday": [
+        "PWD ID",
+        "ID ng PWD",
+        "PWD card"
+      ],
+      "official": [
+        "Persons with Disability Identification Card"
+      ]
+    },
+    {
+      "topic": "government",
+      "everyday": [
+        "mga bata",
+        "menor de edad",
+        "kabataan",
+        "bata"
+      ],
+      "official": [
+        "minors",
+        "children"
+      ]
+    },
+    {
+      "topic": "traffic",
+      "everyday": [
+        "e-bike",
+        "ebike",
+        "e bike",
+        "e-scooter",
+        "electric bike",
+        "electric scooter",
+        "e-trike",
+        "etrike"
+      ],
+      "official": [
+        "energized vehicles",
+        "E-vehicles",
+        "e-vehicle"
+      ]
+    }
+  ]
+}

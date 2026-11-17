@@ -1,0 +1,1900 @@
+{
+ "source": {
+  "title": "Citizen's Charter 2026",
+  "publisher": "City Government of Carmona",
+  "edition": "1st Edition",
+  "url": "https://carmonagov.net/portal/wp-content/uploads/2026/08/CITY-GOVERNMENT-OF-CARMONA_CC_2026.pdf",
+  "sha256": "cf7fd5ef1df736c3725b3c00495fd2abeafe51c3f839c4550ecfd97292a9a432",
+  "pdf_page_offset": 18,
+  "recorded_at": "2026-11-08",
+  "read_from": "The charter's own List of Services, PDF pages 6 to 18, read from the PDF's text layer and checked against a second text extraction and the page images."
+ },
+ "notes": [
+  "Titles and office names are as printed, with line breaks joined, long dashes written as hyphens, and gaps the text layer added inside words removed.",
+  "page is the printed first page of the service. Printed page = PDF page - 18.",
+  "The list heads the services on printed pages 538 to 557 \"OFFICE OF THE CITY BUDGET OFFICER\", a second time. Those pages belong to the Office of the City Treasurer, so office says so and office_listed_as keeps the list's heading.",
+  "The list gives printed page 557 for Cooperative Dissolution and its first part. The service starts on page 577, so page says 577 and page_listed keeps 557.",
+  "part_of names the numbered service that a lettered or decimal entry belongs to. The list itself prints both.",
+  "from_page holds a few lines copied from the service's own charter page, added by hand (2026-11-16, page 324) where the list's title alone hides what a resident asks for."
+ ],
+ "services": [
+  {
+   "number": "1",
+   "title": "Application For Civil Society Organization (CSO) Accreditation",
+   "office": "OFFICE OF THE CITY MAYOR",
+   "page": 2
+  },
+  {
+   "number": "2",
+   "title": "Appointment With the City Mayor",
+   "office": "OFFICE OF THE CITY MAYOR",
+   "page": 4
+  },
+  {
+   "number": "3",
+   "title": "CCTV Footage/Playback Request",
+   "office": "OFFICE OF THE CITY MAYOR",
+   "page": 5
+  },
+  {
+   "number": "4",
+   "title": "Certification of No Major Source of Income/No Business",
+   "office": "OFFICE OF THE CITY MAYOR",
+   "page": 6
+  },
+  {
+   "number": "5",
+   "title": "City Peace and Order Council Endorsement",
+   "office": "OFFICE OF THE CITY MAYOR",
+   "page": 7
+  },
+  {
+   "number": "6",
+   "title": "Educational Assistance (Katsumi/Hansan/Metalcast)",
+   "office": "OFFICE OF THE CITY MAYOR",
+   "page": 9
+  },
+  {
+   "number": "7",
+   "title": "Endorsement",
+   "office": "OFFICE OF THE CITY MAYOR",
+   "page": 11
+  },
+  {
+   "number": "8",
+   "title": "Filling of affidavit",
+   "office": "OFFICE OF THE CITY MAYOR",
+   "page": 12
+  },
+  {
+   "number": "9",
+   "title": "Mayor’s Clearance",
+   "office": "OFFICE OF THE CITY MAYOR",
+   "page": 13
+  },
+  {
+   "number": "10",
+   "title": "Mayor’s Right of Way",
+   "office": "OFFICE OF THE CITY MAYOR",
+   "page": 15
+  },
+  {
+   "number": "11",
+   "title": "OTR (Occupational Tax Receipt)",
+   "office": "OFFICE OF THE CITY MAYOR",
+   "page": 16
+  },
+  {
+   "number": "12",
+   "title": "Permit for Motorcade",
+   "office": "OFFICE OF THE CITY MAYOR",
+   "page": 17
+  },
+  {
+   "number": "13",
+   "title": "Reservation for the Use of City Government Facilities (Carmona Activity Center, Carmona City Plaza, City Park, Phase 1 Terraverde Covered Court, Phase 4 Terraverde Covered Cour, Cedar Multi-Purpose Building)",
+   "office": "OFFICE OF THE CITY MAYOR",
+   "page": 19
+  },
+  {
+   "number": "14",
+   "title": "Special Appointment with The City Mayor",
+   "office": "OFFICE OF THE CITY MAYOR",
+   "page": 21
+  },
+  {
+   "number": "1",
+   "title": "Issuance of Legislative Documents and Certification",
+   "office": "OFFICE OF THE CITY VICE MAYOR/OFFICE OF THE SANGGUINANG PANLUNGSOD",
+   "page": 23
+  },
+  {
+   "number": "2",
+   "title": "Filing of Administrative Complaints",
+   "office": "OFFICE OF THE CITY VICE MAYOR/OFFICE OF THE SANGGUINANG PANLUNGSOD",
+   "page": 24
+  },
+  {
+   "number": "3",
+   "title": "Accreditation of Civil Society Organizations",
+   "office": "OFFICE OF THE CITY VICE MAYOR/OFFICE OF THE SANGGUINANG PANLUNGSOD",
+   "page": 26
+  },
+  {
+   "number": "4",
+   "title": "Sorteo ng Carmona Registration",
+   "office": "OFFICE OF THE CITY VICE MAYOR/OFFICE OF THE SANGGUINANG PANLUNGSOD",
+   "page": 27
+  },
+  {
+   "number": "1",
+   "title": "Scholarship Grants (IBCC & ECAP)",
+   "office": "OFFICE OF THE CITY HUMAN RESOURCES MANAGEMENT OFFICER",
+   "page": 30
+  },
+  {
+   "number": "2",
+   "title": "Request for Certification & HR Record",
+   "office": "OFFICE OF THE CITY HUMAN RESOURCES MANAGEMENT OFFICER",
+   "page": 32
+  },
+  {
+   "number": "3",
+   "title": "Application for Internship",
+   "office": "OFFICE OF THE CITY HUMAN RESOURCES MANAGEMENT OFFICER",
+   "page": 33
+  },
+  {
+   "number": "4",
+   "title": "Recruitment",
+   "office": "OFFICE OF THE CITY HUMAN RESOURCES MANAGEMENT OFFICER",
+   "page": 35
+  },
+  {
+   "number": "5",
+   "title": "Feedback Processing",
+   "office": "OFFICE OF THE CITY HUMAN RESOURCES MANAGEMENT OFFICER",
+   "page": 38
+  },
+  {
+   "number": "6",
+   "title": "Request Data for Thesis/Research",
+   "office": "OFFICE OF THE CITY HUMAN RESOURCES MANAGEMENT OFFICER",
+   "page": 40
+  },
+  {
+   "number": "1",
+   "title": "Registration of Certificate of Live Birth",
+   "office": "OFFICE OF THE CITY CIVIL REGISTRAR",
+   "page": 42
+  },
+  {
+   "number": "2",
+   "title": "Processing of Delayed Registration of Certificate of Live Birth",
+   "office": "OFFICE OF THE CITY CIVIL REGISTRAR",
+   "page": 44
+  },
+  {
+   "number": "3",
+   "title": "Processing of Affidavit to use the username of the Father (AUSF) R.A. 9255",
+   "office": "OFFICE OF THE CITY CIVIL REGISTRAR",
+   "page": 48
+  },
+  {
+   "number": "4",
+   "title": "Registration of Death-Certificate of Death (COD) - Timely",
+   "office": "OFFICE OF THE CITY CIVIL REGISTRAR",
+   "page": 50
+  },
+  {
+   "number": "5",
+   "title": "Processing of Delayed Registration of Certificate of Death",
+   "office": "OFFICE OF THE CITY CIVIL REGISTRAR",
+   "page": 52
+  },
+  {
+   "number": "6",
+   "title": "Registration of Certificate of Marriage (COM) - Timely",
+   "office": "OFFICE OF THE CITY CIVIL REGISTRAR",
+   "page": 54
+  },
+  {
+   "number": "7",
+   "title": "Processing of Delayed Registration of Marriage",
+   "office": "OFFICE OF THE CITY CIVIL REGISTRAR",
+   "page": 56
+  },
+  {
+   "number": "8",
+   "title": "Burial at Santuario De Carmona Public Cemetery",
+   "office": "OFFICE OF THE CITY CIVIL REGISTRAR",
+   "page": 58
+  },
+  {
+   "number": "9",
+   "title": "Issuance of Cremation Permit",
+   "office": "OFFICE OF THE CITY CIVIL REGISTRAR",
+   "page": 62
+  },
+  {
+   "number": "10",
+   "title": "Issuance of Viewing Permit",
+   "office": "OFFICE OF THE CITY CIVIL REGISTRAR",
+   "page": 66
+  },
+  {
+   "number": "11",
+   "title": "Issuance of Columbarium Permit",
+   "office": "OFFICE OF THE CITY CIVIL REGISTRAR",
+   "page": 71
+  },
+  {
+   "number": "12",
+   "title": "Processing Petition for Change of First Name of Nickname (R.A. 9048)",
+   "office": "OFFICE OF THE CITY CIVIL REGISTRAR",
+   "page": 75
+  },
+  {
+   "number": "13",
+   "title": "Processing Petition for Correction of Clerical Error (R.A. 9048)",
+   "office": "OFFICE OF THE CITY CIVIL REGISTRAR",
+   "page": 80
+  },
+  {
+   "number": "14",
+   "title": "Processing Petition for Correction of Sex/Gender/ Date of Birth (Day & Month Only) (R.A. 10172)",
+   "office": "OFFICE OF THE CITY CIVIL REGISTRAR",
+   "page": 85
+  },
+  {
+   "number": "15",
+   "title": "Processing of Legitimation",
+   "office": "OFFICE OF THE CITY CIVIL REGISTRAR",
+   "page": 90
+  },
+  {
+   "number": "16",
+   "title": "Processing of Application for Marriage License",
+   "office": "OFFICE OF THE CITY CIVIL REGISTRAR",
+   "page": 93
+  },
+  {
+   "number": "17",
+   "title": "Issuance of Copy of Birth, Marriage and Death (Certified Photo Copy) Certification of Marriage License",
+   "office": "OFFICE OF THE CITY CIVIL REGISTRAR",
+   "page": 96
+  },
+  {
+   "number": "18",
+   "title": "Request of Birth, Marriage, Death and Cenomar VIA Batch Request System (BREQS)",
+   "office": "OFFICE OF THE CITY CIVIL REGISTRAR",
+   "page": 99
+  },
+  {
+   "number": "1",
+   "title": "LINGAP TEKNOLOHIYA: Free Computer Use",
+   "office": "OFFICE OF THE CITY INFORMATION TECHONOLOGY OFFICER",
+   "page": 104
+  },
+  {
+   "number": "2",
+   "title": "LINGAP TEKNOLOHIYA: Free Computer Repair",
+   "office": "OFFICE OF THE CITY INFORMATION TECHONOLOGY OFFICER",
+   "page": 105
+  },
+  {
+   "number": "3",
+   "title": "LINGAP TEKNOLOHIYA: ICT Training",
+   "office": "OFFICE OF THE CITY INFORMATION TECHONOLOGY OFFICER",
+   "page": 106
+  },
+  {
+   "number": "1",
+   "title": "Client/Public Assistance",
+   "office": "OFFICE OF THE CITY INFORMATION TOURISM, CULTURE AND ARTS OFFICER",
+   "page": 108
+  },
+  {
+   "number": "2",
+   "title": "Conduct of Public Address",
+   "office": "OFFICE OF THE CITY INFORMATION TOURISM, CULTURE AND ARTS OFFICER",
+   "page": 109
+  },
+  {
+   "number": "3",
+   "title": "Desing Layout and Printed Copies of Different Contents and Materials",
+   "office": "OFFICE OF THE CITY INFORMATION TOURISM, CULTURE AND ARTS OFFICER",
+   "page": 111
+  },
+  {
+   "number": "4",
+   "title": "Information Dissemination Through the Official Social Media Pages of the City Government",
+   "office": "OFFICE OF THE CITY INFORMATION TOURISM, CULTURE AND ARTS OFFICER",
+   "page": 113
+  },
+  {
+   "number": "5",
+   "title": "Organizing City Programs, Event, and Activities",
+   "office": "OFFICE OF THE CITY INFORMATION TOURISM, CULTURE AND ARTS OFFICER",
+   "page": 115
+  },
+  {
+   "number": "6",
+   "title": "Photo and Video Coverage of City Events and Activities",
+   "office": "OFFICE OF THE CITY INFORMATION TOURISM, CULTURE AND ARTS OFFICER",
+   "page": 118
+  },
+  {
+   "number": "7",
+   "title": "Production of Audio-Visual Presentation and Infomercials",
+   "office": "OFFICE OF THE CITY INFORMATION TOURISM, CULTURE AND ARTS OFFICER",
+   "page": 120
+  },
+  {
+   "number": "8",
+   "title": "Provision of Token for City Visitors",
+   "office": "OFFICE OF THE CITY INFORMATION TOURISM, CULTURE AND ARTS OFFICER",
+   "page": 122
+  },
+  {
+   "number": "1",
+   "title": "Emergency Response",
+   "office": "OFFICE OF THE CITY GENDER AND DEVELOPMENT OFFICER",
+   "page": 124
+  },
+  {
+   "number": "2",
+   "title": "Training Request",
+   "office": "OFFICE OF THE CITY GENDER AND DEVELOPMENT OFFICER",
+   "page": 125
+  },
+  {
+   "number": "3",
+   "title": "Request for Resource Speaker",
+   "office": "OFFICE OF THE CITY GENDER AND DEVELOPMENT OFFICER",
+   "page": 127
+  },
+  {
+   "number": "4",
+   "title": "Equipment Assisstance",
+   "office": "OFFICE OF THE CITY GENDER AND DEVELOPMENT OFFICER",
+   "page": 128
+  },
+  {
+   "number": "5",
+   "title": "Request for Free Trimming",
+   "office": "OFFICE OF THE CITY GENDER AND DEVELOPMENT OFFICER",
+   "page": 130
+  },
+  {
+   "number": "1",
+   "title": "Assistant to Researchers",
+   "office": "OFFICE OF THE CITY DISASTER RISK REDUCTION AND MANAGEMENT OFFICER",
+   "page": 133
+  },
+  {
+   "number": "1",
+   "title": "Compliance Audit",
+   "office": "OFFICE OF THE CITY INTERNAL AUDIT SERVICE",
+   "page": 136
+  },
+  {
+   "number": "2",
+   "title": "Management Audit",
+   "office": "OFFICE OF THE CITY INTERNAL AUDIT SERVICE",
+   "page": 138
+  },
+  {
+   "number": "3",
+   "title": "Operations Audit",
+   "office": "OFFICE OF THE CITY INTERNAL AUDIT SERVICE",
+   "page": 140
+  },
+  {
+   "number": "1",
+   "title": "Traffic Direction and Control - Apprehension",
+   "office": "OFFICE OF THE CITY TRAFFIC MANAGEMENT OFFICER",
+   "page": 143
+  },
+  {
+   "number": "1",
+   "title": "Change Motor",
+   "office": "OFFICE OF THE CITY TRICYCLE FRANCHISE & REGULATION BOARD",
+   "page": 145
+  },
+  {
+   "number": "2",
+   "title": "Change Ownership",
+   "office": "OFFICE OF THE CITY TRICYCLE FRANCHISE & REGULATION BOARD",
+   "page": 148
+  },
+  {
+   "number": "3",
+   "title": "New Franchise of Tricycle",
+   "office": "OFFICE OF THE CITY TRICYCLE FRANCHISE & REGULATION BOARD",
+   "page": 150
+  },
+  {
+   "number": "4",
+   "title": "Renewal of Franchise of Tricycle",
+   "office": "OFFICE OF THE CITY TRICYCLE FRANCHISE & REGULATION BOARD",
+   "page": 152
+  },
+  {
+   "number": "1",
+   "title": "Assistance to Researchers",
+   "office": "OFFICE OF THE CITY PLANNING AND DEVELOPMENT COORDINATOR",
+   "page": 156
+  },
+  {
+   "number": "2",
+   "title": "Issuance of Certification",
+   "office": "OFFICE OF THE CITY PLANNING AND DEVELOPMENT COORDINATOR",
+   "page": 158
+  },
+  {
+   "number": "3",
+   "title": "Issuance of RBI and CBMS Certification",
+   "office": "OFFICE OF THE CITY PLANNING AND DEVELOPMENT COORDINATOR",
+   "page": 159
+  },
+  {
+   "number": "1",
+   "title": "Building Permit",
+   "office": "OFFICE OF THE BUILDING OFFICIAL",
+   "page": 161
+  },
+  {
+   "number": "A.",
+   "title": "Basic Application",
+   "office": "OFFICE OF THE BUILDING OFFICIAL",
+   "page": 161,
+   "part_of": "Building Permit"
+  },
+  {
+   "number": "B.",
+   "title": "Simple Application",
+   "office": "OFFICE OF THE BUILDING OFFICIAL",
+   "page": 163,
+   "part_of": "Building Permit"
+  },
+  {
+   "number": "C.",
+   "title": "Complex Application",
+   "office": "OFFICE OF THE BUILDING OFFICIAL",
+   "page": 166,
+   "part_of": "Building Permit"
+  },
+  {
+   "number": "D.",
+   "title": "Highly Technical Application",
+   "office": "OFFICE OF THE BUILDING OFFICIAL",
+   "page": 169,
+   "part_of": "Building Permit"
+  },
+  {
+   "number": "2",
+   "title": "Ancillary Permit",
+   "office": "OFFICE OF THE BUILDING OFFICIAL",
+   "page": 172
+  },
+  {
+   "number": "3",
+   "title": "Accessory Permit",
+   "office": "OFFICE OF THE BUILDING OFFICIAL",
+   "page": 175
+  },
+  {
+   "number": "4",
+   "title": "Certificate Issuance",
+   "office": "OFFICE OF THE BUILDING OFFICIAL",
+   "page": 177
+  },
+  {
+   "number": "1",
+   "title": "Infrastructure Projects",
+   "office": "OFFICE OF THE CITY ENGINEER",
+   "page": 180
+  },
+  {
+   "number": "2",
+   "title": "Request for Repair and Maintenance",
+   "office": "OFFICE OF THE CITY ENGINEER",
+   "page": 182
+  },
+  {
+   "number": "3",
+   "title": "Request for Audio/Video",
+   "office": "OFFICE OF THE CITY ENGINEER",
+   "page": 184
+  },
+  {
+   "number": "1",
+   "title": "Evaluation and Recommendation of Application for Electrical and Water Connection",
+   "office": "OFFICE OF THE CITY URBAN DEVELOPMENT AND HOUSING OFFICER",
+   "page": 187
+  },
+  {
+   "number": "2",
+   "title": "Assessment and Monitoring of Payments for Socialized Housing (Paligawan Phase 1)",
+   "office": "OFFICE OF THE CITY URBAN DEVELOPMENT AND HOUSING OFFICER",
+   "page": 189
+  },
+  {
+   "number": "3",
+   "title": "Assistance and Monitor to Homeowner’s Association",
+   "office": "OFFICE OF THE CITY URBAN DEVELOPMENT AND HOUSING OFFICER",
+   "page": 191
+  },
+  {
+   "number": "4",
+   "title": "Monitoring and Assisting Informal Settlers Families",
+   "office": "OFFICE OF THE CITY URBAN DEVELOPMENT AND HOUSING OFFICER",
+   "page": 192
+  },
+  {
+   "number": "5",
+   "title": "Evaluation of Beneficiaries who Qualified for Housing Program (4PH)",
+   "office": "OFFICE OF THE CITY URBAN DEVELOPMENT AND HOUSING OFFICER",
+   "page": 193
+  },
+  {
+   "number": "1",
+   "title": "Medical Consultation at Main Health Center",
+   "office": "OFFICE OF THE CITY HEALTH OFFICER",
+   "page": 196
+  },
+  {
+   "number": "1.1",
+   "title": "Medical Consultation at Main Health Center",
+   "office": "OFFICE OF THE CITY HEALTH OFFICER",
+   "page": 196,
+   "part_of": "Medical Consultation at Main Health Center"
+  },
+  {
+   "number": "1.2",
+   "title": "Medical Consultation at Barangay Health Center",
+   "office": "OFFICE OF THE CITY HEALTH OFFICER",
+   "page": 198,
+   "part_of": "Medical Consultation at Main Health Center"
+  },
+  {
+   "number": "1.3",
+   "title": "Consultation with Specialist at Main Health Center",
+   "office": "OFFICE OF THE CITY HEALTH OFFICER",
+   "page": 200,
+   "part_of": "Medical Consultation at Main Health Center"
+  },
+  {
+   "number": "1.4",
+   "title": "Dental Services",
+   "office": "OFFICE OF THE CITY HEALTH OFFICER",
+   "page": 202,
+   "part_of": "Medical Consultation at Main Health Center"
+  },
+  {
+   "number": "1.5",
+   "title": "Filling of Prescription for Out-Patient Department",
+   "office": "OFFICE OF THE CITY HEALTH OFFICER",
+   "page": 203,
+   "part_of": "Medical Consultation at Main Health Center"
+  },
+  {
+   "number": "1.6",
+   "title": "Diagnostic and Imagine Services",
+   "office": "OFFICE OF THE CITY HEALTH OFFICER",
+   "page": 205,
+   "part_of": "Medical Consultation at Main Health Center"
+  },
+  {
+   "number": "2",
+   "title": "Clinical Laboratory",
+   "office": "OFFICE OF THE CITY HEALTH OFFICER",
+   "page": 206
+  },
+  {
+   "number": "2.1",
+   "title": "Routine Laboratory Examination (Urine, Feces and Blood)",
+   "office": "OFFICE OF THE CITY HEALTH OFFICER",
+   "page": 206,
+   "part_of": "Clinical Laboratory"
+  },
+  {
+   "number": "2.2",
+   "title": "Newborn Screening",
+   "office": "OFFICE OF THE CITY HEALTH OFFICER",
+   "page": 208,
+   "part_of": "Clinical Laboratory"
+  },
+  {
+   "number": "3",
+   "title": "Child Care",
+   "office": "OFFICE OF THE CITY HEALTH OFFICER",
+   "page": 209
+  },
+  {
+   "number": "3.1",
+   "title": "National Immunization Program",
+   "office": "OFFICE OF THE CITY HEALTH OFFICER",
+   "page": 209,
+   "part_of": "Child Care"
+  },
+  {
+   "number": "4",
+   "title": "Mental Health",
+   "office": "OFFICE OF THE CITY HEALTH OFFICER",
+   "page": 211
+  },
+  {
+   "number": "4.1",
+   "title": "Pre-Natal Check Up",
+   "office": "OFFICE OF THE CITY HEALTH OFFICER",
+   "page": 211,
+   "part_of": "Mental Health"
+  },
+  {
+   "number": "4.2",
+   "title": "Post-Natal Check Up",
+   "office": "OFFICE OF THE CITY HEALTH OFFICER",
+   "page": 214,
+   "part_of": "Mental Health"
+  },
+  {
+   "number": "4.3",
+   "title": "Issuance of Family Planning Contraceptives",
+   "office": "OFFICE OF THE CITY HEALTH OFFICER",
+   "page": 215,
+   "part_of": "Mental Health"
+  },
+  {
+   "number": "5",
+   "title": "Control of Communicable Disease",
+   "office": "OFFICE OF THE CITY HEALTH OFFICER",
+   "page": 217
+  },
+  {
+   "number": "5.1",
+   "title": "TB Microscopy/GeneXpert",
+   "office": "OFFICE OF THE CITY HEALTH OFFICER",
+   "page": 217,
+   "part_of": "Control of Communicable Disease"
+  },
+  {
+   "number": "5.2",
+   "title": "Diagnosis and Treatment of TB Patients",
+   "office": "OFFICE OF THE CITY HEALTH OFFICER",
+   "page": 218,
+   "part_of": "Control of Communicable Disease"
+  },
+  {
+   "number": "5.3",
+   "title": "Human Immunodeficiency Virus (Screening Test)",
+   "office": "OFFICE OF THE CITY HEALTH OFFICER",
+   "page": 221,
+   "part_of": "Control of Communicable Disease"
+  },
+  {
+   "number": "6",
+   "title": "Non-Communicable Disease Prevention and Control",
+   "office": "OFFICE OF THE CITY HEALTH OFFICER",
+   "page": 224
+  },
+  {
+   "number": "6.1",
+   "title": "Drug Abuse Prevention Program",
+   "office": "OFFICE OF THE CITY HEALTH OFFICER",
+   "page": 224,
+   "part_of": "Non-Communicable Disease Prevention and Control"
+  },
+  {
+   "number": "6.2",
+   "title": "Smoking Cessation Program",
+   "office": "OFFICE OF THE CITY HEALTH OFFICER",
+   "page": 226,
+   "part_of": "Non-Communicable Disease Prevention and Control"
+  },
+  {
+   "number": "6.3",
+   "title": "Nutrition Assessment and Intervention",
+   "office": "OFFICE OF THE CITY HEALTH OFFICER",
+   "page": 227,
+   "part_of": "Non-Communicable Disease Prevention and Control"
+  },
+  {
+   "number": "6.4",
+   "title": "Providing Data and Repots (Operation Timbang Plus)",
+   "office": "OFFICE OF THE CITY HEALTH OFFICER",
+   "page": 229,
+   "part_of": "Non-Communicable Disease Prevention and Control"
+  },
+  {
+   "number": "7",
+   "title": "Water Laboratory Services",
+   "office": "OFFICE OF THE CITY HEALTH OFFICER",
+   "page": 230
+  },
+  {
+   "number": "7.1",
+   "title": "Water Laboratory Services",
+   "office": "OFFICE OF THE CITY HEALTH OFFICER",
+   "page": 230,
+   "part_of": "Water Laboratory Services"
+  },
+  {
+   "number": "7.2",
+   "title": "Issuance of Health Certificate, Death Certificate, Exhumation Permit, Sanitary Permit, Transfer of Cadaver, Family Planning Certificate, Medical Certificate",
+   "office": "OFFICE OF THE CITY HEALTH OFFICER",
+   "page": 235,
+   "part_of": "Water Laboratory Services"
+  },
+  {
+   "number": "8",
+   "title": "Auxiliary Services",
+   "office": "OFFICE OF THE CITY HEALTH OFFICER",
+   "page": 236
+  },
+  {
+   "number": "8.1",
+   "title": "Ambulance Request for Non-Emergency Conduction",
+   "office": "OFFICE OF THE CITY HEALTH OFFICER",
+   "page": 236,
+   "part_of": "Auxiliary Services"
+  },
+  {
+   "number": "8.2",
+   "title": "Ambulance Request for Medical Standby",
+   "office": "OFFICE OF THE CITY HEALTH OFFICER",
+   "page": 237,
+   "part_of": "Auxiliary Services"
+  },
+  {
+   "number": "1",
+   "title": "Emergency Consultation",
+   "office": "PAGAMUTAN BAYAN NG CARMONA",
+   "page": 239
+  },
+  {
+   "number": "2",
+   "title": "Outpatient Consultation",
+   "office": "PAGAMUTAN BAYAN NG CARMONA",
+   "page": 240
+  },
+  {
+   "number": "3",
+   "title": "Multispecialty Clinic",
+   "office": "PAGAMUTAN BAYAN NG CARMONA",
+   "page": 241
+  },
+  {
+   "number": "4",
+   "title": "Laboratory (Routine Requests)",
+   "office": "PAGAMUTAN BAYAN NG CARMONA",
+   "page": 242
+  },
+  {
+   "number": "5",
+   "title": "Laboratory (Send-Out Requests)",
+   "office": "PAGAMUTAN BAYAN NG CARMONA",
+   "page": 243
+  },
+  {
+   "number": "6",
+   "title": "X-Ray Division",
+   "office": "PAGAMUTAN BAYAN NG CARMONA",
+   "page": 245
+  },
+  {
+   "number": "7",
+   "title": "Ultrasound",
+   "office": "PAGAMUTAN BAYAN NG CARMONA",
+   "page": 246
+  },
+  {
+   "number": "8",
+   "title": "Newborn Screening",
+   "office": "PAGAMUTAN BAYAN NG CARMONA",
+   "page": 247
+  },
+  {
+   "number": "9",
+   "title": "Animal Bite Treatment Center",
+   "office": "PAGAMUTAN BAYAN NG CARMONA",
+   "page": 248
+  },
+  {
+   "number": "10",
+   "title": "Carmona Diabetic Club",
+   "office": "PAGAMUTAN BAYAN NG CARMONA",
+   "page": 249
+  },
+  {
+   "number": "11",
+   "title": "Cashier Division",
+   "office": "PAGAMUTAN BAYAN NG CARMONA",
+   "page": 250
+  },
+  {
+   "number": "12",
+   "title": "Hospital Record Services (Issuance/Releasing of Hospital Documents) (Birth Certificate, Death Certificate, Medico-Legal etc.)",
+   "office": "PAGAMUTAN BAYAN NG CARMONA",
+   "page": 251
+  },
+  {
+   "number": "13",
+   "title": "Medical Assistance Indigency Program (MAIP)",
+   "office": "PAGAMUTAN BAYAN NG CARMONA",
+   "page": 252
+  },
+  {
+   "number": "14",
+   "title": "Pharmacy",
+   "office": "PAGAMUTAN BAYAN NG CARMONA",
+   "page": 253
+  },
+  {
+   "number": "15",
+   "title": "Philhealth Benefit Section/Medical Benefit Section",
+   "office": "PAGAMUTAN BAYAN NG CARMONA",
+   "page": 254
+  },
+  {
+   "number": "1",
+   "title": "Issuance of Recommendation Letter for Employment",
+   "office": "OFFICE OF THE CITY PUBLIC EMPLOYMENT SERVICE MANAGER",
+   "page": 257
+  },
+  {
+   "number": "2",
+   "title": "Local Recruitment Activity (LRA)",
+   "office": "OFFICE OF THE CITY PUBLIC EMPLOYMENT SERVICE MANAGER",
+   "page": 259
+  },
+  {
+   "number": "3",
+   "title": "Special Recruitment Activity (SRA)",
+   "office": "OFFICE OF THE CITY PUBLIC EMPLOYMENT SERVICE MANAGER",
+   "page": 261
+  },
+  {
+   "number": "4",
+   "title": "Job Fair",
+   "office": "OFFICE OF THE CITY PUBLIC EMPLOYMENT SERVICE MANAGER",
+   "page": 264
+  },
+  {
+   "number": "5",
+   "title": "Processing of Employment Accreditation",
+   "office": "OFFICE OF THE CITY PUBLIC EMPLOYMENT SERVICE MANAGER",
+   "page": 266
+  },
+  {
+   "number": "6",
+   "title": "Special Program for Employment of Students (SPES)",
+   "office": "OFFICE OF THE CITY PUBLIC EMPLOYMENT SERVICE MANAGER",
+   "page": 269
+  },
+  {
+   "number": "7",
+   "title": "Labor Complaints Settlement",
+   "office": "OFFICE OF THE CITY PUBLIC EMPLOYMENT SERVICE MANAGER",
+   "page": 271
+  },
+  {
+   "number": "8",
+   "title": "Kasama Ka, Kabataan Technical and Vocational Skills Training Program",
+   "office": "OFFICE OF THE CITY PUBLIC EMPLOYMENT SERVICE MANAGER",
+   "page": 273
+  },
+  {
+   "number": "9",
+   "title": "Assistance to Distressed/Displaced OFWs",
+   "office": "OFFICE OF THE CITY PUBLIC EMPLOYMENT SERVICE MANAGER",
+   "page": 275
+  },
+  {
+   "number": "1",
+   "title": "Bawat Tahanan, may Scholar! (BTS)",
+   "office": "OFFICE OF THE CITY COMMUNITY AFFAIRS AND YOUTH DEVELOPMENT OFFICER",
+   "page": 278
+  },
+  {
+   "number": "2",
+   "title": "Project Spark (Specialized Program for Achieving Review Knowledge)",
+   "office": "OFFICE OF THE CITY COMMUNITY AFFAIRS AND YOUTH DEVELOPMENT OFFICER",
+   "page": 279
+  },
+  {
+   "number": "3",
+   "title": "Project Sinag (Scholarship, Incentives & Network in Advancing Graduate Studies)",
+   "office": "OFFICE OF THE CITY COMMUNITY AFFAIRS AND YOUTH DEVELOPMENT OFFICER",
+   "page": 281
+  },
+  {
+   "number": "4",
+   "title": "Youth Organization Registration Program",
+   "office": "OFFICE OF THE CITY COMMUNITY AFFAIRS AND YOUTH DEVELOPMENT OFFICER",
+   "page": 283
+  },
+  {
+   "number": "5",
+   "title": "CAYDO Sports Clinic",
+   "office": "OFFICE OF THE CITY COMMUNITY AFFAIRS AND YOUTH DEVELOPMENT OFFICER",
+   "page": 285
+  },
+  {
+   "number": "6",
+   "title": "10 Center of Participation and Sports Development Programs Implementation",
+   "office": "OFFICE OF THE CITY COMMUNITY AFFAIRS AND YOUTH DEVELOPMENT OFFICER",
+   "page": 287
+  },
+  {
+   "number": "1",
+   "title": "Pre-Marriage Orientation and Counseling (PMOC) Scheduling",
+   "office": "OFFICE OF THE CITY POPULATION OFFICER",
+   "page": 289
+  },
+  {
+   "number": "2",
+   "title": "Issuance off Pre-Marriage Orientation (PMO) Certificate of Compliance",
+   "office": "OFFICE OF THE CITY POPULATION OFFICER",
+   "page": 291
+  },
+  {
+   "number": "3",
+   "title": "Civil Wedding Scheduling for Marriage Licenses Applicants",
+   "office": "OFFICE OF THE CITY POPULATION OFFICER",
+   "page": 293
+  },
+  {
+   "number": "4",
+   "title": "Civil Wedding Scheduling for Article 34 Applicants",
+   "office": "OFFICE OF THE CITY POPULATION OFFICER",
+   "page": 294
+  },
+  {
+   "number": "5",
+   "title": "Assistance During the Civil Wedding Ceremony",
+   "office": "OFFICE OF THE CITY POPULATION OFFICER",
+   "page": 295
+  },
+  {
+   "number": "6",
+   "title": "Release of Certificate of Marriage for Civil Wedding Officiated by the Local Chief Execute",
+   "office": "OFFICE OF THE CITY POPULATION OFFICER",
+   "page": 297
+  },
+  {
+   "number": "7",
+   "title": "Mr. Gad Katropa a Membership ID Card Registration",
+   "office": "OFFICE OF THE CITY POPULATION OFFICER",
+   "page": 298
+  },
+  {
+   "number": "8",
+   "title": "Releasing/Claiming of Mr. Gad Katropa ID & Diagnostic Service Card",
+   "office": "OFFICE OF THE CITY POPULATION OFFICER",
+   "page": 300
+  },
+  {
+   "number": "9",
+   "title": "Population & Development (POPDEV) Program: Request for POPDEV and GAD-Related Seminar",
+   "office": "OFFICE OF THE CITY POPULATION OFFICER",
+   "page": 301
+  },
+  {
+   "number": "10",
+   "title": "Conduct of Responsible Parenthood & Family Planning Seminar (RPFP) to Various Organizations",
+   "office": "OFFICE OF THE CITY POPULATION OFFICER",
+   "page": 303
+  },
+  {
+   "number": "11",
+   "title": "Adolescent Health & Development (AHD) Program: LGU-Initiated Request to Conduct AHD Seminar in Schools",
+   "office": "OFFICE OF THE CITY POPULATION OFFICER",
+   "page": 305
+  },
+  {
+   "number": "12",
+   "title": "Adolescent Heath & Development (AHD) Program: Request for the Conduct of AHD Seminar by Barangays and Other Organizations",
+   "office": "OFFICE OF THE CITY POPULATION OFFICER",
+   "page": 307
+  },
+  {
+   "number": "1",
+   "title": "After-Care for Released Person Deprived of Liberty (PDL)",
+   "office": "OFFICE OF THE CITY SOCIAL WELFARE AND DEVELOPMENT OFFICER",
+   "page": 310
+  },
+  {
+   "number": "2",
+   "title": "Assistance to Adult Offender for Complying Community Service (Under Republic Act No. 11362) or the Community Service Act)",
+   "office": "OFFICE OF THE CITY SOCIAL WELFARE AND DEVELOPMENT OFFICER",
+   "page": 312
+  },
+  {
+   "number": "3",
+   "title": "Assistance to Children in Need of Special Protection (CNSP)",
+   "office": "OFFICE OF THE CITY SOCIAL WELFARE AND DEVELOPMENT OFFICER",
+   "page": 314
+  },
+  {
+   "number": "4",
+   "title": "Assistance to Individuals in Crisis Situations (AICS)",
+   "office": "OFFICE OF THE CITY SOCIAL WELFARE AND DEVELOPMENT OFFICER",
+   "page": 316
+  },
+  {
+   "number": "5",
+   "title": "Assistance to Women in Difficult Circumstances",
+   "office": "OFFICE OF THE CITY SOCIAL WELFARE AND DEVELOPMENT OFFICER",
+   "page": 320
+  },
+  {
+   "number": "6",
+   "title": "Availing of Certificate of Indigency",
+   "office": "OFFICE OF THE CITY SOCIAL WELFARE AND DEVELOPMENT OFFICER",
+   "page": 322
+  },
+  {
+   "number": "7",
+   "title": "Availing of Nonagenarian Cash Incentive",
+   "office": "OFFICE OF THE CITY SOCIAL WELFARE AND DEVELOPMENT OFFICER",
+   "page": 323
+  },
+  {
+   "number": "8",
+   "title": "Availing Osca ID, Purchase Booklet for Medicines and Groceries, Health Card, Munting Regalo para sa Kaarwan Mo, Assistive Device, and Health Care Needs of Bedridden, Project Hope and Burial Assistance",
+   "office": "OFFICE OF THE CITY SOCIAL WELFARE AND DEVELOPMENT OFFICER",
+   "page": 324,
+   "from_page": [
+    "Who may avail: Senior Citizen (60 yrs old & above) resident of Carmona Cavite.",
+    "The first item is the Issuance of OSCA ID, from the Office of the Senior Citizens Affairs (OSCA)."
+   ]
+  },
+  {
+   "number": "9",
+   "title": "Availing of Basic Social Services of Exited and Graduated Pantawid Pamilyang Pilipino Program (4ps)",
+   "office": "OFFICE OF THE CITY SOCIAL WELFARE AND DEVELOPMENT OFFICER",
+   "page": 328
+  },
+  {
+   "number": "10",
+   "title": "Cash for Work/Food for Work",
+   "office": "OFFICE OF THE CITY SOCIAL WELFARE AND DEVELOPMENT OFFICER",
+   "page": 330
+  },
+  {
+   "number": "11",
+   "title": "Child Adoption Program",
+   "office": "OFFICE OF THE CITY SOCIAL WELFARE AND DEVELOPMENT OFFICER",
+   "page": 332
+  },
+  {
+   "number": "12",
+   "title": "Comprehensive Program for Children in Street Situations (CISS)",
+   "office": "OFFICE OF THE CITY SOCIAL WELFARE AND DEVELOPMENT OFFICER",
+   "page": 334
+  },
+  {
+   "number": "13",
+   "title": "Early Childhood Care and Development Program",
+   "office": "OFFICE OF THE CITY SOCIAL WELFARE AND DEVELOPMENT OFFICER",
+   "page": 336
+  },
+  {
+   "number": "14",
+   "title": "Issuance of CSWDO Certification for Meralco Lifeline Discount",
+   "office": "OFFICE OF THE CITY SOCIAL WELFARE AND DEVELOPMENT OFFICER",
+   "page": 337
+  },
+  {
+   "number": "15",
+   "title": "Issuance of Social Case Study Report (SCSR)",
+   "office": "OFFICE OF THE CITY SOCIAL WELFARE AND DEVELOPMENT OFFICER",
+   "page": 339
+  },
+  {
+   "number": "16",
+   "title": "Issuance of Solo Parent ID Under the Expanded Solo Parents Welfare Act (R.A. 118161)",
+   "office": "OFFICE OF THE CITY SOCIAL WELFARE AND DEVELOPMENT OFFICER",
+   "page": 340
+  },
+  {
+   "number": "17",
+   "title": "Libreng Panlibing Assistance",
+   "office": "OFFICE OF THE CITY SOCIAL WELFARE AND DEVELOPMENT OFFICER",
+   "page": 348
+  },
+  {
+   "number": "18",
+   "title": "Livelihood Assistance/Seap (Self-Employment Assistance Program)",
+   "office": "OFFICE OF THE CITY SOCIAL WELFARE AND DEVELOPMENT OFFICER",
+   "page": 349
+  },
+  {
+   "number": "19",
+   "title": "Oplan Sagip Mamamayan Program",
+   "office": "OFFICE OF THE CITY SOCIAL WELFARE AND DEVELOPMENT OFFICER",
+   "page": 351
+  },
+  {
+   "number": "20",
+   "title": "Pantawid Pasada Program",
+   "office": "OFFICE OF THE CITY SOCIAL WELFARE AND DEVELOPMENT OFFICER",
+   "page": 353
+  },
+  {
+   "number": "21",
+   "title": "Perosnal Enhancement Livelihood Training with Starter Kits",
+   "office": "OFFICE OF THE CITY SOCIAL WELFARE AND DEVELOPMENT OFFICER",
+   "page": 354
+  },
+  {
+   "number": "22",
+   "title": "Provision of Assistance to Taong Grasa",
+   "office": "OFFICE OF THE CITY SOCIAL WELFARE AND DEVELOPMENT OFFICER",
+   "page": 356
+  },
+  {
+   "number": "23",
+   "title": "Psychological Consultation",
+   "office": "OFFICE OF THE CITY SOCIAL WELFARE AND DEVELOPMENT OFFICER",
+   "page": 357
+  },
+  {
+   "number": "24",
+   "title": "Recovery and Reintegration Assistance to Distressed OFW Migrants and Trafficked Persons/Trafficking in Person (TIP)",
+   "office": "OFFICE OF THE CITY SOCIAL WELFARE AND DEVELOPMENT OFFICER",
+   "page": 359
+  },
+  {
+   "number": "25",
+   "title": "Services for Child at Risk (CAR)",
+   "office": "OFFICE OF THE CITY SOCIAL WELFARE AND DEVELOPMENT OFFICER",
+   "page": 360
+  },
+  {
+   "number": "26",
+   "title": "Services for Children in Conflict with the Law (CICL) - Issuance of Social Case Study Report for Minor Who Committed Offence Against the Law",
+   "office": "OFFICE OF THE CITY SOCIAL WELFARE AND DEVELOPMENT OFFICER",
+   "page": 362
+  },
+  {
+   "number": "27",
+   "title": "Social Pension for Indigent Senior Citizens",
+   "office": "OFFICE OF THE CITY SOCIAL WELFARE AND DEVELOPMENT OFFICER",
+   "page": 364
+  },
+  {
+   "number": "28",
+   "title": "Supplemental Feeding Program",
+   "office": "OFFICE OF THE CITY SOCIAL WELFARE AND DEVELOPMENT OFFICER",
+   "page": 365
+  },
+  {
+   "number": "1",
+   "title": "Availing Rehabilitation Program (Occupational, Speech and Language Pathology, Physical Therapy)",
+   "office": "OFFICE OF THE CITY PERSONS WITH DISABILITY AFFAIRS OFFICER",
+   "page": 367
+  },
+  {
+   "number": "2",
+   "title": "Availing Privileged-Persons with Disability Identification Card (PWD ID)",
+   "office": "OFFICE OF THE CITY PERSONS WITH DISABILITY AFFAIRS OFFICER",
+   "page": 369
+  },
+  {
+   "number": "3",
+   "title": "Availing Purchase Booklet (Medicine & Basic Commodities)",
+   "office": "OFFICE OF THE CITY PERSONS WITH DISABILITY AFFAIRS OFFICER",
+   "page": 372
+  },
+  {
+   "number": "4",
+   "title": "Provision of Assistive Devices (Wheelchair, White Cane, Crutches, Walker, Hearing Aid, Artificial Legs, Casting Shoes)",
+   "office": "OFFICE OF THE CITY PERSONS WITH DISABILITY AFFAIRS OFFICER",
+   "page": 373
+  },
+  {
+   "number": "5",
+   "title": "Availing of Birthday Health Card",
+   "office": "OFFICE OF THE CITY PERSONS WITH DISABILITY AFFAIRS OFFICER",
+   "page": 375
+  },
+  {
+   "number": "6",
+   "title": "Availing Individual Home-Based Education Program",
+   "office": "OFFICE OF THE CITY PERSONS WITH DISABILITY AFFAIRS OFFICER",
+   "page": 376
+  },
+  {
+   "number": "7",
+   "title": "Provision of Sign Language Class to Parents and Siblings of Children with Hearing Disability and Stakeholders",
+   "office": "OFFICE OF THE CITY PERSONS WITH DISABILITY AFFAIRS OFFICER",
+   "page": 378
+  },
+  {
+   "number": "8",
+   "title": "Shadowing Teachers for the Learners Under Inclusion",
+   "office": "OFFICE OF THE CITY PERSONS WITH DISABILITY AFFAIRS OFFICER",
+   "page": 380
+  },
+  {
+   "number": "9",
+   "title": "Monitoring Teacher for Learners Under Inclusion Program",
+   "office": "OFFICE OF THE CITY PERSONS WITH DISABILITY AFFAIRS OFFICER",
+   "page": 381
+  },
+  {
+   "number": "10",
+   "title": "Availing of Tutorial Classes",
+   "office": "OFFICE OF THE CITY PERSONS WITH DISABILITY AFFAIRS OFFICER",
+   "page": 382
+  },
+  {
+   "number": "11",
+   "title": "Availing of Comprehensive Approach Responsive Education and Rehabilitation (C.A.R.E.R.) Program",
+   "office": "OFFICE OF THE CITY PERSONS WITH DISABILITY AFFAIRS OFFICER",
+   "page": 383
+  },
+  {
+   "number": "12",
+   "title": "Availing of Teacher’s Assessment",
+   "office": "OFFICE OF THE CITY PERSONS WITH DISABILITY AFFAIRS OFFICER",
+   "page": 385
+  },
+  {
+   "number": "13",
+   "title": "Monitoring of Support Group (Disability Organization)",
+   "office": "OFFICE OF THE CITY PERSONS WITH DISABILITY AFFAIRS OFFICER",
+   "page": 386
+  },
+  {
+   "number": "14",
+   "title": "Availing Livelihood/Sheltered Workshop Program for PWDs and Parents",
+   "office": "OFFICE OF THE CITY PERSONS WITH DISABILITY AFFAIRS OFFICER",
+   "page": 388
+  },
+  {
+   "number": "15",
+   "title": "Availing Counselling for PDAO Learners",
+   "office": "OFFICE OF THE CITY PERSONS WITH DISABILITY AFFAIRS OFFICER",
+   "page": 390
+  },
+  {
+   "number": "16",
+   "title": "Availing Kalingyakap Shelter Services",
+   "office": "OFFICE OF THE CITY PERSONS WITH DISABILITY AFFAIRS OFFICER",
+   "page": 391
+  },
+  {
+   "number": "1",
+   "title": "OCENRO Clerance for Development Permit Applicants/Alteration Permit Applicants",
+   "office": "OFFICE OF THE CITY ENVIRONMENTAL & NATURAL RESOURCES OFFICER",
+   "page": 394
+  },
+  {
+   "number": "2",
+   "title": "OCENRO Clearance for Building Permit/Certificate of Occupancy Change of Use or Occupancy",
+   "office": "OFFICE OF THE CITY ENVIRONMENTAL & NATURAL RESOURCES OFFICER",
+   "page": 397
+  },
+  {
+   "number": "3",
+   "title": "OCENRO Clearance for New Business Permit",
+   "office": "OFFICE OF THE CITY ENVIRONMENTAL & NATURAL RESOURCES OFFICER",
+   "page": 400
+  },
+  {
+   "number": "4",
+   "title": "OCENRO Clearance for New Business Permit (Recycling Business Establishments)",
+   "office": "OFFICE OF THE CITY ENVIRONMENTAL & NATURAL RESOURCES OFFICER",
+   "page": 404
+  },
+  {
+   "number": "5",
+   "title": "OCENRO Clearance for New Business Permit (Motorshops)",
+   "office": "OFFICE OF THE CITY ENVIRONMENTAL & NATURAL RESOURCES OFFICER",
+   "page": 407
+  },
+  {
+   "number": "6",
+   "title": "OCENRO Clearance for Renewal Business Permit",
+   "office": "OFFICE OF THE CITY ENVIRONMENTAL & NATURAL RESOURCES OFFICER",
+   "page": 410
+  },
+  {
+   "number": "7",
+   "title": "OCENRO Clearance for Retirement Business Permit",
+   "office": "OFFICE OF THE CITY ENVIRONMENTAL & NATURAL RESOURCES OFFICER",
+   "page": 414
+  },
+  {
+   "number": "8",
+   "title": "Environmental Protection Fee",
+   "office": "OFFICE OF THE CITY ENVIRONMENTAL & NATURAL RESOURCES OFFICER",
+   "page": 417
+  },
+  {
+   "number": "9",
+   "title": "OCENRO Certification of No Objection for Tree Cutting Permit",
+   "office": "OFFICE OF THE CITY ENVIRONMENTAL & NATURAL RESOURCES OFFICER",
+   "page": 420
+  },
+  {
+   "number": "10",
+   "title": "Waste Transporter Registration",
+   "office": "OFFICE OF THE CITY ENVIRONMENTAL & NATURAL RESOURCES OFFICER",
+   "page": 422
+  },
+  {
+   "number": "11",
+   "title": "Waste Transporter Additional Stickers",
+   "office": "OFFICE OF THE CITY ENVIRONMENTAL & NATURAL RESOURCES OFFICER",
+   "page": 426
+  },
+  {
+   "number": "12",
+   "title": "Waste Transporter Trip Ticket",
+   "office": "OFFICE OF THE CITY ENVIRONMENTAL & NATURAL RESOURCES OFFICER",
+   "page": 428
+  },
+  {
+   "number": "13",
+   "title": "Biodegradable and Residual Wastes Collection for Barangays 1-8",
+   "office": "OFFICE OF THE CITY ENVIRONMENTAL & NATURAL RESOURCES OFFICER",
+   "page": 430
+  },
+  {
+   "number": "1",
+   "title": "Transfer of Ownership",
+   "office": "OFFICE OF THE CITY ASSESSOR",
+   "page": 432
+  },
+  {
+   "number": "1.1",
+   "title": "Transfer of Title/CLOA Property (Land and Other Improvements",
+   "office": "OFFICE OF THE CITY ASSESSOR",
+   "page": 432,
+   "part_of": "Transfer of Ownership"
+  },
+  {
+   "number": "1.2",
+   "title": "Transfer of Untitled Property (Land and Other Improvements)",
+   "office": "OFFICE OF THE CITY ASSESSOR",
+   "page": 437,
+   "part_of": "Transfer of Ownership"
+  },
+  {
+   "number": "1.3",
+   "title": "Subdivision or Consolidation",
+   "office": "OFFICE OF THE CITY ASSESSOR",
+   "page": 442,
+   "part_of": "Transfer of Ownership"
+  },
+  {
+   "number": "1.4",
+   "title": "For Declaration of Titled/Untitled Property",
+   "office": "OFFICE OF THE CITY ASSESSOR",
+   "page": 446,
+   "part_of": "Transfer of Ownership"
+  },
+  {
+   "number": "1.5",
+   "title": "Re-Classification",
+   "office": "OFFICE OF THE CITY ASSESSOR",
+   "page": 451,
+   "part_of": "Transfer of Ownership"
+  },
+  {
+   "number": "2",
+   "title": "Issuance of Certification True Copy of Official Records and Other Certification",
+   "office": "OFFICE OF THE CITY ASSESSOR",
+   "page": 455
+  },
+  {
+   "number": "2.1",
+   "title": "Certification Copy of Tax Certification, Tax Map, Technical Descriptions, Base Map and Other Certification Tax Declaration for Real Property Tax Payment",
+   "office": "OFFICE OF THE CITY ASSESSOR",
+   "page": 455,
+   "part_of": "Issuance of Certification True Copy of Official Records and Other Certification"
+  },
+  {
+   "number": "2.2",
+   "title": "Certification of Aggregate Landholding",
+   "office": "OFFICE OF THE CITY ASSESSOR",
+   "page": 458,
+   "part_of": "Issuance of Certification True Copy of Official Records and Other Certification"
+  },
+  {
+   "number": "2.3",
+   "title": "Trace Back of Tax Declaration",
+   "office": "OFFICE OF THE CITY ASSESSOR",
+   "page": 461,
+   "part_of": "Issuance of Certification True Copy of Official Records and Other Certification"
+  },
+  {
+   "number": "2.4",
+   "title": "Issuance of Tax Declaration for Land Awarded",
+   "office": "OFFICE OF THE CITY ASSESSOR",
+   "page": 464,
+   "part_of": "Issuance of Certification True Copy of Official Records and Other Certification"
+  },
+  {
+   "number": "2.5",
+   "title": "Annotating or Cancel Annotation on Tax Declaration",
+   "office": "OFFICE OF THE CITY ASSESSOR",
+   "page": 467,
+   "part_of": "Issuance of Certification True Copy of Official Records and Other Certification"
+  },
+  {
+   "number": "3",
+   "title": "Appraisal/Assessment of New Building and Improvements and Re-Appraisal/Re-Assessment of Building and Improvements",
+   "office": "OFFICE OF THE CITY ASSESSOR",
+   "page": 469
+  },
+  {
+   "number": "3.1",
+   "title": "Cancellation of Assessment",
+   "office": "OFFICE OF THE CITY ASSESSOR",
+   "page": 472,
+   "part_of": "Appraisal/Assessment of New Building and Improvements and Re-Appraisal/Re-Assessment of Building and Improvements"
+  },
+  {
+   "number": "1",
+   "title": "Locational Clearance for Building Permit (Fencing/Extension/ Renovation)",
+   "office": "OFFICE OF THE CITY ZONING ADMINISTRATION",
+   "page": 476
+  },
+  {
+   "number": "2",
+   "title": "Locational Clearance for Building Permit (Construction of New Building)",
+   "office": "OFFICE OF THE CITY ZONING ADMINISTRATION",
+   "page": 479
+  },
+  {
+   "number": "3",
+   "title": "Locational Clearance for Business Permit (Commercial Business)",
+   "office": "OFFICE OF THE CITY ZONING ADMINISTRATION",
+   "page": 482
+  },
+  {
+   "number": "4",
+   "title": "Locational Clearance for Business Permit (Industrial Business)",
+   "office": "OFFICE OF THE CITY ZONING ADMINISTRATION",
+   "page": 484
+  },
+  {
+   "number": "5",
+   "title": "Zoning Clearance for Renewal of Business Permit",
+   "office": "OFFICE OF THE CITY ZONING ADMINISTRATION",
+   "page": 487
+  },
+  {
+   "number": "6",
+   "title": "Zoning Clearance for Retirement of Business Permit",
+   "office": "OFFICE OF THE CITY ZONING ADMINISTRATION",
+   "page": 489
+  },
+  {
+   "number": "7",
+   "title": "Zoning Certification",
+   "office": "OFFICE OF THE CITY ZONING ADMINISTRATION",
+   "page": 490
+  },
+  {
+   "number": "8",
+   "title": "Certified True Copy of Zoning Records (Locational Clearance for Building/Business/Zoning Certification",
+   "office": "OFFICE OF THE CITY ZONING ADMINISTRATION",
+   "page": 491
+  },
+  {
+   "number": "9",
+   "title": "Development Permit",
+   "office": "OFFICE OF THE CITY ZONING ADMINISTRATION",
+   "page": 493
+  },
+  {
+   "number": "10",
+   "title": "Re-Classification Clearance",
+   "office": "OFFICE OF THE CITY ZONING ADMINISTRATION",
+   "page": 496
+  },
+  {
+   "number": "1",
+   "title": "Technical Assistance for Livestock (Treatment for Small and Large Animals) and High-Value Commercial Crops (Insect Pest and Disease Management, Soil Fertility, and Others)",
+   "office": "OFFICE OF THE CITY AGRICULTURIST",
+   "page": 500
+  },
+  {
+   "number": "2",
+   "title": "Anti-Rabies Vaccination and Pet Microchip Implant",
+   "office": "OFFICE OF THE CITY AGRICULTURIST",
+   "page": 501
+  },
+  {
+   "number": "3",
+   "title": "Vegetable Seeds and Seeding Distribution",
+   "office": "OFFICE OF THE CITY AGRICULTURIST",
+   "page": 502
+  },
+  {
+   "number": "4",
+   "title": "Request for Training/Seminar on Agriculture Related Topics",
+   "office": "OFFICE OF THE CITY AGRICULTURIST",
+   "page": 503
+  },
+  {
+   "number": "5",
+   "title": "Animal Control",
+   "office": "OFFICE OF THE CITY AGRICULTURIST",
+   "page": 505
+  },
+  {
+   "number": "a.",
+   "title": "Surrendered Animal (Barangay Animal Officers/Walk-In Clients",
+   "office": "OFFICE OF THE CITY AGRICULTURIST",
+   "page": 505,
+   "part_of": "Animal Control"
+  },
+  {
+   "number": "b.",
+   "title": "Request for Capture of Stray Animals",
+   "office": "OFFICE OF THE CITY AGRICULTURIST",
+   "page": 507,
+   "part_of": "Animal Control"
+  },
+  {
+   "number": "c.",
+   "title": "Pet Adoption",
+   "office": "OFFICE OF THE CITY AGRICULTURIST",
+   "page": 509,
+   "part_of": "Animal Control"
+  },
+  {
+   "number": "d.",
+   "title": "Reclaiming of Impounded Stray Animals",
+   "office": "OFFICE OF THE CITY AGRICULTURIST",
+   "page": 511,
+   "part_of": "Animal Control"
+  },
+  {
+   "number": "1",
+   "title": "DTI Business Name Registration (New)",
+   "office": "LOCAL ECONOMIC DEVELOPMENT AND INVESTMENT PROMOTION",
+   "page": 514
+  },
+  {
+   "number": "2",
+   "title": "DTI Business Name Registration (Renewal)",
+   "office": "LOCAL ECONOMIC DEVELOPMENT AND INVESTMENT PROMOTION",
+   "page": 516
+  },
+  {
+   "number": "3",
+   "title": "Barangay Micro-Business Enterprise (BMBE) Registration",
+   "office": "LOCAL ECONOMIC DEVELOPMENT AND INVESTMENT PROMOTION",
+   "page": 518
+  },
+  {
+   "number": "4",
+   "title": "Request for Business Name Certification",
+   "office": "LOCAL ECONOMIC DEVELOPMENT AND INVESTMENT PROMOTION",
+   "page": 520
+  },
+  {
+   "number": "5",
+   "title": "Request for Requirements for Trade Fair and Expos Organization by LEDIPO",
+   "office": "LOCAL ECONOMIC DEVELOPMENT AND INVESTMENT PROMOTION",
+   "page": 521
+  },
+  {
+   "number": "6",
+   "title": "Filing of Consumer Complaints",
+   "office": "LOCAL ECONOMIC DEVELOPMENT AND INVESTMENT PROMOTION",
+   "page": 523
+  },
+  {
+   "number": "1",
+   "title": "Processing of Disbursement Voucher",
+   "office": "OFFICE OF THE CITY ACCOUNTANT",
+   "page": 526
+  },
+  {
+   "number": "2",
+   "title": "Processing of Payroll",
+   "office": "OFFICE OF THE CITY ACCOUNTANT",
+   "page": 528
+  },
+  {
+   "number": "3",
+   "title": "Processing of Payroll Request of BIR Certificate of Withholding of Tax from Suppliers/ Certificate of Creditable Tax Withheld at Source",
+   "office": "OFFICE OF THE CITY ACCOUNTANT",
+   "page": 529
+  },
+  {
+   "number": "4",
+   "title": "Issuance of Contract’s/Supplier’s Certification for BIR Tax Clearance Application",
+   "office": "OFFICE OF THE CITY ACCOUNTANT",
+   "page": 530
+  },
+  {
+   "number": "1",
+   "title": "Budget Management Service-Preparation of City Annual Budget",
+   "office": "OFFICE OF THE CITY BUDGET OFFICER",
+   "page": 532
+  },
+  {
+   "number": "2",
+   "title": "Processing of Obligation Request and Disbursement of Voucher",
+   "office": "OFFICE OF THE CITY BUDGET OFFICER",
+   "page": 533
+  },
+  {
+   "number": "3",
+   "title": "Processing of Purchase Request",
+   "office": "OFFICE OF THE CITY BUDGET OFFICER",
+   "page": 536
+  },
+  {
+   "number": "4",
+   "title": "Processing of Purchase Order",
+   "office": "OFFICE OF THE CITY BUDGET OFFICER",
+   "page": 537
+  },
+  {
+   "number": "1",
+   "title": "Issuance of New Business Permit",
+   "office": "OFFICE OF THE CITY TREASURER",
+   "page": 539,
+   "office_listed_as": "OFFICE OF THE CITY BUDGET OFFICER"
+  },
+  {
+   "number": "2",
+   "title": "Issuance of Business Permit (Renewal)",
+   "office": "OFFICE OF THE CITY TREASURER",
+   "page": 541,
+   "office_listed_as": "OFFICE OF THE CITY BUDGET OFFICER"
+  },
+  {
+   "number": "3",
+   "title": "Issuance of New Business Permit (Online eBOSS System)",
+   "office": "OFFICE OF THE CITY TREASURER",
+   "page": 543,
+   "office_listed_as": "OFFICE OF THE CITY BUDGET OFFICER"
+  },
+  {
+   "number": "4",
+   "title": "Issuance of Business Permit - Renew (Online eBOSS System)",
+   "office": "OFFICE OF THE CITY TREASURER",
+   "page": 545,
+   "office_listed_as": "OFFICE OF THE CITY BUDGET OFFICER"
+  },
+  {
+   "number": "5",
+   "title": "Real Property Tax",
+   "office": "OFFICE OF THE CITY TREASURER",
+   "page": 547,
+   "office_listed_as": "OFFICE OF THE CITY BUDGET OFFICER"
+  },
+  {
+   "number": "6",
+   "title": "Real Property Tax (Online)",
+   "office": "OFFICE OF THE CITY TREASURER",
+   "page": 548,
+   "office_listed_as": "OFFICE OF THE CITY BUDGET OFFICER"
+  },
+  {
+   "number": "7",
+   "title": "Issuance of Official Receipt (O.R)",
+   "office": "OFFICE OF THE CITY TREASURER",
+   "page": 549,
+   "office_listed_as": "OFFICE OF THE CITY BUDGET OFFICER"
+  },
+  {
+   "number": "8",
+   "title": "Issuance of Community Tax Certification",
+   "office": "OFFICE OF THE CITY TREASURER",
+   "page": 550,
+   "office_listed_as": "OFFICE OF THE CITY BUDGET OFFICER"
+  },
+  {
+   "number": "9",
+   "title": "Issuance of Official Receipt for Burial",
+   "office": "OFFICE OF THE CITY TREASURER",
+   "page": 551,
+   "office_listed_as": "OFFICE OF THE CITY BUDGET OFFICER"
+  },
+  {
+   "number": "10",
+   "title": "Issuance of Official Receipt for Traffic Violation",
+   "office": "OFFICE OF THE CITY TREASURER",
+   "page": 552,
+   "office_listed_as": "OFFICE OF THE CITY BUDGET OFFICER"
+  },
+  {
+   "number": "11",
+   "title": "Issuance of Working Permit",
+   "office": "OFFICE OF THE CITY TREASURER",
+   "page": 553,
+   "office_listed_as": "OFFICE OF THE CITY BUDGET OFFICER"
+  },
+  {
+   "number": "12",
+   "title": "Releasing of Voucher/Checks",
+   "office": "OFFICE OF THE CITY TREASURER",
+   "page": 554,
+   "office_listed_as": "OFFICE OF THE CITY BUDGET OFFICER"
+  },
+  {
+   "number": "13",
+   "title": "Transfer Tax",
+   "office": "OFFICE OF THE CITY TREASURER",
+   "page": 555,
+   "office_listed_as": "OFFICE OF THE CITY BUDGET OFFICER"
+  },
+  {
+   "number": "14",
+   "title": "Professional Tax Receipt",
+   "office": "OFFICE OF THE CITY TREASURER",
+   "page": 556,
+   "office_listed_as": "OFFICE OF THE CITY BUDGET OFFICER"
+  },
+  {
+   "number": "15",
+   "title": "Tax Clearance",
+   "office": "OFFICE OF THE CITY TREASURER",
+   "page": 557,
+   "office_listed_as": "OFFICE OF THE CITY BUDGET OFFICER"
+  },
+  {
+   "number": "1",
+   "title": "General Orientation and Pre-Registration Seminar (PRS)",
+   "office": "OFFICE OF THE CITY COOPERATIVE DEVELOPMENT OFFICER",
+   "page": 559
+  },
+  {
+   "number": "2",
+   "title": "Cooperative Registration via E-COORPIS (Electronic-Cooperative Registration Information System)",
+   "office": "OFFICE OF THE CITY COOPERATIVE DEVELOPMENT OFFICER",
+   "page": 561
+  },
+  {
+   "number": "3",
+   "title": "Technical Assistance - CDA Annual Report via CAIS (Cooperative Assessment Information System)",
+   "office": "OFFICE OF THE CITY COOPERATIVE DEVELOPMENT OFFICER",
+   "page": 565
+  },
+  {
+   "number": "4",
+   "title": "LGU Assistance Loan",
+   "office": "OFFICE OF THE CITY COOPERATIVE DEVELOPMENT OFFICER",
+   "page": 567
+  },
+  {
+   "number": "5",
+   "title": "Secretariat Services to the Cooperative Development Council (CCDC)",
+   "office": "OFFICE OF THE CITY COOPERATIVE DEVELOPMENT OFFICER",
+   "page": 570
+  },
+  {
+   "number": "6",
+   "title": "Technical Assistance - Tutorial Training on Cooperative Administrative Function and Technical Services",
+   "office": "OFFICE OF THE CITY COOPERATIVE DEVELOPMENT OFFICER",
+   "page": 573
+  },
+  {
+   "number": "7",
+   "title": "Technical Assistance - Training and Seminars",
+   "office": "OFFICE OF THE CITY COOPERATIVE DEVELOPMENT OFFICER",
+   "page": 575
+  },
+  {
+   "number": "8",
+   "title": "Cooperative Dissolution",
+   "office": "OFFICE OF THE CITY COOPERATIVE DEVELOPMENT OFFICER",
+   "page": 577,
+   "page_listed": 557
+  },
+  {
+   "number": "a.",
+   "title": "Voluntary Dissolution - Creditors are Affected",
+   "office": "OFFICE OF THE CITY COOPERATIVE DEVELOPMENT OFFICER",
+   "page": 577,
+   "part_of": "Cooperative Dissolution",
+   "page_listed": 557
+  },
+  {
+   "number": "b.",
+   "title": "Voluntary Dissolution - Creditors are Affected",
+   "office": "OFFICE OF THE CITY COOPERATIVE DEVELOPMENT OFFICER",
+   "page": 579,
+   "part_of": "Cooperative Dissolution"
+  },
+  {
+   "number": "c.",
+   "title": "Involuntary Dissolution by the Authority (CDA)",
+   "office": "OFFICE OF THE CITY COOPERATIVE DEVELOPMENT OFFICER",
+   "page": 581,
+   "part_of": "Cooperative Dissolution"
+  },
+  {
+   "number": "1",
+   "title": "Library Access in Facilities, Services and Resources",
+   "office": "OFFICE OF THE CITY PUBLIC LIBRARY AND LEARNING RESOURCE CENTER",
+   "page": 584
+  },
+  {
+   "number": "2",
+   "title": "Library Resource Request and Acquisition Process",
+   "office": "OFFICE OF THE CITY PUBLIC LIBRARY AND LEARNING RESOURCE CENTER",
+   "page": 585
+  },
+  {
+   "number": "3",
+   "title": "Gifts and Donations of Library Resources Process",
+   "office": "OFFICE OF THE CITY PUBLIC LIBRARY AND LEARNING RESOURCE CENTER",
+   "page": 586
+  },
+  {
+   "number": "4",
+   "title": "Library Card and Booklet Registration Process",
+   "office": "OFFICE OF THE CITY PUBLIC LIBRARY AND LEARNING RESOURCE CENTER",
+   "page": 588
+  },
+  {
+   "number": "5",
+   "title": "Issuance of Library Card",
+   "office": "OFFICE OF THE CITY PUBLIC LIBRARY AND LEARNING RESOURCE CENTER",
+   "page": 590
+  },
+  {
+   "number": "6",
+   "title": "Process of Locating Library Resources",
+   "office": "OFFICE OF THE CITY PUBLIC LIBRARY AND LEARNING RESOURCE CENTER",
+   "page": 591
+  },
+  {
+   "number": "7",
+   "title": "Borrowing Process of Library Resources",
+   "office": "OFFICE OF THE CITY PUBLIC LIBRARY AND LEARNING RESOURCE CENTER",
+   "page": 592
+  },
+  {
+   "number": "8",
+   "title": "Returning Process of Library Resources",
+   "office": "OFFICE OF THE CITY PUBLIC LIBRARY AND LEARNING RESOURCE CENTER",
+   "page": 593
+  },
+  {
+   "number": "9",
+   "title": "Access to Discovery Hub (Children’s Area)",
+   "office": "OFFICE OF THE CITY PUBLIC LIBRARY AND LEARNING RESOURCE CENTER",
+   "page": 594
+  },
+  {
+   "number": "10",
+   "title": "Access to Digital Transformation Center (Tech Terrace Area)",
+   "office": "OFFICE OF THE CITY PUBLIC LIBRARY AND LEARNING RESOURCE CENTER",
+   "page": 595
+  },
+  {
+   "number": "11",
+   "title": "Access to Elevate Hub and Shared Space Hub",
+   "office": "OFFICE OF THE CITY PUBLIC LIBRARY AND LEARNING RESOURCE CENTER",
+   "page": 596
+  },
+  {
+   "number": "12",
+   "title": "Conference Room Reservation Process",
+   "office": "OFFICE OF THE CITY PUBLIC LIBRARY AND LEARNING RESOURCE CENTER",
+   "page": 597
+  },
+  {
+   "number": "13",
+   "title": "Conference Room Access",
+   "office": "OFFICE OF THE CITY PUBLIC LIBRARY AND LEARNING RESOURCE CENTER",
+   "page": 598
+  }
+ ]
+}

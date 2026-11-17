@@ -3,6 +3,7 @@ import react from '@vitejs/plugin-react';
 import portal from './portal.config';
 import { barangayMapCheck } from './scripts/barangay-map-check';
 import { hotlinesHtml } from './scripts/hotlines-html';
+import { kbValidate } from './scripts/kb/validate';
 import { servicesCheck } from './scripts/services-check';
 import { DEFAULT_API, shortNameOf } from './src/config';
 
@@ -31,7 +32,7 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), 'VITE_');
   const api = (env.VITE_API_BASE || portal.api || DEFAULT_API).replace(/\/+$/, '');
   return {
-    plugins: [react(), portalHtml(api), hotlinesHtml(), barangayMapCheck(), servicesCheck()],
+    plugins: [react(), portalHtml(api), hotlinesHtml(), barangayMapCheck(), servicesCheck(), kbValidate()],
     server: {
       host: '0.0.0.0',
       // Reserved in ~/projects/ports.md (transparency-portal). strictPort so a
@@ -39,6 +40,8 @@ export default defineConfig(({ mode }) => {
       port: 5132,
       strictPort: true,
       allowedHosts: ['dev.neonplayground.com'],
+      // The chat API, from `npm run dev:api`.
+      proxy: { '/api': 'http://localhost:8787' },
     },
     preview: { host: '0.0.0.0', port: 5132, strictPort: true },
   };

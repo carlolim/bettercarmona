@@ -1,0 +1,171 @@
+# Knowledge
+
+Public documents about the City of Carmona, gathered so they can be searched and cited. Every file here records where
+its content came from.
+
+## The SB Office ordinance library
+
+The Sangguniang Panlungsod office publishes its ordinances in an online library at
+`http://122.54.120.194:888/sboffice/index.php/knowledge_base`. It has 27 categories, and each item is one page with a
+title, a short description, and a scanned PDF.
+
+| Path | Holds | Committed |
+|---|---|---|
+| `sources/sb-office.json` | One entry per library item, sorted by library id | Yes |
+| `sources/priorities.json` | The order to transcribe categories in, and which get a summary only | Yes |
+| `ordinances/{year}/{id}-{slug}.md` | One file per document: a full transcription or a summary | Yes |
+| `TRANSCRIPTION.md` | The rules every ordinance file follows | Yes |
+| `charter/index-2026.json` | Every service the 2026 Citizen's Charter lists, with its office and first page | Yes |
+| `keywords/glossary.json` | Everyday words mapped to official terms | Yes |
+| `keywords/services.json` | Everyday keywords for each city service, in English and Filipino | Yes |
+| `sources/synced.json` | The hash of each document as last uploaded to AI Search | Yes |
+| `raw/{id}.pdf` | The downloaded files | No |
+| `raw/pages/view-{id}.html` | The item pages as last read | No |
+
+The library id (`sb_id`) is the stable key. The number in the title (`number_listed`) is kept as listed, and it can
+differ from the number printed on the document.
+
+Each entry has a `state`:
+
+| State | Meaning |
+|---|---|
+| `listed` | The page was read, the file is not downloaded yet |
+| `downloaded` | The file is in `raw/` and its hash is recorded |
+| `transcribed` | The full text is in `ordinances/` |
+| `summarized` | A summary with key figures is in `ordinances/` |
+| `missing-file` | The page has no file, or the file is not on the server |
+| `changed` | The file's hash differs from the one recorded. It needs transcribing again |
+| `needs-attention` | `kb:convert` wrote a file that failed `kb:validate`. The reason is in `attention` |
+
+Once an item has a markdown file, its path is in `transcript`.
+
+Entries are never deleted. An item that leaves the library keeps its entry and gains `removed_at`.
+
+## Commands
+
+```bash
+npm run kb:fetch                  # read the library and download new files
+npm run kb:fetch -- --refresh     # re-read every page and file, and mark changed files
+npm run kb:fetch -- --sweep       # also try every id from 1 up, to check the category pages
+npm run kb:fetch -- --ids 23,514  # only these items
+npm run kb:status                 # counts per category
+npm run kb:test                   # test the page parser against scripts/kb/fixtures/
+```
+
+`kb:fetch` reads the front page and the 27 category pages, then each item page not yet in the manifest, then each
+file not yet in `raw/` or whose copy does not match the recorded hash. A second run downloads nothing. On a fresh
+clone it downloads every file the manifest lists, without reading the item pages again.
+
+The library runs on a small government server, so `kb:fetch` sends one request at a time, at least 1.5 seconds apart,
+with the User-Agent `BetterCarmona/1.0 (+https://bettercarmona.org/about)`. A failed request is retried three times
+with a growing delay. It stops after five failures in a row, and at once on HTTP 429. The manifest is saved after
+every item, so a stopped run picks up where it left off.
+
+## Transcribing a batch
+
+The scans have no text layer, so each one is read by Claude Code, which reads PDF pages as images, following
+`TRANSCRIPTION.md`. Reading PDFs needs poppler (`brew install poppler` on macOS).
+
+```bash
+npm run kb:convert                          # the next 10 items in priority order
+npm run kb:convert -- --limit 3             # a smaller batch
+npm run kb:convert -- --dry                 # list the next items without doing them
+npm run kb:convert -- --id 514              # one item
+npm run kb:convert -- --category "WAYS & MEANS"
+npm run kb:convert -- --summaries           # only items in summary-only categories
+npm run kb:convert -- --id 23 --full        # a full transcription of a summary-only item
+npm run kb:convert -- --id 514 --redo       # replace a file that is not yet reviewed
+npm run kb:validate                         # check every file; also runs in npm run build
+```
+
+`kb:convert` takes items that are `downloaded` or `changed`, in the order of `sources/priorities.json`: the
+`full_text` categories in rank, then the `summary_only` ones, newest first within each. Items matching the `defer`
+pattern, the pandemic-era ordinances, come last. The ids in `full_text_ids`, fee and tax ordinances in a summary-only
+category, get a full transcription and are queued with WAYS & MEANS. An item in a `summary_only`
+category gets a summary with its key figures instead of the full text. A document of more than 60 pages is skipped and
+listed, so it can be run on its own with `--id N --force`. Each run of Claude Code may only read files and write under
+`ordinances/`.
+
+After each file, `kb:convert` runs the validator. A file that passes moves its item to `transcribed` or `summarized`.
+One that fails is kept, and the item moves to `needs-attention`. A batch stops early if Claude Code writes nothing, as
+when a usage limit is reached. Run it again later and it picks up with the next item.
+
+## Reviewing a file
+
+Every file starts with `reviewed: false`, and the assistant says an unreviewed text is an unchecked transcription.
+Open the PDF and the markdown side by side and follow "Reviewing a file" in `TRANSCRIPTION.md`. When it is right, set
+`transcription.reviewed` to `true`. A reviewed file is never replaced unless `--force` is given. Only a person with a
+source changes `status` from `unverified`.
+
+## Search documents
+
+`npm run kb:build` writes the documents the assistant searches into `.kb/`, which is not committed. It runs at the
+start of `npm run build`, so every deploy carries documents that match the repo. It reads the site's own data
+(`src/community/data/`) and the ordinance files, and copies nothing out of them.
+
+| In `.kb/` | One per | Page on this site |
+|---|---|---|
+| `services/{id}.md`, `services/_all.md` | Service in `services.ts`, and the whole list | `/services/{id}` |
+| `charter-index/{n}.md` | About 25 charter services not yet in `services.ts` | None yet |
+| `ordinances/{sb_id}.md` | Ordinance file, full or summary. A long one is split into `-part-2` and so on | `/ordinances/{sb_id}` |
+| `ordinance-titles/{category}.md` | Library category: the items not yet transcribed | `/ordinances?category=...` |
+| `hotlines/{id}.md`, `hotlines/_all.md` | Hotline, and the whole list | `/hotlines#{id}` |
+| `offices/{name}.md` | City office | `/government` |
+| `officials.md` | The elected officials | `/government` |
+| `barangays/{n}.md` | Barangay | `/barangays` |
+| `site/about.md` | This site | `/about` |
+
+Every document starts with its title, its kind and source, and an "Also asked as" line of keywords. Each `##` section
+of an ordinance repeats the ordinance's number and title, so a passage makes sense on its own. Summaries are marked
+"not part of the ordinance".
+
+`.kb/kb-index.json` maps each document's path to its title, kind, date, `site_url` (the page here, relative), and
+`source_url` (the original document, absolute). The assistant builds every link from it. `.kb/glossary.json` maps each
+glossary term to the terms on the other side of its entry, for expanding a question.
+
+`kb:validate` checks the index too: a title, a kind, and a link for every document, a route in `src/App.tsx` for
+every `site_url` (`/ordinances` is allowed until its pages exist), no document over 60,000 characters, and keywords
+for every service.
+
+### Adding keywords
+
+- **A glossary entry:** add `{ "topic", "everyday": [...], "official": [...] }` to `keywords/glossary.json`. Every
+  document that uses any of its words gets all of them in its "Also asked as" line. Use whole words or phrases, and
+  avoid very short ones, since matching ignores case.
+- **A new service:** add six to ten keywords in each language under its id in `keywords/services.json`. The build
+  fails until it has them. The service then leaves the charter index by itself, matched on its first page and title.
+
+## The one command
+
+```bash
+npm run kb:update                  # everything below, in order
+npm run kb:update -- --convert 3   # transcribe at most 3 (default 10; 0 skips)
+npm run kb:update -- --no-fetch    # skip the SB Office library
+```
+
+| Step | Does | If it fails |
+|---|---|---|
+| Fetch | `kb:fetch`: new library items only | The library may be down or slow. Run it again later; it picks up where it stopped |
+| Transcribe | `kb:convert --limit N` | A usage limit stops the batch with nothing marked. A file that fails the checks is kept as `needs-attention`: see `npm run kb:status`, fix or `--redo` it |
+| Validate | `kb:validate` on the ordinance files | Fix the files it names |
+| Build | `kb:build`, then the index checks | Fix what it names, usually a missing keyword list for a new service |
+| Sync | `kb:sync`: upload new and changed documents, delete removed ones | Run `npm run kb:sync` again to retry. An authentication error means the token in `.env` is wrong or lacks AI Search Edit and Run |
+| Test | Searches the five `smoke` questions in `eval/questions.json`, which must find their documents | Check the instance in the dashboard; indexing may still be running |
+
+It ends with one line saying how many ordinance files need review, how many documents were uploaded and deleted, and
+how many of the five test searches found the right document. The full test set is `npm run kb:eval`: see
+`docs/chatbot.md`. Run twice, the second run uploads nothing. Commit
+`knowledge/sources/synced.json` along with the files that changed, so the next run starts from the same state.
+
+`kb:sync` reads `KB_ACCOUNT_ID`, `KB_API_TOKEN`, `KB_NAMESPACE`, and `KB_INSTANCE` from `.env`. The token needs only
+AI Search Edit and AI Search Run, and it is never printed. `npm run kb:sync -- --dry-run` shows the plan, and
+`--full` uploads every document again.
+
+## Ordinance pages
+
+`npm run kb:build` also writes the data for the ordinance pages on the site to `public/data/ordinances/`, which is not
+committed: `index.json`, one line per library item for the list at `/ordinances`, and `{sb_id}.json` for each page at
+`/ordinances/{sb_id}`. A transcribed ordinance's text is parsed at build time into plain blocks (headings, paragraphs,
+lists, tables, page markers, and the bracketed marks), so the page renders it without markdown or HTML. Every library
+item has a page: the text, or the summary and key facts, or the library's own description, with the status line and
+links to the library page and the scan. `npm run dev` and `npm run build` run `kb:build` first.

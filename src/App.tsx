@@ -20,6 +20,8 @@ import Enacted from './pages/Enacted';
 const CommunityServices = lazy(() => import('./community/Services').then((m) => ({ default: m.CommunityServices })));
 const CommunityServiceCategory = lazy(() => import('./community/Services').then((m) => ({ default: m.CommunityServiceCategory })));
 const CommunityService = lazy(() => import('./community/Services').then((m) => ({ default: m.CommunityService })));
+const CommunityOrdinances = lazy(() => import('./community/Ordinances').then((m) => ({ default: m.CommunityOrdinances })));
+const CommunityOrdinance = lazy(() => import('./community/Ordinances').then((m) => ({ default: m.CommunityOrdinance })));
 
 /** Old budget addresses, from before the pages moved under /transparency, keep working with their filters. */
 function LegacyRedirect() {
@@ -44,6 +46,8 @@ export default function App() {
             <Route path="services" element={<Suspense fallback={<PageHeroPlaceholder />}><CommunityServices /></Suspense>} />
             <Route path="services/category/:categoryId" element={<Suspense fallback={<PageHeroPlaceholder />}><CommunityServiceCategory /></Suspense>} />
             <Route path="services/:id" element={<Suspense fallback={<PageHeroPlaceholder />}><CommunityService /></Suspense>} />
+            <Route path="ordinances" element={<Suspense fallback={<PageHeroPlaceholder />}><CommunityOrdinances /></Suspense>} />
+            <Route path="ordinances/:sbId" element={<Suspense fallback={<PageHeroPlaceholder />}><CommunityOrdinance /></Suspense>} />
           </Route>,
           <Route key={`${prefix}-transparency`} path={`${prefix}/transparency`} element={<TransparencyLayout />}>
             <Route index element={<Home />} />

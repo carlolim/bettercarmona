@@ -1,12 +1,44 @@
 {
-  // Cloudflare Workers, static assets only: no Worker code, no bindings.
-  // `npm run deploy:cloudflare` builds and deploys. Rename before deploying.
-  "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "bettercarmona",
-  "compatibility_date": "2026-10-01",
-  "assets": {
-    "directory": "./dist",
-    // Client-side routes (/districts, /projects/...) serve index.html.
-    "not_found_handling": "single-page-application"
-  }
+	// Cloudflare Workers: the site's static files, plus the chat API in worker/ for /api/* only.
+	// Static files and client-side routes never run the Worker, so they stay free. See docs/chatbot.md.
+	// `npm run deploy:cloudflare` builds and deploys. Rename before deploying.
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "bettercarmona",
+	"main": "worker/index.ts",
+	"compatibility_date": "2026-10-01",
+	"assets": {
+		"directory": "./dist",
+		"binding": "ASSETS",
+		// Client-side routes (/districts, /projects/...) serve index.html.
+		"not_found_handling": "single-page-application",
+		"run_worker_first": ["/api/*"]
+	},
+	"ai": { "binding": "AI" },
+	// The AI Search namespace. The Worker opens the instance in it named KB_INSTANCE in worker/config.ts.
+	"ai_search_namespaces": [{ "binding": "KB", "namespace": "bettercarmona-kb" }],
+	"d1_databases": [
+		{
+			"binding": "DB",
+			"database_name": "bettercarmona-chat",
+			"database_id": "96ca8f45-2a40-4e00-9f13-6c2ea2d3f2df",
+			"migrations_dir": "worker/migrations"
+		}
+	],
+	// Per IP per minute. Must match PER_IP_PER_MINUTE in worker/config.ts. The period can only be 10 or 60.
+	"ratelimits": [{ "name": "PER_MINUTE", "namespace_id": "1001", "simple": { "limit": 5, "period": 60 } }],
+	"observability": { "enabled": true },
+	"env": {
+		// `npm run dev:api`: fixtures, so no AI or AI Search binding, and nothing leaves this machine.
+		"dev": {
+			"d1_databases": [
+				{
+					"binding": "DB",
+					"database_name": "bettercarmona-chat",
+					"database_id": "96ca8f45-2a40-4e00-9f13-6c2ea2d3f2df",
+					"migrations_dir": "worker/migrations"
+				}
+			],
+			"ratelimits": [{ "name": "PER_MINUTE", "namespace_id": "1001", "simple": { "limit": 5, "period": 60 } }]
+		}
+	}
 }

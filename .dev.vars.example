@@ -1,0 +1,8 @@
+# Local settings for `npm run dev:api` and `npm run dev:api:fixtures`. Copy to .dev.vars, which git ignores.
+# These are Cloudflare's public Turnstile test keys and throwaway values, not real secrets.
+# The real values are set in the Cloudflare dashboard, never in a file.
+CHAT_ENABLED=true
+CHAT_FIXTURES=1
+TURNSTILE_SECRET_KEY=1x0000000000000000000000000000000AA
+SESSION_SECRET=local-development-only
+IP_HASH_SALT=local-development-only

@@ -22,7 +22,8 @@
     "barangays": "Barangays",
     "government": "Government",
     "transparency": "Transparency",
-    "about": "About"
+    "about": "About",
+    "ordinances": "Ordinances"
   },
   "brand": "BetterCarmona home",
   "footer": {
@@ -68,6 +69,11 @@
     },
     "official": {
       "heading": "Official city websites"
+    },
+    "ordinances": {
+      "heading": "City ordinances",
+      "body": "Read the city's ordinances, from the SB Office's public library: the text where we have transcribed it, and a summary and the scan for each.",
+      "link": "Browse ordinances"
     }
   },
   "about": {
@@ -97,6 +103,10 @@
       "body": "BetterCarmona is listed in the Better LGU Directory, a community-maintained list of Better LGU portals across the Philippines. This site's code is public too.",
       "link": "See the Better LGU Directory",
       "repository": "See this project on GitHub"
+    },
+    "assistant": {
+      "heading": "The assistant",
+      "body": "The \"Ask BetterCarmona AI\" assistant answers questions from the same public documents this site shows: the city services in the Citizen's Charter, the ordinances in the Carmona SB Office library, and the hotlines, offices, and barangays. Its answers are written by AI and can be wrong, so each answer links to its sources. A conversation is saved only on your own device, until you clear it, and the assistant has daily limits so it stays free to run."
     }
   },
   "hotlines": {
@@ -209,5 +219,148 @@
   "notFound": {
     "message": "This page does not exist.",
     "homeLink": "Go to the home page"
+  },
+  "chat": {
+    "launcher": "Ask BetterCarmona AI",
+    "title": "Ask BetterCarmona AI",
+    "close": "Close the assistant",
+    "notice": "Not an official government site. Answers are written by AI from public documents and can be wrong. Check the linked source.",
+    "noticeLink": "About this assistant",
+    "intro": "Ask about city services, fees, ordinances, offices, barangays, and hotlines in Carmona.",
+    "examplesLabel": "Try asking",
+    "examples": [
+      "Is open burning of trash allowed?",
+      "How do I pay amilyar?",
+      "How do I register my baby's birth?"
+    ],
+    "inputLabel": "Your question",
+    "send": "Send",
+    "counter": "{{count}} characters left",
+    "footer": "Please don't share personal details. This conversation is saved on this device until you clear it.",
+    "thinking": "Looking through the documents",
+    "you": "You said",
+    "assistant": "BetterCarmona answered",
+    "featured": "See this on BetterCarmona",
+    "sources": "Sources",
+    "sitePage": "On BetterCarmona",
+    "originalSource": "Original source",
+    "sourceRef": "Source {{n}}",
+    "helpful": "Was this helpful?",
+    "helpfulYes": "Yes, this helped",
+    "helpfulNo": "No, this didn't help",
+    "thanks": "Thank you for the feedback.",
+    "retry": "Try again",
+    "nextSteps": "You can also:",
+    "links": {
+      "hotlines": "See the emergency hotlines",
+      "services": "Browse city services",
+      "official_site": "Go to the official Carmona website"
+    },
+    "notFound": "I couldn't find that in the saved documents.",
+    "kinds": {
+      "service": "City service",
+      "service-list": "City services",
+      "charter-index": "Citizen's Charter",
+      "ordinance": "Ordinance",
+      "ordinance-summary": "Ordinance, summary",
+      "ordinance-titles": "Ordinance, title only",
+      "hotline": "Hotline",
+      "hotline-list": "Hotlines",
+      "office": "City office",
+      "officials": "Officials",
+      "barangay": "Barangay",
+      "barangay-list": "Barangays",
+      "about": "About this site"
+    },
+    "notices": {
+      "ordinance_may_have_changed": "An ordinance's text is what was passed then. It may have been amended or repealed since. Confirm with the SB Office.",
+      "unreviewed_transcription": "This ordinance's text is a transcription that has not been checked against the scan yet.",
+      "summary_only": "Only a summary of this ordinance is saved. The full text is in the scan, linked as the original source.",
+      "not_on_site_yet": "This service is in the Citizen's Charter but not yet described on BetterCarmona. The charter page has the details."
+    },
+    "errors": {
+      "slow_down": "You're asking quickly. Please wait a minute, then try again.",
+      "daily_limit": "You've reached today's limit of questions. You can ask again tomorrow.",
+      "site_busy": "The assistant has answered as many questions as it can today. It will be back tomorrow.",
+      "monthly_limit": "The assistant has used this month's searches. It will be back next month.",
+      "unavailable": "Sorry, the assistant isn't working right now.",
+      "network": "Sorry, the question couldn't be sent. Check your connection.",
+      "turnstile": "The check that you're a person didn't finish. Please try again.",
+      "session": "Your session ended. Please try again.",
+      "origin": "This request was blocked. Please reload the page.",
+      "input": "That question couldn't be sent. Keep it under 500 characters.",
+      "disabled": "The assistant is switched off right now."
+    },
+    "clear": "Clear conversation"
+  },
+  "ordinances": {
+    "pageTitle": "Ordinances",
+    "heading": "City ordinances",
+    "intro": "Every item in the Carmona SB Office's public ordinance library, with its text or summary where we have transcribed it.",
+    "standing": "These are copies from the SB Office's public library. This is not an official website. An ordinance may have been amended or repealed since it was passed.",
+    "searchLabel": "Search ordinances",
+    "searchPlaceholder": "A word, a title, or a number",
+    "searchCount": "{{shown}} of {{total}} ordinances",
+    "category": "Category",
+    "allCategories": "All categories",
+    "year": "Year",
+    "allYears": "All years",
+    "noResults": "No ordinance matches these filters.",
+    "showMore": "Show more",
+    "shown": "Showing {{shown}} of {{total}}",
+    "coverage": {
+      "full": "Full text",
+      "summary": "Summary",
+      "none": "Scan only"
+    },
+    "noNumber": "No number",
+    "noYear": "Year not given",
+    "notFound": "We don't have an ordinance at this address.",
+    "allOrdinances": "All ordinances",
+    "backToCategory": "More ordinances in {{category}}",
+    "translation": "English translation of the title:",
+    "facts": {
+      "kind": "Kind",
+      "issuingBody": "Issued by",
+      "session": "Session",
+      "dateEnacted": "Date enacted",
+      "dateApproved": "Date approved",
+      "category": "Category",
+      "introducedBy": "Introduced by",
+      "committees": "Committees",
+      "notStated": "Not stated",
+      "listed": "Library number"
+    },
+    "kinds": {
+      "ordinance": "Ordinance",
+      "appropriation-ordinance": "Appropriation ordinance",
+      "resolution": "Resolution",
+      "other": "Other"
+    },
+    "status": {
+      "unverified": "We don't know if this ordinance is still in force. It may have been amended or repealed. Confirm with the SB Office.",
+      "in-force": "Marked as in force, from a source we recorded. Confirm with the SB Office before you act on it.",
+      "amended": "This ordinance has been amended. Confirm the current text with the SB Office.",
+      "repealed": "This ordinance has been repealed."
+    },
+    "unreviewed": "The text or summary below is a transcription that has not yet been checked against the scan.",
+    "pandemic": "This ordinance was made for the COVID-19 emergency. Rules made for the pandemic may no longer apply.",
+    "summary": "Summary",
+    "summaryNote": "Written by BetterCarmona. Not part of the ordinance.",
+    "keyFacts": "Key facts, as printed",
+    "page": "page {{page}}",
+    "summaryOnly": "Only a summary is on this site. The full text is in the scan.",
+    "text": "The ordinance",
+    "textNote": "Word for word, in the language it was written in.",
+    "pageMarker": "Page {{n}}",
+    "none": "This ordinance has not been transcribed yet. Its full text is in the scan.",
+    "description": "The library's description",
+    "missingFile": "The library has no file for this ordinance.",
+    "source": "Source",
+    "sourceText": "From the Carmona SB Office's public ordinance library, fetched on {{date}}.",
+    "libraryPage": "The library page",
+    "scan": "The scan (PDF)",
+    "loading": "Loading the ordinances",
+    "failed": "The ordinances couldn't be loaded. Please reload the page."
   }
 }
