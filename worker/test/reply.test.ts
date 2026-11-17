@@ -97,3 +97,8 @@ test('a bracket of several labels is split, checked, and numbered', () => {
   assert.equal(r.text, 'Call 0917 [2][1].');
   assert.equal(r.sources.length, 2);
 });
+
+test('markdown bold is removed, since the panel shows plain text', () => {
+  const r = buildReply(reply({ kind: 'answer', text: '**Online**\n1. Apply on __eBOSS__. [S2]', sources: ['S2'] }), SIX, docs);
+  assert.equal(r.text, 'Online\n1. Apply on eBOSS. [1]');
+});

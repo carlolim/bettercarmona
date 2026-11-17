@@ -4,11 +4,11 @@
  */
 import {
   BODY_MAX_BYTES, CACHE_DAYS, KEYWORD_PER_MONTH, NEURONS_PER_DAY, NEURON_RATES, PER_IP_PER_DAY,
-  PREVIEW_HOSTNAME, QUESTION_MAX_CHARS, SEMANTIC_PER_MONTH, SESSION_MINUTES, SITE_HOSTNAMES, SITE_PER_DAY,
+  WORKERS_DEV_HOSTNAME, QUESTION_MAX_CHARS, SEMANTIC_PER_MONTH, SESSION_MINUTES, SITE_HOSTNAMES, SITE_PER_DAY,
 } from './config.ts';
 import { checkChatInput, checkFeedback } from './input.ts';
 import { neurons, type Model } from './model.ts';
-import { buildMessages, SYSTEM_PROMPT } from './prompt.ts';
+import { buildMessages, LANGUAGE_REMINDER, SYSTEM_PROMPT } from './prompt.ts';
 import { buildReply, notFound, type ChatReply, type IndexEntry } from './reply.ts';
 import { searchQuery } from './query.ts';
 import { selectPassages, type Search, type SearchType } from './search.ts';
@@ -62,7 +62,7 @@ export function sameSite(origin: string | null, requestUrl: string, local: boole
   } catch {
     return false;
   }
-  if (url.protocol === 'https:' && (SITE_HOSTNAMES.includes(url.hostname) || PREVIEW_HOSTNAME.test(url.hostname))) return true;
+  if (url.protocol === 'https:' && (SITE_HOSTNAMES.includes(url.hostname) || WORKERS_DEV_HOSTNAME.test(url.hostname))) return true;
   return local && url.protocol === 'http:' && (url.hostname === 'localhost' || url.hostname === '127.0.0.1');
 }
 
@@ -169,7 +169,7 @@ export async function chat(request: Request, ip: string, deps: Deps): Promise<Ou
     const query = searchQuery(input.message, input.history, deps.glossary);
     const cacheable = input.history.length === 0;
     // A new model or prompt gets fresh answers, as a new index version does.
-    const cacheKey = cacheable ? await sha256(`${input.message.toLowerCase()}|${input.locale}|${deps.index.version}|${deps.model.name}|${SYSTEM_PROMPT}`) : '';
+    const cacheKey = cacheable ? await sha256(`${input.message.toLowerCase()}|${input.locale}|${deps.index.version}|${deps.model.name}|${SYSTEM_PROMPT}|${LANGUAGE_REMINDER}`) : '';
     if (cacheable) {
       const hit = await deps.store.cacheGet(cacheKey, deps.index.version, now - CACHE_DAYS * 86_400_000);
       if (hit) return done(JSON.parse(hit) as ChatReply, { cache: true });

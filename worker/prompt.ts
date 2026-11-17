@@ -89,6 +89,12 @@ export function sourcesBlock(passages: LabelledPassage[]): string {
 }
 
 /**
+ * Ends the user's message, after the question, where the model reads it last. The rule in the prompt alone left some
+ * English questions about Tagalog ordinances answered in Tagalog (test set, 2026-11-17, q07).
+ */
+export const LANGUAGE_REMINDER = 'Write the reply in the same language as the QUESTION.';
+
+/**
  * The messages for the model: the rules, the earlier turns (assistant turns without their sources,
  * so nothing can be cited that is not in this message), then the sources and the question.
  */
@@ -96,6 +102,6 @@ export function buildMessages(passages: LabelledPassage[], history: Turn[], ques
   return [
     { role: 'system', content: SYSTEM_PROMPT },
     ...history.map((t) => ({ role: t.role, content: t.content })),
-    { role: 'user', content: `SOURCES:\n\n${sourcesBlock(passages)}\n\nQUESTION:\n${question}` },
+    { role: 'user', content: `SOURCES:\n\n${sourcesBlock(passages)}\n\nQUESTION:\n${question}\n\n${LANGUAGE_REMINDER}` },
   ];
 }

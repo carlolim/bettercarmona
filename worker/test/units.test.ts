@@ -1,9 +1,10 @@
-/** Session signing, input checks, counters, glossary expansion, and passage selection. */
+/** Session signing, input checks, counters, glossary expansion, passage selection, and the message layout. */
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { expandQuestion } from '../glossary.ts';
 import { checkChatInput, checkFeedback } from '../input.ts';
 import { neurons } from '../model.ts';
+import { buildMessages, LANGUAGE_REMINDER } from '../prompt.ts';
 import { dailyIpHash, sessionIpHash, signSession, verifySession } from '../session.ts';
 import { MemoryStore, secondsToMidnight, secondsToMonthEnd, utcDay, utcMonth } from '../store.ts';
 import { selectPassages } from '../search.ts';
@@ -70,9 +71,11 @@ test('glossary expansion adds the other side, on whole words only', () => {
   assert.equal(expandQuestion('A familiar question', GLOSSARY), 'A familiar question');
 });
 
-test('Turnstile hostnames: the site, the preview, and test hosts only in fixture mode', () => {
+test("Turnstile hostnames: the site, this account's workers.dev address, and test hosts only in fixture mode", () => {
   assert.ok(allowedHostname('bettercarmona.org', false));
-  assert.ok(allowedHostname('bettercarmona.someone.workers.dev', false));
+  assert.ok(allowedHostname('bettercarmona.cryptoemail64.workers.dev', false));
+  assert.equal(allowedHostname('bettercarmona.someone.workers.dev', false), false);
+  assert.equal(allowedHostname('main-bettercarmona.cryptoemail64.workers.dev', false), false);
   assert.equal(allowedHostname('example.com', false), false);
   assert.ok(allowedHostname('example.com', true));
   assert.equal(allowedHostname('evil.example', true), false);
@@ -90,4 +93,11 @@ test('passages pass the threshold, or come from a document that has one that doe
   assert.deepEqual(selectPassages(found, docs, 0.1).map((p) => p.text), ['a1', 'a2']);
   assert.deepEqual(selectPassages(found, docs, 0.6), [], 'nothing passes, so nothing comes along');
   assert.deepEqual(selectPassages(found, docs, 0.01, 2).map((p) => p.text), ['a1', 'b1'], 'rank order and the cap');
+});
+
+test('the question is followed by the language reminder, so the model reads it last', () => {
+  const messages = buildMessages([{ label: 'S1', kind: 'ordinance', title: 'Kautusan', text: 'Bawal magsunog.' }], [], 'Is burning allowed?');
+  const last = messages.at(-1)!;
+  assert.equal(last.role, 'user');
+  assert.ok(last.content.endsWith(`QUESTION:\nIs burning allowed?\n\n${LANGUAGE_REMINDER}`));
 });

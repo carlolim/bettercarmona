@@ -6,7 +6,10 @@
 /** The AI Search instance, in the namespace bound as KB in wrangler.jsonc. kb:sync uploads to it. */
 export const KB_INSTANCE = 'bettercarmona-kb';
 
-/** The placeholder model. Task 026 chooses the real one. */
+/**
+ * The model, chosen on the test set (knowledge/eval/reports/2026-11-16-gemma-4-26b-a4b-it.md): 98% passed,
+ * a safety count of zero, and about 43 Neurons an answer.
+ */
 export const MODEL = '@cf/google/gemma-4-26b-a4b-it';
 
 /**
@@ -39,10 +42,13 @@ export const TEMPERATURE = 0.2;
 export const PER_IP_PER_MINUTE = 5;
 /** Questions per IP per day, counted in D1. */
 export const PER_IP_PER_DAY = 20;
-/** Questions answered per day for the whole site. With about 32 Neurons an answer, 40 stays far under 10,000 Neurons. */
+/** Questions answered per day for the whole site. At about 43 Neurons an answer, 40 is about 1,700 Neurons. */
 export const SITE_PER_DAY = 40;
-/** Neurons per day. The free allowance is 10,000. Past this, the assistant rests until 00:00 UTC. */
-export const NEURONS_PER_DAY = 8000;
+/**
+ * Neurons per day. Past this, the assistant rests until 00:00 UTC. The free allowance is 10,000, but on 2026-11-15
+ * and 2026-11-16 it ran out at 6,700 and 7,500 of the Neurons Cloudflare's analytics showed, so this sits below both.
+ */
+export const NEURONS_PER_DAY = 6000;
 /** AI Search semantic (hybrid) queries per month. The free allowance is 1,000. */
 export const SEMANTIC_PER_MONTH = 900;
 /** AI Search keyword queries per month, used once the semantic ones run out. The free allowance is 1,000. */
@@ -68,8 +74,8 @@ export const CACHE_DAYS = 30;
 
 /** The site's hostnames. Requests must come from one of them, and Turnstile must have been solved on one. */
 export const SITE_HOSTNAMES = ['bettercarmona.org', 'www.bettercarmona.org'];
-/** The Worker's own workers.dev address, used for the preview before launch. */
-export const PREVIEW_HOSTNAME = /^bettercarmona\.[a-z0-9-]+\.workers\.dev$/;
+/** The Worker's own workers.dev address on this account, for a check before bettercarmona.org. */
+export const WORKERS_DEV_HOSTNAME = /^bettercarmona\.cryptoemail64\.workers\.dev$/;
 
 /** Shown when the documents do not cover a question. */
 export const OFFICIAL_SITE_URL = 'https://carmonagov.net/portal/';
