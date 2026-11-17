@@ -104,6 +104,8 @@ export function buildReply(raw: string, sent: string[], index: Record<string, In
 
   // Labels outside S1 to Sn are dropped from the text, as are any links the model wrote.
   let text = said.replace(URL_TEXT, (_m, label: string | undefined) => label ?? '').replace(LABEL, (m, n) => (valid(Number(n)) ? m : ''));
+  // The panel shows plain text, so markdown bold such as **Online** would show its asterisks.
+  text = text.replace(/\*\*([^*\n]+?)\*\*/g, '$1').replace(/__([^_\n]+?)__/g, '$1');
   text = text.replace(/[ \t]+([.,;:])/g, '$1').replace(/[ \t]{2,}/g, ' ').trim();
 
   if (kind === 'out_of_scope') return { kind, text, featured: null, sources: [], notices: [], links: NEXT_STEPS };
