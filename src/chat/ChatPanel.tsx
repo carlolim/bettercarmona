@@ -212,6 +212,7 @@ export default function ChatPanel({ open, onClose }: { open: boolean; onClose: (
   const [announce, setAnnounce] = useState('');
   const panel = useRef<HTMLDivElement>(null);
   const input = useRef<HTMLTextAreaElement>(null);
+  const closeButton = useRef<HTMLButtonElement>(null);
   const log = useRef<HTMLDivElement>(null);
   const widgetBox = useRef<HTMLDivElement>(null);
   const nextId = useRef(Math.max(0, ...messages.map((m) => m.id)) + 1);
@@ -226,9 +227,38 @@ export default function ChatPanel({ open, onClose }: { open: boolean; onClose: (
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [widget]);
 
+  // On a phone, focusing the question box opens the keyboard at once, and Safari then scrolls the whole screen,
+  // pushing the panel's header out of view. There, focus goes to the close button instead.
   useEffect(() => {
-    if (open) input.current?.focus();
+    if (open) (narrow ? closeButton : input).current?.focus();
+    // Only on opening, not when the width changes.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open]);
+
+  // On a phone the panel covers the page: the page behind must not scroll, and the panel follows the visible part of
+  // the screen (the visual viewport), so its header stays at the top and its question box sits just above the keyboard.
+  useEffect(() => {
+    const box = panel.current;
+    if (!open || !narrow || !box) return;
+    const root = document.documentElement;
+    root.classList.add('chat-modal-open');
+    const view = window.visualViewport;
+    const fit = () => {
+      if (!view) return;
+      box.style.setProperty('--chat-view-top', `${view.offsetTop}px`);
+      box.style.setProperty('--chat-view-height', `${view.height}px`);
+    };
+    fit();
+    view?.addEventListener('resize', fit);
+    view?.addEventListener('scroll', fit);
+    return () => {
+      root.classList.remove('chat-modal-open');
+      view?.removeEventListener('resize', fit);
+      view?.removeEventListener('scroll', fit);
+      box.style.removeProperty('--chat-view-top');
+      box.style.removeProperty('--chat-view-height');
+    };
+  }, [open, narrow]);
 
   // Escape closes the panel even when focus has fallen back to the page, as after a button that goes away.
   useEffect(() => {
@@ -241,8 +271,15 @@ export default function ChatPanel({ open, onClose }: { open: boolean; onClose: (
     return () => document.removeEventListener('keydown', onEscape);
   }, [open, onClose]);
 
+  // Scrolls the log only. scrollIntoView would also scroll the page, which on a phone moves the whole panel.
+  // The newest item shows from its top when it is taller than the log, else in full at the bottom.
   useEffect(() => {
-    log.current?.lastElementChild?.scrollIntoView({ block: 'nearest' });
+    const box = log.current;
+    const last = box?.lastElementChild as HTMLElement | null | undefined;
+    if (!box || !last) return;
+    const top = last.offsetTop;
+    const bottom = top + last.offsetHeight;
+    box.scrollTop = last.offsetHeight > box.clientHeight ? top - 8 : Math.max(box.scrollTop, bottom - box.clientHeight + 16);
   }, [messages, pending]);
 
   useEffect(() => saveMessages(messages), [messages]);
@@ -331,7 +368,7 @@ export default function ChatPanel({ open, onClose }: { open: boolean; onClose: (
             <span className="sr-only">{t('chat.clear')}</span>
           </button>
         )}
-        <button type="button" className="chat-icon-btn" onClick={onClose}>
+        <button type="button" className="chat-icon-btn" onClick={onClose} ref={closeButton}>
           <X size={20} aria-hidden="true" />
           <span className="sr-only">{t('chat.close')}</span>
         </button>
