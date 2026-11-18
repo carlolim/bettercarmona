@@ -6,11 +6,18 @@ import { useLocale } from './locale';
 /** A breadcrumb item. `to` is a path without its language prefix; the last item, the current page, has none. */
 export type Crumb = { label: ReactNode; to?: string };
 
-// The rays of the sun in public/brand/bettercarmona-mark.svg, on the same 64 by 64 grid.
-const SUN_RAYS = 'M48.5 29.75L58 28.5L62 32L58 35.5L48.5 34.25ZM45.26 42.08L52.86 47.91L53.21 53.21L47.91 52.86L42.08 45.26Z'
-  + 'M34.25 48.5L35.5 58L32 62L28.5 58L29.75 48.5ZM21.92 45.26L16.09 52.86L10.79 53.21L11.14 47.91L18.74 42.08Z'
-  + 'M15.5 34.25L6 35.5L2 32L6 28.5L15.5 29.75ZM18.74 21.92L11.14 16.09L10.79 10.79L16.09 11.14L21.92 18.74Z'
-  + 'M29.75 15.5L28.5 6L32 2L35.5 6L34.25 15.5ZM42.08 18.74L47.91 11.14L53.21 10.79L52.86 16.09L45.26 21.92Z';
+// The sun in public/brand/bettercarmona-logo.svg, redrawn on a 64 by 64 grid. One ray per line.
+const SUN_RAYS = [
+  'M30.9 19.88L30.9 3.57L32 2L33.1 3.57L33.1 19.88ZM33.56 19.31L33.56 4.23L35.23 6.62L34.13 19.31ZM30.44 19.31L29.87 19.31L28.77 6.62L30.44 4.23Z',
+  'M39.79 22.66L51.33 11.12L53.21 10.79L52.88 12.67L41.34 24.21ZM42.08 24.13L52.74 13.46L52.23 16.33L42.48 24.53ZM39.87 21.92L39.47 21.52L47.67 11.77L50.54 11.26Z',
+  'M44.12 30.9L60.43 30.9L62 32L60.43 33.1L44.12 33.1ZM44.69 33.56L59.77 33.56L57.38 35.23L44.69 34.13ZM44.69 30.44L44.69 29.87L57.38 28.77L59.77 30.44Z',
+  'M41.34 39.79L52.88 51.33L53.21 53.21L51.33 52.88L39.79 41.34ZM39.87 42.08L50.54 52.74L47.67 52.23L39.47 42.48ZM42.08 39.87L42.48 39.47L52.23 47.67L52.74 50.54Z',
+  'M33.1 44.12L33.1 60.43L32 62L30.9 60.43L30.9 44.12ZM30.44 44.69L30.44 59.77L28.77 57.38L29.87 44.69ZM33.56 44.69L34.13 44.69L35.23 57.38L33.56 59.77Z',
+  'M24.21 41.34L12.67 52.88L10.79 53.21L11.12 51.33L22.66 39.79ZM21.92 39.87L11.26 50.54L11.77 47.67L21.52 39.47ZM24.13 42.08L24.53 42.48L16.33 52.23L13.46 52.74Z',
+  'M19.88 33.1L3.57 33.1L2 32L3.57 30.9L19.88 30.9ZM19.31 30.44L4.23 30.44L6.62 28.77L19.31 29.87ZM19.31 33.56L19.31 34.13L6.62 35.23L4.23 33.56Z',
+  'M22.66 24.21L11.12 12.67L10.79 10.79L12.67 11.12L24.21 22.66ZM24.13 21.92L13.46 11.26L16.33 11.77L24.53 21.52ZM21.92 24.13L21.52 24.53L11.77 16.33L11.26 13.46Z',
+].join('');
+const SUN_DISC = { cx: 32, cy: 32, r: 11.25 };
 
 /**
  * The green band that opens every community page. The site header floats over it until the page scrolls.
@@ -29,7 +36,7 @@ export function PageHero({ title, lede, breadcrumb, home, children }: {
       {home && (
         <svg className="bc-hero-sun" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
           <path d={SUN_RAYS} />
-          <path d="M38.89 26.21A9 9 0 1 0 38.89 37.79" fill="none" stroke="currentColor" strokeWidth="5.5" />
+          <circle {...SUN_DISC} />
         </svg>
       )}
       <div className="bc-hero-inner">
