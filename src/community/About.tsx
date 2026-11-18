@@ -1,7 +1,8 @@
+import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { useTitle } from '../lib/use-title';
 import { ExternalLink } from './ExternalLink';
-import { DIRECTORY_URL, ISSUES_URL, OFFICIAL_PORTAL_URL, REPOSITORY_URL } from './links';
+import { DIRECTORY_URL, ISSUES_URL, MAINTAINER_NAME, MAINTAINER_URL, OFFICIAL_PORTAL_URL, REPOSITORY_URL } from './links';
 import { useLocale } from './locale';
 import { PageHero } from './PageHero';
 
@@ -14,7 +15,11 @@ export function CommunityAbout() {
       <div className="page about-body">
         <section className="bc-card about-card" aria-labelledby="about-who">
           <h2 id="about-who">{t('about.who.heading')}</h2>
-          <p>{t('about.who.body')}</p>
+          <p>
+            {t('about.who.body', { name: '\u0000' }).split('\u0000').map((part, i) => (
+              <Fragment key={i}>{i > 0 && <ExternalLink href={MAINTAINER_URL}>{MAINTAINER_NAME}</ExternalLink>}{part}</Fragment>
+            ))}
+          </p>
           <p>
             {t('about.who.official')}{' '}
             <ExternalLink href={OFFICIAL_PORTAL_URL}>{t('about.who.officialLink')}</ExternalLink>

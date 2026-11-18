@@ -81,7 +81,7 @@
     "heading": "Tungkol sa BetterCarmona",
     "who": {
       "heading": "Sino ang nagpapatakbo ng site na ito",
-      "body": "Si Carlo Lim, isang private citizen, ang nagpapatakbo ng BetterCarmona bilang volunteer. Hindi ito affiliated sa City Government of Carmona, at hindi ito nagsasalita para sa city.",
+      "body": "Si {{name}}, isang private citizen, ang nagpapatakbo ng BetterCarmona bilang volunteer. Hindi ito affiliated sa City Government of Carmona, at hindi ito nagsasalita para sa city.",
       "official": "Para sa official information at mga transaction, dumiretso sa city:",
       "officialLink": "Official portal ng City of Carmona"
     },
